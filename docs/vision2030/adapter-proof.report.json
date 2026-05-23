@@ -1,0 +1,15 @@
+{
+  "primitive": "adapter",
+  "passed": true,
+  "invariants": [
+    "valid agent proposal admitted",
+    "unauthorized proposal refused by ACL gate",
+    "speculative failure yields Refused receipt",
+    "structural failure yields Refused receipt",
+    "admitted receipt validates cryptographically"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 12
+  }
+}

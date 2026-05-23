@@ -1,0 +1,16 @@
+{
+  "primitive": "engine",
+  "passed": true,
+  "invariants": [
+    "graph delta accepted",
+    "hook matched",
+    "effects generated",
+    "receipt generated deterministically",
+    "replay matched output",
+    "bad input structurally refused"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 2
+  }
+}

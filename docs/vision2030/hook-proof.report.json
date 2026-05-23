@@ -1,0 +1,15 @@
+{
+  "primitive": "hook",
+  "passed": true,
+  "invariants": [
+    "same delta yields same hook match",
+    "same law yields same effect",
+    "tampered delta yields divergent input hash (refusal proof)",
+    "same replay yields convergence",
+    "tampered receipt correctly refused (TPS proof)"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 2
+  }
+}

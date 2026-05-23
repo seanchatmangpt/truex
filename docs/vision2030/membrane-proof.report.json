@@ -1,0 +1,17 @@
+{
+  "primitive": "membrane",
+  "passed": true,
+  "invariants": [
+    "object mutation allowed",
+    "prototype mutation refused",
+    "readonly boundary enforced",
+    "transaction rollback succeeded",
+    "descriptor access checked",
+    "defineProperty trapped",
+    "deep proxy wrapping captured"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1
+  }
+}

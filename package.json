@@ -1,0 +1,58 @@
+{
+  "name": "proxyable",
+  "version": "26.5.22",
+  "description": "Dynamic JavaScript proxy creation with isolated context-based interception",
+  "repository": "unjs/proxyable",
+  "license": "MIT",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "dev": "vitest dev",
+    "lint": "eslint . && prettier -c .",
+    "lint:fix": "automd && eslint . --fix && prettier -w .",
+    "prepack": "npm run build",
+    "play": "jiti playground",
+    "release": "npm test && changelogen --release && npm publish && git push --follow-tags",
+    "test": "npm run lint && npm run test:types && vitest run --coverage",
+    "test:types": "tsc --noEmit --skipLibCheck",
+    "truex": "tsx scripts/truex.ts"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.10.0",
+    "@vitest/coverage-v8": "^2.1.6",
+    "automd": "^0.3.12",
+    "changelogen": "^0.5.7",
+    "eslint": "^9.15.0",
+    "eslint-config-unjs": "^0.4.2",
+    "fast-check": "^4.8.0",
+    "jiti": "^2.4.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2",
+    "unbuild": "^2.0.0",
+    "vitest": "^2.1.6"
+  },
+  "packageManager": "pnpm@9.14.2",
+  "dependencies": {
+    "@noble/hashes": "^2.2.0",
+    "@noble/post-quantum": "^0.6.1",
+    "better-sqlite3": "^12.10.0",
+    "citty": "^0.2.2",
+    "unctx": "^2.4.0"
+  }
+}

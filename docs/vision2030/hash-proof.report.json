@@ -1,0 +1,14 @@
+{
+  "primitive": "hash",
+  "passed": true,
+  "invariants": [
+    "same input = same hash",
+    "different input = different hash",
+    "stable ordering (JSON keys sorted)",
+    "tamper changes hash"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "primitive": "sqlite",
+  "passed": true,
+  "invariants": [
+    "SQLite opens",
+    "Schema migrated",
+    "GraphDelta accepted",
+    "Hook matched",
+    "Effects persisted",
+    "Receipt persisted",
+    "Receipt readback verified",
+    "Replay converged",
+    "Bad input refused"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 9
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "primitive": "replay",
+  "passed": true,
+  "invariants": [
+    "replay converges correctly",
+    "replay diverges on input mutation",
+    "replay diverges on engine mutation (law changed)"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1
+  }
+}

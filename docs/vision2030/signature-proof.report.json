@@ -1,0 +1,18 @@
+{
+  "primitive": "signature",
+  "passed": true,
+  "invariants": [
+    "receipt signs",
+    "signature verifies",
+    "tampered receipt fails signature verification",
+    "wrong public key fails signature verification",
+    "receipt generated with valid hash",
+    "receipt chaining verified",
+    "tampered receipt fails verification",
+    "broken chain fails verification"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 32
+  }
+}
