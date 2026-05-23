@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "truex-hook-loop": {
+      "event": "BeforeTool",
+      "matcher": "write_file|replace|run_shell_command",
+      "script": "npx tsx scripts/truex-agy-bridge.ts {{tool}} '{{arguments}}'",
+      "description": "Intercepts agent actions and evaluates them against Truex Repository Laws.",
+      "enabled": true,
+      "outputToContext": true
+    }
+  }
+}
