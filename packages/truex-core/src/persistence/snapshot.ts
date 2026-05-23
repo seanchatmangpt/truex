@@ -1,4 +1,4 @@
-import { Quad, GraphDelta } from "../runtime-law.js";
+import type { Quad, GraphDelta } from "../runtime-law.js";
 import { hash } from "../hash.js";
 
 /**

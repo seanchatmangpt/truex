@@ -23,7 +23,7 @@ describe('KanbanSystem (JIT/Kanban) - Property Tests', () => {
             const isAlways = hook.condition.kind === 'always';
             const isMatch = hook.condition.kind === 'delta-match' && deltaPredicates.has(hook.condition.predicate);
             
-            const isPulled = pulled.some(h => h.definition.id === hook.id);
+            const isPulled = pulled.some(h => h.definition === hook);
             
             if (isAlways || isMatch) {
               expect(isPulled, `Hook ${hook.id} should have been pulled`).toBe(true);

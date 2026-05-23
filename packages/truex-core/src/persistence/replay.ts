@@ -1,8 +1,8 @@
-import { Database } from 'better-sqlite3';
+import type { Database } from 'better-sqlite3';
 import { DeltaJournal } from './journal.js';
 import { SQLiteReceiptStore } from './receipt-store.js';
 import { SnapshotManager } from './snapshot.js';
-import { Quad, parseReceipt } from '../runtime-law.js';
+import { type Quad, parseReceipt } from '../runtime-law.js';
 import { verifyReceipt } from '../receipt.js';
 
 /**

@@ -96,7 +96,7 @@ describe('Performance utilities', () => {
       fc.assert(
         fc.property(
           fc.record({
-            timestamp: fc.date().map(d => d.toISOString()),
+            timestamp: fc.date().filter(d => !isNaN(d.getTime())).map(d => d.toISOString()),
             results: fc.array(
               fc.record({
                 name: fc.string(),
