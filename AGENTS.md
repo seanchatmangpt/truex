@@ -121,10 +121,10 @@ truex <noun> <verb8> [target]
 
 Initial commands:
 
-truex doctor diagnos8 engine
-truex doctor diagnos8 receipt
-truex doctor diagnos8 replay
-truex doctor diagnos8 sqlite
+truex doctor prove engine
+truex doctor prove receipt
+truex doctor prove replay
+truex doctor prove sqlite
 
 No additional commands are allowed unless a lower primitive works first.
 
