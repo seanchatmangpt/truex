@@ -1,3 +1,11 @@
+/**
+ * @module skills/membrane/mutations
+ * @description
+ * Gall Classification: S3 Membrane Primitives
+ * Purpose: Provides implementations for creating synchronous proxies and tracking transactions,
+ * simulations, audit logs, tenant isolation, and OCEL envelope generation over wrapped targets.
+ */
+
 import { createContext as unctxCreateContext } from 'unctx';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { hash, stableJson } from "../hash/mutations.js";
@@ -409,13 +417,13 @@ export function registerSimulationInterceptors(proxyInterface: any, simCtx: any)
   proxyInterface.defineGetInterceptor((target: any, prop: any, receiver: any) => {
     const simState = simCtx.context.tryUse();
     if (!simState || !simState.active) return undefined;
-    return Reflect.get(simCtx._state.speculativeState, prop, receiver);
+    return Reflect.get(simCtx._state.speculativeState, prop);
   });
 
   proxyInterface.defineSetInterceptor((target: any, prop: any, value: any, receiver: any) => {
     const simState = simCtx.context.tryUse();
     if (!simState || !simState.active) return undefined;
-    Reflect.set(simCtx._state.speculativeState, prop, value, receiver);
+    Reflect.set(simCtx._state.speculativeState, prop, value);
     simCtx._state.mutations.push({ property: prop, value });
     return true;
   });

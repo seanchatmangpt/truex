@@ -1,3 +1,9 @@
+/**
+ * @module hash-proof
+ * @description
+ * Gall Classification: S₋₁ - Hash/Signature Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { blake3 } from "@noble/hashes/blake3.js";
 import { bytesToHex, utf8ToBytes } from "@noble/hashes/utils.js";
 
@@ -34,6 +40,13 @@ export function stableJson(value: unknown): string {
 /**
  * S₋₁ Hash Primitive
  * Implements BLAKE3 over the deterministic JSON representation.
+ * 
+ * @example
+ * ```ts
+ * const h1 = hash({ b: 2, a: 1 });
+ * const h2 = hash({ a: 1, b: 2 });
+ * assert(h1 === h2);
+ * ```
  */
 export function hash(value: unknown): string {
   const jsonString = stableJson(value);
@@ -41,3 +54,4 @@ export function hash(value: unknown): string {
   const hashBytes = blake3(bytes);
   return bytesToHex(hashBytes);
 }
+

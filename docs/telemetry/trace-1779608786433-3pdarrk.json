@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608786433-3pdarrk",
+  "spanId": "span-doctor",
+  "startTime": 1779608786433,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"doctest\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608794734,
+      "attributes": {
+        "primitive": "doctest",
+        "status": "confirmed",
+        "executionTimeMs": 7843,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608794734,
+  "durationMs": 8301
+}

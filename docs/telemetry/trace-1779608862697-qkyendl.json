@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608862697-qkyendl",
+  "spanId": "span-doctor",
+  "startTime": 1779608862697,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"benchmark\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608892169,
+      "attributes": {
+        "primitive": "benchmark",
+        "status": "confirmed",
+        "executionTimeMs": 28934,
+        "invariantsCount": 20,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608892169,
+  "durationMs": 29472
+}

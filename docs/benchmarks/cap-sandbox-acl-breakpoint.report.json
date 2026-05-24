@@ -1,0 +1,55 @@
+{
+  "timestamp": "2026-05-24T07:46:19.848Z",
+  "testCases": [
+    {
+      "name": "ACL Read/Write Stress",
+      "category": "Performance",
+      "attempted": true,
+      "bypassed": false,
+      "details": "Executed 100000 proxy operations under capability context. Throughput: 2744284 ops/sec."
+    },
+    {
+      "name": "Prototype Traversal (getPrototypeOf)",
+      "category": "Security Bypass",
+      "attempted": true,
+      "bypassed": false,
+      "details": "Refused. Proxy successfully intercepted getPrototypeOf."
+    },
+    {
+      "name": "Prototype Traversal (__proto__)",
+      "category": "Security Bypass",
+      "attempted": true,
+      "bypassed": false,
+      "details": "Refused. Reading __proto__ was blocked."
+    },
+    {
+      "name": "Prototype Pollution (getPrototypeOf Mutation)",
+      "category": "Prototype Pollution",
+      "attempted": true,
+      "bypassed": false,
+      "details": "Refused. Prototype pollution attempt blocked."
+    },
+    {
+      "name": "Reflect API Bypass (Reflect.getPrototypeOf)",
+      "category": "Security Bypass",
+      "attempted": true,
+      "bypassed": false,
+      "details": "Refused. Reflect.getPrototypeOf was intercepted and blocked."
+    },
+    {
+      "name": "Nested Object Modification",
+      "category": "Deep Security Bypass",
+      "attempted": true,
+      "bypassed": false,
+      "details": "Refused. Nested object modification was blocked by recursive proxy wrapping."
+    }
+  ],
+  "benchmarks": {
+    "operationsCount": 100000,
+    "totalLatencyMs": 36.439375,
+    "throughputOpsPerSec": 2744284,
+    "heapBeforeMb": 12.319,
+    "heapAfterMb": 17.743,
+    "heapPeakMb": 19.91
+  }
+}

@@ -53,10 +53,10 @@
     }
   },
   "stats": {
-    "totalFiles": 60,
-    "totalFunctions": 112,
-    "totalClasses": 32,
-    "totalExportedSymbols": 229
+    "totalFiles": 63,
+    "totalFunctions": 133,
+    "totalClasses": 37,
+    "totalExportedSymbols": 266
   },
   "files": [
     {
@@ -578,6 +578,72 @@
       "internalLogicPaths": []
     },
     {
+      "path": "packages/truex-core/src/persistent-mailbox.gall.ts",
+      "functions": 21,
+      "classes": 0,
+      "symbols": [
+        "createPersistentMailbox",
+        "deriveConsequenceKey",
+        "enqueueMessage",
+        "calculateBackoff",
+        "claimNextMessage",
+        "completeMessage",
+        "refuseMessage",
+        "retryMessage",
+        "rollbackMessage",
+        "quarantineMessage",
+        "discardMessage",
+        "cancelMessage",
+        "verifyMailboxIntegrity",
+        "replayMailboxLineage",
+        "rescueExecutingMessages",
+        "recordQueueMetrics",
+        "pauseQueue",
+        "stopQueue",
+        "resumeQueue",
+        "getHistoricQueueMetrics",
+        "promoteScheduledMessages",
+        "MailboxMessageState",
+        "MailboxMessage",
+        "MailboxTransition",
+        "RetryPolicyType",
+        "RetryPolicy",
+        "QueueConfig"
+      ],
+      "internalLogicPaths": [
+        "mapDbRowToReceipt",
+        "recordTransition",
+        "saveReceipt",
+        "checkGracePeriod"
+      ]
+    },
+    {
+      "path": "packages/truex-core/src/plugins/otel-weaver.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [
+        "OcelOtelWeaverPlugin"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/project-wizard.gall.ts",
+      "functions": 0,
+      "classes": 5,
+      "symbols": [
+        "ProjectCell",
+        "ProjectMapper",
+        "CheckpointPlanner",
+        "ExecutionEngine",
+        "MissionController",
+        "ProjectCellConfig",
+        "CommandReceipt",
+        "GallCheckpoint",
+        "AccountingData"
+      ],
+      "internalLogicPaths": []
+    },
+    {
       "path": "packages/truex-core/src/receipt.ts",
       "functions": 0,
       "classes": 0,
@@ -779,6 +845,6 @@
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T03:30:01.485Z"
+    "timestamp": "2026-05-24T07:45:51.485Z"
   }
 }

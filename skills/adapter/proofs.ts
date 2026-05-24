@@ -1,3 +1,12 @@
+/**
+ * @module skills/adapter/proofs
+ * @description
+ * Gall Classification: Proof Layer
+ * Purpose: Proves the Adapter primitive's admission control invariants.
+ * Ensures valid agent proposals are admitted, unauthorized ones are refused via ACL,
+ * and both speculative and structural failures yield properly cryptographically signed Refused receipts.
+ */
+
 import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -8,12 +17,19 @@ import { TruexAgentAdapter } from "./mutations.js";
 import { parseGraphDelta, type HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
 import { verifyReceipt } from "../receipt/invariant.js";
 
+/**
+ * Report structure for Adapter proofs.
+ */
 export type AdapterProofReport = {
   passed: boolean;
   failures: string[];
   invariants: string[];
 };
 
+/**
+ * Executes tests to prove adapter boundaries and admission control.
+ * @returns {AdapterProofReport} The proof results.
+ */
 export function proveAdapter(): AdapterProofReport {
   const failures: string[] = [];
   const invariants = [

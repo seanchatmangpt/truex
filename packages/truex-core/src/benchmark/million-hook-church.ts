@@ -1,3 +1,8 @@
+/**
+ * @module million-hook-church
+ * @description Benchmark for testing hook matching at scale (Church Case Study).
+ * Gall Classification: S-2 (benchmark primitives).
+ */
 import type { 
   GraphDelta, 
   HookDefinition, 

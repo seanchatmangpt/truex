@@ -1,3 +1,8 @@
+/**
+ * @module env-actuator
+ * @description Environment actuator for generating artifacts, diagrams, and updating rules.
+ * Gall Classification: S2 (engine primitives).
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Quad } from '../runtime-law.js';

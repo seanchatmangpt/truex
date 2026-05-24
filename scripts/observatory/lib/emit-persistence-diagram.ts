@@ -1,8 +1,17 @@
+/**
+ * @module emit-persistence-diagram
+ * @description
+ * Gall Classification: S3 Persistence Documentation
+ * Purpose: Generates a Mermaid diagram representing the persistence architecture.
+ */
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const DIAGRAM_PATH = 'docs/v1/latest/diagrams/persistence-arch.mmd';
 
+/**
+ * Emitter for generating the persistence storage tiering Mermaid diagram.
+ */
 export class PersistenceDiagramEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -59,6 +68,10 @@ flowchart TB
   }
 }
 
+/**
+ * Generates and writes the persistence flow Mermaid diagram.
+ * @returns A promise resolving to the diagram content.
+ */
 export async function emitPersistenceDiagram() {
   const emitter = new PersistenceDiagramEmitter();
   return emitter.emit();

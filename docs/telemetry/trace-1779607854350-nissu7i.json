@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779607854350-nissu7i",
+  "spanId": "span-doctor",
+  "startTime": 1779607854350,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"benchmark\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779607884260,
+      "attributes": {
+        "primitive": "benchmark",
+        "status": "confirmed",
+        "executionTimeMs": 29908,
+        "invariantsCount": 20,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779607884260,
+  "durationMs": 29910
+}

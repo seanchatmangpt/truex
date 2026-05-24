@@ -1,3 +1,8 @@
+/**
+ * @module collaboration
+ * @description Gall S₂: Engine primitives.
+ * Implements PeerReview for Hook Admission based on Respect for People principles.
+ */
 import { hash } from "../hash.js";
 import type { HookDefinition, Receipt } from "../runtime-law.js";
 import { verifyReceipt } from "../receipt.js";

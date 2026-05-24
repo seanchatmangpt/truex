@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779601975040-z7kocti",
+  "spanId": "span-doctor",
+  "startTime": 1779601975040,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779601975045,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779601975045,
+  "durationMs": 5
+}

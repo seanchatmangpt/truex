@@ -1,3 +1,8 @@
+/**
+ * @module line
+ * @description Gall S₂: Engine primitives.
+ * Implements ProductionLine orchestrating JIT, Jidoka, Heijunka, and Kaizen.
+ */
 import { KanbanSystem } from './jit.js';
 import { AndonSystem, PokaYoke } from './jidoka.js';
 import { ProductionScheduler, type ExecutionResult } from './heijunka.js';

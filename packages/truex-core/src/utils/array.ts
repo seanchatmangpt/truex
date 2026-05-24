@@ -1,4 +1,10 @@
 /**
+ * @module array
+ * @description Array manipulation utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * A recursive array type for deep nesting.
  */
 export type RecursiveArray<T> = Array<T | RecursiveArray<T>>;
@@ -6,12 +12,19 @@ export type RecursiveArray<T> = Array<T | RecursiveArray<T>>;
 /**
  * Flattens a nested array to a single level.
  * 
+ * @example
+ * ```ts
+ * const arr = flatten([1, [2, [3, 4]]]);
+ * // arr is [1, 2, 3, 4]
+ * ```
+ * 
  * @param arr - The deeply nested array to flatten.
  * @returns A new flattened array.
  */
 export function flatten<T>(arr: any[]): T[] {
   return arr.flat(Infinity) as T[];
 }
+
 
 /**
  * Deduplicates array elements by removing duplicates.

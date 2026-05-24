@@ -1,12 +1,25 @@
+/**
+ * @module fact-emitter
+ * @description
+ * Gall Classification: Observatory Primitive
+ * Purpose: Base abstraction for all fact emitters in the Truex Observatory.
+ * Establishes the lifecycle for fact extraction, validation, and serialization.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 
+/**
+ * Core metadata for a given fact emitter, used for logging and JSON structuring.
+ */
 export interface EmitterMetadata {
   name: string;
   description: string;
   outputPath: string;
 }
 
+/**
+ * Base abstract class defining the contract for all specific Fact Emitters.
+ */
 export abstract class FactEmitter {
   /**
    * Returns metadata about this emitter.

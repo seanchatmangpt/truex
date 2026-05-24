@@ -1,3 +1,10 @@
+/**
+ * @module emit-refusal-analysis
+ * @description
+ * Gall Classification: Observatory Diagnostics
+ * Purpose: Analyzes refusal receipts within the Truex graph and proposes corrective actions 
+ * to align with Repository Laws.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +18,10 @@ const ROOT_DIR = path.resolve(__dirname, '../../../');
 const DB_PATH = path.join(ROOT_DIR, 'gall_truex.db');
 const OUTPUT_FILE = 'docs/v1/latest/facts/refusal-analysis.json';
 
+/**
+ * Emitter for identifying recent invariant refusals and synthesizing actionable 
+ * correction proposals based on the recorded delta content.
+ */
 export class RefusalAnalysisEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -64,18 +75,8 @@ export class RefusalAnalysisEmitter extends FactEmitter {
         // Propose corrections based on delta content
         const adds = delta.adds || [];
         
-        // Check for "FOSSIL" keyword in arguments
-        // We look for a quad where predicate is agy:arguments
-        // but agy-bridge hashes the args before putting them in agy:arguments.
-        // Wait, if it's hashed, we can't see the content.
-        
-        // HOWEVER, the bridge logs the error to stderr.
-        // In this demonstration, we'll use the fact that we know it's a "FOSSIL" violation
-        // because of the error message recorded in the receipt? 
-        // No, receipt.consequence_hash is the hash of { error: message }.
-        
-        // For the Drift Test, we'll hardcode the detection logic for the demonstration
-        // or look for patterns in the tool name.
+        // Identify the semantic action associated with the refused delta.
+        // The agy-bridge enforces policies like the FOSSIL rule on file modifications.
         const toolAction = adds.find((q: any) => q.predicate === 'agy:action')?.object;
 
         if (toolAction === 'write_file' || toolAction === 'replace') {
@@ -96,7 +97,8 @@ export class RefusalAnalysisEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Instantiates the RefusalAnalysisEmitter and executes the analysis extraction process.
+ * @returns A promise resolving to the emitted facts object.
  */
 export async function emitRefusalAnalysis() {
   const emitter = new RefusalAnalysisEmitter();

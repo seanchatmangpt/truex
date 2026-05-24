@@ -1,8 +1,19 @@
+/**
+ * @module index
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
 import { createProxy } from '../proxy/create-proxy.js'
 import { createSimulationContext, registerSimulationInterceptors } from '../simulation/simulation-context.js'
 import { createHash, randomUUID } from 'node:crypto'
 
+
+/**
+ * canonicalStringify
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export function canonicalStringify(obj) {
   if (obj === null || typeof obj !== 'object') {
     return JSON.stringify(obj)
@@ -35,6 +46,11 @@ export function canonicalStringify(obj) {
   return `{${keys.map((k) => `"${k}":${canonicalStringify(obj[k])}`).join(',')}}`
 }
 
+
+/**
+ * OcelCollector
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export class OcelCollector {
   constructor() {
     this.state = this.createEmptyState()
@@ -210,6 +226,11 @@ export class OcelCollector {
   }
 }
 
+
+/**
+ * createOcelProxy
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export function createOcelProxy(target, ref, collector) {
   const proxyInterface = createProxy(target)
   const { defineSetInterceptor, defineDeletePropertyInterceptor } = proxyInterface

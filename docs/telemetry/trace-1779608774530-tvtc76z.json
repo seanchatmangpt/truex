@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608774530-tvtc76z",
+  "spanId": "span-doctor",
+  "startTime": 1779608774530,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608776781,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "confirmed",
+        "executionTimeMs": 1675,
+        "invariantsCount": 8,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608776781,
+  "durationMs": 2251
+}

@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779602872943-xlnpqj8",
+  "spanId": "span-doctor",
+  "startTime": 1779602872943,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"mailbox\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779602872961,
+      "attributes": {
+        "primitive": "mailbox",
+        "receiptHash": "24e397b5f5c7d8cd3a905a67190bbbb53a21dc8761f890a6b15f361b5606f3cb",
+        "status": "confirmed",
+        "executionTimeMs": 16,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779602872961,
+  "durationMs": 18
+}

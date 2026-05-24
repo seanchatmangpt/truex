@@ -1,7 +1,19 @@
+/**
+ * @module AfterToolHook
+ * @description
+ * Gall Classification: Gall S5 (Actuation and Observability)
+ * Purpose: Integrates Truex observability post-mutation to monitor for actuation 
+ * proposals or high-priority anomaly alerts from the swarm.
+ */
+
 import { execSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
+/**
+ * Main entrypoint for post-tool actuation hook.
+ * Runs observability scans and checks for required manual or automated interventions.
+ */
 async function main() {
   // 1. Run observatory
   try {

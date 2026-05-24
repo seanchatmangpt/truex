@@ -1,3 +1,10 @@
+/**
+ * @module emit-refinement-rules
+ * @description
+ * Gall Classification: S4 Observatory Strategy
+ * Purpose: Uses the 'internalLogicPaths' from CoreFactsEmitter to generate 'Refinement Rules' for the bridge.
+ * These rules help the bridge auto-correct agent tool calls to use internal, deterministic paths.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,10 +16,7 @@ const CORE_FACTS_FILE = path.join(BASE_DIR, 'docs/v1/latest/facts/core-primitive
 const OUTPUT_FILE = 'docs/v1/latest/facts/refinement-rules.json';
 
 /**
- * Refinement Rules Emitter
- * 
- * Uses the 'internalLogicPaths' from CoreFactsEmitter to generate 'Refinement Rules' for the bridge.
- * These rules help the bridge auto-correct agent tool calls to use internal, deterministic paths.
+ * Emitter for defining agent interaction rules and heuristics for the Truex bridge.
  */
 export class RefinementRulesEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
@@ -105,7 +109,8 @@ export class RefinementRulesEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Instantiates the RefinementRulesEmitter and executes the fact extraction process.
+ * @returns A promise resolving to the emitted facts object.
  */
 export async function emitRefinementRules() {
   const emitter = new RefinementRulesEmitter();

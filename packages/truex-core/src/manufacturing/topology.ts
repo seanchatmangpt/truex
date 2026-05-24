@@ -1,3 +1,8 @@
+/**
+ * @module manufacturing/topology
+ * @description Gall S₂: Engine primitives.
+ * Implements RecursiveHookEngine to orchestrate hook cascading.
+ */
 import type { GraphDelta, Receipt, HookEffect, HookEvent, Quad } from '../runtime-law.js';
 import type { TruexContext } from '../context.js';
 import { TruexHook } from '../hook.js';
@@ -39,14 +44,16 @@ export class RecursiveHookEngine {
   private readonly maxDepth: number;
   private readonly maxEmittedDeltas: number;
   private readonly refuseOnBreach: boolean;
+  private readonly maxFanout?: number;
 
   constructor(
     private readonly context: TruexContext,
-    private readonly options: { maxDepth?: number; maxEmittedDeltas?: number; refuseOnBreach?: boolean } = {}
+    private readonly options: { maxDepth?: number; maxEmittedDeltas?: number; refuseOnBreach?: boolean; maxFanout?: number } = {}
   ) {
     this.maxDepth = options.maxDepth ?? 10;
     this.maxEmittedDeltas = options.maxEmittedDeltas ?? 50;
     this.refuseOnBreach = options.refuseOnBreach ?? false;
+    this.maxFanout = options.maxFanout;
   }
 
   /**
@@ -127,6 +134,30 @@ export class RecursiveHookEngine {
 
     const hooks = pullHooks(delta);
     
+    if (this.refuseOnBreach && this.maxFanout !== undefined && hooks.length > this.maxFanout) {
+      const refuseReceipt = createReceipt(
+        this.context,
+        `evt_refused_${this.context.uuid()}`,
+        delta.id,
+        hash(delta),
+        hash({ reason: 'Max fanout breach' }),
+        parentReceiptHash,
+        'refused',
+        undefined,
+        { reason: `Max fanout breach: ${hooks.length} > ${this.maxFanout}` }
+      );
+      
+      const activation: HookActivation = {
+        id: this.context.uuid(),
+        hookId: 'fanout-breach-refusal',
+        triggerDeltaId: delta.id,
+        depth,
+        receipt: refuseReceipt,
+      };
+      topology.activations.push(activation);
+      throw new TopologyRefusalError(`Max fanout breach: ${hooks.length} > ${this.maxFanout}`, refuseReceipt, topology);
+    }
+
     for (const hook of hooks) {
       if (this.refuseOnBreach) {
         // Cyclic A -> B -> A hook storm is detected

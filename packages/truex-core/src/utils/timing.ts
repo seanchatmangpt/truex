@@ -1,4 +1,10 @@
 /**
+ * @module timing
+ * @description Timing and performance measurement utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Result of a timing measurement.
  */
 export interface TimingResult<T> {

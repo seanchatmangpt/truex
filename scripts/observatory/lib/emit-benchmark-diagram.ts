@@ -1,8 +1,17 @@
+/**
+ * @module emit-benchmark-diagram
+ * @description
+ * Gall Classification: S4 Benchmark Documentation
+ * Purpose: Generates a Mermaid diagram representing the benchmark execution flow.
+ */
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const DIAGRAM_PATH = 'docs/v1/latest/diagrams/benchmark-flow.mmd';
 
+/**
+ * Emitter for generating the benchmark architecture Mermaid diagram.
+ */
 export class BenchmarkDiagramEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -71,6 +80,10 @@ flowchart TD
   }
 }
 
+/**
+ * Generates and writes the benchmark flow Mermaid diagram.
+ * @returns A promise resolving to the diagram content.
+ */
 export async function emitBenchmarkDiagram() {
   const emitter = new BenchmarkDiagramEmitter();
   return emitter.emit();

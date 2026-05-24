@@ -1,3 +1,8 @@
+/**
+ * @module kaizen
+ * @description Gall S₂: Engine primitives.
+ * Implements RefiningEngine and GembaInspector for continuous improvement.
+ */
 import type { HookDefinition, Receipt, GraphDelta, HookCondition } from "../runtime-law.js";
 
 /**

@@ -1,3 +1,9 @@
+/**
+ * @module snapshot
+ * @description Manages state snapshots and delta application for the quad-graph.
+ * Gall Classification: S1 (replay primitives).
+ * Ensures deterministic state reconstruction.
+ */
 import type { Quad, GraphDelta } from "../runtime-law.js";
 import type { TruexContext } from "../context.js";
 import { hash } from "../hash.js";

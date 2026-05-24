@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-05-24T07:47:40.491Z",
+  "receiptStress": [
+    {
+      "count": 10,
+      "opsPerSec": 3813.5189245876513,
+      "durationMs": 2.622250000000008,
+      "memoryDeltaKb": 1418.0546875
+    },
+    {
+      "count": 100,
+      "opsPerSec": 14261.858271642484,
+      "durationMs": 7.011708999999996,
+      "memoryDeltaKb": 4610.1328125
+    },
+    {
+      "count": 1000,
+      "opsPerSec": 24546.101469116067,
+      "durationMs": 40.739667000000026,
+      "memoryDeltaKb": 127.2734375
+    },
+    {
+      "count": 10000,
+      "opsPerSec": 28044.921862248328,
+      "durationMs": 356.570792,
+      "memoryDeltaKb": 8698.2890625
+    }
+  ],
+  "replayMetrics": {
+    "sampleCount": 1000,
+    "opsPerSec": 43784.43591153902,
+    "convergencePct": 100,
+    "convergencePctUnderMutations": 0,
+    "tamperDetectionPct": 100,
+    "durationMs": 22.839165999999977,
+    "tamperingNote": "cryptographic receipt integrity checks detected tested tampering cases"
+  },
+  "topologyDepth": [
+    {
+      "maxDepth": 1,
+      "cascadeDepth": 2,
+      "refused": true
+    },
+    {
+      "maxDepth": 3,
+      "cascadeDepth": 4,
+      "refused": true
+    },
+    {
+      "maxDepth": 10,
+      "cascadeDepth": 11,
+      "refused": true
+    },
+    {
+      "maxDepth": 100,
+      "cascadeDepth": 101,
+      "refused": true
+    }
+  ],
+  "topologyCycles": {
+    "attempted": 10,
+    "refused": 10,
+    "refusalPct": 100
+  },
+  "topologyFanout": [
+    {
+      "maxFanout": 1,
+      "actualFanout": 2,
+      "refused": true
+    },
+    {
+      "maxFanout": 7,
+      "actualFanout": 8,
+      "refused": true
+    },
+    {
+      "maxFanout": 31,
+      "actualFanout": 32,
+      "refused": true
+    }
+  ],
+  "rollbackMetrics": {
+    "attempted": 1,
+    "propagated": 1,
+    "propagationPct": 100
+  },
+  "overheadRatioMetrics": {
+    "rawOpsPerSec": 8083486.2459506,
+    "receiptBackedOpsPerSec": 26625.574529975427,
+    "overheadRatio": 303.59856598963165,
+    "violatesCtqThreshold": true,
+    "operatingMode": "degraded"
+  }
+}

@@ -1,6 +1,6 @@
 # Antigravity Artifact: Core Primitives
 
-> **Generated:** 2026-05-24T03:30:01.485Z
+> **Generated:** 2026-05-24T07:45:51.485Z
 > **Version:** 1.0.0
 
 ## Core Primitives
@@ -25,10 +25,10 @@
 
 | Metric | Value |
 | :--- | :--- |
-| totalFiles | 60 |
-| totalFunctions | 112 |
-| totalClasses | 32 |
-| totalExportedSymbols | 229 |
+| totalFiles | 63 |
+| totalFunctions | 133 |
+| totalClasses | 37 |
+| totalExportedSymbols | 266 |
 
 ## File Inventory
 
@@ -79,6 +79,9 @@
 | `packages/truex-core/src/persistence/schema.ts` | 1 | 0 | 3 |
 | `packages/truex-core/src/persistence/snapshot.ts` | 1 | 0 | 3 |
 | `packages/truex-core/src/persistence/transactions.ts` | 0 | 1 | 1 |
+| `packages/truex-core/src/persistent-mailbox.gall.ts` | 21 | 0 | 27 |
+| `packages/truex-core/src/plugins/otel-weaver.ts` | 0 | 0 | 1 |
+| `packages/truex-core/src/project-wizard.gall.ts` | 0 | 5 | 9 |
 | `packages/truex-core/src/receipt.ts` | 0 | 0 | 0 |
 | `packages/truex-core/src/replay.ts` | 0 | 0 | 0 |
 | `packages/truex-core/src/runtime-law.ts` | 8 | 0 | 18 |

@@ -1,3 +1,12 @@
+/**
+ * @module skills/adapter/mutations
+ * @description
+ * Gall Classification: S2 Engine Primitives (Adapter Boundary)
+ * Purpose: Implements the TruexAgentAdapter which acts as the authority membrane for external agents.
+ * Validates capabilities, simulates state execution, checks replay convergence, and emits definitive
+ * receipts for both success and rejection paths.
+ */
+
 import { hash } from "../hash/mutations.js";
 import { createReceipt } from "../receipt/mutations.js";
 import { validateProposal } from "./invariant.js";
@@ -7,6 +16,9 @@ import type { GallTruexSqliteEngine } from "../replay/mutations.js";
 import type { Receipt } from "../../packages/truex-core/src/runtime-law.js";
 import { parseGraphDelta } from "../../packages/truex-core/src/runtime-law.js";
 
+/**
+ * The primary interface for external agents to submit proposals.
+ */
 export class TruexAgentAdapter {
   constructor(
     private readonly engine: GallTruexSqliteEngine,
@@ -17,6 +29,8 @@ export class TruexAgentAdapter {
   /**
    * Submits an external agent proposal to the TRUEX operational authority.
    * If any check fails, returns a Refused Receipt and does not apply modifications.
+   * @param {unknown} proposalInput - The unvalidated proposal.
+   * @returns {{ receipt: Receipt; committed: boolean; reason?: string }} The submission result.
    */
   submit(proposalInput: unknown): { receipt: Receipt; committed: boolean; reason?: string } {
     let proposal: AgentProposal;

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608899881-67lo59d",
+  "spanId": "span-doctor",
+  "startTime": 1779608899881,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608902096,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "confirmed",
+        "executionTimeMs": 1657,
+        "invariantsCount": 8,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608902096,
+  "durationMs": 2215
+}

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608712134-ha510ti",
+  "spanId": "span-doctor",
+  "startTime": 1779608712134,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608714255,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "confirmed",
+        "executionTimeMs": 1588,
+        "invariantsCount": 8,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608714255,
+  "durationMs": 2121
+}

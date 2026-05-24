@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779601430516-3c8hj2c",
+  "spanId": "span-doctor",
+  "startTime": 1779601430516,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"capability-breakpoints\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779601432211,
+      "attributes": {
+        "primitive": "capability-breakpoints",
+        "receiptHash": "9ba62814c7b6e0ae25bb2337b3cb72557cddab1670fb6a05de7ed95dc72b0596",
+        "status": "confirmed",
+        "executionTimeMs": 1694,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779601432211,
+  "durationMs": 1695
+}

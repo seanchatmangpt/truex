@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779607624188-hle5b3w",
+  "spanId": "span-doctor",
+  "startTime": 1779607624188,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"finalization\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779607887404,
+      "attributes": {
+        "primitive": "finalization",
+        "status": "refused",
+        "executionTimeMs": 263211,
+        "invariantsCount": 0,
+        "failuresCount": 1
+      }
+    }
+  ],
+  "endTime": 1779607887404,
+  "durationMs": 263216
+}

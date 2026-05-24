@@ -1,3 +1,9 @@
+/**
+ * @module context
+ * @description Gall S₋₁/S₀: Deterministic entropy and execution context primitives.
+ * Provides reproducible entropy (seeded PRNG, clock, UUID) to ensure replay convergence.
+ * Adheres to Entropy Law: deterministic admissible entropy only.
+ */
 export type TruexContext = {
   seed: number;
   clock: () => number;

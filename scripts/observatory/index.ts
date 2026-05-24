@@ -1,11 +1,15 @@
+/**
+ * @module index
+ * @description
+ * Gall Classification: Observatory Entrypoint
+ * Purpose: Runs a series of fact emitters to extract architectural state,
+ * detect drift, and generate artifacts in deterministic priority order.
+ */
 import { getSortedEmitters } from './lib/registry.js';
 
 /**
- * Truex Observatory
- * 
- * Purpose:
- * Runs a series of fact emitters to extract architectural state,
- * detect drift, and generate artifacts.
+ * Main execution function for the Truex Observatory.
+ * Orchestrates all registered emitters and handles top-level execution results.
  */
 async function main() {
   process.stderr.write('🔭 Starting Truex Observatory...\n');

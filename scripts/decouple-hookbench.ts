@@ -1,7 +1,17 @@
+/**
+ * @module DecoupleHookbench
+ * @description
+ * Gall Classification: Gall S4/S5 (Analytics and Domain Decoupling)
+ * Purpose: Analyzes and decouples hookbench execution domains from replay domains.
+ * Generates decoupled reports enforcing the Hook Execution Domain vs Replay Domain invariants.
+ */
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-// Types for raw Hookbench report
+/**
+ * Interface representing a raw tier metric inside a hookbench report.
+ */
 interface RawTierMetric {
   tier: string;
   options: {
@@ -29,6 +39,9 @@ interface RawTierMetric {
   };
 }
 
+/**
+ * Interface representing a raw stress case inside a hookbench report.
+ */
 interface RawStressCase {
   id: string;
   name: string;
@@ -38,6 +51,9 @@ interface RawStressCase {
   observedBehavior: string;
 }
 
+/**
+ * Interface representing the complete structure of a raw hookbench report.
+ */
 interface RawReport {
   results: RawTierMetric[];
   stressResults: RawStressCase[];

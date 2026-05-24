@@ -1,3 +1,8 @@
+/**
+ * @module proxy-log
+ * @description Proxy wrapper for observing and logging object interactions.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
 import { log, LogLevel } from './log-format.js';
 
 /**

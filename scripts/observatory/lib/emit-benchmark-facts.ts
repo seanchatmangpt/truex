@@ -1,7 +1,18 @@
+/**
+ * @module emit-benchmark-facts
+ * @description
+ * Gall Classification: S4 Benchmark Fact Emitter
+ * Purpose: Extracts performance metrics and benchmark results from the hook evaluation benchmark.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
+/**
+ * Emitter for extracting facts about system performance.
+ * Parses benchmark reports to generate documented metrics.
+ */
 export class BenchmarkFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -39,4 +50,23 @@ export class BenchmarkFactsEmitter extends FactEmitter {
       }
     };
   }
+}
+
+/**
+ * Instantiates the BenchmarkFactsEmitter and executes the fact extraction process.
+ * @returns A promise resolving to the facts object.
+ */
+export async function emitBenchmarkFacts() {
+  const emitter = new BenchmarkFactsEmitter();
+  return emitter.emit();
+}
+
+const isMain = process.argv[1] && (
+  process.argv[1].endsWith('emit-benchmark-facts.ts') || 
+  process.argv[1].endsWith('emit-benchmark-facts.js') ||
+  process.argv[1] === fileURLToPath(import.meta.url)
+);
+
+if (isMain) {
+  emitBenchmarkFacts();
 }

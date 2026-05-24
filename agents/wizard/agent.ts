@@ -1,6 +1,18 @@
+/**
+ * @module WizardAgent
+ * @description
+ * Gall Classification: Gall S2 (Membrane Interception and Transaction Logic)
+ * Purpose: The Wizard Agent handles counterfactual transactions, speculative states,
+ * and rollbacks. It builds upon the S2 persistence membrane to prove that invariant
+ * violations result in clean transaction rollbacks without state corruption.
+ */
+
 import { createProxy, createTransactionContext, registerTransactionInterceptors } from "../../skills/membrane/mutations.js";
 import { createInvariantContext, registerInvariantInterceptors, rangeInvariant } from "../../skills/membrane/invariant.js";
 
+/**
+ * Result of a single speculative simulation step.
+ */
 export type SimulationStepResult = {
   step: string;
   success: boolean;
@@ -9,9 +21,17 @@ export type SimulationStepResult = {
   error?: string;
 };
 
+/**
+ * The Wizard Agent acts as the counterfactual simulator, utilizing the transaction
+ * and invariant membranes to safely test speculative state transitions.
+ */
 export class WizardAgent {
   /**
    * Specs a counterfactual transaction on a mutable state, running validations.
+   * 
+   * @param initialState - The initial state to simulate the transaction against.
+   * @param val - The value to speculatively apply to the state.
+   * @returns An array of simulation step results documenting the trace of operations.
    */
   simulateTransaction(initialState: { score: number }, val: number): SimulationStepResult[] {
     const trace: SimulationStepResult[] = [];
@@ -79,6 +99,10 @@ export class WizardAgent {
 
   /**
    * Conducts sequential simulations over a list of values, propagating states.
+   * 
+   * @param initialState - The starting state before applying steps.
+   * @param steps - An array of numerical values to speculatively apply in sequence.
+   * @returns An array of concatenated simulation step results across all walkthroughs.
    */
   walkthrough(initialState: { score: number }, steps: number[]): SimulationStepResult[] {
     const trace: SimulationStepResult[] = [];

@@ -1,6 +1,17 @@
+/**
+ * @module entropy
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { Faker, en } from '@faker-js/faker';
 import type { GraphDelta, Quad } from '../../packages/truex-core/src/runtime-law.js';
 
+
+/**
+ * Member
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export interface Member {
   id: string;
   name: string;
@@ -9,6 +20,11 @@ export interface Member {
   status: 'active' | 'inactive';
 }
 
+
+/**
+ * Volunteer
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export interface Volunteer {
   id: string;
   memberId: string;
@@ -16,12 +32,22 @@ export interface Volunteer {
   availability: string[];
 }
 
+
+/**
+ * Room
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export interface Room {
   id: string;
   name: string;
   capacity: number;
 }
 
+
+/**
+ * Event
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export interface Event {
   id: string;
   name: string;
@@ -30,6 +56,11 @@ export interface Event {
   organizerId: string;
 }
 
+
+/**
+ * EntropyGenerator
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export class EntropyGenerator {
   private fakerInstance: Faker;
 

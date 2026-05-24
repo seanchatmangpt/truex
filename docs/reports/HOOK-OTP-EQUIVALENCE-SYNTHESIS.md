@@ -25,6 +25,6 @@ Hook OTP Equivalence State:
 - Receipt Per Message: ✅ Verified
 - Replay Per Message: ✅ Verified
 - Deterministic Lifecycle: ✅ Verified
-- Benchmark Overhead: 59.718x
+- Benchmark Overhead: 82.707x
 - Observatory Visibility: ✅ Integrated
 - Remaining Gap: Distributed Node Concurrency

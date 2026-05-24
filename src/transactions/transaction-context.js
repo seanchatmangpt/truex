@@ -1,4 +1,12 @@
+/**
+ * @module transaction-context
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
+import { createProxy } from '../proxy/create-proxy.js'
+import { RecursionRefusalError } from '../invariants/invariant-context.js'
 
 /**
  * Transaction journal system for Proxyable.
@@ -12,9 +20,10 @@ import { createContext } from '../context/context.js'
  * Creates a transaction context with journaling and commit/rollback support.
  *
  * @param {object} target - The target object to track mutations for
+ * @param {object} [options] - Options configuration including maxDepth limit
  * @returns {object} Transaction API with call, commit, rollback, getDryRun, isActive, getJournal methods
  */
-export function createTransactionContext(target) {
+export function createTransactionContext(target, options = {}) {
   const transactionContext = createContext()
 
   // Internal transaction state - shared with interceptors
@@ -42,18 +51,26 @@ export function createTransactionContext(target) {
    * @returns {*} The result of the function
    */
   function call(fn) {
-    if (transactionState.isActive) {
-      // Already in a transaction, just execute the function
-      return fn()
+    const currentDepth = (globalThis.__truex_transaction_depth || 0) + 1
+    const limit = options.maxDepth !== undefined ? options.maxDepth : 100
+    if (currentDepth > limit) {
+      throw new RecursionRefusalError(`Transaction nesting limit of ${limit} exceeded`)
     }
 
-    transactionState.isActive = true
-    globalThis.__truex_active_transactions = globalThis.__truex_active_transactions || new Set()
-    globalThis.__truex_active_transactions.add(txRecord)
+    const previousDepth = globalThis.__truex_transaction_depth || 0
+    globalThis.__truex_transaction_depth = currentDepth
     try {
+      if (transactionState.isActive) {
+        // Already in a transaction, just execute the function
+        return fn()
+      }
+
+      transactionState.isActive = true
+      globalThis.__truex_active_transactions = globalThis.__truex_active_transactions || new Set()
+      globalThis.__truex_active_transactions.add(txRecord)
       return transactionContext.call({ active: true, state: transactionState }, fn)
     } finally {
-      // Note: We don't reset isActive here to allow commit/rollback after call()
+      globalThis.__truex_transaction_depth = previousDepth
     }
   }
 
@@ -95,20 +112,22 @@ export function createTransactionContext(target) {
 
       switch (entry.operation) {
         case 'set': {
-          if (entry.previousValue === undefined && !Reflect.has(target, entry.property)) {
+          const t = entry.target || target
+          if (entry.previousValue === undefined && !Reflect.has(t, entry.property)) {
             // Property didn't exist before, delete it
-            Reflect.deleteProperty(target, entry.property)
+            Reflect.deleteProperty(t, entry.property)
           } else {
             // Restore previous value
-            Reflect.set(target, entry.property, entry.previousValue)
+            Reflect.set(t, entry.property, entry.previousValue)
           }
           break
         }
 
         case 'delete': {
+          const t = entry.target || target
           // Restore deleted property
           if (entry.previousValue !== undefined || entry.hadProperty) {
-            Reflect.set(target, entry.property, entry.previousValue)
+            Reflect.set(t, entry.property, entry.previousValue)
           }
           break
         }
@@ -202,6 +221,7 @@ export function createTransactionSetInterceptor(transactionCtx) {
     // Record in journal using internal state
     const entry = {
       operation: 'set',
+      target,
       property: prop,
       value,
       previousValue,
@@ -240,6 +260,7 @@ export function createTransactionDeletePropertyInterceptor(transactionCtx) {
     // Record in journal using internal state
     const entry = {
       operation: 'delete',
+      target,
       property: prop,
       previousValue,
       hadProperty,
@@ -276,7 +297,7 @@ export function createTransactionApplyInterceptor(transactionCtx) {
       operation: 'apply',
       args: argsList,
       thisArg,
-      result,
+      result: (result && (typeof result === 'object' || typeof result === 'function')) ? createProxy(result).proxy : result,
       timestamp: Date.now(),
       index: transactionCtx._state.journalIndex++,
     }
@@ -309,7 +330,7 @@ export function createTransactionConstructInterceptor(transactionCtx) {
     const entry = {
       operation: 'construct',
       args: argsList,
-      result,
+      result: (result && (typeof result === 'object' || typeof result === 'function')) ? createProxy(result).proxy : result,
       timestamp: Date.now(),
       index: transactionCtx._state.journalIndex++,
     }

@@ -1,8 +1,17 @@
+/**
+ * @module emit-membrane-replay-diagram
+ * @description
+ * Gall Classification: S7 Replay Documentation
+ * Purpose: Generates a Mermaid diagram representing the S7 Membrane Replay and WAL reconstruction flow.
+ */
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const DIAGRAM_PATH = 'docs/v1/latest/diagrams/membrane-replay.mmd';
 
+/**
+ * Emitter for generating the S7 (Membrane Replay) architecture Mermaid diagram.
+ */
 export class MembraneReplayDiagramEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -67,6 +76,10 @@ flowchart TB
   }
 }
 
+/**
+ * Generates and writes the membrane replay flow Mermaid diagram.
+ * @returns A promise resolving to the diagram content.
+ */
 export async function emitMembraneReplayDiagram() {
   const emitter = new MembraneReplayDiagramEmitter();
   return emitter.emit();

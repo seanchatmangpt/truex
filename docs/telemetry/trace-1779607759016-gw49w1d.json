@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779607759016-gw49w1d",
+  "spanId": "span-doctor",
+  "startTime": 1779607759016,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"hook-otp\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779607759051,
+      "attributes": {
+        "primitive": "hook-otp",
+        "status": "confirmed",
+        "executionTimeMs": 32,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779607759051,
+  "durationMs": 35
+}

@@ -1,3 +1,10 @@
+/**
+ * @module docs-link
+ * @description
+ * Gall Classification: Observatory Integration
+ * Purpose: Links observatory outputs and generates the main dashboard README.
+ * Ensures the aggregated facts are easily accessible.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +21,9 @@ const FACTS_DIR = path.join(DOCS_DIR, 'facts');
 const DIAGRAMS_DIR = path.join(DOCS_DIR, 'diagrams');
 const RECEIPTS_DIR = path.join(DOCS_DIR, 'receipts');
 
+/**
+ * Emitter responsible for aggregating all fact records into a Markdown dashboard.
+ */
 export class DocsLinkEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -98,6 +108,10 @@ export class DocsLinkEmitter extends FactEmitter {
   }
 }
 
+/**
+ * Generates the central documentation link/README file.
+ * @returns A promise resolving to the markdown content.
+ */
 export async function generateDocsLink() {
   const emitter = new DocsLinkEmitter();
   return emitter.emit();

@@ -1,8 +1,17 @@
+/**
+ * @module emit-s8-diagram
+ * @description
+ * Gall Classification: S8 Diagram Emitter
+ * Purpose: Generates a Mermaid trace diagram for S8 Telco Ingestion and Wizard Counterfactual Simulation flows.
+ */
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const DIAGRAM_PATH = 'docs/v1/latest/diagrams/s8-trace.mmd';
 
+/**
+ * Emitter for generating the S8 (Telco & Wizard) architecture Mermaid diagram.
+ */
 export class S8DiagramEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -49,6 +58,10 @@ flowchart TB
   }
 }
 
+/**
+ * Generates and writes the S8 trace flow Mermaid diagram.
+ * @returns A promise resolving to the diagram content.
+ */
 export async function emitS8Diagram() {
   const emitter = new S8DiagramEmitter();
   return emitter.emit();

@@ -1,3 +1,8 @@
+/**
+ * @module heijunka
+ * @description Gall S₂: Engine primitives.
+ * Implements ProductionScheduler (Heijunka) to level execution load.
+ */
 import type { GraphDelta, Receipt, HookEvent, HookEffect } from '../runtime-law.js';
 import { TruexHook } from '../hook.js';
 import type { TruexContext } from '../context.js';

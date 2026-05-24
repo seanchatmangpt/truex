@@ -1,3 +1,8 @@
+/**
+ * @module hook-interceptor
+ * @description Intercepts agent actions against hook conditions and invariants.
+ * Gall Classification: S2 (engine primitives).
+ */
 import type { HookDefinition } from "../runtime-law.js";
 
 /**

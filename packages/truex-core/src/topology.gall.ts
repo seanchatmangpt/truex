@@ -1,3 +1,8 @@
+/**
+ * @module topology
+ * @description Gall S₂: Engine primitives.
+ * Implements topology, cascade tracking, and causal replay.
+ */
 /* eslint-disable unicorn/no-null, unicorn/prefer-number-properties, unicorn/prefer-string-slice, unicorn/prefer-structured-clone, unicorn/numeric-separators-style, unicorn/prefer-at, unicorn/no-lonely-if, unicorn/no-negated-condition, unicorn/prefer-spread, unicorn/catch-error-name */
 import { parseGraphDelta, type HookCondition, type HookEffect, type Receipt, type Quad } from "./runtime-law.js";
 import { createDeterministicContext, type TruexContext } from "./context.js";

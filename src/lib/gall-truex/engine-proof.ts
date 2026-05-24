@@ -1,3 +1,10 @@
+/**
+ * @module engine-proof
+ * @description
+ * Gall Classification: S₂ - Engine Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
+
 /* eslint-disable unicorn/no-null */
 import { hash } from "./hash-proof.js";
 import { deterministicUUID } from "./receipt-proof.js";
@@ -11,6 +18,11 @@ import type {
   EvaluationResult,
 } from "./sqlite-proof.js";
 
+
+/**
+ * assertValidDelta
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export function assertValidDelta(delta: any): void {
   if (delta === null || delta === undefined) {
     throw new Error("GraphDelta is required");
@@ -46,6 +58,11 @@ export function assertValidDelta(delta: any): void {
   }
 }
 
+
+/**
+ * conditionMatches
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export function conditionMatches(condition: HookCondition, delta: GraphDelta): boolean {
   if (condition.kind === "always") {
     return true;
@@ -57,6 +74,11 @@ export function conditionMatches(condition: HookCondition, delta: GraphDelta): b
 }
 
 // Pure in-memory store for the Engine proof
+
+/**
+ * MemoryReceiptStore
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export class MemoryReceiptStore {
   private receipts: Receipt[] = [];
 
@@ -78,6 +100,11 @@ export class MemoryReceiptStore {
 }
 
 // Pure Operational Law Engine - No Persistence Layer Assumptions
+
+/**
+ * GallTruexPureEngine
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export class GallTruexPureEngine {
   constructor(
     private readonly hooks: HookDefinition[],

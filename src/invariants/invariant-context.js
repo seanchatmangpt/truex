@@ -1,4 +1,34 @@
+/**
+ * @module invariant-context
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
+
+export class CircularDependencyError extends RangeError {
+  constructor(message) {
+    super(message + " (Maximum call stack size exceeded / Circular invariant loop detected)")
+    this.name = 'CircularDependencyError'
+  }
+}
+
+export class RecursionRefusalError extends RangeError {
+  constructor(message) {
+    super(message + " (Maximum call stack size exceeded)")
+    this.name = 'RecursionRefusalError'
+  }
+}
+
+const targetIds = new WeakMap()
+let nextTargetId = 1
+function getTargetId(obj) {
+  if (!obj || (typeof obj !== 'object' && typeof obj !== 'function')) return 'primitive'
+  if (!targetIds.has(obj)) {
+    targetIds.set(obj, nextTargetId++)
+  }
+  return targetIds.get(obj)
+}
 
 /**
  * Invariant enforcement system for Proxyable.
@@ -23,9 +53,10 @@ import { createContext } from '../context/context.js'
  * @param {object|Array} invariants - Invariants specification
  *   - Object: { name: invariantFn, ... }
  *   - Array: [invariantFn, ...]
+ * @param {object} [options] - Configuration options for runtime limits
  * @returns {object} Invariant context with enforcement API
  */
-export function createInvariantContext(target, invariants = {}) {
+export function createInvariantContext(target, invariants = {}, options = {}) {
   const invariantContext = createContext()
 
   // Normalize invariants to a Map for easy management
@@ -50,6 +81,10 @@ export function createInvariantContext(target, invariants = {}) {
   const contextState = {
     invariants: invariantMap,
     target,
+    visited: new Set(),
+    depth: 0,
+    fuel: options.fuel !== undefined ? options.fuel : 100000,
+    maxDepth: options.maxDepth !== undefined ? options.maxDepth : 2000,
   }
 
   /**
@@ -98,8 +133,36 @@ export function createInvariantContext(target, invariants = {}) {
    */
   function validateState(operation) {
     const errors = []
+    const state = invariantContext.tryUse() || contextState
+
+    if (!state.visited) state.visited = new Set()
+    if (state.depth === undefined) state.depth = 0
+    if (state.fuel === undefined) state.fuel = 1000
 
     for (const [name, invariantFn] of invariantMap) {
+      const evaluationKey = `${getTargetId(target)}:${name}`
+
+      // Check circular dependency
+      if (state.visited.has(evaluationKey)) {
+        throw new CircularDependencyError(`Circular invariant dependency detected: invariant "${name}" already running on stack`)
+      }
+
+      // Check depth limit
+      const limit = state.maxDepth !== undefined ? state.maxDepth : 50
+      if (state.depth >= limit) {
+        throw new RecursionRefusalError(`Maximum recursion depth of ${limit} exceeded`)
+      }
+
+      // Check and consume fuel
+      if (state.fuel <= 0) {
+        throw new RecursionRefusalError('Fuel budget exhausted')
+      }
+      state.fuel--
+
+      // Push to visited stack
+      state.visited.add(evaluationKey)
+      state.depth++
+
       try {
         const result = invariantFn(target, operation)
 
@@ -112,7 +175,14 @@ export function createInvariantContext(target, invariants = {}) {
           errors.push(`Invariant "${name}" returned invalid result: ${result}`)
         }
       } catch (error) {
+        if (error instanceof CircularDependencyError || error instanceof RecursionRefusalError) {
+          throw error
+        }
         errors.push(`Invariant "${name}" threw error: ${error.message}`)
+      } finally {
+        // Pop from visited stack
+        state.visited.delete(evaluationKey)
+        state.depth--
       }
     }
 
@@ -129,6 +199,18 @@ export function createInvariantContext(target, invariants = {}) {
    * @returns {*} The result of the function
    */
   function call(fn) {
+    const parentState = invariantContext.tryUse()
+    if (parentState) {
+      contextState.visited = parentState.visited
+      contextState.depth = parentState.depth
+      contextState.fuel = parentState.fuel
+      contextState.maxDepth = parentState.maxDepth
+    } else {
+      contextState.visited = new Set()
+      contextState.depth = 0
+      contextState.fuel = options.fuel !== undefined ? options.fuel : 100000
+      contextState.maxDepth = options.maxDepth !== undefined ? options.maxDepth : 2000
+    }
     return invariantContext.call(contextState, fn)
   }
 

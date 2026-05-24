@@ -1,3 +1,12 @@
+/**
+ * @module skills/membrane/membrane-replay-proof
+ * @description
+ * Gall Classification: Proof Layer
+ * Purpose: Proves WAL replay convergence, lineage validation, and crash recovery.
+ * Asserts that tampered/corrupted journal entries are refused and that interleaving
+ * independent execution chains results in the same VKG projection.
+ */
+
 import Database from "better-sqlite3";
 import { hash } from "../../packages/truex-core/src/hash.js";
 import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
@@ -16,6 +25,9 @@ import {
   type JournalEntry
 } from "../../packages/truex-core/src/membrane-replay.gall.js";
 
+/**
+ * Report structure for Membrane Replay proofs.
+ */
 export interface MembraneReplayProofReport {
   case: string;
   status: string;
@@ -76,6 +88,10 @@ export interface MembraneReplayProofReport {
   failures: string[];
 }
 
+/**
+ * Executes tests to prove membrane replay, WAL recovery, and lineage integrity.
+ * @returns {Promise<MembraneReplayProofReport>} The proof results.
+ */
 export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> {
   const start = Date.now();
   const failures: string[] = [];

@@ -1,3 +1,12 @@
+/**
+ * @module skills/replay/mutations
+ * @description
+ * Gall Classification: S2 Engine Primitives / S1 Replay Primitives
+ * Purpose: Implements the core GallTruex evaluation engine, supporting both pure in-memory
+ * and SQLite-backed receipt stores. Facilitates deterministic hook matching, execution,
+ * receipt generation, and replay verification.
+ */
+
 import Database from 'better-sqlite3';
 import { hash } from "../hash/mutations.js";
 import { createReceipt } from "../receipt/mutations.js";
@@ -21,6 +30,9 @@ import type {
   Quad,
 } from "../../packages/truex-core/src/runtime-law.js";
 
+/**
+ * Represents the result of an engine evaluation.
+ */
 export type EvaluationResult = {
   deltaId: string;
   matchedHookIds: string[];
@@ -29,6 +41,12 @@ export type EvaluationResult = {
   receipt: Receipt;
 };
 
+/**
+ * Evaluates if a hook condition matches a given delta.
+ * @param {HookCondition} condition - The condition to evaluate.
+ * @param {GraphDelta} delta - The graph delta.
+ * @returns {boolean} True if the condition matches, false otherwise.
+ */
 export function conditionMatches(condition: HookCondition, delta: GraphDelta): boolean {
   if (condition.kind === "always") {
     return true;
@@ -41,7 +59,12 @@ export function conditionMatches(condition: HookCondition, delta: GraphDelta): b
 }
 
 /**
- * Functional convergence check.
+ * Functional convergence check for replay.
+ * @param {function} computeFn - The computation function.
+ * @param {TInput} input - The input.
+ * @param {string} expectedInputHash - The expected input hash.
+ * @param {string} expectedOutputHash - The expected output hash.
+ * @returns {boolean} True if convergence is successful.
  */
 export function verifyConvergence<TInput, TOutput>(
   computeFn: (input: TInput) => TOutput,
@@ -60,6 +83,9 @@ export function verifyConvergence<TInput, TOutput>(
   return actualOutputHash === expectedOutputHash;
 }
 
+/**
+ * In-memory implementation of a receipt store.
+ */
 export class MemoryReceiptStore {
   private receipts: Receipt[] = [];
 
@@ -80,6 +106,9 @@ export class MemoryReceiptStore {
   }
 }
 
+/**
+ * SQLite-backed implementation of a receipt store.
+ */
 export class SQLiteReceiptStore {
   constructor(private db: Database.Database) {}
 
@@ -105,6 +134,9 @@ export class SQLiteReceiptStore {
   }
 }
 
+/**
+ * Pure in-memory execution engine.
+ */
 export class GallTruexPureEngine {
   private readonly hooks: HookDefinition[];
 
@@ -240,6 +272,9 @@ export class GallTruexPureEngine {
   }
 }
 
+/**
+ * SQLite-backed execution engine.
+ */
 export class GallTruexSqliteEngine {
   private receiptStore: SQLiteReceiptStore;
   private readonly hooks: HookDefinition[];

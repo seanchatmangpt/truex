@@ -1,3 +1,9 @@
+/**
+ * @module capability-acl
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
 
 /**

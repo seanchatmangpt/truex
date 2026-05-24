@@ -1,3 +1,8 @@
+/**
+ * @module gemba
+ * @description Gall S₂: Engine primitives.
+ * Implements GembaMonitor for exhaustive OCEL 2.0 evidence collection.
+ */
 import { TruexHook } from "../hook.js";
 import type { TruexContext } from "../context.js";
 import type { GraphDelta, Receipt, HookEvent, HookEffect } from "../runtime-law.js";

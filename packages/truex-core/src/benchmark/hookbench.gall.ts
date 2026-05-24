@@ -1,3 +1,8 @@
+/**
+ * @module hookbench.gall
+ * @description Core Gall benchmarking suite for hooks.
+ * Gall Classification: S-2 (benchmark primitives).
+ */
 import type { GraphDelta, HookDefinition, HookEffect, Receipt, HookEvent } from "../runtime-law.js";
 import { TruexHook } from "../hook.js";
 import { createDeterministicContext, type TruexContext } from "../context.js";
@@ -12,6 +17,9 @@ import fs from "node:fs";
 import path from "node:path";
 
 // 1. Types
+/**
+ * Configuration for a HookBench case.
+ */
 export interface HookBenchCase {
   seed: number;
   registeredHooks: number;
@@ -21,8 +29,14 @@ export interface HookBenchCase {
   forbiddenPredicates?: string[];
 }
 
+/**
+ * The tier of the HookBench test.
+ */
 export type HookBenchTier = 'T0' | 'T1' | 'T2' | 'T3';
 
+/**
+ * Result of a HookBench tier run.
+ */
 export interface HookBenchResult {
   tier: HookBenchTier;
   options: HookBenchCase;
@@ -54,6 +68,9 @@ export interface HookBenchResult {
   reportHash: string;
 }
 
+/**
+ * Result of a stress or failure invariant case.
+ */
 export interface HookBenchStressCase {
   id: string;
   name: string;
@@ -64,6 +81,9 @@ export interface HookBenchStressCase {
   evidence: Record<string, unknown>;
 }
 
+/**
+ * A combined report containing all tier results and stress cases.
+ */
 export interface HookBenchReporter {
   results: HookBenchResult[];
   stressResults: HookBenchStressCase[];
@@ -71,6 +91,9 @@ export interface HookBenchReporter {
 }
 
 // 2. Seeded PRNG
+/**
+ * A simple deterministic PRNG for seeded benchmarking.
+ */
 export class SeededPRNG {
   private state: number;
 
@@ -96,6 +119,9 @@ export class SeededPRNG {
 }
 
 // 3. Generators
+/**
+ * Creates a deterministic GraphDelta.
+ */
 export function makeGraphDelta(seed: number, id: string, predicate: string): GraphDelta {
   return {
     id,
@@ -104,6 +130,9 @@ export function makeGraphDelta(seed: number, id: string, predicate: string): Gra
   };
 }
 
+/**
+ * Creates a deterministic HookDefinition.
+ */
 export function makeHookDefinition(seed: number, id: string, predicate: string): HookDefinition {
   return {
     id,
@@ -113,6 +142,9 @@ export function makeHookDefinition(seed: number, id: string, predicate: string):
   };
 }
 
+/**
+ * Generates an array of hooks and deltas with a specified match ratio.
+ */
 export function makeHookField(
   seed: number,
   hookCount: number,
@@ -152,6 +184,9 @@ export function makeHookField(
   return { hooks, deltas };
 }
 
+/**
+ * Helper to construct a BenchmarkCase config.
+ */
 export function makeBenchmarkCase(
   seed: number,
   registeredHooks: number,
@@ -165,6 +200,9 @@ export function makeBenchmarkCase(
 let cachedStressResults: HookBenchStressCase[] | null = null;
 
 // 4. Runners
+/**
+ * Executes a single HookBench case and tier.
+ */
 export function runHookBench(benchCase: HookBenchCase, tier: HookBenchTier): HookBenchResult {
   const { seed, registeredHooks, processedDeltas, matchRatio, evalOnly, forbiddenPredicates = [] } = benchCase;
   const { hooks, deltas } = makeHookField(seed, registeredHooks, processedDeltas, matchRatio, forbiddenPredicates);
@@ -313,6 +351,9 @@ export function runHookBench(benchCase: HookBenchCase, tier: HookBenchTier): Hoo
   };
 }
 
+/**
+ * Runs a standardized HookBench tier test.
+ */
 export function runHookTier(tier: HookBenchTier, customOptions?: Partial<HookBenchCase>): HookBenchResult {
   const seed = customOptions?.seed ?? 42;
   let registeredHooks = 10;
@@ -360,6 +401,9 @@ export function runHookTier(tier: HookBenchTier, customOptions?: Partial<HookBen
 }
 
 // 5. Stress Cases (80/20 Failure Taxonomy Implementation)
+/**
+ * Executes the stress and failure invariant suite.
+ */
 export function runStressCases(benchCase: HookBenchCase): HookBenchStressCase[] {
   const stressResults: HookBenchStressCase[] = [];
   const ctx = createDeterministicContext(benchCase.seed);
@@ -1086,6 +1130,9 @@ export function runStressCases(benchCase: HookBenchCase): HookBenchStressCase[] 
   return stressResults;
 }
 
+/**
+ * Writes the combined report to the persistence layer and docs directory.
+ */
 export function writeReport(results: HookBenchResult[], stressResults: HookBenchStressCase[]): HookBenchReporter {
   const deterministicResults = results.map(r => ({
     tier: r.tier,
@@ -1135,6 +1182,9 @@ export function writeReport(results: HookBenchResult[], stressResults: HookBench
   return reporter;
 }
 
+/**
+ * Orchestrates the full Gall Hookbench suite and returns the final reporter.
+ */
 export function runGallHookBench(customOptions?: Partial<HookBenchCase>): HookBenchReporter {
   const results: HookBenchResult[] = [];
   

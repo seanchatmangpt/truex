@@ -1,3 +1,11 @@
+/**
+ * @module skills/receipt/invariant
+ * @description
+ * Gall Classification: S0 Receipt Primitives
+ * Purpose: Validates cryptographic self-integrity of a receipt.
+ * Ensures hashes correctly map to payloads and recursively validates receipt chains.
+ */
+
 import { parseReceipt } from "../../packages/truex-core/src/runtime-law.js";
 import type { Receipt } from "../../packages/truex-core/src/runtime-law.js";
 import { hash } from "../hash/mutations.js";
@@ -6,6 +14,8 @@ import { verifySignature } from "./mutations.js";
 /**
  * Verifies the cryptographic self-integrity of a receipt by re-hashing its fields.
  * If a signature is present, it also verifies the ML-DSA signature.
+ * @param {Receipt} receipt - The receipt to verify.
+ * @returns {boolean} True if the receipt is valid, false otherwise.
  */
 export function verifyReceipt(receipt: Receipt): boolean {
   try {
@@ -38,6 +48,9 @@ export function verifyReceipt(receipt: Receipt): boolean {
 /**
  * Verifies that r2 is correctly chained to r1.
  * Performs a recursive verification check on both receipts first.
+ * @param {Receipt} r1 - The parent receipt.
+ * @param {Receipt} r2 - The child receipt.
+ * @returns {boolean} True if chained correctly, false otherwise.
  */
 export function verifyChain(r1: Receipt, r2: Receipt): boolean {
   try {

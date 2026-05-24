@@ -1,4 +1,10 @@
 /**
+ * @module memory
+ * @description Memory profiling and leak detection utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Estimates the memory usage of a JavaScript object in bytes.
  * This is a heuristic estimation and not exact.
  */
@@ -78,6 +84,9 @@ export class MemoryLeakDetector {
     });
   }
 
+  /**
+   * Tracks an object and associates it with a unique ID.
+   */
   track(obj: any, id: string): void {
     if (typeof obj !== 'object' || obj === null) {
       return;
@@ -86,6 +95,10 @@ export class MemoryLeakDetector {
     this.registry.register(obj, id);
   }
 
+  /**
+   * Checks the registry for potential leaks (objects still active).
+   * @returns An array of IDs of potentially leaked objects.
+   */
   checkLeaks(): string[] {
     const currentLeaks: string[] = [];
     for (const [id, ref] of this.activeObjects.entries()) {
@@ -105,6 +118,9 @@ export class MemoryLeakDetector {
 export class MemoryMonitor {
   private snapshots: { timestamp: number; memory: NodeJS.MemoryUsage }[] = [];
 
+  /**
+   * Takes a snapshot of current memory usage.
+   */
   snapshot(): void {
     this.snapshots.push({
       timestamp: Date.now(),
@@ -112,6 +128,9 @@ export class MemoryMonitor {
     });
   }
 
+  /**
+   * Generates a report of memory growth over time.
+   */
   getGrowthReport() {
     if (this.snapshots.length < 2) {
       return {
@@ -134,6 +153,9 @@ export class MemoryMonitor {
     };
   }
 
+  /**
+   * Resets the monitor state.
+   */
   reset(): void {
     this.snapshots = [];
   }

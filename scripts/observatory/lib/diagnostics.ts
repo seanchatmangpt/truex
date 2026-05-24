@@ -1,3 +1,10 @@
+/**
+ * @module diagnostics
+ * @description
+ * Gall Classification: Observatory Diagnostics
+ * Purpose: Generates a diagnostic report for the Truex architecture, validating system health, 
+ * Gall layer maturity, test coverage, and lean manufacturing waste metrics.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -153,6 +160,10 @@ function detectGallLayer(rootDir: string) {
   };
 }
 
+/**
+ * Emitter for generating system-wide diagnostics, identifying the system's compliance
+ * to expected Gall Layers and TPS principles (Jidoka/Muri).
+ */
 export class DiagnosticsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -249,7 +260,8 @@ export class DiagnosticsEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Instantiates the DiagnosticsEmitter and executes the diagnostic extraction process.
+ * @returns A promise resolving to the diagnostics object.
  */
 export async function generateDiagnostics() {
   const emitter = new DiagnosticsEmitter();

@@ -1,3 +1,8 @@
+/**
+ * @module consequence-actuator
+ * @description Evaluates system topologies, drift metrics, and rule conformance.
+ * Gall Classification: S2 (engine primitives).
+ */
 /* eslint-disable unicorn/no-null */
 import type { Receipt } from "../runtime-law.js";
 

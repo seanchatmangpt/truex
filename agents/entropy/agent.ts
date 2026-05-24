@@ -1,9 +1,28 @@
+/**
+ * @module EntropyAgent
+ * @description
+ * Gall Classification: Gall S-1 / S0 (Deterministic Admissible Entropy)
+ * Purpose: The Entropy Agent implements the TRUEX Entropy Law by providing
+ * deterministic variability (seeded randomness) for stress testing. It proves that
+ * the operational system survives lawful variability without divergence.
+ */
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { EntropyGenerator } from '../../src/lib/entropy.js';
 import { hash } from '../../packages/truex-core/src/index.js';
 
+/**
+ * Agent responsible for generating deterministic entropy for reliable test replay and benchmarks.
+ */
 export class EntropyAgent {
+  /**
+   * Generates a deterministic benchmark artifact based on a numerical seed.
+   *
+   * @param seed - The deterministic seed for the entropy generator.
+   * @param count - The number of members to generate, scaling other entities accordingly.
+   * @returns An object containing the benchmarking results, including metrics and delta data.
+   */
   generateBenchmark(seed: number, count: number = 10): any {
     console.log(`\n🎲 Entropy Agent manufacturing deterministic variability (seed: ${seed})...`);
     const generator = new EntropyGenerator(seed);

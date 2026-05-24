@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779598697000-xoyqmhn",
+  "spanId": "span-doctor",
+  "startTime": 1779598697000,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [],
+  "endTime": 1779598697002,
+  "durationMs": 2
+}

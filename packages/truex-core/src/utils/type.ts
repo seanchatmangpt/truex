@@ -1,4 +1,10 @@
 /**
+ * @module type
+ * @description Type checking and identification utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Checks if a value is a function.
  * 
  * @param val - The value to check.

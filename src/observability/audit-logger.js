@@ -1,4 +1,7 @@
 import { createContext } from '../context/context.js'
+import Database from 'better-sqlite3'
+import crypto from 'node:crypto'
+import fs from 'node:fs'
 
 /**
  * Observability and auditing system for Proxyable.
@@ -26,6 +29,13 @@ import { createContext } from '../context/context.js'
  * @param {boolean} [options.includeTimestamp=true] - Include ISO8601 timestamps
  * @param {boolean} [options.includeStackTrace=false] - Include stack traces
  * @param {Function} [options.filters] - Filter function: (operation) => boolean
+ * @param {number} [options.maxStoredTraces=100] - Hard budget on stored traces
+ * @param {string} [options.stackTraceBehavior='truncate'] - Behavior when trace limit exceeded: 'truncate' | 'redact' | 'hash'
+ * @param {number} [options.maxLogEntries=5000] - Maximum log entries kept in memory
+ * @param {string} [options.overflowBehavior='truncate'] - Overflow behavior: 'truncate' | 'refuse' | 'compress' | 'sqlite' | 'disk'
+ * @param {object} [options.sqliteDb=null] - SQLite Database instance for spillover
+ * @param {string} [options.sqlitePath=null] - SQLite Database file path for spillover
+ * @param {string} [options.diskPath=null] - Disk file path for spillover
  * @returns {object} Audit context with logging API
  */
 export function createAuditContext(target, options = {}) {
@@ -37,8 +47,19 @@ export function createAuditContext(target, options = {}) {
     format: options.format || 'json',
     output: options.output || console,
     includeTimestamp: options.includeTimestamp !== false,
-    includeStackTrace: options.includeStackTrace || false,
     filters: options.filters || (() => true),
+    
+    // Stack trace control options
+    includeStackTrace: options.includeStackTrace || (options.logLevel === 'debug') || false,
+    maxStoredTraces: options.maxStoredTraces !== undefined ? options.maxStoredTraces : 100,
+    stackTraceBehavior: options.stackTraceBehavior || 'truncate',
+    
+    // Bounded log options
+    maxLogEntries: options.maxLogEntries !== undefined ? options.maxLogEntries : 5000,
+    overflowBehavior: options.overflowBehavior || 'truncate',
+    sqliteDb: options.sqliteDb || null,
+    sqlitePath: options.sqlitePath || null,
+    diskPath: options.diskPath || null,
   }
 
   // Log levels with priority
@@ -52,6 +73,32 @@ export function createAuditContext(target, options = {}) {
   // Audit log storage
   const auditLog = []
   let logIndex = 0
+  let storedTraceCount = 0
+  let flushedCount = 0
+  let rollingHash = null
+  const compressedLogs = []
+
+  // Initialize SQLite db if needed
+  let dbInstance = config.sqliteDb
+  if (config.overflowBehavior === 'sqlite' && !dbInstance) {
+    const dbPath = config.sqlitePath || ':memory:'
+    dbInstance = new Database(dbPath)
+  }
+
+  if (dbInstance) {
+    dbInstance.exec(`
+      CREATE TABLE IF NOT EXISTS gall_audit_logs (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        log_index INTEGER,
+        timestamp TEXT,
+        trap TEXT,
+        property TEXT,
+        intent TEXT,
+        status TEXT,
+        data TEXT
+      );
+    `)
+  }
 
   // Internal state for the context
   const contextState = {
@@ -93,7 +140,25 @@ export function createAuditContext(target, options = {}) {
 
     // Add stack trace if requested
     if (config.includeStackTrace) {
-      entry.stackTrace = new Error().stack
+      const passesFilter = config.filters(entry)
+      const entryLevel = entry.error ? 'error' : (status === 'denied' ? 'warn' : 'info')
+      const passesLogLevel = LOG_LEVELS[entryLevel] >= LOG_LEVELS[config.logLevel]
+
+      if (passesFilter && passesLogLevel) {
+        if (storedTraceCount < config.maxStoredTraces) {
+          entry.stackTrace = new Error().stack
+          storedTraceCount++
+        } else {
+          if (config.stackTraceBehavior === 'redact') {
+            entry.stackTrace = '[REDACTED: limit reached]'
+          } else if (config.stackTraceBehavior === 'hash') {
+            const rawTrace = new Error().stack
+            const hashStr = crypto.createHash('sha256').update(rawTrace).digest('hex')
+            entry.stackTrace = `[HASH:${hashStr}]`
+          }
+          // For 'truncate', we simply do not assign entry.stackTrace
+        }
+      }
     }
 
     // Remove undefined fields for cleaner logs
@@ -140,6 +205,44 @@ export function createAuditContext(target, options = {}) {
     const entryLevel = entry.error ? 'error' : (entry.status === 'denied' ? 'warn' : 'info')
     if (LOG_LEVELS[entryLevel] < LOG_LEVELS[config.logLevel]) {
       return
+    }
+
+    // Check memory log bounds
+    if (auditLog.length >= config.maxLogEntries) {
+      if (config.overflowBehavior === 'refuse') {
+        flushedCount++
+        return
+      }
+
+      // Displace the oldest entry
+      const oldestEntry = auditLog.shift()
+      flushedCount++
+
+      if (config.overflowBehavior === 'sqlite') {
+        if (dbInstance) {
+          dbInstance.prepare(
+            'INSERT INTO gall_audit_logs (log_index, timestamp, trap, property, intent, status, data) VALUES (?, ?, ?, ?, ?, ?, ?)'
+          ).run(
+            oldestEntry.index,
+            oldestEntry.timestamp || null,
+            oldestEntry.trap || null,
+            oldestEntry.property ? String(oldestEntry.property) : null,
+            oldestEntry.intent || null,
+            oldestEntry.status || null,
+            JSON.stringify(oldestEntry)
+          )
+        }
+      } else if (config.overflowBehavior === 'disk') {
+        const path = config.diskPath || 'audit-overflow.log'
+        fs.appendFileSync(path, JSON.stringify(oldestEntry) + '\n', 'utf8')
+      } else if (config.overflowBehavior === 'compress') {
+        const hashStr = crypto.createHash('sha256').update(JSON.stringify(oldestEntry)).digest('hex')
+        rollingHash = crypto.createHash('sha256').update((rollingHash || '') + hashStr).digest('hex')
+        if (compressedLogs.length >= 1000) {
+          compressedLogs.shift()
+        }
+        compressedLogs.push({ index: oldestEntry.index, status: 'compressed', hash: hashStr })
+      }
     }
 
     // Store in audit log
@@ -191,6 +294,21 @@ export function createAuditContext(target, options = {}) {
   function clearLog() {
     auditLog.length = 0
     logIndex = 0
+    flushedCount = 0
+    storedTraceCount = 0
+    rollingHash = null
+    compressedLogs.length = 0
+    if (dbInstance) {
+      dbInstance.prepare('DELETE FROM gall_audit_logs').run()
+    }
+    const path = config.diskPath || 'audit-overflow.log'
+    if (config.overflowBehavior === 'disk' && fs.existsSync(path)) {
+      try {
+        fs.unlinkSync(path)
+      } catch (e) {
+        // ignore
+      }
+    }
   }
 
   /**
@@ -220,7 +338,7 @@ export function createAuditContext(target, options = {}) {
       return exportToCSV(auditLog)
     }
     case 'text': {
-      return auditLog.map((entry) => formatEntry(entry, 'text')).join('\n')
+      return auditLog.map((entry) => formatEntry(entry, 'text')).join('\\n')
     }
     default: {
       throw new Error(`Unsupported export format: ${format}`)
@@ -283,6 +401,25 @@ export function createAuditContext(target, options = {}) {
     tryUse: () => auditContext.tryUse(),
     set: (replace = false) => auditContext.set(contextState, replace),
     unset: () => auditContext.unset(),
+    getFlushedCount: () => flushedCount,
+    getRollingHash: () => rollingHash,
+    getCompressedLogs: () => [...compressedLogs],
+    getFlushedLogsSqlite: () => {
+      if (!dbInstance) return []
+      const rows = dbInstance.prepare('SELECT data FROM gall_audit_logs ORDER BY id ASC').all()
+      return rows.map(r => JSON.parse(r.data))
+    },
+    getFlushedLogsDisk: () => {
+      const path = config.diskPath || 'audit-overflow.log'
+      if (!fs.existsSync(path)) return []
+      const content = fs.readFileSync(path, 'utf8')
+      return content.trim().split('\n').filter(Boolean).map(line => JSON.parse(line))
+    },
+    close: () => {
+      if (dbInstance && config.sqlitePath) {
+        dbInstance.close()
+      }
+    },
     // Internal: expose for interceptors
     _logEntry: logEntry,
     _createAuditEntry: createAuditEntry,

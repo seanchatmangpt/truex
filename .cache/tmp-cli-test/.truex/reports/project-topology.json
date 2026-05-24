@@ -1,0 +1,22 @@
+{
+  "projectRoot": "/Users/sac/truex/.cache/tmp-cli-test",
+  "timestamp": "2026-05-24T07:44:12.412Z",
+  "inventory": {
+    "totalFiles": 6,
+    "source": [],
+    "test": [],
+    "docs": [],
+    "config": [
+      ".truex/mission/heartbeat.json",
+      ".truex/mission/start.json",
+      ".truex/project.json",
+      ".truex/receipts/receipt-init-1779608652248.json",
+      ".truex/reports/accounting.json",
+      ".truex/reports/execution-ledger.json"
+    ],
+    "scripts": [],
+    "package": [],
+    "orphans": []
+  },
+  "dependencies": []
+}

@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-05-24T07:46:17.758Z",
+  "circularInvariants": {
+    "rawLoopDurationMs": 0,
+    "customGuardDurationMs": 0,
+    "rawLoopMaxDepth": 1
+  },
+  "virtualComputations": [
+    {
+      "depth": 10,
+      "memoized": true,
+      "durationMs": 0,
+      "value": 20
+    },
+    {
+      "depth": 10,
+      "memoized": false,
+      "durationMs": 0,
+      "value": 20
+    },
+    {
+      "depth": 100,
+      "memoized": true,
+      "durationMs": 0,
+      "value": 110
+    },
+    {
+      "depth": 100,
+      "memoized": false,
+      "durationMs": 1,
+      "value": 110
+    },
+    {
+      "depth": 500,
+      "memoized": true,
+      "durationMs": 1,
+      "value": 510
+    },
+    {
+      "depth": 500,
+      "memoized": false,
+      "durationMs": 1,
+      "value": 510
+    },
+    {
+      "depth": 1000,
+      "memoized": true,
+      "durationMs": 1,
+      "value": 1010
+    },
+    {
+      "depth": 1000,
+      "memoized": false,
+      "durationMs": 1,
+      "value": 1010
+    }
+  ],
+  "contractIsolation": {
+    "transactionRollbackPassed": false,
+    "simulationAbortPassed": false,
+    "purityViolationPassed": false
+  }
+}

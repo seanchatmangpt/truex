@@ -1,14 +1,29 @@
+/**
+ * @module skills/receipt/proofs
+ * @description
+ * Gall Classification: Proof Layer (S0)
+ * Purpose: Proves cryptographic receipt invariants including ML-DSA-65 signature generation,
+ * signature verification, tamper resistance, and the lineage of chained receipts.
+ */
+
 import { generateKeyPair, signReceiptHash, verifySignature, createReceipt } from "./mutations.js";
 import { verifyReceipt, verifyChain } from "./invariant.js";
 import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
 import { hash } from "../hash/mutations.js";
 
+/**
+ * Report structure for Receipt proofs.
+ */
 export type ReceiptProofReport = {
   passed: boolean;
   failures: string[];
   invariants: string[];
 };
 
+/**
+ * Executes tests to prove cryptographic receipt invariants.
+ * @returns {ReceiptProofReport} The proof results.
+ */
 export function proveReceipt(): ReceiptProofReport {
   const failures: string[] = [];
   const invariants = [

@@ -1,6 +1,6 @@
 # 🔭 Truex Observatory Dashboard
 
-*Last Updated: 2026-05-24T03:30:01.595Z*
+*Last Updated: 2026-05-24T07:45:51.568Z*
 
 ## 🏥 System Health
 
@@ -11,8 +11,8 @@
 ## 🧩 Core Facts
 
 - [Core Primitives](./facts/core-primitives.json)
-  - Total Files: 60
-  - Total Symbols: 229
+  - Total Files: 63
+  - Total Symbols: 266
 
 ## 🏗️ Manufacturing & Integration
 
@@ -26,9 +26,14 @@
 ### 📊 Diagrams
 
 - [Benchmark flow](./diagrams/benchmark-flow.mmd)
+- [Mailbox pressure](./diagrams/mailbox-pressure.mmd)
 - [Membrane replay](./diagrams/membrane-replay.mmd)
 - [Operational topology](./diagrams/operational-topology.mmd)
 - [Persistence arch](./diagrams/persistence-arch.mmd)
+- [Persistent mailbox state machine](./diagrams/persistent-mailbox-state-machine.mmd)
+- [Queue isolation](./diagrams/queue-isolation.mmd)
+- [Rescue replay](./diagrams/rescue-replay.mmd)
+- [Restart storm](./diagrams/restart-storm.mmd)
 - [S8 trace](./diagrams/s8-trace.mmd)
 
 ## 📜 Receipts

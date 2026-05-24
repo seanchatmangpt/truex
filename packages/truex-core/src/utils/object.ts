@@ -1,4 +1,10 @@
 /**
+ * @module object
+ * @description Object manipulation and cloning utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Check if a value is a plain object.
  *
  * @param value - The value to check

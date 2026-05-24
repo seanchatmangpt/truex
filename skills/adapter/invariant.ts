@@ -1,5 +1,16 @@
+/**
+ * @module skills/adapter/invariant
+ * @description
+ * Gall Classification: S0 Receipt Primitives (Adapter Boundary)
+ * Purpose: Ensures the structural integrity of AgentProposals before they enter the runtime.
+ * Implements strict type validation of the agent identity, proposal identity, and the graph delta.
+ */
+
 import { parseGraphDelta } from "../../packages/truex-core/src/runtime-law.js";
 
+/**
+ * Represents a proposal submitted by an external agent.
+ */
 export type AgentProposal = {
   agentId: string;
   proposalId: string;
@@ -8,6 +19,8 @@ export type AgentProposal = {
 
 /**
  * Validates the structure and typing of an incoming AgentProposal.
+ * @param {unknown} input - The proposal input to validate.
+ * @returns {AgentProposal} The validated AgentProposal.
  */
 export function validateProposal(input: unknown): AgentProposal {
   if (!input || typeof input !== "object") {

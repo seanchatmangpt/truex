@@ -1,3 +1,11 @@
+/**
+ * @module skills/replay/proofs
+ * @description
+ * Gall Classification: Proof Layer (S1 Replay Primitives)
+ * Purpose: Proves replay convergence invariants, verifying that identical inputs and laws
+ * yield identical consequences, while mutated inputs or engine laws strictly diverge.
+ */
+
 import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -6,12 +14,19 @@ import { createDeterministicContext } from "../../packages/truex-core/src/contex
 import { verifyConvergence, MemoryReceiptStore, GallTruexPureEngine, GallTruexSqliteEngine } from "./mutations.js";
 import type { HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
 
+/**
+ * Report structure for Replay proofs.
+ */
 export type ReplayProofReport = {
   passed: boolean;
   failures: string[];
   invariants: string[];
 };
 
+/**
+ * Executes tests to prove replay convergence invariants.
+ * @returns {ReplayProofReport} The proof results.
+ */
 export function proveReplay(): ReplayProofReport {
   const failures: string[] = [];
   const invariants = [
@@ -46,6 +61,10 @@ export function proveReplay(): ReplayProofReport {
   };
 }
 
+/**
+ * Executes tests to prove engine evaluation and replay correctness.
+ * @returns {ReplayProofReport} The proof results.
+ */
 export function proveEngine(): ReplayProofReport {
   const failures: string[] = [];
   const invariants = [
@@ -118,6 +137,10 @@ export function proveEngine(): ReplayProofReport {
   };
 }
 
+/**
+ * Executes tests to prove SQLite persistence and replay integration.
+ * @returns {ReplayProofReport} The proof results.
+ */
 export function proveSqlite(): ReplayProofReport {
   const failures: string[] = [];
   const invariants = [

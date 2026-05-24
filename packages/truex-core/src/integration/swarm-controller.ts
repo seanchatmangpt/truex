@@ -1,3 +1,8 @@
+/**
+ * @module swarm-controller
+ * @description Manages active subagents, task rebalancing, and drift termination in a swarm topology.
+ * Gall Classification: S2 (engine primitives).
+ */
 import { hash } from "../hash.js";
 import type { TruexContext } from "../context.js";
 

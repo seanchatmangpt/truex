@@ -1,3 +1,9 @@
+/**
+ * @module visual
+ * @description Gall S₂: Engine primitives.
+ * Implements ManufacturingDashboard (Andon Board).
+ * Note: Visual metrics MUST NOT impact or rely on determinism.
+ */
 import type { Receipt } from "../runtime-law.js";
 
 /**

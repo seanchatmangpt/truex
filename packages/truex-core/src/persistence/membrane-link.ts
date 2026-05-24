@@ -1,3 +1,9 @@
+/**
+ * @module membrane-link
+ * @description Bridges the virtual proxy membrane with the SQLite persistence layer.
+ * Gall Classification: S3 (sqlite membrane primitives).
+ * Provides atomic transactions across memory and persistence.
+ */
 import type { Database } from 'better-sqlite3';
 import { createTransactionContext, registerTransactionInterceptors } from '../membrane.js';
 

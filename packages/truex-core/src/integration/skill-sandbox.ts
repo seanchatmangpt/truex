@@ -1,4 +1,10 @@
 /**
+ * @module skill-sandbox
+ * @description Skill Sandbox Validator. Audits skill descriptions to enforce repository laws.
+ * Gall Classification: S2 (engine primitives).
+ */
+
+/**
  * Skill Sandbox Validator
  * Audits skill markdown descriptions and embedded scripts to enforce repository laws.
  */

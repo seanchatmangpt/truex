@@ -1,14 +1,29 @@
+/**
+ * @module skills/repository-proof
+ * @description
+ * Gall Classification: Proof Layer (S-2 Utils / Environment)
+ * Purpose: Validates repository invariants: skill sandboxing limits (no unseeded entropy),
+ * task-to-GraphDelta compilation correctness, and ontology graph syncing.
+ */
+
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { validateSkillMarkdown } from "../packages/truex-core/src/integration/skill-sandbox.js";
 import { compileTaskToDelta } from "../packages/truex-core/src/integration/task-delta.js";
 
+/**
+ * Report structure for Repository proofs.
+ */
 export type RepositoryProofReport = {
   passed: boolean;
   failures: string[];
   invariants: string[];
 };
 
+/**
+ * Validates the repository's structural rules and compilation correctness.
+ * @returns {RepositoryProofReport} The outcome of the repository proofs.
+ */
 export function proveRepository(): RepositoryProofReport {
   const failures: string[] = [];
   const invariants = [
@@ -64,6 +79,10 @@ import { OntologyRegistry } from '../packages/truex-core/src/persistence/ontolog
 import { emitTopologyGraph } from '../scripts/observatory/lib/emit-topology-graph.js';
 import { initializeSchema } from '../packages/truex-core/src/index.js';
 
+/**
+ * Proves that the live ontology correctly syncs with the graph without orphans or unmapped files.
+ * @returns {OntologyProofReport} The result of the ontology proof checks.
+ */
 export function proveOntology() {
   const invariants: string[] = [];
   const failures: string[] = [];
@@ -126,6 +145,9 @@ export function proveOntology() {
   };
 }
 
+/**
+ * Report structure for Ontology proofs.
+ */
 export type OntologyProofReport = {
   passed: boolean;
   failures: string[];

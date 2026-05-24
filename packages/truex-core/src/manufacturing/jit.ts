@@ -1,3 +1,8 @@
+/**
+ * @module jit
+ * @description Gall S₂: Engine primitives.
+ * Implements KanbanSystem for Just-In-Time execution signaling.
+ */
 import type { GraphDelta, HookDefinition, HookCondition } from '../runtime-law.js';
 import { TruexHook } from '../hook.js';
 

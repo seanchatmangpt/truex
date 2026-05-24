@@ -1,3 +1,8 @@
+/**
+ * @module swarm-actuator
+ * @description Gall S₂: Engine primitives.
+ * Implements SwarmActuator for autonomous resolution of line abnormalities.
+ */
 import type { DashboardMetrics } from './visual.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';

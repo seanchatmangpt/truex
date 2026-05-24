@@ -1,4 +1,10 @@
 /**
+ * @module log-format
+ * @description Structured logging and formatting utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Log levels for filtering logs by severity.
  */
 export enum LogLevel {

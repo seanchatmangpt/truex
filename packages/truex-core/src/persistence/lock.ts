@@ -1,3 +1,9 @@
+/**
+ * @module lock
+ * @description Manages SQLite locks and retries to handle write contention.
+ * Gall Classification: S3 (sqlite membrane primitives).
+ * Prevents Mura (unevenness) through exponential backoff.
+ */
 import type Database from 'better-sqlite3';
 
 /**

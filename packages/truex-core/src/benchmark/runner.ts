@@ -1,3 +1,8 @@
+/**
+ * @module runner
+ * @description Orchestrates the execution of benchmark suites.
+ * Gall Classification: S-2 (benchmark primitives).
+ */
 import { runGallHookBench, type HookBenchReporter } from "./hookbench.gall.js";
 import * as fs from 'node:fs';
 import * as path from 'node:path';

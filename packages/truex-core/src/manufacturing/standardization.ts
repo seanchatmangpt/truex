@@ -1,3 +1,8 @@
+/**
+ * @module standardization
+ * @description Gall S₂: Engine primitives.
+ * Implements WorkStandards for Truex Manufacturing.
+ */
 import type { HookDefinition } from "../runtime-law.js";
 
 /**

@@ -1,3 +1,8 @@
+/**
+ * @module trajectory-replay
+ * @description Isolated context and utilities for trajectory replay execution.
+ * Gall Classification: S1 (replay primitives) / S2 (engine primitives).
+ */
 import { createContext } from 'unctx';
 
 /**

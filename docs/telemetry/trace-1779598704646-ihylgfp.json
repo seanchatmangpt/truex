@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779598704646-ihylgfp",
+  "spanId": "span-doctor",
+  "startTime": 1779598704646,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"hash\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779598704649,
+      "attributes": {
+        "primitive": "hash",
+        "status": "confirmed",
+        "executionTimeMs": 3,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779598704649,
+  "durationMs": 3
+}

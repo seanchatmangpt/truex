@@ -1,3 +1,7 @@
+/**
+ * @module index
+ * @description Core library exports aggregating Gall primitives across layers.
+ */
 export * from "./context.js";
 export * from "./hash.js";
 export * from "./signature.js";
@@ -52,6 +56,12 @@ export * from "./benchmark/runner.js";
 export * from "./benchmark/million-hook-church.js";
 export * from "./topology.gall.js";
 export * from "./membrane-replay.gall.js";
+export * from "./persistent-mailbox.gall.js";
+export * from "./project-wizard.gall.js";
+export * from "./ocel2-project-types.js";
+export * from "./ocel2-project-projection.gall.js";
+export * from "./ocpq-project-constraints.gall.js";
+export * from "./powl-project-workflow.gall.js";
 
 export { SQLiteReceiptStore } from "./persistence/receipt-store.js";
 export { isPlainObject } from "./utils/object.js";

@@ -1,3 +1,9 @@
+/**
+ * @module transactions
+ * @description Unified transaction management across memory and SQLite.
+ * Gall Classification: S3 (sqlite membrane primitives).
+ * Implements atomic execution and rollback for graph deltas.
+ */
 import Database from "better-sqlite3";
 import { 
   createProxy, 

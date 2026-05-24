@@ -1,6 +1,6 @@
 # Antigravity Artifact: Refinement Rules
 
-> **Generated:** 2026-05-24T03:30:01.493Z
+> **Generated:** 2026-05-24T07:45:51.495Z
 > **Version:** 1.0.0
 
 ## Refinement Strategy
@@ -14,6 +14,10 @@ These rules help the bridge auto-correct agent tool calls to use internal, deter
 | `bytesToHex` | `packages/truex-core/src/context.ts` | REPLACE_AMBIENT | Deterministic implementation found for bytesToHex. Prioritize internal path in packages/truex-core/src/context.ts. |
 | `setNestedProperty` | `packages/truex-core/src/integration/trajectory-replay.ts` | REPLACE_AMBIENT | Deterministic implementation found for setNestedProperty. Prioritize internal path in packages/truex-core/src/integration/trajectory-replay.ts. |
 | `deleteNestedProperty` | `packages/truex-core/src/integration/trajectory-replay.ts` | REPLACE_AMBIENT | Deterministic implementation found for deleteNestedProperty. Prioritize internal path in packages/truex-core/src/integration/trajectory-replay.ts. |
+| `mapDbRowToReceipt` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for mapDbRowToReceipt. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
+| `recordTransition` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for recordTransition. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
+| `saveReceipt` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for saveReceipt. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
+| `checkGracePeriod` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for checkGracePeriod. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
 | `matchesCondition` | `packages/truex-core/src/topology.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for matchesCondition. Prioritize internal path in packages/truex-core/src/topology.gall.ts. |
 
 ### Bridge Heuristics
@@ -26,8 +30,8 @@ These rules help the bridge auto-correct agent tool calls to use internal, deter
 
 ### Stats
 
-- **Internal Symbols:** 4
-- **Generated Rules:** 4
+- **Internal Symbols:** 8
+- **Generated Rules:** 8
 - **Heuristics:** 3
 
 ---

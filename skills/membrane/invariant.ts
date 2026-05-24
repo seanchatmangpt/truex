@@ -1,3 +1,11 @@
+/**
+ * @module skills/membrane/invariant
+ * @description
+ * Gall Classification: S3 Membrane Primitives
+ * Purpose: Defines membrane invariants and access control policies (Capability, Sandbox, Invariant, Contract).
+ * Uses proxies to enforce synchronous boundaries over state access.
+ */
+
 import { createContext } from "./mutations.js";
 
 // Initialize Jidoka global trigger if not already defined

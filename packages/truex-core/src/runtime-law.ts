@@ -1,3 +1,8 @@
+/**
+ * @module runtime-law
+ * @description Gall S₀/S₂: Core ontology and law definitions.
+ * Defines the immutable structures for graphs, hooks, and receipts.
+ */
 /* eslint-disable unicorn/no-null, unicorn/no-array-callback-reference */
 export type Quad = {
   subject: string;

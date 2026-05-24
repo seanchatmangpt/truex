@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779598624742-3ep6ten",
+  "spanId": "span-doctor",
+  "startTime": 1779598624742,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"hash\"]}"
+  },
+  "events": [],
+  "endTime": 1779598624744,
+  "durationMs": 2
+}

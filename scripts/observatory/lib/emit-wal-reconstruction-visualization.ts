@@ -1,8 +1,18 @@
+/**
+ * @module emit-wal-reconstruction-visualization
+ * @description
+ * Gall Classification: S7 WAL Visualization Emitter
+ * Purpose: Generates a text/markdown visualization of the WAL reconstruction and verification chain.
+ */
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const VISUALIZATION_PATH = 'docs/v1/latest/diagrams/wal-reconstruction-visualization.md';
 
+/**
+ * Emitter for outputting a conceptual ASCII and flowchart representation of 
+ * how the Truex Membrane loads, reorders, validates, and projects states from the SQLite WAL.
+ */
 export class WalReconstructionVisualizationEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -98,6 +108,10 @@ Even if independent branches write in a different order (e.g. B then A), sorting
   }
 }
 
+/**
+ * Instantiates the WalReconstructionVisualizationEmitter and executes the visualization extraction.
+ * @returns A promise resolving to the visualization document content.
+ */
 export async function emitWalReconstructionVisualization() {
   const emitter = new WalReconstructionVisualizationEmitter();
   return emitter.emit();

@@ -1,3 +1,9 @@
+/**
+ * @module contract-context
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
 
 /**
@@ -474,12 +480,15 @@ export function createContractApplyInterceptor(contractCtx) {
     let executionError
 
     // Execute the function
-    // Note: Timeout enforcement is a placeholder for future async support
-    // For sync functions, timeout cannot be enforced without blocking
+        const start = Date.now();
     try {
       returnValue = Reflect.apply(target, thisArg, argsList)
     } catch (error) {
       executionError = error
+    }
+    const elapsed = Date.now() - start;
+    if (contract.timeout !== undefined && elapsed > contract.timeout) {
+      executionError = new Error(`Contract violation: ${methodName} execution exceeded timeout of ${contract.timeout}ms (took ${elapsed}ms)`);
     }
 
     // Check purity

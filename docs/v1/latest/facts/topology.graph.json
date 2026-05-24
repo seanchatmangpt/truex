@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "graphHash": "1fd4b82ee169d2f176c2c3bae6b081c88b66e0cae47e96170e4c792925a582ee",
+  "graphHash": "de0136ca312b10286759a186eec87c205d9d6278815071b803c4f8debe924533",
   "nodes": [
     {
       "id": "agents/swarm-auditor.ts",
@@ -47,6 +47,16 @@
       ]
     },
     {
+      "id": "scripts/fix-imports.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "scripts/receipted-audit.ts",
       "type": "CLI",
       "layer": "Governance",
@@ -89,16 +99,27 @@
       "type": "CLI",
       "layer": "Governance",
       "dependencies": [
-        "agents/doctor/agent.ts",
-        "agents/telco/agent.ts",
-        "agents/wizard/agent.ts",
-        "skills/membrane/mutations.ts"
+        "packages/truex-core/src/project-wizard.gall.ts",
+        "skills/membrane/mutations.ts",
+        "packages/truex-core/src/plugins/otel-weaver.ts"
       ],
       "provedBy": [
         "scripts/truex.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "skills/architecture-proof.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [],
+      "provedBy": [
+        "skills/architecture-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
       ]
     },
     {
@@ -194,8 +215,9 @@
         "skills/adapter/proofs.ts",
         "skills/hook/proofs.ts",
         "skills/repository-proof.ts",
+        "skills/architecture-proof.ts",
         "packages/truex-core/src/benchmark/runner.ts",
-        "packages/truex-core/src/benchmark/runner.ts",
+        "packages/truex-core/src/benchmark/hookbench.gall.ts",
         "packages/truex-core/src/benchmark/stress-tests.ts",
         "packages/truex-core/src/hook-otp.gall.ts",
         "packages/truex-core/src/runtime-law.ts",
@@ -205,7 +227,9 @@
         "agents/wizard/agent.ts",
         "skills/membrane/mutations.ts",
         "skills/telco/telco-proof.ts",
-        "skills/wizard/wizard-proof.ts"
+        "skills/wizard/wizard-proof.ts",
+        "skills/mailbox/proofs.ts",
+        "skills/finalization/proofs.ts"
       ],
       "provedBy": [
         "agents/doctor/agent.ts"
@@ -261,6 +285,28 @@
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-s8-facts.ts"
+      ]
+    },
+    {
+      "id": "scripts/docs/verify-doctests.ts",
+      "type": "CLI",
+      "layer": "Governance",
+      "dependencies": [],
+      "provedBy": [
+        "scripts/docs/verify-doctests.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/mission/project-12h-finalization.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
       ]
     },
     {
@@ -333,6 +379,18 @@
       ]
     },
     {
+      "id": "skills/finalization/proofs.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [],
+      "provedBy": [
+        "skills/finalization/proofs.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
       "id": "skills/hash/invariant.ts",
       "type": "Primitive",
       "layer": "S0-S1",
@@ -387,6 +445,24 @@
       ],
       "provedBy": [
         "skills/hook/proofs.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "skills/mailbox/proofs.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/persistence/schema.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hash.ts"
+      ],
+      "provedBy": [
+        "skills/mailbox/proofs.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-core-facts.ts"
@@ -612,7 +688,8 @@
       "type": "Test",
       "layer": "Verification",
       "dependencies": [
-        "agents/wizard/agent.ts"
+        "agents/wizard/agent.ts",
+        "packages/truex-core/src/project-wizard.gall.ts"
       ],
       "provedBy": [
         "skills/wizard/proofs.ts"
@@ -626,13 +703,131 @@
       "type": "Test",
       "layer": "Verification",
       "dependencies": [
-        "agents/wizard/agent.ts"
+        "agents/wizard/agent.ts",
+        "packages/truex-core/src/project-wizard.gall.ts"
       ],
       "provedBy": [
         "skills/wizard/wizard-proof.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "test/invariants/cap-inv-contract-virtual-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/proxy/create-proxy/index.ts",
+        "src/invariants/invariant-context/index.ts",
+        "src/virtualization/virtual-context/index.ts",
+        "src/contracts/contract-context/index.ts",
+        "src/transactions/transaction-context/index.ts",
+        "src/simulation/simulation-context/index.ts"
+      ],
+      "provedBy": [
+        "test/invariants/cap-inv-contract-virtual-breakpoint.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "test/invariants/runaway-recursion.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/proxy/create-proxy/index.ts",
+        "src/invariants/invariant-context/index.ts",
+        "src/virtualization/virtual-context/index.ts",
+        "src/transactions/transaction-context/index.ts",
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/context.ts"
+      ],
+      "provedBy": [
+        "test/invariants/runaway-recursion.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "test/multitenancy/cap-tenant-audit-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/multitenancy/tenant-context/index.ts",
+        "src/proxy/create-proxy/index.ts",
+        "src/observability/audit-logger/index.ts"
+      ],
+      "provedBy": [
+        "test/multitenancy/cap-tenant-audit-breakpoint.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "test/multitenancy/tenant-lifecycle.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/multitenancy/tenant-context/index.ts"
+      ],
+      "provedBy": [
+        "test/multitenancy/tenant-lifecycle.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "test/observability/audit-bounds.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/proxy/create-proxy/index.ts",
+        "src/observability/audit-logger/index.ts"
+      ],
+      "provedBy": [
+        "test/observability/audit-bounds.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "test/sandbox/cap-sandbox-acl-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/proxy/create-proxy/index.ts",
+        "src/sandbox/sandbox-context/index.ts",
+        "src/security/capability-acl/index.ts"
+      ],
+      "provedBy": [
+        "test/sandbox/cap-sandbox-acl-breakpoint.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/membrane.ts",
+        "packages/truex-core/src/membrane-replay.gall.ts",
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/context.ts"
+      ],
+      "provedBy": [
+        "test/transactions/cap-tx-replay-sim-breakpoint.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
       ]
     },
     {
@@ -710,10 +905,13 @@
       "provedBy": [
         "skills/adapter/proofs.ts",
         "skills/hook/proofs.ts",
+        "skills/mailbox/proofs.ts",
         "skills/membrane/membrane-replay-proof.ts",
         "skills/receipt/proofs.ts",
         "skills/replay/proofs.ts",
         "skills/topology/proofs.ts",
+        "test/invariants/runaway-recursion.test.ts",
+        "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/adapter.test.ts",
         "packages/truex-core/test/cascading-rollback.test.ts",
         "packages/truex-core/test/doctor-diagnostics.test.ts",
@@ -723,12 +921,23 @@
         "packages/truex-core/test/receipt.property.test.ts",
         "packages/truex-core/test/report-receipt.test.ts",
         "packages/truex-core/test/s3-integration.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
         "packages/truex-core/test/integration/closed-loop-convergence.test.ts",
         "packages/truex-core/test/integration/swarm-controller.test.ts",
         "packages/truex-core/test/manufacturing/line.test.ts",
         "packages/truex-core/test/manufacturing/swarm-actuator.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts",
         "packages/truex-core/test/topology/topology-rollback-storm.test.ts",
@@ -744,7 +953,9 @@
       "layer": "S0-S1",
       "dependencies": [],
       "provedBy": [
+        "skills/mailbox/proofs.ts",
         "skills/membrane/membrane-replay-proof.ts",
+        "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/adapter.test.ts",
         "packages/truex-core/test/benchmark-entropy.test.ts",
         "packages/truex-core/test/doctor-diagnostics.test.ts",
@@ -754,6 +965,9 @@
         "packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts"
       ],
@@ -772,10 +986,13 @@
         "packages/truex-core/src/index.ts"
       ],
       "provedBy": [
+        "packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-mailbox.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-receipt-replay.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-runtime.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-supervisor-breakpoint.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-supervisor.test.ts"
       ],
       "documentedBy": [
@@ -797,6 +1014,7 @@
         "packages/truex-core/test/cascading-rollback.test.ts",
         "packages/truex-core/test/benchmark/generator.test.ts",
         "packages/truex-core/test/benchmark/million-hook-church.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
         "packages/truex-core/test/integration/closed-loop-convergence.test.ts",
         "packages/truex-core/test/manufacturing/lean.test.ts",
         "packages/truex-core/test/manufacturing/line.test.ts",
@@ -822,10 +1040,14 @@
         "test/tps.property.test.ts",
         "skills/hook/proofs.ts",
         "skills/topology/proofs.ts",
+        "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/s3-integration.test.ts",
         "packages/truex-core/test/benchmark/million-hook-church.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
         "packages/truex-core/test/hook-otp/hook-otp-receipt-replay.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-supervisor-breakpoint.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts"
       ],
       "documentedBy": [
@@ -843,6 +1065,7 @@
       ],
       "provedBy": [
         "skills/membrane/membrane-replay-proof.ts",
+        "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts"
@@ -857,8 +1080,56 @@
       "layer": "S2",
       "dependencies": [],
       "provedBy": [
+        "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/membrane.test.ts",
         "packages/truex-core/test/persistence/membrane-link.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistent-mailbox.gall.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts"
+      ],
+      "provedBy": [
+        "skills/mailbox/proofs.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/project-wizard.gall.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/proofs.ts",
+        "skills/wizard/wizard-proof.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-execution.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-plan.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -871,12 +1142,15 @@
       "dependencies": [],
       "provedBy": [
         "skills/membrane/membrane-replay-proof.ts",
+        "test/invariants/runaway-recursion.test.ts",
         "packages/truex-core/test/doctor-diagnostics.test.ts",
         "packages/truex-core/test/receipt.property.test.ts",
         "packages/truex-core/test/report-receipt.test.ts",
         "packages/truex-core/test/integration/autonomic-loop.test.ts",
         "packages/truex-core/test/integration/closed-loop-convergence.test.ts",
         "packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts"
       ],
       "documentedBy": [
@@ -907,6 +1181,7 @@
         "test/tps.property.test.ts",
         "skills/adapter/proofs.ts",
         "skills/hook/proofs.ts",
+        "skills/mailbox/proofs.ts",
         "skills/replay/proofs.ts",
         "skills/topology/proofs.ts",
         "packages/truex-core/test/adapter.test.ts",
@@ -916,6 +1191,7 @@
         "packages/truex-core/test/kaizen.test.ts",
         "packages/truex-core/test/primitives.test.ts",
         "packages/truex-core/test/s3-integration.test.ts",
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
         "packages/truex-core/test/integration/autonomic-loop.test.ts",
         "packages/truex-core/test/integration/closed-loop-convergence.test.ts",
         "packages/truex-core/test/integration/consequence-actuator.test.ts",
@@ -1369,6 +1645,18 @@
       ]
     },
     {
+      "id": "scripts/observatory/lib/emit-c4-diagrams.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [],
+      "provedBy": [
+        "scripts/observatory/lib/emit-c4-diagrams.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "scripts/observatory/lib/emit-core-facts.ts",
       "type": "Governance",
       "layer": "S4",
@@ -1435,6 +1723,20 @@
       ],
       "provedBy": [
         "scripts/observatory/lib/emit-membrane-replay-facts.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-otp-breakpoints.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ],
+      "provedBy": [
+        "scripts/observatory/lib/emit-otp-breakpoints.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -1612,6 +1914,7 @@
       "type": "Governance",
       "layer": "S4",
       "dependencies": [
+        "scripts/observatory/lib/emit-c4-diagrams.ts",
         "scripts/observatory/lib/emit-topology-graph.ts",
         "scripts/observatory/lib/emit-core-facts.ts",
         "scripts/observatory/lib/emit-agy-facts.ts",
@@ -1633,7 +1936,8 @@
         "scripts/observatory/lib/emit-membrane-replay-diagram.ts",
         "scripts/observatory/lib/emit-wal-reconstruction-visualization.ts",
         "scripts/observatory/lib/emit-s8-facts.ts",
-        "scripts/observatory/lib/emit-s8-diagram.ts"
+        "scripts/observatory/lib/emit-s8-diagram.ts",
+        "scripts/observatory/lib/emit-otp-breakpoints.ts"
       ],
       "provedBy": [
         "scripts/observatory/lib/registry.ts"
@@ -2044,6 +2348,7 @@
         "packages/truex-core/src/hash.ts"
       ],
       "provedBy": [
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-rollback-storm.test.ts",
         "packages/truex-core/test/topology/topology.test.ts"
@@ -2193,9 +2498,13 @@
       "layer": "S3",
       "dependencies": [],
       "provedBy": [
+        "skills/mailbox/proofs.ts",
         "packages/truex-core/test/cascading-rollback.test.ts",
         "packages/truex-core/test/persistence.test.ts",
         "packages/truex-core/test/persistence/journal.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts",
         "packages/truex-core/test/topology/topology-rollback-storm.test.ts"
       ],
       "documentedBy": [
@@ -2234,6 +2543,18 @@
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-persistence-facts.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/plugins/otel-weaver.ts",
+      "type": "CLI",
+      "layer": "Governance",
+      "dependencies": [],
+      "provedBy": [
+        "packages/truex-core/src/plugins/otel-weaver.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
       ]
     },
     {
@@ -2408,6 +2729,22 @@
       ]
     },
     {
+      "id": "packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/hook-otp.gall.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/context.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/test/hook-otp/hook-otp-mailbox.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -2452,6 +2789,26 @@
       ]
     },
     {
+      "id": "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/hook-otp.gall.ts",
+        "packages/truex-core/src/manufacturing/topology.ts",
+        "packages/truex-core/src/manufacturing/topology.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/test/hook-otp/hook-otp-runtime.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -2460,6 +2817,21 @@
       ],
       "provedBy": [
         "packages/truex-core/test/hook-otp/hook-otp-runtime.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/hook-otp/hook-otp-supervisor-breakpoint.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/hook-otp.gall.ts",
+        "packages/truex-core/src/index.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/hook-otp/hook-otp-supervisor-breakpoint.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -2774,6 +3146,224 @@
       ]
     },
     {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/hash.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistence/schema.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/receipt.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistence/schema.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistence/schema.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-execution.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-execution.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-plan.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-plan.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/test/topology/topology-chain-replay.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -2881,6 +3471,6 @@
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-24T03:30:29.771Z"
+    "timestamp": "2026-05-24T07:45:51.477Z"
   }
 }

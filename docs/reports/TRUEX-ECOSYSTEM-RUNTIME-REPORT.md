@@ -1,6 +1,6 @@
 # TRUEX ECOSYSTEM RUNTIME REPORT
 
-**Timestamp:** 2026-05-24T07:40:32.467Z
+**Timestamp:** 2026-05-24T07:48:12.198Z
 **Report Hash:** ed6857b6eb89386851a91d132a37f5965f67c679080a037389441a20c08f7024
 
 ## 1. Core Primitives Status
@@ -46,10 +46,10 @@
 
 | Benchmark | Mode | Hooks | Deltas | Hook-Delta Evaluations | Matches | Receipts | Refusals | Duration ms | Eval/sec | Delta/sec | Memory Δ MB | Stable Hash |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| HookBench T3 | eval-only | 1000 | 1000 | 1000000 | 495 | 0 | 0 | 19.098 | 52362076.850 | 52362.077 | 2.418 | ce02dfe54c107651f2e0955a0b198b6d905d71086edd06d03978f66f0a8aaab2 |
-| HookBench receipt-backed | receipt-backed | 1000 | 1000 | 1000000 | 495 | 495 | 0 | 55.967 | 17867778.333 | 17867.778 | 27.908 | d0edd2a470dd11f5ec63d6e4e081091ea55b39ab33bf688b34d8b316b9ba02ff |
-| Hook OTP mailbox | eval-only | 1 | 500 | 500 | 500 | 0 | 0 | 0.071 | 7092198.581 | 7092198.581 | 0.000 | c7031e5ce3d24089024944638dfafccb916f72027a0ab551d658062ae894fd74 |
-| Hook OTP full loop | receipt-backed | 1 | 500 | 500 | 500 | 500 | 0 | 17.268 | 28955.293 | 28955.293 | 0.000 | c7031e5ce3d24089024944638dfafccb916f72027a0ab551d658062ae894fd74 |
+| HookBench T3 | eval-only | 1000 | 1000 | 1000000 | 495 | 0 | 0 | 19.397 | 51554475.707 | 51554.476 | 2.457 | ce02dfe54c107651f2e0955a0b198b6d905d71086edd06d03978f66f0a8aaab2 |
+| HookBench receipt-backed | receipt-backed | 1000 | 1000 | 1000000 | 495 | 495 | 0 | 58.811 | 17003742.048 | 17003.742 | 27.926 | d0edd2a470dd11f5ec63d6e4e081091ea55b39ab33bf688b34d8b316b9ba02ff |
+| Hook OTP mailbox | eval-only | 1 | 500 | 500 | 500 | 0 | 0 | 0.072 | 6984898.649 | 6984898.649 | 0.000 | c7031e5ce3d24089024944638dfafccb916f72027a0ab551d658062ae894fd74 |
+| Hook OTP full loop | receipt-backed | 1 | 500 | 500 | 500 | 500 | 0 | 19.314 | 25888.013 | 25888.013 | 0.000 | c7031e5ce3d24089024944638dfafccb916f72027a0ab551d658062ae894fd74 |
 
 ## 5. Stress Detail Table
 
@@ -57,26 +57,26 @@
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | FIFO Causal Chain | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 73.000 |
 | Sibling Crash Containment | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1.000 |
-| Restart Budget Exhaustion | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 0.000 |
-| Poison Message Quarantine | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1.000 |
+| Restart Budget Exhaustion | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1.000 |
+| Poison Message Quarantine | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 0.000 |
 | Capacity Backpressure | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1.000 |
-| Replay Under Schedule Noise | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 0.000 |
-| Tamper After Process | 1 | 1 | 0 | 0 | 0 | ❌ No | ❌ No | ✅ Yes | 1.000 |
-| Deterministic Lifecycle Hash | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 57.000 |
+| Replay Under Schedule Noise | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1.000 |
+| Tamper After Process | 1 | 1 | 0 | 0 | 0 | ❌ No | ❌ No | ✅ Yes | 0.000 |
+| Deterministic Lifecycle Hash | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 59.000 |
 | Observable Artifact Integrity | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 19.000 |
-| AGY Bridge Visibility | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1249.000 |
+| AGY Bridge Visibility | 1 | 1 | 0 | 0 | 0 | ✅ Yes | ✅ Yes | ✅ Yes | 1266.000 |
 
 ## 6. Command Evidence Table
 
 | Command | Exit Code | Duration ms | Passed | Failed | Notes |
 |---|---:|---:|---:|---:|---|
-| `npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts` | 0 | 2163.000 | ✅ Yes | ✅ No | OTP non-mockable stress vitest run complete |
-| `npx vitest run packages/truex-core/test/hook-otp` | 0 | 24408.000 | ✅ Yes | ✅ No | OTP standard unit test run complete |
-| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove hook-otp` | 0 | 1122.000 | ✅ Yes | ✅ No | Doctor prove hook-otp validation complete |
-| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove benchmark` | 0 | 30746.000 | ✅ Yes | ✅ No | Doctor prove benchmark validation complete |
-| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove ecosystem` | 0 | 173478.000 | ✅ Yes | ✅ No | Self-invocation doctor ecosystem proof wrapper |
-| `TSX_DISABLE_CACHE=1 npx tsx scripts/observatory/index.ts` | 0 | 1893.000 | ✅ Yes | ✅ No | Observatory emitters fact generation complete |
-| `npx vitest run` | 1 | 83632.000 | ❌ No | ❌ Yes | Repository test suite validation complete |
+| `npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts` | 0 | 2340.000 | ✅ Yes | ✅ No | OTP non-mockable stress vitest run complete |
+| `npx vitest run packages/truex-core/test/hook-otp` | 0 | 24362.000 | ✅ Yes | ✅ No | OTP standard unit test run complete |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove hook-otp` | 0 | 1060.000 | ✅ Yes | ✅ No | Doctor prove hook-otp validation complete |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove benchmark` | 0 | 29956.000 | ✅ Yes | ✅ No | Doctor prove benchmark validation complete |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove ecosystem` | 0 | 175034.000 | ✅ Yes | ✅ No | Self-invocation doctor ecosystem proof wrapper |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/observatory/index.ts` | 0 | 2098.000 | ✅ Yes | ✅ No | Observatory emitters fact generation complete |
+| `npx vitest run` | 1 | 85214.000 | ❌ No | ❌ Yes | Repository test suite validation complete |
 
 ---
 *Report generated automatically by Truex Doctor.*

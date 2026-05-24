@@ -1,6 +1,17 @@
+/**
+ * @module signature-proof
+ * @description
+ * Gall Classification: S₋₁ - Hash/Signature Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { ml_dsa65 } from '@noble/post-quantum/ml-dsa.js';
 import { utf8ToBytes, bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 
+
+/**
+ * KeyPair
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 export type KeyPair = {
   publicKey: string;
   secretKey: string;

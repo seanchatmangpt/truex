@@ -1,3 +1,11 @@
+/**
+ * @module registry
+ * @description
+ * Gall Classification: Observatory Registry
+ * Purpose: Centralized index of all fact and diagram emitters. Determines 
+ * execution order and priorities for the Truex Observatory dashboard generation.
+ */
+import { emitC4Diagrams } from './emit-c4-diagrams.js';
 import { emitTopologyGraph } from './emit-topology-graph.js';
 import { CoreFactsEmitter } from './emit-core-facts.js';
 import { AgyFactsEmitter } from './emit-agy-facts.js';
@@ -20,18 +28,36 @@ import { MembraneReplayDiagramEmitter } from './emit-membrane-replay-diagram.js'
 import { WalReconstructionVisualizationEmitter } from './emit-wal-reconstruction-visualization.js';
 import { S8FactsEmitter } from './emit-s8-facts.js';
 import { S8DiagramEmitter } from './emit-s8-diagram.js';
+import {
+  OtpPressureFactsEmitter,
+  MailboxPressureDiagramEmitter,
+  RestartStormDiagramEmitter,
+  QuarantineGrowthFactsEmitter,
+  ReplayTopologyPressureFactsEmitter
+} from './emit-otp-breakpoints.js';
 
+/**
+ * Definition of a registered emitter configuration.
+ */
 export interface RegisteredEmitter {
   name: string;
   run: () => Promise<any>;
   priority: number;
 }
 
+/**
+ * Global registry mapping all active observatory emitters to their execution logic and priority.
+ */
 export const Registry: RegisteredEmitter[] = [
   {
     name: 'Topology Graph',
     run: async () => emitTopologyGraph(),
     priority: 5
+  },
+  {
+    name: 'C4 Architecture Diagrams',
+    run: async () => emitC4Diagrams(),
+    priority: 6 // Must run after Topology Graph
   },
   {
     name: 'Core Facts',
@@ -119,6 +145,31 @@ export const Registry: RegisteredEmitter[] = [
     priority: 88
   },
   {
+    name: 'OTP Pressure Facts',
+    run: () => new OtpPressureFactsEmitter().emit(),
+    priority: 79
+  },
+  {
+    name: 'Quarantine Growth Facts',
+    run: () => new QuarantineGrowthFactsEmitter().emit(),
+    priority: 81
+  },
+  {
+    name: 'Replay/Topology Pressure Facts',
+    run: () => new ReplayTopologyPressureFactsEmitter().emit(),
+    priority: 84
+  },
+  {
+    name: 'Mailbox Pressure Diagram',
+    run: () => new MailboxPressureDiagramEmitter().emit(),
+    priority: 86
+  },
+  {
+    name: 'Restart Storm Diagram',
+    run: () => new RestartStormDiagramEmitter().emit(),
+    priority: 87
+  },
+  {
     name: 'Receipt Emitter',
     run: () => new ReceiptEmitter().emit(),
     priority: 100
@@ -140,6 +191,10 @@ export const Registry: RegisteredEmitter[] = [
   }
 ];
 
+/**
+ * Retrieves the list of all registered emitters, sorted ascending by their priority.
+ * @returns Array of sorted emitters.
+ */
 export function getSortedEmitters(): RegisteredEmitter[] {
   return [...Registry].sort((a, b) => a.priority - b.priority);
 }

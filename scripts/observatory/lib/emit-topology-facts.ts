@@ -1,3 +1,9 @@
+/**
+ * @module emit-topology-facts
+ * @description
+ * Gall Classification: S5 Topology Mapping
+ * Purpose: Extracts topology facts, chain/rollback/storm accounting, and VKG projection facts.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,6 +13,10 @@ import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 const DB_PATH = path.resolve(process.cwd(), 'gall_truex.db');
 const OUTPUT_FILE = 'docs/v1/latest/facts/topology.json';
 
+/**
+ * Emitter for gathering facts regarding system topology, chain interactions,
+ * rollback metrics, and VKG quad projections from the SQLite database.
+ */
 export class TopologyFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -90,6 +100,10 @@ export class TopologyFactsEmitter extends FactEmitter {
   }
 }
 
+/**
+ * Instantiates the TopologyFactsEmitter and executes the fact extraction process.
+ * @returns A promise resolving to the emitted facts object.
+ */
 export async function emitTopologyFacts() {
   const emitter = new TopologyFactsEmitter();
   return emitter.emit();

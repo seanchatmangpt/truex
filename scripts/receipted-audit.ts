@@ -1,3 +1,12 @@
+/**
+ * @module ReceiptedAudit
+ * @description
+ * Gall Classification: Gall S5 (Swarm Audit Lifecycle)
+ * Purpose: Orchestrates the 5 Swarm Audit Agents within a Receipted Operational Calculus Lifecycle.
+ * Generates GraphDeltas and verified receipts for every agent's audit, chaining them 
+ * cryptographically and proving replay convergence.
+ */
+
 import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -13,6 +22,11 @@ import {
 } from "../agents/swarm-auditor.js";
 import type { HookDefinition, Receipt } from "../packages/truex-core/src/runtime-law.js";
 
+/**
+ * Main entrypoint for the receipted swarm audit.
+ * Instantiates the swarm, executes audits, creates deterministic receipts,
+ * verifies cryptographic chains, and asserts replay convergence.
+ */
 async function main() {
   console.log("=== Launching the 5 Swarm Audit Agents (Receipted Operational Calculus Lifecycle) ===\n");
 

@@ -4,10 +4,11 @@ import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 /**
- * Fact Emitter: AGY Integration
- * 
- * Extracts facts about the Antigravity bridge and configured hooks.
- * Updated to use the new abstract architecture.
+ * @module emit-agy-facts
+ * @description
+ * Gall Classification: Observatory Interceptor Analysis
+ * Purpose: Extracts facts about the Antigravity bridge and configured hooks.
+ * Validates integration paths and ensures Hook interception logic is documented.
  */
 export class AgyFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
@@ -105,6 +106,10 @@ export class AgyFactsEmitter extends FactEmitter {
   }
 }
 
+/**
+ * Instantiates the AgyFactsEmitter and executes the fact extraction process.
+ * @returns A promise that resolves to the emitted facts object representing AGY integration.
+ */
 export async function emitAgyFacts() {
   const emitter = new AgyFactsEmitter();
   return emitter.emit();

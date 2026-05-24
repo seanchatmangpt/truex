@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "layer": "Persistent Mailbox (S10)",
+  "description": "SQLite-backed, receipt-bearing operational mailbox and queue-state discipline.",
+  "timestamp": "2026-05-24T07:31:25.400Z",
+  "status": "passed",
+  "domains": {
+    "PM1": {
+      "attempted": 6,
+      "succeeded": 3,
+      "failed": 0,
+      "refused": 2,
+      "quarantined": 1,
+      "skipped": 0,
+      "successRatePct": 50,
+      "failureRatePct": 0,
+      "refusalRatePct": 33.333,
+      "quarantineRatePct": 16.667,
+      "successRatePctString": "50.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "33.333%",
+      "quarantineRatePctString": "16.667%"
+    },
+    "PM2": {
+      "attempted": 5,
+      "succeeded": 3,
+      "failed": 0,
+      "refused": 1,
+      "quarantined": 1,
+      "skipped": 0,
+      "successRatePct": 60,
+      "failureRatePct": 0,
+      "refusalRatePct": 20,
+      "quarantineRatePct": 20,
+      "successRatePctString": "60.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "20.000%",
+      "quarantineRatePctString": "20.000%"
+    },
+    "PM3": {
+      "attempted": 9,
+      "succeeded": 1,
+      "failed": 0,
+      "refused": 4,
+      "quarantined": 4,
+      "skipped": 0,
+      "successRatePct": 11.111,
+      "failureRatePct": 0,
+      "refusalRatePct": 44.444,
+      "quarantineRatePct": 44.444,
+      "successRatePctString": "11.111%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "44.444%",
+      "quarantineRatePctString": "44.444%"
+    },
+    "PM4": {
+      "attempted": 2,
+      "succeeded": 1,
+      "failed": 0,
+      "refused": 1,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 50,
+      "failureRatePct": 0,
+      "refusalRatePct": 50,
+      "quarantineRatePct": 0,
+      "successRatePctString": "50.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "50.000%",
+      "quarantineRatePctString": "0.000%"
+    },
+    "PM5": {
+      "attempted": 2,
+      "succeeded": 1,
+      "failed": 0,
+      "refused": 1,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 50,
+      "failureRatePct": 0,
+      "refusalRatePct": 50,
+      "quarantineRatePct": 0,
+      "successRatePctString": "50.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "50.000%",
+      "quarantineRatePctString": "0.000%"
+    }
+  },
+  "metrics": {
+    "enqueueAttempts": 6,
+    "claimAttempts": 5,
+    "transitionAttempts": 9,
+    "integrityAttempts": 2,
+    "rescueAttempts": 2,
+    "durationMs": 16,
+    "mailboxHash": "e17d64c391fad605468b011d2a703155406015c7eab1fc92aec2b37f723ab7b5"
+  },
+  "invariants": [
+    "PM1: Mailbox enqueues respect duplicate checks and depth limits",
+    "PM2: Concurrency limits restrict claiming and empty queues are detected",
+    "PM3: Message transitions and consequences are resolved correctly",
+    "PM4: Mailbox integrity checks identify tampered payloads and transitions",
+    "PM5: Startup recovery rescues executing/stalled messages safely"
+  ],
+  "reportHash": "e17d64c391fad605468b011d2a703155406015c7eab1fc92aec2b37f723ab7b5",
+  "_metadata": {
+    "emitter": "Persistent Mailbox Facts Emitter",
+    "description": "Extracts facts from persistent mailbox S10 proofs.",
+    "timestamp": "2026-05-24T07:31:25.400Z"
+  }
+}

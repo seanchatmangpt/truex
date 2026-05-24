@@ -1,3 +1,9 @@
+/**
+ * @module emit-persistence-facts
+ * @description
+ * Gall Classification: S3 Persistence Facts Emitter
+ * Purpose: Extracts architectural facts about the SQLite persistence layer, WAL journaling, and snapshotting.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,6 +15,10 @@ const PERSISTENCE_DIR = path.join(BASE_DIR, 'packages/truex-core/src/persistence
 const OUTPUT_FILE = 'docs/v1/latest/facts/persistence.json';
 const DB_PATH = path.join(BASE_DIR, 'gall_truex.db');
 
+/**
+ * Emitter for retrieving structural schemas, journaling capabilities, and realtime
+ * storage metrics from the persistence membrane.
+ */
 export class PersistenceFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -174,7 +184,8 @@ export class PersistenceFactsEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Instantiates the PersistenceFactsEmitter and executes the fact extraction process.
+ * @returns A promise resolving to the emitted facts object.
  */
 export async function emitPersistenceFacts() {
   const emitter = new PersistenceFactsEmitter();

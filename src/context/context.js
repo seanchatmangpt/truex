@@ -1,3 +1,9 @@
+/**
+ * @module context
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext as unctxCreateContext, createNamespace as unctxCreateNamespace } from 'unctx'
 
 // Proxyable's global namespace to avoid context conflicts

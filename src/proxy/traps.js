@@ -1,4 +1,11 @@
 /**
+ * @module traps
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
+
+/**
  * Executes interceptors for a given trap and returns the first definitive result.
  * If no interceptor returns a definitive result, the fallback Reflect operation is called.
  *

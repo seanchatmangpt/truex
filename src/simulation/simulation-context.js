@@ -1,3 +1,9 @@
+/**
+ * @module simulation-context
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
 import { randomUUID } from 'node:crypto'
 
@@ -763,6 +769,9 @@ export function createSimulationSetPrototypeOfInterceptor(simCtx) {
     }
 
     const internalState = simCtx._state
+    if (target !== internalState.target) {
+      return undefined
+    }
 
     const mutation = {
       operation: 'setPrototypeOf',
@@ -783,13 +792,16 @@ export function createSimulationSetPrototypeOfInterceptor(simCtx) {
  * @returns {Function} Interceptor function for getOwnPropertyDescriptor trap
  */
 export function createSimulationGetOwnPropertyDescriptorInterceptor(simCtx) {
-  return (_target, prop) => {
+  return (target, prop) => {
     const simState = simCtx.context.tryUse()
     if (!simState || !simState.active) {
       return undefined
     }
 
     const internalState = simCtx._state
+    if (target !== internalState.target) {
+      return undefined
+    }
     return Reflect.getOwnPropertyDescriptor(internalState.speculativeState, prop)
   }
 }
@@ -801,13 +813,16 @@ export function createSimulationGetOwnPropertyDescriptorInterceptor(simCtx) {
  * @returns {Function} Interceptor function for getPrototypeOf trap
  */
 export function createSimulationGetPrototypeOfInterceptor(simCtx) {
-  return (_target) => {
+  return (target) => {
     const simState = simCtx.context.tryUse()
     if (!simState || !simState.active) {
       return undefined
     }
 
     const internalState = simCtx._state
+    if (target !== internalState.target) {
+      return undefined
+    }
     return Reflect.getPrototypeOf(internalState.speculativeState)
   }
 }
@@ -819,13 +834,16 @@ export function createSimulationGetPrototypeOfInterceptor(simCtx) {
  * @returns {Function} Interceptor function for isExtensible trap
  */
 export function createSimulationIsExtensibleInterceptor(simCtx) {
-  return (_target) => {
+  return (target) => {
     const simState = simCtx.context.tryUse()
     if (!simState || !simState.active) {
       return undefined
     }
 
     const internalState = simCtx._state
+    if (target !== internalState.target) {
+      return undefined
+    }
     return Reflect.isExtensible(internalState.speculativeState)
   }
 }
@@ -837,13 +855,16 @@ export function createSimulationIsExtensibleInterceptor(simCtx) {
  * @returns {Function} Interceptor function for preventExtensions trap
  */
 export function createSimulationPreventExtensionsInterceptor(simCtx) {
-  return (_target) => {
+  return (target) => {
     const simState = simCtx.context.tryUse()
     if (!simState || !simState.active) {
       return undefined
     }
 
     const internalState = simCtx._state
+    if (target !== internalState.target) {
+      return undefined
+    }
 
     const mutation = {
       operation: 'preventExtensions',

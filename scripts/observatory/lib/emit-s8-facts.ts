@@ -1,3 +1,10 @@
+/**
+ * @module emit-s8-facts
+ * @description
+ * Gall Classification: S8 (Telco & Wizard) Architectural Fact Emitter
+ * Purpose: Extracts architectural facts and benchmark performance metrics for S8 agents 
+ * (Telco and Wizard). Ensures the system's operational facts are deterministically captured.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +15,10 @@ const TELCO_AGENT_FILE = path.join(BASE_DIR, 'agents/telco/agent.ts');
 const WIZARD_AGENT_FILE = path.join(BASE_DIR, 'agents/wizard/agent.ts');
 const OUTPUT_FILE = 'docs/v1/latest/facts/s8-facts.json';
 
+/**
+ * Emitter for gathering facts related to S8 agents (Telco and Wizard).
+ * Extracts method signatures and benchmark results to prove operational capabilities.
+ */
 export class S8FactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -85,6 +96,10 @@ export class S8FactsEmitter extends FactEmitter {
   }
 }
 
+/**
+ * Instantiates the S8FactsEmitter and executes the fact extraction process.
+ * @returns A promise that resolves to the emitted facts object.
+ */
 export async function emitS8Facts() {
   const emitter = new S8FactsEmitter();
   return emitter.emit();

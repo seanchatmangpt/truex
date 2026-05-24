@@ -1,3 +1,8 @@
+/**
+ * @module report-receipt
+ * @description Cryptographic receipts for operational reports using ML-DSA.
+ * Gall Classification: S0 (receipt primitives).
+ */
 import { ml_dsa65 } from '@noble/post-quantum/ml-dsa.js';
 import { utf8ToBytes, bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 import { blake3 } from '@noble/hashes/blake3.js';

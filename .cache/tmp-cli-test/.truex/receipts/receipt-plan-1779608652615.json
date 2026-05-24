@@ -1,0 +1,10 @@
+{
+  "receiptHash": "af8b1a5b0a7b8c66aba84de5a0d43f99fa2e78258e105ee8516720bbe33ea847",
+  "projectPath": "/Users/sac/truex/.cache/tmp-cli-test",
+  "verb": "plan",
+  "status": "succeeded",
+  "startedAt": "2026-05-24T07:44:12.608Z",
+  "completedAt": "2026-05-24T07:44:12.615Z",
+  "reportPath": ".truex/checkpoints/checkpoint-registry.json",
+  "details": "Checkpoint registry generated. Hash: b1bbc0bf3841ca41f273ae97dfeda3295c07e6457830c7aa59b9026ba2004f3b"
+}

@@ -1,3 +1,9 @@
+/**
+ * @module persistence/index
+ * @description Orchestrates the persistence lifecycle of deltas and receipts.
+ * Gall Classification: S3 (sqlite membrane primitives) / S2 (engine primitives).
+ * Coordinates execution, journaling, and recovery.
+ */
 import type { Database } from 'better-sqlite3';
 import { DeltaJournal } from './journal.js';
 import { SQLiteReceiptStore } from './receipt-store.js';

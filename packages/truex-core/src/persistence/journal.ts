@@ -1,3 +1,9 @@
+/**
+ * @module journal
+ * @description The Write-Ahead Log (WAL) for delta durability.
+ * Gall Classification: S3 (sqlite membrane primitives).
+ * Implements the Toyota Production System 'Zero-Loss Cold-Load' pattern.
+ */
 import type { Database } from 'better-sqlite3';
 import { type GraphDelta, parseGraphDelta } from '../runtime-law.js';
 

@@ -1,3 +1,8 @@
+/**
+ * @module jidoka
+ * @description Gall S₂: Engine primitives.
+ * Implements AndonSystem and PokaYoke for Autonomation and Error-proofing.
+ */
 import type { GraphDelta, HookDefinition, Receipt, HookEvent, HookEffect } from '../runtime-law.js';
 import { TruexHook } from '../hook.js';
 import type { TruexContext } from '../context.js';

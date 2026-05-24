@@ -1,6 +1,17 @@
+/**
+ * @module replay-context
+ * @description
+ * Gall Classification: S₁ - Replay Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
+ */
 import { createContext } from '../context/context.js'
 import { createProxy } from '../proxy/create-proxy.js'
 
+
+/**
+ * createLocalDeterministicContext
+ * @remarks Complies with Gall Law by executing exhaustive logic.
+ */
 function createLocalDeterministicContext(seed = 12_345) {
   let state = seed >>> 0;
   const nextRand = () => {

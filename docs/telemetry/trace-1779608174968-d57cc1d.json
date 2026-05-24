@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608174968-d57cc1d",
+  "spanId": "span-doctor",
+  "startTime": 1779608174968,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608174971,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608174971,
+  "durationMs": 3
+}

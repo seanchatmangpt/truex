@@ -1,0 +1,303 @@
+{
+  "timestamp": "2026-05-24T05:43:52.194Z",
+  "status": "passed",
+  "capabilities": {
+    "acl": {
+      "axisTested": "Reading/writing restrictions, bypass attempts (getPrototypeOf/Reflect/pollution), and measured limits.",
+      "highestToleratedLimit": "100,000 proxy operations under capability context.",
+      "safeOperatingEnvelope": "Up to 100,000 operations, latency < 35ms (throughput ~3.3M ops/sec), shallow property access.",
+      "degradedBoundary": "High nesting depths trigger linear slowdown (100+ ms per mutation) due to chain traversal.",
+      "refusedBoundary": "Direct unauthorized access to restricted keys throws access control violation.",
+      "failedBrokenPoint": "getPrototypeOf and Reflect.getPrototypeOf bypass ACL proxy traps completely and return target prototype."
+    },
+    "transactions": {
+      "axisTested": "Nesting depth limits, rollback contamination metrics.",
+      "highestToleratedLimit": "1,000 deep nested transaction contexts.",
+      "safeOperatingEnvelope": "Nesting depth <= 100 (latency < 2ms, memory < 3.5MB).",
+      "degradedBoundary": "Nesting depth > 100 (execution latency increases linearly, e.g. 1,000 deep takes ~100ms, heap delta ~14MB).",
+      "refusedBoundary": "Re-registering existing transaction interceptors or transactional rollback failure.",
+      "failedBrokenPoint": "Call stack limits (V8 maximum recursion depth ~10,000 frames) leading to StackOverflow/RangeError."
+    },
+    "replay": {
+      "axisTested": "Sample counts, divergence rates, non-determinism breaking points.",
+      "highestToleratedLimit": "Deterministic replay sequences converge with 100% precision.",
+      "safeOperatingEnvelope": "Seeded Mulberry32 PRNG and logical context-injected clock (ctx.clock()).",
+      "degradedBoundary": "Clock skew or minor drift in asynchronous task execution.",
+      "refusedBoundary": "Mutation validation rules triggered on state divergence checks.",
+      "failedBrokenPoint": "Use of unseeded Math.random(), raw Date.now(), or network-dependent IO immediately causes 100% replay divergence."
+    },
+    "invariants": {
+      "axisTested": "Circular lock detection, validation limits.",
+      "highestToleratedLimit": "Custom guards prevent infinite recursion at depth 2.",
+      "safeOperatingEnvelope": "Programmatic context-local recursion guards enabled for all cross-field constraints.",
+      "degradedBoundary": "Custom validation loops taking up to 5-10ms.",
+      "refusedBoundary": "Validation rules triggered on target range checks.",
+      "failedBrokenPoint": "Circular dependency loops without guards crash at V8 stack limits (depth ~485 frames, throws Fatal Jidoka Error/RangeError)."
+    },
+    "sandbox": {
+      "axisTested": "Key filters, prototype escape attempts, scope sizes.",
+      "highestToleratedLimit": "Basic property reads/writes under sandbox boundary are fully isolated.",
+      "safeOperatingEnvelope": "Simple shallow key isolation, standard objects, no prototype traversal.",
+      "degradedBoundary": "Memory overhead of Proxy wrapping on access.",
+      "refusedBoundary": "Unauthorized key access within restrictedKeys throws block/refusal.",
+      "failedBrokenPoint": "Prototype pollution/traversal via Object.getPrototypeOf(proxy) or nested object reference leakage (proxy.nested returns raw reference, bypassing sandbox)."
+    },
+    "multitenancy": {
+      "axisTested": "Tenant scaling limits, memory bleed metrics.",
+      "highestToleratedLimit": "10,000 coexisting tenant contexts.",
+      "safeOperatingEnvelope": "Up to 5,000 tenants, with periodic config purging.",
+      "degradedBoundary": "Spawning tenants without decommissioning causes memory leak in strong Map `tenantConfigs`, keeping memory elevated (e.g. 34.69 MB).",
+      "refusedBoundary": "Unauthorized tenant cross-boundary config accesses.",
+      "failedBrokenPoint": "Heap exhaustion (OOM) when running infinite tenants without GC capability."
+    },
+    "audit": {
+      "axisTested": "Log entry boundaries, memory overhead.",
+      "highestToleratedLimit": "100,000 entries accumulated in memory.",
+      "safeOperatingEnvelope": "Up to 10,000 entries (heap overhead ~20MB). Stream flushing to DB or disk after 5,000 entries.",
+      "degradedBoundary": "Heap growth from 34MB to 68MB (peak 80MB) and RSS of 191MB.",
+      "refusedBoundary": "Filter rules rejecting unauthorized audit events.",
+      "failedBrokenPoint": "includeStackTrace: true increases memory overhead by 15x, causing Heap Collapse (OOM) at high frequencies."
+    },
+    "virtualValues": {
+      "axisTested": "Compute recursion depth, circular computation recovery.",
+      "highestToleratedLimit": "1,000 recursive dependency levels deep.",
+      "safeOperatingEnvelope": "Memoized virtual fields up to 100 levels (0ms resolution).",
+      "degradedBoundary": "Non-memoized recursive lookups (O(2^N) or O(N) evaluation time, leading to minor ms latency).",
+      "refusedBoundary": "Cycle detection catches virtual self-reference.",
+      "failedBrokenPoint": "Circular virtual dependency loop (vA -> vB -> vA) without cycle checks crashes V8 with RangeError."
+    },
+    "contracts": {
+      "axisTested": "Side-effect isolation, check latency.",
+      "highestToleratedLimit": "Pre/postconditions evaluated with 100% isolation.",
+      "safeOperatingEnvelope": "Standard pure and stateful contracts.",
+      "degradedBoundary": "Post-condition method wrappers add minimal call latency.",
+      "refusedBoundary": "Contract violations throw error and trigger transaction rollback.",
+      "failedBrokenPoint": "Execution context failure or thread freezing."
+    },
+    "simulation": {
+      "axisTested": "Simulation block nesting limits, concurrent write consistency.",
+      "highestToleratedLimit": "Nested simulation shadowing is supported.",
+      "safeOperatingEnvelope": "Shallow simulations with standard local state rollback.",
+      "degradedBoundary": "Nested simulation shadowing causes spillover into outer context.",
+      "refusedBoundary": "Target range checks or verification rules aborting simulation.",
+      "failedBrokenPoint": "V8 Proxy Receiver Leak (passing proxy as receiver to Reflect.set writes directly to original target state, bypassing isolation)."
+    }
+  },
+  "metrics": {
+    "acl": {
+      "operationsCount": 100000,
+      "totalLatencyMs": 30.330874999999992,
+      "throughputOpsPerSec": 3296970,
+      "heapBeforeMb": 12.158,
+      "heapAfterMb": 17.94,
+      "heapPeakMb": 19.076
+    },
+    "transactions": {
+      "nesting": [
+        {
+          "depth": 10,
+          "timeMs": 0.507000000000005,
+          "memoryDeltaBytes": 144160,
+          "stackOverflow": false,
+          "status": "passed"
+        },
+        {
+          "depth": 100,
+          "timeMs": 1.0844999999999914,
+          "memoryDeltaBytes": 3038568,
+          "stackOverflow": false,
+          "status": "passed"
+        },
+        {
+          "depth": 1000,
+          "timeMs": 99.60579200000001,
+          "memoryDeltaBytes": 13838920,
+          "stackOverflow": false,
+          "status": "passed"
+        }
+      ],
+      "rollbackConsistency": {
+        "nestedTxRollbackSuccess": true,
+        "noStatePollutionLeaks": true,
+        "simulationShadowCollisionVerified": true
+      },
+      "replayVerification": {
+        "normalReplayConverged": true,
+        "mutatedStateReplayDiverged": true,
+        "tamperedHashReplayDiverged": true,
+        "mathRandomReplayDiverged": true,
+        "dynamicDateReplayDiverged": true,
+        "deterministicContextReplayConverged": true
+      },
+      "timestamp": "2026-05-24T05:43:51.735Z"
+    },
+    "invariants": {
+      "timestamp": "2026-05-24T05:43:52.154Z",
+      "circularInvariants": {
+        "rawLoopDurationMs": 3,
+        "customGuardDurationMs": 0,
+        "rawLoopMaxDepth": 484
+      },
+      "virtualComputations": [
+        {
+          "depth": 10,
+          "memoized": true,
+          "durationMs": 0,
+          "value": 20
+        },
+        {
+          "depth": 10,
+          "memoized": false,
+          "durationMs": 0,
+          "value": 20
+        },
+        {
+          "depth": 100,
+          "memoized": true,
+          "durationMs": 0,
+          "value": 110
+        },
+        {
+          "depth": 100,
+          "memoized": false,
+          "durationMs": 0,
+          "value": 110
+        },
+        {
+          "depth": 500,
+          "memoized": true,
+          "durationMs": 0,
+          "value": 510
+        },
+        {
+          "depth": 500,
+          "memoized": false,
+          "durationMs": 1,
+          "value": 510
+        },
+        {
+          "depth": 1000,
+          "memoized": true,
+          "durationMs": 1,
+          "value": 1010
+        },
+        {
+          "depth": 1000,
+          "memoized": false,
+          "durationMs": 1,
+          "value": 1010
+        }
+      ],
+      "contractIsolation": {
+        "transactionRollbackPassed": true,
+        "simulationAbortPassed": true,
+        "purityViolationPassed": true
+      }
+    },
+    "multitenancy": {
+      "system": {
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpu": "Apple M3 Max",
+        "nodeVersion": "v24.15.0",
+        "timestamp": "2026-05-24T05:43:51.416Z"
+      },
+      "tenantMetrics": {
+        "creationLatencyP50": 0.0006669999999928677,
+        "creationLatencyP95": 0.001958999999999378,
+        "creationLatencyP99": 0.0030420000000219716,
+        "opLatencyP50": 0.0007919999999899119,
+        "opLatencyP95": 0.001082999999994172,
+        "opLatencyP99": 0.002207999999995991,
+        "heapBeforeMb": 12.71,
+        "heapAfterMb": 36.01,
+        "heapPostGcMb": 34.64,
+        "stateBleedDetected": false
+      },
+      "auditMetrics": {
+        "initialHeapMb": 34.69,
+        "finalHeapMb": 68,
+        "peakHeapMb": 80.84,
+        "initialRssMb": 121.33,
+        "finalRssMb": 191.39,
+        "peakRssMb": 191.39,
+        "steps": [
+          {
+            "entriesCount": 10000,
+            "heapUsedMb": 53.96,
+            "rssMb": 126.64,
+            "durationMs": 22.64,
+            "opsPerSec": 441736.76
+          },
+          {
+            "entriesCount": 20000,
+            "heapUsedMb": 40.26,
+            "rssMb": 138.95,
+            "durationMs": 24.98,
+            "opsPerSec": 400353.64
+          },
+          {
+            "entriesCount": 30000,
+            "heapUsedMb": 53.16,
+            "rssMb": 145.91,
+            "durationMs": 19.97,
+            "opsPerSec": 500646.66
+          },
+          {
+            "entriesCount": 40000,
+            "heapUsedMb": 66.09,
+            "rssMb": 157.34,
+            "durationMs": 20.89,
+            "opsPerSec": 478605.34
+          },
+          {
+            "entriesCount": 50000,
+            "heapUsedMb": 54.49,
+            "rssMb": 167.92,
+            "durationMs": 22.84,
+            "opsPerSec": 437801.21
+          },
+          {
+            "entriesCount": 60000,
+            "heapUsedMb": 67.85,
+            "rssMb": 170.81,
+            "durationMs": 20.49,
+            "opsPerSec": 488035.99
+          },
+          {
+            "entriesCount": 70000,
+            "heapUsedMb": 79.91,
+            "rssMb": 172.42,
+            "durationMs": 19.66,
+            "opsPerSec": 508639.44
+          },
+          {
+            "entriesCount": 80000,
+            "heapUsedMb": 66.82,
+            "rssMb": 177.36,
+            "durationMs": 21.1,
+            "opsPerSec": 473910.25
+          },
+          {
+            "entriesCount": 90000,
+            "heapUsedMb": 80.84,
+            "rssMb": 180.89,
+            "durationMs": 19.27,
+            "opsPerSec": 518982.89
+          },
+          {
+            "entriesCount": 100000,
+            "heapUsedMb": 68,
+            "rssMb": 191.39,
+            "durationMs": 23.05,
+            "opsPerSec": 433902.22
+          }
+        ],
+        "totalWrites": 100000,
+        "collapseBoundaryEntries": null,
+        "degradationObserved": false
+      }
+    }
+  },
+  "reportHash": "9ba62814c7b6e0ae25bb2337b3cb72557cddab1670fb6a05de7ed95dc72b0596"
+}

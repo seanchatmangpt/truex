@@ -1,11 +1,26 @@
+/**
+ * @module skills/hash/proofs
+ * @description
+ * Gall Classification: S(-1) Hash Primitives (Proof Layer)
+ * Purpose: Proves deterministic hashing invariants: same input yields same hash,
+ * stable ordering, and tamper resistance.
+ */
+
 import { hash } from "./mutations.js";
 
+/**
+ * Report structure for Hash proofs.
+ */
 export type HashProofReport = {
   passed: boolean;
   failures: string[];
   invariants: string[];
 };
 
+/**
+ * Executes tests to prove the correctness and determinism of hash primitives.
+ * @returns {HashProofReport} The outcome of the proof execution.
+ */
 export function proveHash(): HashProofReport {
   const failures: string[] = [];
   const invariants = [

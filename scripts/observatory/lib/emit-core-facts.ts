@@ -1,3 +1,10 @@
+/**
+ * @module emit-core-facts
+ * @description
+ * Gall Classification: Core Observatory Emitter
+ * Purpose: Extracts core primitives and exported symbols from truex-core to ensure
+ * all structural dependencies and definitions are accounted for.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -7,6 +14,9 @@ const BASE_DIR = process.cwd();
 const SRC_DIR = path.join(BASE_DIR, 'packages/truex-core/src');
 const OUTPUT_FILE = 'docs/v1/latest/facts/core-primitives.json';
 
+/**
+ * Emitter for mapping the internal and exported symbol landscape of the truex-core packages.
+ */
 export class CoreFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -167,7 +177,8 @@ export class CoreFactsEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Instantiates the CoreFactsEmitter and executes the core fact extraction process.
+ * @returns A promise resolving to the emitted facts object.
  */
 export async function emitCoreFacts() {
   const emitter = new CoreFactsEmitter();

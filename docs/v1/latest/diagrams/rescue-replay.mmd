@@ -1,0 +1,41 @@
+flowchart TB
+    subgraph RescueFlow ["1. Startup Crash Recovery Flow"]
+        Start([Startup]) --> Scan[Scan truex_mailbox_messages]
+        Scan -->|Find executing & claimed_at < threshold| Stalled[Stalled Message]
+        Stalled --> TransitionRescue[Transition state to rescueCandidate]
+        
+        TransitionRescue --> CheckAttempts{Check attempt >= maxRetries}
+        CheckAttempts -->|Yes| RefusedState[Transition to refused]
+        RefusedState --> RefusedRec[Generate Refused Receipt]
+        
+        CheckAttempts -->|No| RetryState[Transition to retryable]
+        RetryState --> RetryRec[Schedule Immediate Retry]
+    end
+
+    subgraph ReplayFlow ["2. Lineage Replay & Integrity Verification"]
+        Verify[verifyMailboxIntegrity] --> FetchMsg[Fetch Mailbox Messages]
+        FetchMsg --> MatchPayload{Compare Payload & InputHash}
+        MatchPayload -->|Mismatch| TamperErr[Mark Tampered ID]
+        
+        MatchPayload -->|Match| TracePath[Fetch Transitions List]
+        TracePath --> PathValid{Ensure Valid Path Flow}
+        PathValid -->|Invalid| TamperErr
+        
+        PathValid -->|Valid| MatchReceipt{Ensure Transition Receipt matches Message Receipt}
+        MatchReceipt -->|Mismatch| TamperErr
+        MatchReceipt -->|Match| ValidMessage[Valid Message State]
+        
+        ValidMessage --> ReplayLineage[replayMailboxLineage]
+        ReplayLineage --> MapToState[Map transitions list to states sequence]
+    end
+
+    %% Styling
+    classDef flow fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
+    classDef decision fill:#fffde7,stroke:#fbc02d,stroke-width:2px;
+    classDef success fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    classDef failure fill:#ffebee,stroke:#c62828,stroke-width:2px;
+    
+    class Start,Scan,Stalled,TransitionRescue,FetchMsg,TracePath,ReplayLineage,MapToState flow;
+    class CheckAttempts,MatchPayload,PathValid,MatchReceipt decision;
+    class RetryState,RetryRec,ValidMessage success;
+    class RefusedState,RefusedRec,TamperErr failure;

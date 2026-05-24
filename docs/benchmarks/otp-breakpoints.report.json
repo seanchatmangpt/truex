@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-05-24T05:34:49.528Z",
+  "status": "passed",
+  "domains": {
+    "O1": {
+      "confirmed": 445200,
+      "refused": 0,
+      "failed": 0,
+      "skipped": 0,
+      "attempted": 445200
+    },
+    "O2": {
+      "restarted": 992,
+      "halted": 120,
+      "quarantined": 0,
+      "failed": 0,
+      "attempted": 1112
+    },
+    "O3": {
+      "quarantined": 1112,
+      "leaked": 0,
+      "refused": 0,
+      "failed": 0,
+      "attempted": 1112
+    },
+    "O4": {
+      "converged": 1000,
+      "diverged": 0,
+      "timedOut": 0,
+      "notAttempted": 0,
+      "attempted": 1000
+    },
+    "O5": {
+      "tolerated": 126,
+      "degraded": 8,
+      "refused": 48,
+      "unsafe": 0,
+      "failed": 0,
+      "attempted": 182
+    }
+  },
+  "metrics": {
+    "memory": {
+      "heapBefore": 18.1821,
+      "heapAfter": 134.2992,
+      "heapPeak": 217.9154,
+      "rssBefore": 79.6406,
+      "rssAfter": 377.0938,
+      "rssPeak": 377.0938,
+      "bytesPerMessageApprox": 23864.773625
+    },
+    "supervisor": {
+      "maxRestarts": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "periodMs": 10000000,
+      "restartAttempts": 992,
+      "expectedHalts": 184,
+      "actualHalts": 184,
+      "totalHalts": 120
+    },
+    "performance": {
+      "overheadRatio": 293.942932142361,
+      "rawOpsPerSec": 8522678.848413598,
+      "receiptBackedOpsPerSec": 28994.331608170585,
+      "violatesCtqThreshold": true,
+      "operatingMode": "degraded",
+      "replayOpsPerSec": 41641.50825542901,
+      "convergencePct": 100,
+      "tamperDetectionPct": 100,
+      "maxCascadeDepth": 101
+    }
+  },
+  "reportHash": "1df806438aac680616e698d299cd5020341239f891b839e82488f48f0fbdffdc"
+}

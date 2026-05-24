@@ -1,3 +1,8 @@
+/**
+ * @module membrane-replay
+ * @description Gall S₃/S₁: SQLite membrane and Replay primitives.
+ * Implements SQLite persistence as Gall persistence for transactional consequence.
+ */
 /* eslint-disable unicorn/no-null, unicorn/prefer-number-properties, unicorn/prefer-string-slice, unicorn/prefer-structured-clone, unicorn/numeric-separators-style, unicorn/prefer-at, unicorn/no-lonely-if, unicorn/no-negated-condition, unicorn/prefer-spread, unicorn/catch-error-name */
 import DatabaseClass from "better-sqlite3";
 import type { Database } from "better-sqlite3";

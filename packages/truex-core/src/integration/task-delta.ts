@@ -1,3 +1,8 @@
+/**
+ * @module task-delta
+ * @description Compiles markdown tasks into GraphDelta structures.
+ * Gall Classification: S2 (engine primitives).
+ */
 /* eslint-disable unicorn/no-null */
 import { hash } from "../hash.js";
 import type { GraphDelta, Quad } from "../runtime-law.js";

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779602668459-t2vfenz",
+  "spanId": "span-doctor",
+  "startTime": 1779602668459,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779602668463,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779602668462,
+  "durationMs": 3
+}

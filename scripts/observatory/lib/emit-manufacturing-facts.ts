@@ -6,12 +6,12 @@ import { WorkStandards } from '../../../packages/truex-core/src/manufacturing/st
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 /**
- * Fact Emitter: Manufacturing Pillars & Repository Laws
- * 
- * Extracts architectural facts about the Truex manufacturing process,
- * based on the Toyota Production System (TPS) principles.
- * 
- * Updated to use the new abstract architecture with detailed law breakdowns.
+ * @module emit-manufacturing-facts
+ * @description
+ * Gall Classification: Observatory Pillar (Manufacturing extraction)
+ * Purpose: Extracts architectural facts about the Truex manufacturing process,
+ * based on the Toyota Production System (TPS) principles. Validates the 
+ * Repository Laws and records operational invariants.
  */
 export class ManufacturingFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
@@ -132,7 +132,9 @@ export class ManufacturingFactsEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Legacy export for backward compatibility. Instantiates the ManufacturingFactsEmitter
+ * and executes the fact extraction process.
+ * @returns A promise that resolves to the emitted facts object.
  */
 export async function emitManufacturingFacts() {
   const emitter = new ManufacturingFactsEmitter();

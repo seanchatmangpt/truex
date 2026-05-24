@@ -1,3 +1,9 @@
+/**
+ * @module audit-engine
+ * @description High-level query engine for historical traces and causality.
+ * Gall Classification: S2 (engine primitives).
+ * Follows the causal chain of operations.
+ */
 import type { Database } from 'better-sqlite3';
 import { type Receipt } from '../runtime-law.js';
 import { SQLiteReceiptStore } from './receipt-store.js';

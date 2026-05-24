@@ -1,3 +1,9 @@
+/**
+ * @module receipt-store
+ * @description SQLite-backed store for persisting and verifying receipts.
+ * Gall Classification: S0 (receipt primitives) / S3 (sqlite membrane primitives).
+ * Enforces the receipt law and tamper detection.
+ */
 import type { Database } from 'better-sqlite3';
 import type { Receipt } from '../runtime-law.js';
 import { verifyReceipt } from '../receipt.js';

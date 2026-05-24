@@ -1,3 +1,9 @@
+/**
+ * @module emit-membrane-replay-facts
+ * @description
+ * Gall Classification: S7 Membrane Replay Fact Emitter
+ * Purpose: Extracts architectural facts and database metrics about the S7 Membrane Replay layer.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -9,6 +15,10 @@ const SOURCE_FILE = path.join(BASE_DIR, 'packages/truex-core/src/membrane-replay
 const OUTPUT_FILE = 'docs/v1/latest/facts/membrane-replay.json';
 const DB_PATH = path.join(BASE_DIR, 'gall_truex.db');
 
+/**
+ * Emitter for extracting facts regarding the SQLite WAL-backed transaction logging,
+ * crash recovery, and deterministic partial-order replay mechanisms.
+ */
 export class MembraneReplayFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -92,6 +102,10 @@ export class MembraneReplayFactsEmitter extends FactEmitter {
   }
 }
 
+/**
+ * Instantiates the MembraneReplayFactsEmitter and executes the fact extraction process.
+ * @returns A promise resolving to the emitted facts object.
+ */
 export async function emitMembraneReplayFacts() {
   const emitter = new MembraneReplayFactsEmitter();
   return emitter.emit();

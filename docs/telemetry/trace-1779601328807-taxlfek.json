@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779601328807-taxlfek",
+  "spanId": "span-doctor",
+  "startTime": 1779601328807,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779601328810,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779601328810,
+  "durationMs": 3
+}

@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779598594401-fj2pp3x",
+  "spanId": "span-doctor",
+  "startTime": 1779598594401,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"hash\"]}"
+  },
+  "events": [],
+  "endTime": 1779598594404,
+  "durationMs": 3
+}

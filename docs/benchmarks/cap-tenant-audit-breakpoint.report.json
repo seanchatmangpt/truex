@@ -1,0 +1,104 @@
+{
+  "system": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "nodeVersion": "v24.15.0",
+    "timestamp": "2026-05-24T07:46:17.605Z"
+  },
+  "tenantMetrics": {
+    "creationLatencyP50": 0.1684579999999869,
+    "creationLatencyP95": 0.3300409999999374,
+    "creationLatencyP99": 0.3653750000000855,
+    "opLatencyP50": 0.001290999999994824,
+    "opLatencyP95": 0.0028750000001309672,
+    "opLatencyP99": 0.011499999999955435,
+    "heapBeforeMb": 13.83,
+    "heapAfterMb": 40.94,
+    "heapPostGcMb": 44,
+    "stateBleedDetected": false
+  },
+  "auditMetrics": {
+    "initialHeapMb": 44.06,
+    "finalHeapMb": 118.11,
+    "peakHeapMb": 118.11,
+    "initialRssMb": 108.53,
+    "finalRssMb": 214.19,
+    "peakRssMb": 214.19,
+    "steps": [
+      {
+        "entriesCount": 10000,
+        "heapUsedMb": 44.14,
+        "rssMb": 137.28,
+        "durationMs": 31.46,
+        "opsPerSec": 317887.11
+      },
+      {
+        "entriesCount": 20000,
+        "heapUsedMb": 57.41,
+        "rssMb": 149.11,
+        "durationMs": 23.02,
+        "opsPerSec": 434319.96
+      },
+      {
+        "entriesCount": 30000,
+        "heapUsedMb": 51.84,
+        "rssMb": 169.38,
+        "durationMs": 24.65,
+        "opsPerSec": 405701.47
+      },
+      {
+        "entriesCount": 40000,
+        "heapUsedMb": 65.3,
+        "rssMb": 171.83,
+        "durationMs": 20.58,
+        "opsPerSec": 485881.12
+      },
+      {
+        "entriesCount": 50000,
+        "heapUsedMb": 77.89,
+        "rssMb": 173.41,
+        "durationMs": 20.43,
+        "opsPerSec": 489580.1
+      },
+      {
+        "entriesCount": 60000,
+        "heapUsedMb": 65.78,
+        "rssMb": 184.14,
+        "durationMs": 24.72,
+        "opsPerSec": 404592.12
+      },
+      {
+        "entriesCount": 70000,
+        "heapUsedMb": 78.37,
+        "rssMb": 185.7,
+        "durationMs": 20.59,
+        "opsPerSec": 485789.63
+      },
+      {
+        "entriesCount": 80000,
+        "heapUsedMb": 90.96,
+        "rssMb": 188.34,
+        "durationMs": 20.81,
+        "opsPerSec": 480457.4
+      },
+      {
+        "entriesCount": 90000,
+        "heapUsedMb": 105.51,
+        "rssMb": 202.25,
+        "durationMs": 21.7,
+        "opsPerSec": 460863.13
+      },
+      {
+        "entriesCount": 100000,
+        "heapUsedMb": 118.11,
+        "rssMb": 214.19,
+        "durationMs": 21.89,
+        "opsPerSec": 456896.56
+      }
+    ],
+    "totalWrites": 100000,
+    "collapseBoundaryEntries": null,
+    "degradationObserved": false
+  }
+}

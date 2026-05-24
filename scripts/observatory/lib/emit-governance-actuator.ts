@@ -1,3 +1,9 @@
+/**
+ * @module emit-governance-actuator
+ * @description
+ * Gall Classification: S4 Governance Actuator
+ * Purpose: Detects if AGENTS.md is out of sync with proven runtime primitives.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,6 +14,10 @@ const AGENTS_MD_PATH = path.join(BASE_DIR, 'AGENTS.md');
 const CORE_PRIMITIVES_PATH = path.join(BASE_DIR, 'docs/v1/latest/facts/core-primitives.json');
 const OUTPUT_FILE = 'docs/artifacts/governance-update.md';
 
+/**
+ * Emitter for analyzing the gap between runtime evidence and repository laws,
+ * generating governance update proposals if synchronization drifts.
+ */
 export class GovernanceActuatorEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -146,7 +156,8 @@ export class GovernanceActuatorEmitter extends FactEmitter {
 }
 
 /**
- * Legacy export for backward compatibility
+ * Instantiates the GovernanceActuatorEmitter and executes the gap analysis.
+ * @returns A promise resolving to the generated governance proposal content.
  */
 export async function emitGovernanceActuator() {
   const emitter = new GovernanceActuatorEmitter();

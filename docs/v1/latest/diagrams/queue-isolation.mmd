@@ -1,0 +1,54 @@
+flowchart TB
+    subgraph Clients ["1. Request Admission Layer"]
+        MsgA[Message for Queue A]
+        MsgB[Message for Queue B]
+    end
+
+    subgraph QueueA ["2. Isolated Queue A Domain"]
+        QA_Limits{Limits Check}
+        QA_DB[(Mailbox Table)]
+        QA_Dedupe{Consequence Dedupe}
+        QA_Exec[Queue A Processor]
+        
+        MsgA --> QA_Limits
+        QA_Limits -->|Admitted| QA_Dedupe
+        QA_Limits -->|Refused Depth| QA_Refused[Emit Refused Receipt]
+        QA_Dedupe -->|New Consequence| QA_DB
+        QA_Dedupe -->|Duplicate Active| QA_DupRefused[Emit Refused Receipt]
+        QA_DB -->|Claimed| QA_Exec
+    end
+
+    subgraph QueueB ["3. Isolated Queue B Domain"]
+        QB_Limits{Limits Check}
+        QB_DB[(Mailbox Table)]
+        QB_Dedupe{Consequence Dedupe}
+        QB_Exec[Queue B Processor]
+        
+        MsgB --> QB_Limits
+        QB_Limits -->|Admitted| QB_Dedupe
+        QB_Limits -->|Refused Depth| QB_Refused[Emit Refused Receipt]
+        QB_Dedupe -->|New Consequence| QB_DB
+        QB_Dedupe -->|Duplicate Active| QB_DupRefused[Emit Refused Receipt]
+        QB_DB -->|Claimed| QB_Exec
+    end
+
+    subgraph Shared ["4. Database State Integration"]
+        SharedDB[(SQLite Membrane DB)]
+        QA_Exec -->|Write Receipt| SharedDB
+        QB_Exec -->|Write Receipt| SharedDB
+    end
+
+    %% Crash impact arrow
+    QA_Exec -.->|Crash Event| QA_Halt[Queue A Processor Halt]
+    QA_Halt -.->|No Impact| QB_Exec
+
+    %% Styling
+    classDef clients fill:#f5f5f5,stroke:#333,stroke-width:1px;
+    classDef qa fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
+    classDef qb fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px;
+    classDef shared fill:#fff3e0,stroke:#ef6c00,stroke-width:2px;
+    
+    class MsgA,MsgB clients;
+    class QA_Limits,QA_DB,QA_Dedupe,QA_Exec,QA_Refused,QA_DupRefused qa;
+    class QB_Limits,QB_DB,QB_Dedupe,QB_Exec,QB_Refused,QB_DupRefused qb;
+    class SharedDB shared;

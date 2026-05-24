@@ -1,3 +1,12 @@
+/**
+ * @module TruexAgyBridge
+ * @description
+ * Gall Classification: Gall S2/S3 (Membrane Interceptor & Hook Evaluation)
+ * Purpose: Acts as the Antigravity bridge (Hook Interceptor) that converts agent tool 
+ * actions into verifiable Truex GraphDeltas. It evaluates these deltas against the 
+ * Repository Laws, journals them, and enforces the "no-fossil" semantic invariant.
+ */
+
 import Database from 'better-sqlite3';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
@@ -29,7 +38,11 @@ import { OntologyRegistry } from '../packages/truex-core/src/persistence/ontolog
  * Refinement Stage: Refine(Mutation) -> Mutation*
  * 
  * Instead of binary Admit/Refuse, we attempt to auto-correct minor alignment issues
- * before evaluation.
+ * before evaluation (e.g. mapping "soft-fossil" to "dynamic-variant").
+ * 
+ * @param delta - The original graph delta mutation.
+ * @param args - The arguments corresponding to the delta.
+ * @returns An object containing the refined delta and arguments.
  */
 function refineMutation(delta: GraphDelta, args: any): { delta: GraphDelta, args: any } {
   let modified = false;
@@ -73,6 +86,11 @@ function refineMutation(delta: GraphDelta, args: any): { delta: GraphDelta, args
   return { delta: refinedDelta, args: refinedArgs };
 }
 
+/**
+ * The main hook interceptor execution flow.
+ * Parses CLI arguments, constructs deterministic contexts, builds graph deltas,
+ * refines them, and applies them to the production line while checking rules.
+ */
 async function main() {
   const [,, toolName, argsJson] = process.argv;
 

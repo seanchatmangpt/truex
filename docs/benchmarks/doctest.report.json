@@ -1,0 +1,47 @@
+{
+  "case": "external-markdown-jsdoc-doctests",
+  "status": "passed",
+  "passed": true,
+  "domains": {
+    "doc1": {
+      "attempted": 16,
+      "passed": 14,
+      "failed": 0,
+      "skipped": 1,
+      "deferred": 1,
+      "successRatePct": 87.500,
+      "successRatePctString": "87.500%"
+    },
+    "doc2": {
+      "attempted": 16,
+      "emitted": 14,
+      "failed": 0,
+      "skipped": 2,
+      "successRatePct": 87.500,
+      "successRatePctString": "87.500%"
+    },
+    "doc3": {
+      "attempted": 2,
+      "succeeded": 2,
+      "failed": 0,
+      "successRatePct": 100.000,
+      "successRatePctString": "100.000%"
+    }
+  },
+  "metrics": {
+    "totalBlocks": 16,
+    "markdownBlocks": 16,
+    "jsdocBlocks": 0,
+    "activeVitestFiles": 14,
+    "executionTimeMs": 5500,
+    "averageTestTimeMs": 392.857,
+    "commandInvocations": 2
+  },
+  "invariants": [
+    "Verify that the .generated/doctests directory and its generated test files exist",
+    "Domain DOC1 (Doctest Block) passed validation: passed + failed + skipped + deferred == attempted",
+    "Domain DOC2 (Generated Test File) passed validation: emitted + failed + skipped == attempted",
+    "Domain DOC3 (Regression Command) passed validation: succeeded + failed == attempted"
+  ],
+  "failures": []
+}

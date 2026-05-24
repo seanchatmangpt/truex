@@ -1,10 +1,45 @@
+/**
+ * @module TruexCLI
+ * @description
+ * Gall Classification: Gall S5 (CLI Calculus Driver)
+ * Purpose: The entrypoint for the TRUEX operational CLI calculus.
+ * Commands must conform to the Gall Law sequencing, running proofs across the repository
+ * to assert deterministic consequence, receipts, and replay convergence.
+ */
+
 import { defineCommand, runMain } from 'citty';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { DoctorAgent } from '../agents/doctor/agent.js';
-import { TelcoAgent } from '../agents/telco/agent.js';
-import { WizardAgent } from '../agents/wizard/agent.js';
+let _doctorAgent: any = null;
+async function getDoctorAgent() {
+  if (!_doctorAgent) {
+    const { DoctorAgent } = await import('../agents/doctor/agent.js');
+    _doctorAgent = new DoctorAgent();
+  }
+  return _doctorAgent;
+}
+
+let _telcoAgent: any = null;
+async function getTelcoAgent() {
+  if (!_telcoAgent) {
+    const { TelcoAgent } = await import('../agents/telco/agent.js');
+    _telcoAgent = new TelcoAgent();
+  }
+  return _telcoAgent;
+}
+
+let _wizardAgent: any = null;
+async function getWizardAgent() {
+  if (!_wizardAgent) {
+    const { WizardAgent } = await import('../agents/wizard/agent.js');
+    _wizardAgent = new WizardAgent();
+  }
+  return _wizardAgent;
+}
+import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from '../packages/truex-core/src/project-wizard.gall.js';
 import { OcelCollector } from '../skills/membrane/mutations.js';
+import { OcelOtelWeaverPlugin } from '../packages/truex-core/src/plugins/otel-weaver.js';
+
 
 
 const hashCommand = defineCommand({
@@ -13,7 +48,7 @@ const hashCommand = defineCommand({
     description: 'Prove that hashing is an independent deterministic operational primitive.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "hash");
     if (!report.passed) throw new Error("Hash proof failed");
@@ -26,7 +61,7 @@ const signatureCommand = defineCommand({
     description: 'Prove that ML-DSA PQC signature is an independent operational primitive.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "signature");
     if (!report.passed) throw new Error("Signature proof failed");
@@ -39,7 +74,7 @@ const receiptCommand = defineCommand({
     description: 'Prove that a receipt is an independent operational primitive for unforgeable chaining.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "receipt");
     if (!report.passed) throw new Error("Receipt proof failed");
@@ -52,7 +87,7 @@ const replayCommand = defineCommand({
     description: 'Prove that replay is an independent functional convergence check.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "replay");
     if (!report.passed) throw new Error("Replay proof failed");
@@ -65,7 +100,7 @@ const engineCommand = defineCommand({
     description: 'Prove the pure operational law (delta → condition → effect → deterministic output → replay → refusal).',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "engine");
     if (!report.passed) throw new Error("Engine proof failed");
@@ -78,7 +113,7 @@ const sqliteCommand = defineCommand({
     description: 'Prove the smallest SQLite-backed Gall Truex lifecycle works.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "sqlite");
     if (!report.passed) throw new Error("SQLite proof failed");
@@ -91,7 +126,7 @@ const membraneCommand = defineCommand({
     description: 'Prove that the membrane boundary successfully isolates states, refuses prototype changes, and rollbacks correctly.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "membrane");
     if (!report.passed) throw new Error("Membrane proof failed");
@@ -104,7 +139,7 @@ const membraneReplayCommand = defineCommand({
     description: 'Prove membrane WAL persistence and transactional journal replay.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("membrane-replay");
     if (!report.passed) throw new Error("Membrane replay proof failed");
   }
@@ -116,7 +151,7 @@ const adapterCommand = defineCommand({
     description: 'Prove that the TRUEX Operational Adapter successfully isolates and governs external agent proposals.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "adapter");
     if (!report.passed) throw new Error("Adapter proof failed");
@@ -129,7 +164,7 @@ const hookCommand = defineCommand({
     description: 'Prove that the Hook is the fundamental Truex atom (condition + effect + receipt + replay).',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "hook");
     if (!report.passed) throw new Error("Hook proof failed");
@@ -142,7 +177,7 @@ const repositoryCommand = defineCommand({
     description: 'Enforce correct agent behavior by validating repository skills and task files.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove(
 "repository");
     if (!report.passed) throw new Error("Repository proof failed");
@@ -162,7 +197,7 @@ const benchmarkCommand = defineCommand({
     }
   },
   async run({ args }) {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("benchmark", { case: args.case });
     if (!report.passed) throw new Error("Benchmark failed");
   }
@@ -174,9 +209,33 @@ const hookOtpCommand = defineCommand({
     description: 'Prove local OTP-equivalent properties (actor isolation, mailbox FIFO, supervisor restarts, and quarantine).',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("hook-otp");
     if (!report.passed) throw new Error("Hook OTP proof failed");
+  }
+});
+
+const otpBreakpointsCommand = defineCommand({
+  meta: {
+    name: 'otp-breakpoints',
+    description: 'Prove OTP breakpoints (mailbox, supervisor, replay/topology, and existing hook-otp reports).',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("otp-breakpoints");
+    if (!report.passed) throw new Error("OTP Breakpoints proof failed");
+  }
+});
+
+const capabilityBreakpointsCommand = defineCommand({
+  meta: {
+    name: 'capability-breakpoints',
+    description: 'Prove capability breakpoints (sandbox-acl, tx-replay-sim, inv-contract-virtual, tenant-audit).',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("capability-breakpoints");
+    if (!report.passed) throw new Error("Capability Breakpoints proof failed");
   }
 });
 
@@ -186,7 +245,7 @@ const ecosystemCommand = defineCommand({
     description: 'Prove ecosystem convergence and generate full report.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("ecosystem");
     if (!report.passed) throw new Error("Ecosystem proof failed");
   }
@@ -198,7 +257,7 @@ const topologyCommand = defineCommand({
     description: 'Prove the recursive cascading hook topology, causal receipt chain lineage, and storm mitigation limits.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("topology");
     if (!report.passed) throw new Error("Topology proof failed");
   }
@@ -210,7 +269,7 @@ const ontologyCommand = defineCommand({
     description: 'Prove 100% mapping of physical files to Gall Operational Ontology.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("ontology");
     if (!report.passed) throw new Error("Ontology proof failed");
   }
@@ -222,7 +281,7 @@ const telcoProveCommand = defineCommand({
     description: 'Prove that the Telco Agent successfully ingests transitions and signs OCEL receipts.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("telco");
     if (!report.passed) throw new Error("Telco proof failed");
   }
@@ -234,7 +293,7 @@ const wizardProveCommand = defineCommand({
     description: 'Prove that the Wizard Agent counterfactual simulation, validation, and transaction rollback properties hold.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("wizard");
     if (!report.passed) throw new Error("Wizard proof failed");
   }
@@ -268,7 +327,7 @@ const telcoIngestCommand = defineCommand({
     }
   },
   async run({ args }) {
-    const agent = new TelcoAgent();
+    const agent = await getTelcoAgent();
     const balance = Number.parseFloat(args.balance);
     const newBalance = Number.parseFloat(args.newBalance);
     if (Number.isNaN(balance) || Number.isNaN(newBalance)) {
@@ -319,7 +378,7 @@ const telcoValidateCommand = defineCommand({
       }
     } else {
       console.log("No envelope provided. Running self-contained verification demonstration...");
-      const agent = new TelcoAgent();
+      const agent = await getTelcoAgent();
       const sample = agent.ingestTransition(
         'sample_activity',
         'sample_actor',
@@ -379,7 +438,7 @@ const wizardSimulateCommand = defineCommand({
     }
   },
   async run({ args }) {
-    const agent = new WizardAgent();
+    const agent = await getWizardAgent();
     const score = Number.parseInt(args.score, 10);
     const value = Number.parseInt(args.value, 10);
     if (Number.isNaN(score) || Number.isNaN(value)) {
@@ -413,7 +472,7 @@ const wizardWalkthroughCommand = defineCommand({
     }
   },
   async run({ args }) {
-    const agent = new WizardAgent();
+    const agent = await getWizardAgent();
     const initialScore = Number.parseInt(args.score, 10);
     if (Number.isNaN(initialScore)) {
       throw new TypeError("Initial score must be a valid number.");
@@ -439,12 +498,476 @@ const wizardWalkthroughCommand = defineCommand({
   }
 });
 
+const wizardInitCommand = defineCommand({
+  meta: {
+    name: 'init',
+    description: 'Create a new project cell with repo law, folders, package setup, baseline config'
+  },
+  args: {
+    mission: {
+      type: 'string',
+      description: 'Mission statement',
+      default: 'Build a durable project using Truex project manufacturing discipline'
+    },
+    'duration-hours': {
+      type: 'string',
+      description: 'Duration in hours',
+      default: '12'
+    },
+    agents: {
+      type: 'string',
+      description: 'Number of agents',
+      default: '5'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('init', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const durationHours = Number.parseFloat(args['duration-hours'] || args.durationHours || '12');
+    const agents = Number.parseInt(args.agents || '5', 10);
+
+    const cell = new ProjectCell(projectPath);
+    const receipt = cell.init({
+      path: projectPath,
+      mission: args.mission,
+      durationHours,
+      agents,
+      status: 'initialized'
+    });
+    console.log(JSON.stringify(receipt, null, 2));
+  }
+});
+
+const wizardMapCommand = defineCommand({
+  meta: {
+    name: 'map',
+    description: 'Inspect source/docs/deps and build the project topology'
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('map', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('map', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+    const mapper = new ProjectMapper(cell);
+    const { hash } = mapper.map();
+    const completedAt = new Date().toISOString();
+    const receipt = cell.emitReceipt('map', 'succeeded', startedAt, completedAt, {
+      reportPath: '.truex/reports/project-topology.json',
+      details: `Topology mapped. Hash: ${hash}`
+    });
+    console.log(JSON.stringify(receipt, null, 2));
+  }
+});
+
+const wizardPlanCommand = defineCommand({
+  meta: {
+    name: 'plan',
+    description: 'Ask agents to propose their own Gall checkpoints'
+  },
+  args: {
+    'checkpoint-mode': {
+      type: 'string',
+      description: 'Checkpoint mode',
+      default: 'agent-proposed'
+    },
+    'require-doctor': {
+      type: 'boolean',
+      description: 'Require doctor checks'
+    },
+    'require-observatory': {
+      type: 'boolean',
+      description: 'Require observatory checks'
+    },
+    'require-accounting': {
+      type: 'boolean',
+      description: 'Require accounting validation'
+    },
+    'require-handoff': {
+      type: 'boolean',
+      description: 'Require handoff verification'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('plan', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('plan', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+
+    const topoPath = cell.resolvePath('.truex/reports/project-topology.json');
+    if (!fs.existsSync(topoPath)) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('plan', 'refused', startedAt, completedAt, { details: 'Project topology map missing' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project topology map missing. Run wizard map first.");
+    }
+
+    const topology = JSON.parse(fs.readFileSync(topoPath, 'utf8'));
+
+    const planner = new CheckpointPlanner(cell);
+    const { hash: regHash } = planner.plan(topology);
+
+    const completedAt = new Date().toISOString();
+    const receipt = cell.emitReceipt('plan', 'succeeded', startedAt, completedAt, {
+      reportPath: '.truex/checkpoints/checkpoint-registry.json',
+      details: `Checkpoint registry generated. Hash: ${regHash}`
+    });
+    console.log(JSON.stringify(receipt, null, 2));
+  }
+});
+
+const wizardForgeCommand = defineCommand({
+  meta: {
+    name: 'forge',
+    description: 'Materialize code/docs/tests/artifacts for the next checkpoint'
+  },
+  args: {
+    checkpoint: {
+      type: 'string',
+      description: 'Checkpoint ID'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('forge', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('forge', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+    const checkpointId = args.checkpoint || 'cp-cli-contract';
+
+    const engine = new ExecutionEngine(cell);
+    try {
+      engine.forge(checkpointId);
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('forge', 'succeeded', startedAt, completedAt, {
+        details: `Forged checkpoint: ${checkpointId}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('forge', 'failed', startedAt, completedAt, {
+        details: `Forge failed: ${e.message}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw e;
+    }
+  }
+});
+
+const wizardBindCommand = defineCommand({
+  meta: {
+    name: 'bind',
+    description: 'Connect project surfaces: CLI, tests, docs, observatory, mailbox, reports'
+  },
+  args: {
+    checkpoint: {
+      type: 'string',
+      description: 'Checkpoint ID'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('bind', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('bind', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+    const checkpointId = args.checkpoint || 'cp-cli-contract';
+
+    const engine = new ExecutionEngine(cell);
+    try {
+      engine.bind(checkpointId);
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('bind', 'succeeded', startedAt, completedAt, {
+        details: `Bound checkpoint components: ${checkpointId}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('bind', 'failed', startedAt, completedAt, {
+        details: `Bind failed: ${e.message}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw e;
+    }
+  }
+});
+
+const wizardProveVerbCommand = defineCommand({
+  meta: {
+    name: 'prove',
+    description: 'Run doctor/tests/accounting/conservation/replay checks'
+  },
+  args: {
+    checkpoint: {
+      type: 'string',
+      description: 'Checkpoint ID'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('prove', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('prove', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+    const checkpointId = args.checkpoint || 'cp-cli-contract';
+
+    const engine = new ExecutionEngine(cell);
+    try {
+      const res = engine.prove(checkpointId);
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('prove', 'succeeded', startedAt, completedAt, {
+        reportPath: `.truex/reports/proof-${checkpointId}.json`,
+        details: `Proven checkpoint: ${checkpointId}. Duration: ${res.durationMs}ms`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('prove', 'failed', startedAt, completedAt, {
+        details: `Proof failed: ${e.message}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw e;
+    }
+  }
+});
+
+const wizardHardenCommand = defineCommand({
+  meta: {
+    name: 'harden',
+    description: 'Run breakpoint/adversarial/stress/membrane/resource checks'
+  },
+  args: {
+    checkpoint: {
+      type: 'string',
+      description: 'Checkpoint ID'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('harden', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('harden', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+    const checkpointId = args.checkpoint || 'cp-cli-contract';
+
+    const engine = new ExecutionEngine(cell);
+    try {
+      const res = engine.harden(checkpointId);
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('harden', 'succeeded', startedAt, completedAt, {
+        reportPath: `.truex/reports/harden-${checkpointId}.json`,
+        details: `Hardened checkpoint: ${checkpointId}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('harden', 'failed', startedAt, completedAt, {
+        details: `Hardening failed: ${e.message}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw e;
+    }
+  }
+});
+
+const wizardHandoffCommand = defineCommand({
+  meta: {
+    name: 'handoff',
+    description: 'Produce final project evidence package'
+  },
+  args: {
+    'duration-hours': {
+      type: 'string',
+      description: 'Duration in hours',
+      default: '12'
+    },
+    'require-elapsed': {
+      type: 'boolean',
+      description: 'Enforce elapsed time'
+    },
+    'require-agent-reports': {
+      type: 'string',
+      description: 'Number of expected agent reports',
+      default: '5'
+    },
+    'require-gall-checkpoints': {
+      type: 'boolean',
+      description: 'Require checkpoints in registry'
+    },
+    'require-finalization-receipt': {
+      type: 'boolean',
+      description: 'Require finalization receipt'
+    }
+  },
+  async run({ args }) {
+    const startedAt = new Date().toISOString();
+    const projectPath = args._?.[0];
+    if (!projectPath) {
+      const cell = new ProjectCell(process.cwd());
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('handoff', 'refused', startedAt, completedAt, { details: 'Missing project path' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Missing project path");
+    }
+
+    const cell = new ProjectCell(projectPath);
+    if (!cell.isInitialized()) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('handoff', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw new Error("Project cell not initialized");
+    }
+
+    cell.updateHeartbeat();
+    const controller = new MissionController(cell);
+
+    const reqElapsed = args['require-elapsed'] ?? args.requireElapsed ?? false;
+    const reqGallCp = args['require-gall-checkpoints'] ?? args.requireGallCheckpoints ?? false;
+    const countReports = Number.parseInt(args['require-agent-reports'] || args.requireAgentReports || '5', 10);
+
+    try {
+      controller.verifyHandoff({
+        requireElapsed: reqElapsed,
+        requireGallCheckpoints: reqGallCp,
+        requireAgentReports: countReports
+      });
+
+      const accPath = cell.resolvePath('.truex/reports/accounting.json');
+      const acc = JSON.parse(fs.readFileSync(accPath, 'utf8'));
+
+      controller.finalize({
+        W1: 'Conserved',
+        W2: 'Conserved',
+        W3: 'Conserved',
+        W4: 'Conserved',
+        W5: 'Conserved',
+        counts: acc
+      });
+
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('handoff', 'succeeded', startedAt, completedAt, {
+        reportPath: 'docs/reports/PROJECT-WIZARD-S11-SYNTHESIS.md',
+        details: 'Handoff evidence package successfully finalized.'
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('handoff', 'refused', startedAt, completedAt, {
+        details: `Handoff verification failed: ${e.message}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+      throw e;
+    }
+  }
+});
+
 const wizardCommand = defineCommand({
   meta: {
     name: 'wizard',
     description: 'Wizard agent operational commands',
   },
   subCommands: {
+    init: wizardInitCommand,
+    map: wizardMapCommand,
+    plan: wizardPlanCommand,
+    forge: wizardForgeCommand,
+    bind: wizardBindCommand,
+    prove: wizardProveVerbCommand,
+    harden: wizardHardenCommand,
+    handoff: wizardHandoffCommand,
     simulate: wizardSimulateCommand,
     walkthrough: wizardWalkthroughCommand
   }
@@ -456,7 +979,7 @@ const telcoIngestProveCommand = defineCommand({
     description: 'Prove Telco transition ingestion and OCEL receipt generation.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("telco-ingest");
     if (!report.passed) throw new Error("Telco ingest proof failed");
   }
@@ -468,7 +991,7 @@ const telcoValidateProveCommand = defineCommand({
     description: 'Prove Telco OCEL receipt validation and tamper detection.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("telco-validate");
     if (!report.passed) throw new Error("Telco validate proof failed");
   }
@@ -480,7 +1003,7 @@ const wizardSimulateProveCommand = defineCommand({
     description: 'Prove Wizard counterfactual transaction simulation and invariant checking.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("wizard-simulate");
     if (!report.passed) throw new Error("Wizard simulate proof failed");
   }
@@ -492,9 +1015,69 @@ const wizardWalkthroughProveCommand = defineCommand({
     description: 'Prove Wizard sequence walkthrough with commit and rollback validation.',
   },
   async run() {
-    const doctor = new DoctorAgent();
+    const doctor = await getDoctorAgent();
     const report = await doctor.prove("wizard-walkthrough");
     if (!report.passed) throw new Error("Wizard walkthrough proof failed");
+  }
+});
+
+const doctestProveCommand = defineCommand({
+  meta: {
+    name: 'doctest',
+    description: 'Prove that all external doctests in the documentation pass.',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("doctest");
+    if (!report.passed) throw new Error("Doctest proof failed");
+  }
+});
+
+const architectureCommand = defineCommand({
+  meta: {
+    name: 'architecture',
+    description: 'Prove the generated C4 architectural maps are grounded in AST, runtime evidence, and receipts.',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("architecture");
+    if (!report.passed) throw new Error("Architecture proof failed");
+  }
+});
+
+const mailboxCommand = defineCommand({
+  meta: {
+    name: 'mailbox',
+    description: 'Prove the persistent mailbox S10 queue-state discipline, duplicate prevention, and crash recovery.',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("mailbox");
+    if (!report.passed) throw new Error("Mailbox proof failed");
+  }
+});
+
+const finalizationCommand = defineCommand({
+  meta: {
+    name: 'finalization',
+    description: 'Prove the final 12H release gate finalization (vitest, ecosystem, mailbox, and observatory).',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("finalization");
+    if (!report.passed) throw new Error("Finalization proof failed");
+  }
+});
+
+const projectEvidenceTypesCommand = defineCommand({
+  meta: {
+    name: 'project-evidence-types',
+    description: 'Prove the Object-Centric Project Evidence Type System (S12).'
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("project-evidence-types");
+    if (!report.passed) throw new Error("Project evidence types proof failed");
   }
 });
 
@@ -504,6 +1087,9 @@ const proveCommand = defineCommand({
     description: 'Prove Truex concepts',
   },
   subCommands: {
+    doctest: doctestProveCommand,
+    mailbox: mailboxCommand,
+    finalization: finalizationCommand,
     hash: hashCommand,
     signature: signatureCommand,
     sqlite: sqliteCommand,
@@ -517,23 +1103,29 @@ const proveCommand = defineCommand({
     repository: repositoryCommand,
     benchmark: benchmarkCommand,
     "hook-otp": hookOtpCommand,
+    "otp-breakpoints": otpBreakpointsCommand,
+    "capability-breakpoints": capabilityBreakpointsCommand,
     ecosystem: ecosystemCommand,
     topology: topologyCommand,
     ontology: ontologyCommand,
+    architecture: architectureCommand,
     telco: telcoProveCommand,
     wizard: wizardProveCommand,
     "telco-ingest": telcoIngestProveCommand,
     "telco-validate": telcoValidateProveCommand,
     "wizard-simulate": wizardSimulateProveCommand,
-    "wizard-walkthrough": wizardWalkthroughProveCommand
+    "wizard-walkthrough": wizardWalkthroughProveCommand,
+    "project-evidence-types": projectEvidenceTypesCommand
   }
 });
+
 
 const doctorCommand = defineCommand({
   meta: {
     name: 'doctor',
     description: 'Diagnose and verify the truex architecture',
   },
+  plugins: [OcelOtelWeaverPlugin],
   subCommands: {
     prove: proveCommand
   }

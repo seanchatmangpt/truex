@@ -1,9 +1,19 @@
+/**
+ * @module emit-topology-graph
+ * @description
+ * Gall Classification: S5 Topology Mapping
+ * Purpose: Extracts live ontology graph via AST. Maps physical file 
+ * structures and dependencies into logical layer definitions and proof chains.
+ */
 import { Project, SourceFile } from 'ts-morph';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
+/**
+ * Represents a single node in the Truex system ontology graph.
+ */
 export interface OntologyNode {
   id: string; 
   type: string;
@@ -29,7 +39,7 @@ function classifyFile(sourceFile: SourceFile, relativePath: string): { type: str
   }
 
   // 3. CLI & Tools
-  if (sourceFile.getImportDeclaration(imp => imp.getModuleSpecifierValue() === 'citty') || relativePath.includes('scripts/truex.ts') || relativePath.includes('scripts/decouple-hookbench') || relativePath.includes('scripts/receipted-audit') || relativePath.includes('scripts/after-tool-hook')) {
+  if (sourceFile.getImportDeclaration(imp => imp.getModuleSpecifierValue() === 'citty') || relativePath.includes('scripts/truex.ts') || relativePath.includes('scripts/decouple-hookbench') || relativePath.includes('scripts/receipted-audit') || relativePath.includes('scripts/after-tool-hook') || relativePath.includes('verify-doctests')) {
     return { type: 'CLI', layer: 'Governance' };
   }
 
@@ -77,6 +87,11 @@ function calculateHash(content: string): string {
   return hashSum.digest('hex');
 }
 
+/**
+ * Emits the full system topology graph by parsing TypeScript source files.
+ * Reconstructs the dependency tree and correlates test proofs for all modules.
+ * @returns The topology graph object.
+ */
 export function emitTopologyGraph() {
   console.log('🔍 [Topology Graph Emitter] Extracting live ontology graph via AST...');
   

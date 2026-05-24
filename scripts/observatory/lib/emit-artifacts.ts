@@ -1,3 +1,9 @@
+/**
+ * @module emit-artifacts
+ * @description
+ * Gall Classification: Observatory Output Formatting
+ * Purpose: Converts raw observatory JSON facts into human-readable Markdown artifacts.
+ */
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -5,12 +11,22 @@ const BASE_DIR = process.cwd();
 const FACTS_DIR = path.join(BASE_DIR, 'docs/v1/latest/facts');
 const ARTIFACTS_DIR = path.join(BASE_DIR, 'docs/artifacts');
 
+/**
+ * Ensures a directory exists, creating it and its parents if necessary.
+ * @param dir The directory path to ensure.
+ */
 function ensureDir(dir: string) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
 }
 
+/**
+ * Generates a Markdown document based on the artifact name and its corresponding facts.
+ * @param name The name of the artifact (e.g., 'core-primitives').
+ * @param data The JSON data object containing the facts.
+ * @returns The formatted Markdown string.
+ */
 function generateMarkdown(name: string, data: any): string {
   let md = `# Antigravity Artifact: ${name.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')}\n\n`;
   
@@ -219,6 +235,11 @@ function generateMarkdown(name: string, data: any): string {
   return md;
 }
 
+/**
+ * Iterates through all emitted JSON facts and converts them into Markdown artifacts.
+ * The resulting documents are written to the 'docs/artifacts' directory.
+ * @returns A promise that resolves when all artifacts have been generated.
+ */
 export async function emitArtifacts() {
   console.log('💎 Emitting Antigravity Artifacts...');
   

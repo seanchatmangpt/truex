@@ -1,5 +1,14 @@
+/**
+ * @module ontology
+ * @description Tracks file roles, dependencies, and proofs within the TrueX architecture.
+ * Gall Classification: S0 (receipt primitives) / S3 (sqlite membrane).
+ * Enforces the decomposition law by mapping the ontology.
+ */
 import type { Database } from 'better-sqlite3';
 
+/**
+ * Represents a node in the project ontology.
+ */
 export interface OntologyNode {
   id: string; // The file path relative to project root
   type: string;
@@ -9,6 +18,9 @@ export interface OntologyNode {
   documentedBy: string[]; // List of observatory emitters that process this file
 }
 
+/**
+ * Registry for managing and querying the ontology graph.
+ */
 export class OntologyRegistry {
   constructor(private db: Database) {}
 

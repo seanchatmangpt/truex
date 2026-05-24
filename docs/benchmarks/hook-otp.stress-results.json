@@ -9,7 +9,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 74
+    "durationMs": 73
   },
   {
     "name": "Sibling Crash Containment",
@@ -21,7 +21,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 0
+    "durationMs": 1
   },
   {
     "name": "Restart Budget Exhaustion",
@@ -117,6 +117,6 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 3465
+    "durationMs": 1266
   }
 ]

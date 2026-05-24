@@ -1,11 +1,53 @@
-import { createContext } from '../context/context.js'
-
 /**
- * Virtual Context for Lazy Computation & Virtual Objects
- *
- * Implements a system where GET interceptors can synthesize values, memoize per context,
- * and redirect to alternate storage, making virtual fields indistinguishable from real ones.
+ * @module virtual-context
+ * @description
+ * Gall Classification: S₀ - Operational Primitive
+ * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
  */
+import { createContext } from '../context/context.js'
+import { CircularDependencyError, RecursionRefusalError } from '../invariants/invariant-context.js'
+
+const targetIds = new WeakMap()
+let nextTargetId = 1
+function getTargetId(obj) {
+  if (!obj || (typeof obj !== 'object' && typeof obj !== 'function')) return 'primitive'
+  if (!targetIds.has(obj)) {
+    targetIds.set(obj, nextTargetId++)
+  }
+  return targetIds.get(obj)
+}
+
+function safeCompute(fieldName, virtualDef, target, state) {
+  if (!state.visited) state.visited = new Set()
+  if (state.depth === undefined) state.depth = 0
+  if (state.fuel === undefined) state.fuel = 100000
+
+  const evaluationKey = `${getTargetId(target)}:${fieldName}`
+  
+  if (state.visited.has(evaluationKey)) {
+    throw new CircularDependencyError(`Circular virtual dependency detected: field "${fieldName}" already being computed on stack`)
+  }
+
+  const limit = state.maxDepth !== undefined ? state.maxDepth : 2000
+  if (state.depth >= limit) {
+    throw new RecursionRefusalError(`Maximum recursion depth of ${limit} exceeded`)
+  }
+
+  if (state.fuel <= 0) {
+    throw new RecursionRefusalError('Fuel budget exhausted')
+  }
+  state.fuel--
+
+  state.visited.add(evaluationKey)
+  state.depth++
+
+  try {
+    return virtualDef.compute(target, state)
+  } finally {
+    state.visited.delete(evaluationKey)
+    state.depth--
+  }
+}
 
 /**
  * Creates a virtual context with lazy computation and memoization support.
@@ -15,9 +57,10 @@ import { createContext } from '../context/context.js'
  * @param {object} virtualSpec.virtualFields - Map of virtual field definitions
  * @param {Map|object} [virtualSpec.alternateStorage] - External storage backend
  * @param {object} [virtualSpec.redirects] - Map of real fields to virtual fields
+ * @param {object} [options] - Configuration options for runtime limits
  * @returns {object} Virtual API with call, invalidateCache, getVirtualValue, etc.
  */
-export function createVirtualContext(target, virtualSpec = {}) {
+export function createVirtualContext(target, virtualSpec = {}, options = {}) {
   const virtualContext = createContext()
 
   const {
@@ -34,6 +77,7 @@ export function createVirtualContext(target, virtualSpec = {}) {
    * @returns {*} The result of the function
    */
   function call(fn) {
+    const parentState = virtualContext.tryUse()
     const contextLocalCache = new Map()
     const ttlTimestamps = new Map()
 
@@ -44,7 +88,11 @@ export function createVirtualContext(target, virtualSpec = {}) {
       virtualFields,
       alternateStorage,
       redirects,
-      target
+      target,
+      visited: parentState ? parentState.visited : new Set(),
+      depth: parentState ? parentState.depth : 0,
+      fuel: parentState ? parentState.fuel : (options.fuel !== undefined ? options.fuel : 100000),
+      maxDepth: parentState ? parentState.maxDepth : (options.maxDepth !== undefined ? options.maxDepth : 2000),
     }
 
     // Define virtual fields as accessors on target to make them fully functional
@@ -69,7 +117,7 @@ export function createVirtualContext(target, virtualSpec = {}) {
             // This getter is a fallback - the get interceptor should handle it first
             // But if it doesn't, compute the value
             if (virtualDef.compute) {
-              return virtualDef.compute(target, contextState)
+              return safeCompute(fieldName, virtualDef, target, contextState)
             }
             return undefined
           },
@@ -115,7 +163,7 @@ export function createVirtualContext(target, virtualSpec = {}) {
                 // Redirect to the target virtual field
                 const virtualDef = virtualFields[targetName]
                 if (virtualDef && virtualDef.compute) {
-                  return virtualDef.compute(target, contextState)
+                  return safeCompute(targetName, virtualDef, target, contextState)
                 }
                 return undefined
               },
@@ -311,6 +359,17 @@ export function createVirtualGetInterceptor(virtualCtx) {
       return undefined
     }
 
+    // Initialize visited, depth, fuel on state if not present (defensive)
+    if (!state.visited) state.visited = new Set()
+    if (state.depth === undefined) state.depth = 0
+    if (state.fuel === undefined) state.fuel = 100000
+
+    // Consume fuel for the lookup/evaluation
+    if (state.fuel <= 0) {
+      throw new RecursionRefusalError('Fuel budget exhausted')
+    }
+    state.fuel--
+
     const storageType = virtualDef.storage || 'context'
 
     // Always check for stored/written values first, regardless of memoize setting
@@ -367,7 +426,7 @@ export function createVirtualGetInterceptor(virtualCtx) {
     }
 
     // No stored value found, compute the value
-    const computedValue = virtualDef.compute(target, state)
+    const computedValue = safeCompute(effectiveField, virtualDef, target, state)
 
     // Store based on memoization setting or if explicit storage type is specified
     // Auto-enable memoization for fields with explicit storage

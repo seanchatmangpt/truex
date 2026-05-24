@@ -1,3 +1,8 @@
+/**
+ * @module hook
+ * @description Gall S₂: Engine primitives.
+ * The core Truex atom for transformation and consequence.
+ */
 import type { GraphDelta, HookDefinition, HookEffect, Receipt, HookEvent } from "./runtime-law.js";
 import { hash, createReceipt, verifyReceipt } from "./index.js";
 import type { TruexContext } from "./context.js";

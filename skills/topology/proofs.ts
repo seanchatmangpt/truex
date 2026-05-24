@@ -1,8 +1,21 @@
+/**
+ * @module skills/topology/proofs
+ * @description
+ * Gall Classification: Proof Layer (S2/S3)
+ * Purpose: Proves the invariants, convergence, rollback correctness, and causal
+ * chaining of the topology execution model. Validates that the topology runtime
+ * complies with deterministic behavior, storm cycle refusal, and state isolation.
+ * Adheres strictly to Gall Law by preventing non-converging or tampered executions.
+ */
+
 import { createTopologyRuntime, registerTopologyHook, emitTopologyDelta, runTopologyChain, replayTopologyChain, generateTopologyReport } from "../../packages/truex-core/src/topology.gall.js";
 import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
 import { hash } from "../../packages/truex-core/src/index.js";
 import type { HookEffect } from "../../packages/truex-core/src/runtime-law.js";
 
+/**
+ * Report structure for Topology proofs.
+ */
 export interface TopologyProofReport {
   case: string;
   status: string;
@@ -108,6 +121,10 @@ export interface TopologyProofReport {
   failures: string[];
 }
 
+/**
+ * Executes tests to prove the Topology agent boundaries.
+ * @returns {Promise<TopologyProofReport>} The proof results.
+ */
 export async function proveTopology(): Promise<TopologyProofReport> {
   const start = Date.now();
   const failures: string[] = [];

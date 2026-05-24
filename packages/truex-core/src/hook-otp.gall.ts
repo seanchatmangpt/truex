@@ -1,3 +1,8 @@
+/**
+ * @module hook-otp
+ * @description Gall S₂: Engine primitives for Hook OTP execution model.
+ * Provides a receipted, crash-only runtime for Truex hooks.
+ */
 import { parseGraphDelta } from "./runtime-law.js";
 import type { GraphDelta, Receipt } from "./runtime-law.js";
 import { createDeterministicContext } from "./context.js";
@@ -39,6 +44,7 @@ export interface HookProcess {
   isHalted: boolean;
   supervisorId?: string;
   lastReceiptHash: string | null;
+  maxQueueDepth?: number;
 }
 
 export function createHookProcess(
@@ -98,6 +104,7 @@ export interface HookOtpRuntime {
     restarts: number;
   };
   parentSeed?: number;
+  quarantineLimit?: number;
 }
 
 export function createHookOtpRuntime(parentSeed: number = 1716480000000): HookOtpRuntime {
@@ -133,6 +140,22 @@ export function dispatchMessage(
   });
   const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
   const stepCtx = createDeterministicContext(stepSeed);
+  
+  // Check quarantine overflow limit
+  if (runtime.quarantineLimit !== undefined && runtime.quarantine.length >= runtime.quarantineLimit) {
+    runtime.metrics.messagesRefused++;
+    const refusedReceipt = createReceipt(
+      stepCtx,
+      msg.id,
+      msg.delta?.id || "unknown",
+      hash(msg),
+      hash("Quarantine limit exceeded"),
+      proc ? proc.lastReceiptHash : null,
+      "refused"
+    );
+    runtime.refusedReceipts.push(refusedReceipt);
+    return { allowed: false, reason: "Quarantine limit exceeded", receipt: refusedReceipt };
+  }
   
   // 1. Check if process exists and is not halted
   if (!proc) {
@@ -199,6 +222,22 @@ export function dispatchMessage(
     );
     runtime.refusedReceipts.push(refusedReceipt);
     return { allowed: false, reason: "Capacity breach: too many changes", receipt: refusedReceipt };
+  }
+
+  // 3.5. Queue depth check
+  if (proc.maxQueueDepth !== undefined && proc.mailbox.size() >= proc.maxQueueDepth) {
+    runtime.metrics.messagesRefused++;
+    const refusedReceipt = createReceipt(
+      stepCtx,
+      msg.id,
+      msg.delta?.id || "unknown",
+      hash(msg),
+      hash("Queue overflow: max queue depth exceeded"),
+      proc.lastReceiptHash,
+      "refused"
+    );
+    runtime.refusedReceipts.push(refusedReceipt);
+    return { allowed: false, reason: "Queue overflow: max queue depth exceeded", receipt: refusedReceipt };
   }
 
   // 4. Queue the message in process mailbox

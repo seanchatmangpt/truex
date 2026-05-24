@@ -1,0 +1,9 @@
+graph TD
+    subgraph Truex Project Cell
+        Config[project.json]
+        Receipts[Receipt Store]
+        Reports[Reports Ledger]
+    end
+    TruexCLI[Truex CLI] --> Config
+    TruexCLI --> Receipts
+    TruexCLI --> Reports

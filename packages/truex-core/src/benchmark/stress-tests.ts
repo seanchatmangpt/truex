@@ -1,3 +1,8 @@
+/**
+ * @module stress-tests
+ * @description Stress tests and failure invariant checks for the Gall system.
+ * Gall Classification: S-2 (benchmark primitives).
+ */
 import { createDeterministicContext } from "../context.js";
 import { TruexHook } from "../hook.js";
 import { parseGraphDelta, type GraphDelta } from "../runtime-law.js";

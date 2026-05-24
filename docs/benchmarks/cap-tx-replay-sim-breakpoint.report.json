@@ -1,0 +1,39 @@
+{
+  "nesting": [
+    {
+      "depth": 10,
+      "timeMs": 0.5477920000000154,
+      "memoryDeltaBytes": 193880,
+      "stackOverflow": false,
+      "status": "passed"
+    },
+    {
+      "depth": 100,
+      "timeMs": 1.1051669999999945,
+      "memoryDeltaBytes": 3037024,
+      "stackOverflow": false,
+      "status": "passed"
+    },
+    {
+      "depth": 1000,
+      "timeMs": 102.29529099999999,
+      "memoryDeltaBytes": 14052368,
+      "stackOverflow": false,
+      "status": "passed"
+    }
+  ],
+  "rollbackConsistency": {
+    "nestedTxRollbackSuccess": true,
+    "noStatePollutionLeaks": true,
+    "simulationShadowCollisionVerified": true
+  },
+  "replayVerification": {
+    "normalReplayConverged": true,
+    "mutatedStateReplayDiverged": true,
+    "tamperedHashReplayDiverged": true,
+    "mathRandomReplayDiverged": true,
+    "dynamicDateReplayDiverged": true,
+    "deterministicContextReplayConverged": true
+  },
+  "timestamp": "2026-05-24T07:46:15.271Z"
+}

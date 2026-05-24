@@ -1,3 +1,8 @@
+/**
+ * @module concurrency
+ * @description Gall S₂: Engine primitives.
+ * Provides detection of race conditions and interference in the hook field.
+ */
 import type { HookDefinition, Quad, HookEffect, GraphDelta, Receipt } from "./runtime-law.js";
 import { TruexHook } from "./hook.js";
 import type { TruexContext } from "./context.js";

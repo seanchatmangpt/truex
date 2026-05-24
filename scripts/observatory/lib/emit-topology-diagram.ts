@@ -1,8 +1,17 @@
+/**
+ * @module emit-topology-diagram
+ * @description
+ * Gall Classification: S5 Topology Documentation
+ * Purpose: Generates a Mermaid diagram representing the operational topology of Truex.
+ */
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const OUTPUT_PATH = 'docs/v1/latest/diagrams/operational-topology.mmd';
 
+/**
+ * Emitter for generating the full system operational topology Mermaid diagram.
+ */
 export class TopologyDiagramEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
@@ -81,6 +90,10 @@ export class TopologyDiagramEmitter extends FactEmitter {
   }
 }
 
+/**
+ * Generates and writes the operational topology Mermaid diagram.
+ * @returns A promise resolving to the diagram content.
+ */
 export async function emitTopologyDiagram() {
   const emitter = new TopologyDiagramEmitter();
   return emitter.emit();

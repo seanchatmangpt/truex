@@ -1,4 +1,10 @@
 /**
+ * @module error-log
+ * @description Error logging and sensitive data sanitization utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Default list of sensitive keys to redact from logs
  */
 export const DEFAULT_REDACTED_KEYS = [

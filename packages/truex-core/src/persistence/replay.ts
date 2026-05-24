@@ -1,3 +1,9 @@
+/**
+ * @module replay
+ * @description Rehydrates state from the journal and verifies integrity.
+ * Gall Classification: S1 (replay primitives).
+ * Enforces the replay law: same input + same law = same consequence.
+ */
 import type { Database } from 'better-sqlite3';
 import { DeltaJournal } from './journal.js';
 import { SQLiteReceiptStore } from './receipt-store.js';

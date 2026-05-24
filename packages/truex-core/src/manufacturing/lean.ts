@@ -1,3 +1,8 @@
+/**
+ * @module lean
+ * @description Gall S₂: Engine primitives.
+ * Implements WasteDetector (Muri/Mura/Muda Elimination) for execution metrics.
+ */
 import { TruexHook } from "../hook.js";
 
 /**

@@ -1,3 +1,12 @@
+/**
+ * @module SwarmAuditor
+ * @description
+ * Gall Classification: Gall S5 (Swarm Validation & Proof)
+ * Purpose: Defines a multi-agent swarm (Governor, Architect, Operator, Doctor, Auditor)
+ * that independently audits the operational laws and invariants of the Truex ecosystem.
+ * All agents are required to execute successfully to ensure no Gall tier regressions occur.
+ */
+
 import { hash } from "../skills/hash/mutations.js";
 import { verifyReceipt, verifyChain } from "../skills/receipt/invariant.js";
 import { createProxy } from "../skills/membrane/mutations.js";
@@ -6,12 +15,22 @@ import { parseQuad, parseGraphDelta } from "../packages/truex-core/src/runtime-l
 import { proveReceipt } from "../skills/receipt/proofs.js";
 import { proveMembrane } from "../skills/membrane/proofs.js";
 
+/**
+ * The standard output produced by any audit agent.
+ */
 export type AuditOutput = {
   passed: boolean;
   findings: string[];
 };
 
+/**
+ * The Governor Agent audits access controls, verifying that capabilities block unauthorized actions.
+ */
 export class GovernorAgent {
+  /**
+   * Executes the access control and capability context audit.
+   * @returns An AuditOutput indicating success or failure.
+   */
   audit(): AuditOutput {
     const findings: string[] = [];
     try {
@@ -43,7 +62,14 @@ export class GovernorAgent {
   }
 }
 
+/**
+ * The Architect Agent audits the structural integrity and sandbox boundaries of the repository.
+ */
 export class ArchitectAgent {
+  /**
+   * Executes the membrane structure and boundary audit.
+   * @returns An AuditOutput indicating success or failure.
+   */
   audit(): AuditOutput {
     const findings: string[] = [];
     const report = proveMembrane();
@@ -56,7 +82,14 @@ export class ArchitectAgent {
   }
 }
 
+/**
+ * The Operator Agent audits execution environments and TypeScript compliance.
+ */
 export class OperatorAgent {
+  /**
+   * Executes the typechecking and operational environment audit.
+   * @returns An AuditOutput indicating success or failure.
+   */
   audit(): AuditOutput {
     const findings: string[] = [];
     // Verify that the code has zero tsc type errors
@@ -65,7 +98,14 @@ export class OperatorAgent {
   }
 }
 
+/**
+ * The Doctor Agent audits baseline validation gates and primitive parsers.
+ */
 export class DoctorAgent {
+  /**
+   * Executes the validation gates audit for quads and graph deltas.
+   * @returns An AuditOutput indicating success or failure.
+   */
   audit(): AuditOutput {
     const findings: string[] = [];
     try {
@@ -82,7 +122,14 @@ export class DoctorAgent {
   }
 }
 
+/**
+ * The Auditor Agent audits the cryptographic receipt chains and signature verifications.
+ */
 export class AuditorAgent {
+  /**
+   * Executes the receipt signature and chaining audit.
+   * @returns An AuditOutput indicating success or failure.
+   */
   audit(): AuditOutput {
     const findings: string[] = [];
     const report = proveReceipt();

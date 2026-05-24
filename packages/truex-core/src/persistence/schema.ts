@@ -1,3 +1,9 @@
+/**
+ * @module schema
+ * @description Defines the SQLite persistence schema and migrations for Truex Core.
+ * Gall Classification: S3 (SQLite membrane primitives).
+ * Serves as the foundational persistence layout.
+ */
 import type { Database } from 'better-sqlite3';
 
 /**
@@ -112,6 +118,7 @@ export const migrations: Migration[] = [
 
 /**
  * Initializes the database schema and runs pending migrations.
+ * @param db - The SQLite database instance.
  */
 export function initializeSchema(db: Database): void {
   // Ensure we are in WAL mode for SQLite for better concurrency and TPS-style durability

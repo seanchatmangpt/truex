@@ -1,3 +1,8 @@
+/**
+ * @module registry
+ * @description Gall S₂: Engine primitives.
+ * Defines fundamental Repository Laws and RecursiveHookEvolution.
+ */
 import { type TruexContext, createDeterministicContext } from '../context.js';
 import { type HookDefinition, type GraphDelta, parseGraphDelta, type HookCondition } from '../runtime-law.js';
 import { ProductionLine } from './line.js';

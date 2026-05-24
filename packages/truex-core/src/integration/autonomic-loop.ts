@@ -1,3 +1,8 @@
+/**
+ * @module autonomic-loop
+ * @description Unified closed-loop governor orchestrating the 10-step Gall lifecycle.
+ * Gall Classification: S2 (engine primitives) / S3 (sqlite membrane).
+ */
 import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -8,6 +13,9 @@ import { SQLiteReceiptStore } from '../persistence/receipt-store.js';
 import { hash, initializeSchema, createReceipt, detectRaceConditions } from '../index.js';
 import { interceptAgyExecution } from './hook-interceptor.js';
 
+/**
+ * Describes a tool action performed by the agent.
+ */
 export interface ToolAction {
   name: string; // e.g. "write_file", "run_command"
   target?: string; // target file path or command string
@@ -15,6 +23,9 @@ export interface ToolAction {
   arguments?: Record<string, any>;
 }
 
+/**
+ * Result of the Autonomic Loop execution.
+ */
 export interface AutonomicLoopResult {
   status: 'confirmed' | 'refused';
   receipt: Receipt;
@@ -23,6 +34,9 @@ export interface AutonomicLoopResult {
   refusalReason?: string;
 }
 
+/**
+ * Error thrown when an action is refused by the system's invariants.
+ */
 export class RefusalError extends Error {
   constructor(public reason: string, public receipt: Receipt) {
     super(`[JIDOKA LINE STOP] ${reason}`);
@@ -382,14 +396,23 @@ export class AutonomicGallLoop {
     };
   }
 
+  /**
+   * Retrieves the underlying SQLite database instance.
+   */
   getDb(): Database.Database {
     return this.db;
   }
 
+  /**
+   * Retrieves the WAL journal instance.
+   */
   getJournal(): DeltaJournal {
     return this.journal;
   }
 
+  /**
+   * Retrieves the receipt store instance.
+   */
   getReceiptStore(): SQLiteReceiptStore {
     return this.receiptStore;
   }

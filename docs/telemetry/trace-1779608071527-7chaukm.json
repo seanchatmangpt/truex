@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779608071527-7chaukm",
+  "spanId": "span-doctor",
+  "startTime": 1779608071527,
+  "attributes": {
+    "command": "doctor",
+    "args": "{\"_\":[\"prove\",\"ecosystem\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779608249610,
+      "attributes": {
+        "primitive": "ecosystem",
+        "status": "confirmed",
+        "executionTimeMs": 178080,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779608249609,
+  "durationMs": 178082
+}

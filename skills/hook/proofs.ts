@@ -1,8 +1,20 @@
+/**
+ * @module skills/hook/proofs
+ * @description
+ * Gall Classification: Proof Layer
+ * Purpose: Proves the invariants of the TruexHook behavior: deterministic match,
+ * deterministic effect execution, tamper refusal, and replay convergence.
+ */
+
 import { TruexHook } from "../../packages/truex-core/src/hook.js";
 import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
 import { hash } from "../../packages/truex-core/src/index.js";
 import type { GraphDelta, HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
 
+/**
+ * Executes tests to prove Hook primitives.
+ * @returns {any} The proof results.
+ */
 export function proveHook() {
   const invariants: string[] = [];
   const failures: string[] = [];

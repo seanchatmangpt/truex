@@ -1,4 +1,10 @@
 /**
+ * @module string
+ * @description String manipulation utilities.
+ * Gall Classification: S-2 (test utils / basic primitives).
+ */
+
+/**
  * Convert camelCase string to kebab-case.
  *
  * @param str - The camelCase string to convert

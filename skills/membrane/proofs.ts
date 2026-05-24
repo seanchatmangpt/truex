@@ -1,3 +1,11 @@
+/**
+ * @module skills/membrane/proofs
+ * @description
+ * Gall Classification: Proof Layer
+ * Purpose: Proves membrane invariants including read/write boundaries, prototype lockdown,
+ * transaction rollbacks, deep proxy propagation, and descriptor bypassing refusal.
+ */
+
 import {
   createProxy,
   createTransactionContext,
@@ -10,12 +18,19 @@ import {
   registerSandboxInterceptors,
 } from "./invariant.js";
 
+/**
+ * Report structure for Membrane proofs.
+ */
 export type MembraneProofReport = {
   passed: boolean;
   failures: string[];
   invariants: string[];
 };
 
+/**
+ * Executes tests to prove the Membrane boundaries.
+ * @returns {MembraneProofReport} The proof results.
+ */
 export function proveMembrane(): MembraneProofReport {
   const failures: string[] = [];
   const invariants = [

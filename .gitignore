@@ -11,3 +11,4 @@ gall_truex.db
 .idea/
 .antigravitycli/
 .DS_Store
+.generated/

@@ -1,3 +1,8 @@
+/**
+ * @module proxy-overhead
+ * @description Benchmarking utilities for measuring proxy trap overhead.
+ * Gall Classification: S-2 (test utils / benchmark primitives).
+ */
 import { createProxy } from "../membrane.js";
 
 export interface BenchmarkResult {
