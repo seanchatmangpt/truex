@@ -34,7 +34,7 @@ console.log('-----------------------------------')
   const virtual = createVirtualContext(user, {
     virtualFields: {
       fullName: {
-        compute: (target) => `${substrate.firstName} ${substrate.lastName}`
+        compute: (target) => `${target.firstName} ${target.lastName}`
       },
       age: {
         compute: (target) => new Date().getFullYear() - target.birthYear
@@ -45,9 +45,9 @@ console.log('-----------------------------------')
   registerVirtualInterceptors(proxyInterface, virtual)
 
   virtual.call(() => {
-    console.log(`Full Name: ${membrane.fullName}`) // "John Doe"
-    console.log(`Age: ${membrane.age}`) // Computed from birth year
-    console.log(`Is enumerable: ${'fullName' in membrane}`) // true
+    console.log(`Full Name: ${proxy.fullName}`) // "John Doe"
+    console.log(`Age: ${proxy.age}`) // Computed from birth year
+    console.log(`Is enumerable: ${'fullName' in proxy}`) // true
   })
 
   console.log()
@@ -81,15 +81,15 @@ console.log('-----------------------------------')
 
   console.log('First context:')
   virtual.call(() => {
-    console.log(`  Result: ${membrane.expensive}`) // Computes
-    console.log(`  Result: ${membrane.expensive}`) // Uses cache
-    console.log(`  Result: ${membrane.expensive}`) // Uses cache
+    console.log(`  Result: ${proxy.expensive}`) // Computes
+    console.log(`  Result: ${proxy.expensive}`) // Uses cache
+    console.log(`  Result: ${proxy.expensive}`) // Uses cache
   })
 
   console.log('Second context (independent cache):')
   virtual.call(() => {
-    console.log(`  Result: ${membrane.expensive}`) // Computes again (new context)
-    console.log(`  Result: ${membrane.expensive}`) // Uses cache
+    console.log(`  Result: ${proxy.expensive}`) // Computes again (new context)
+    console.log(`  Result: ${proxy.expensive}`) // Uses cache
   })
 
   console.log()
@@ -121,12 +121,12 @@ console.log('-----------------------------------')
   registerVirtualInterceptors(proxyInterface, virtual)
 
   virtual.call(() => {
-    console.log(`Time (cached): ${membrane.currentTime}`)
-    console.log(`Time (cached): ${membrane.currentTime}`)
+    console.log(`Time (cached): ${proxy.currentTime}`)
+    console.log(`Time (cached): ${proxy.currentTime}`)
 
     // Manually invalidate cache
     virtual.invalidateCache('currentTime')
-    console.log(`Time (recomputed): ${membrane.currentTime}`)
+    console.log(`Time (recomputed): ${proxy.currentTime}`)
   })
 
   console.log()
@@ -146,7 +146,7 @@ console.log('-----------------------------------')
     virtualFields: {
       userData: {
         compute: (target) => {
-          console.log(`  Fetching user data for ID: ${substrate.userId}`)
+          console.log(`  Fetching user data for ID: ${target.userId}`)
           return { id: target.userId, name: 'Alice', role: 'admin' }
         },
         memoize: true,
@@ -198,12 +198,12 @@ console.log('-----------------------------------')
 
   console.log('First context:')
   virtual.call(() => {
-    console.log(`  Total: $${membrane.totalPrice}`)
+    console.log(`  Total: $${proxy.totalPrice}`)
   })
 
   console.log('Second context (reads from substrate):')
   virtual.call(() => {
-    console.log(`  Total: $${membrane.totalPrice}`) // No recomputation
+    console.log(`  Total: $${proxy.totalPrice}`) // No recomputation
   })
 
   console.log()
@@ -239,9 +239,9 @@ console.log('-----------------------------------')
   registerVirtualInterceptors(proxyInterface, virtual)
 
   virtual.call(() => {
-    console.log(`  API Key (via redirect): ${membrane.apiKey}`)
-    console.log(`  Password (via redirect): ${membrane.dbPassword}`)
-    console.log(`  Direct access: ${membrane.maskedApiKey}`)
+    console.log(`  API Key (via redirect): ${proxy.apiKey}`)
+    console.log(`  Password (via redirect): ${proxy.dbPassword}`)
+    console.log(`  Direct access: ${proxy.maskedApiKey}`)
   })
 
   console.log()
@@ -268,16 +268,16 @@ console.log('-----------------------------------')
   registerVirtualInterceptors(proxyInterface, virtual)
 
   virtual.call(() => {
-    console.log(`  Computed result: ${membrane.result}`) // 20 (base * 2)
+    console.log(`  Computed result: ${proxy.result}`) // 20 (base * 2)
 
     // Override with custom value
     proxy.result = 999
-    console.log(`  Custom result: ${membrane.result}`) // 999
+    console.log(`  Custom result: ${proxy.result}`) // 999
   })
 
   // New context - back to computed value
   virtual.call(() => {
-    console.log(`  New context result: ${membrane.result}`) // 20 (recomputed)
+    console.log(`  New context result: ${proxy.result}`) // 20 (recomputed)
   })
 
   console.log()
@@ -295,10 +295,10 @@ console.log('-----------------------------------')
   const virtual = createVirtualContext(item, {
     virtualFields: {
       displayName: {
-        compute: (target) => `Product: ${substrate.name}`
+        compute: (target) => `Product: ${target.name}`
       },
       price: {
-        compute: (target) => `$${substrate.cost.toFixed(2)}`
+        compute: (target) => `$${target.cost.toFixed(2)}`
       }
     }
   })
@@ -310,10 +310,10 @@ console.log('-----------------------------------')
 
     console.log('  For...in loop:')
     for (const key in proxy) {
-      console.log(`    ${key}: ${membrane[key]}`)
+      console.log(`    ${key}: ${proxy[key]}`)
     }
 
-    console.log(`  'displayName' in membrane: ${'displayName' in membrane}`)
+    console.log(`  'displayName' in proxy: ${'displayName' in proxy}`)
   })
 
   console.log()
@@ -333,7 +333,7 @@ console.log('-----------------------------------')
     }
   })
 
-  // Use API without membrane
+  // Use API without proxy
   console.log(`  Computed value: ${virtual.getVirtualValue('doubled')}`)
   console.log(`  Is virtual field: ${virtual.isVirtualField('doubled')}`)
   console.log(`  Virtual fields: ${virtual.getVirtualFields().join(', ')}`)
@@ -376,12 +376,12 @@ console.log('-----------------------------------')
   registerVirtualInterceptors(proxyInterface, virtual)
 
   virtual.call(() => {
-    console.log(`  Current balance: $${membrane.balance}`)
-    console.log(`  Net balance (after fees): $${membrane.netBalance}`)
+    console.log(`  Current balance: $${proxy.balance}`)
+    console.log(`  Net balance (after fees): $${proxy.netBalance}`)
 
     // Modify balance
     account.balance = 1500
-    console.log(`  Updated net balance: $${membrane.netBalance}`)
+    console.log(`  Updated net balance: $${proxy.netBalance}`)
   })
 
   console.log()

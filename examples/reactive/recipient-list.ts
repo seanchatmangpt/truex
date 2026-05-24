@@ -8,12 +8,12 @@ export async function run() {
   const ctx = createDeterministicContext(42);
 
   // Setup Recipients
-  ['R1', 'R2', 'R3'].forEach(name => {
+  for (const name of ['R1', 'R2', 'R3']) {
     runtime.processes.set(name, createHookProcess(name, (state, msg) => {
       console.log(`[${name}] Received message: ${msg.id}`);
       return { effects: [], nextState: state };
     }, {}));
-  });
+  }
 
   // Determine recipients dynamically based on message contents
   const getRecipientsFor = (msg: any) => {
@@ -26,13 +26,13 @@ export async function run() {
       console.log(`[RecipientList] Routing message ${msg.id} to ${recipients.join(', ')}`);
       
       // Dispatch to each recipient in the list
-      recipients.forEach((rec, idx) => {
+      for (const [idx, rec] of recipients.entries()) {
         dispatchMessage(runtime, { 
           id: `routed-${msg.id}-${idx}`, 
           targetProcessId: rec, 
           delta: msg.delta 
         });
-      });
+      }
     }
     return { effects: [], nextState: state };
   };

@@ -36,14 +36,14 @@ export async function run() {
     const isRfqStart = msg.delta?.adds?.[0]?.predicate === "itemsCount";
     if (isRfqStart) {
       const rfqId = msg.delta.adds[0]?.subject.replace("rfq:", "") || "unknown";
-      const expectedCount = parseInt(msg.delta.adds[0]?.object as string || "0");
+      const expectedCount = Number.parseInt(msg.delta.adds[0]?.object as string || "0");
       state.expected[rfqId] = expectedCount;
       state.quotes[rfqId] = [];
       console.log(`[Aggregator] initialized RFQ ${rfqId}, expecting ${expectedCount} quotes`);
     } else {
       const subject = msg.delta?.adds?.[0]?.subject || "";
       const rfqId = subject.replace("rfq:", "");
-      const price = parseFloat(msg.delta?.adds?.[0]?.object as string || "0");
+      const price = Number.parseFloat(msg.delta?.adds?.[0]?.object as string || "0");
       const quoter = msg.delta?.adds?.[0]?.predicate.replace("quoteFrom:", "") || "unknown";
       
       if (state.quotes[rfqId]) {
@@ -63,7 +63,7 @@ export async function run() {
   // The Order Processor Scatters the requests
   const orderProcessorBehavior = (aggregatorId: string, quoters: string[]) => (state: any, msg: any) => {
     const rfqId = msg.delta?.adds?.[0]?.subject.replace("rfq:", "") || "unknown";
-    const itemsCount = parseInt(msg.delta?.adds?.[0]?.object as string || "0");
+    const itemsCount = Number.parseInt(msg.delta?.adds?.[0]?.object as string || "0");
     
     console.log(`[OrderProcessor] Scattering RFQ ${rfqId} for ${itemsCount} items to ${quoters.length} quoters`);
     

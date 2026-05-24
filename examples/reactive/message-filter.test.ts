@@ -14,9 +14,9 @@ describe('Reactive Messaging Pattern: Message Filter', () => {
     ];
 
     expect(logSpy).toHaveBeenCalledTimes(expectedOutputs.length);
-    expectedOutputs.forEach((output, index) => {
+    for (const [index, output] of expectedOutputs.entries()) {
       expect(logSpy.mock.calls[index][0]).toBe(output);
-    });
+    }
 
     logSpy.mockRestore();
   });

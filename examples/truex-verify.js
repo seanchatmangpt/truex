@@ -48,8 +48,8 @@ function verifyReceipt(targetPath) {
   let envelope
   try {
     envelope = JSON.parse(readFileSync(fullPath, 'utf8'))
-  } catch (refusal) {
-    console.error(`❌ [IO Refusal] Refused to parse JSON: ${refusal.message}`)
+  } catch (error_) {
+    console.error(`❌ [IO Refusal] Refused to parse JSON: ${error_.message}`)
     return
   }
 

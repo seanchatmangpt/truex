@@ -70,4 +70,4 @@ export {
 
 
 export {createProxy} from './proxy/create-proxy.js'
-export {useContext, setContext} from './context/context.js'
+export {createContext} from './context/context.js'

@@ -52,15 +52,15 @@ userContractCtx.call(() => {
     // Valid user creation
     const user = userMembrane('Alice', 'alice@example.com', 30)
     console.log('✓ Created user:', user)
-  } catch (refusal) {
-    console.log('✗ Refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Refusal:', error_.message)
   }
 
   try {
     // Invalid: wrong email format
     userMembrane('Bob', 'not-an-email', 25)
-  } catch (refusal) {
-    console.log('✗ Caught expected refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Caught expected refusal:', error_.message)
   }
 })
 
@@ -119,8 +119,8 @@ dbContractCtx.call(() => {
     queryMembrane('SELECT * FROM users')
     commitMembrane()
     console.log('✓ Transaction conserved successfully')
-  } catch (refusal) {
-    console.log('✗ Refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Refusal:', error_.message)
   }
 
   // Reset for next example
@@ -129,8 +129,8 @@ dbContractCtx.call(() => {
   try {
     // Incorrect sequence: attempting to commit before begin
     commitMembrane()
-  } catch (refusal) {
-    console.log('✗ Caught expected refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Caught expected refusal:', error_.message)
   }
 })
 
@@ -169,16 +169,16 @@ apiContractCtx.call(() => {
     try {
       const result = apiMembrane('/api/users')
       console.log(`✓ Call ${index + 1} succeeded`)
-    } catch (refusal) {
-      console.log(`✗ Call ${index + 1} refused:`, refusal.message)
+    } catch (error_) {
+      console.log(`✗ Call ${index + 1} refused:`, error_.message)
     }
   }
 
   // 4th call should refuse due to rate limit
   try {
     apiMembrane('/api/users')
-  } catch (refusal) {
-    console.log('✗ Caught expected refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Caught expected refusal:', error_.message)
   }
 
   // Check rate limit stats
@@ -219,8 +219,8 @@ mathContractCtx.call(() => {
   try {
     const result = sumMembrane([1, 2, 3, 4, 5])
     console.log('✓ Pure function result:', result)
-  } catch (refusal) {
-    console.log('✗ Refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Refusal:', error_.message)
   }
 })
 
@@ -299,15 +299,15 @@ secureContractCtx.call(() => {
   try {
     const result = secureMembrane('valid_token_12345678901234567890', '/api/secure/data')
     console.log('✓ Secure attempt succeeded:', result)
-  } catch (refusal) {
-    console.log('✗ Refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Refusal:', error_.message)
   }
 
   try {
     // Should refuse: token too short
     secureMembrane('short', '/api/secure/data')
-  } catch (refusal) {
-    console.log('✗ Caught expected refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Caught expected refusal:', error_.message)
   }
 
   // Check stats
@@ -349,15 +349,15 @@ constructorContractCtx.call(() => {
   try {
     const user = new UserMembrane('Charlie', 'charlie@example.com')
     console.log('✓ User created:', user)
-  } catch (refusal) {
-    console.log('✗ Refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Refusal:', error_.message)
   }
 
   try {
     // Should refuse: invalid email
     new UserMembrane('Dave', 'not-an-email')
-  } catch (refusal) {
-    console.log('✗ Caught expected refusal:', refusal.message)
+  } catch (error_) {
+    console.log('✗ Caught expected refusal:', error_.message)
   }
 })
 

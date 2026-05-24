@@ -222,7 +222,7 @@ const { proxy: UserMembrane, ...userClassInterface } = createProxy(User)
 
 // Only allow construction of non-admin users
 const constructCtx = createCapabilityContext(User, {
-  canRead: new Set(['prototype', 'name', 'length']), // Allow reading constructor metadata
+  canRead: new Set(['prototype', 'name', 'length', 'role']), // Allow reading constructor metadata and role
   canConstruct: (target, [name, role]) => {
     return role !== 'admin' // Prevent admin creation through this membrane
   },

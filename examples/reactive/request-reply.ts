@@ -46,7 +46,10 @@ export async function run() {
   const clientBehavior = (state: any, msg: any) => {
     const isReply = msg.delta?.adds?.[0]?.subject === "reply";
     
-    if (!isReply) {
+    if (isReply) {
+      const response = msg.delta?.adds?.[0]?.object || '';
+      console.log(`[Client] received response: ${response}`);
+    } else {
       console.log(`[Client] starting... sending attempt`);
       const targetServerId = msg.delta?.adds?.[0]?.object as string;
       dispatchMessage(runtime, {
@@ -55,9 +58,6 @@ export async function run() {
         targetProcessId: targetServerId,
         delta: createRequestDelta(`delta-${ctx.uuid()}`, "REQ-1")
       });
-    } else {
-      const response = msg.delta?.adds?.[0]?.object || '';
-      console.log(`[Client] received response: ${response}`);
     }
     return { effects: [], nextState: state };
   };

@@ -33,11 +33,11 @@ export async function run() {
     const orderIdMatch = (typeof text === 'string') ? text.match(/id='([^']+)'/) : null;
     const orderId = orderIdMatch ? orderIdMatch[1] : 'unknown';
 
-    if (!state.processed.includes(orderId)) {
+    if (state.processed.includes(orderId)) {
+      console.log(`[Deduplicator] Found duplicate order: ${orderId}`);
+    } else {
       state.processed.push(orderId);
       dispatchMessage(runtime, { ...msg, targetProcessId: "filter-5", id: `msg-${ctx.uuid()}` });
-    } else {
-      console.log(`[Deduplicator] Found duplicate order: ${orderId}`);
     }
     return { effects: [], nextState: state };
   };

@@ -13,9 +13,9 @@ describe('Reactive Messaging Pattern: Claim Check', () => {
     ];
 
     expect(logSpy).toHaveBeenCalledTimes(expectedOutputs.length);
-    expectedOutputs.forEach((output, index) => {
+    for (const [index, output] of expectedOutputs.entries()) {
       expect(logSpy.mock.calls[index][0]).toBe(output);
-    });
+    }
 
     logSpy.mockRestore();
   });

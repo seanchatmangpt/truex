@@ -94,7 +94,7 @@ export async function run() {
         delta: msg.delta
       });
     } else if (isCreditResult) {
-      const score = parseInt(msg.delta.adds[1].object);
+      const score = Number.parseInt(msg.delta.adds[1].object);
       console.log(`[LoanBroker] Received credit score: ${score}. Requesting quotes from banks.`);
       
       const banks = ["bank-1", "bank-2"];
@@ -114,7 +114,7 @@ export async function run() {
       }
     } else if (isBankQuote) {
       const bankId = msg.delta.adds[0].object;
-      const rate = parseFloat(msg.delta.adds[1].object);
+      const rate = Number.parseFloat(msg.delta.adds[1].object);
       
       console.log(`[LoanBroker] Received quote from Bank ${bankId}: ${rate}%`);
       state.loanState.quotes.push({ bankId, rate });
@@ -133,7 +133,7 @@ export async function run() {
   dispatchMessage(runtime, {
     id: "start",
     targetProcessId: "loan-broker",
-    delta: createLoanRequestDelta("loan-req", "111-11-1111", 100000)
+    delta: createLoanRequestDelta("loan-req", "111-11-1111", 100_000)
   });
 
   console.log("ProcessManager: is conserved.");

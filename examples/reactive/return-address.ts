@@ -63,7 +63,10 @@ export async function run() {
   const clientBehavior = (state: any, msg: any) => {
     const isReply = msg.delta?.adds?.[0]?.subject === "reply";
     
-    if (!isReply) {
+    if (isReply) {
+      const response = msg.delta?.adds?.[0]?.object || '';
+      console.log(`[Client] received reply: ${response}`);
+    } else {
       console.log(`[Client] starting... sending complex attempt`);
       dispatchMessage(runtime, {
         id: `req-${ctx.uuid()}`,
@@ -71,9 +74,6 @@ export async function run() {
         targetProcessId: "server",
         delta: createComplexRequestDelta(`delta-${ctx.uuid()}`, "REQ-20")
       });
-    } else {
-      const response = msg.delta?.adds?.[0]?.object || '';
-      console.log(`[Client] received reply: ${response}`);
     }
     return { effects: [], nextState: state };
   };

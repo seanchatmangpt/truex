@@ -57,8 +57,8 @@ apiSandbox.call(() => {
 
   try {
     apiMembrane.proxy.__internalState
-  } catch (refusal_) {
-    console.log('Access to __internalState:', refusal_.message)
+  } catch (error_) {
+    console.log('Access to __internalState:', error_.message)
   }
   // Output: Sandbox violation: property "__internalState" is restricted
 })
@@ -88,8 +88,8 @@ accountSandbox.call(() => {
   try {
     const user = new accountMembrane.proxy('alice', 'admin')
     console.log('Created user:', user)
-  } catch (refusal_) {
-    console.log('Construction blocked:', refusal_.message)
+  } catch (error_) {
+    console.log('Construction blocked:', error_.message)
   }
   // Output: Sandbox violation: construction is not allowed
 })
@@ -110,8 +110,8 @@ validatedAccountSandbox.call(() => {
   try {
     const admin = new validatedMembrane.proxy('alice', 'admin')
     console.log('Created admin:', admin)
-  } catch (refusal_) {
-    console.log('Admin creation blocked:', refusal_.message)
+  } catch (error_) {
+    console.log('Admin creation blocked:', error_.message)
   }
   // Output: Sandbox violation: construction is not allowed
 
@@ -157,8 +157,8 @@ structuralSandbox.call(() => {
 
   try {
     Object.getOwnPropertyDescriptor(secureMembrane.proxy, '__secretKey')
-  } catch (refusal_) {
-    console.log('Descriptor access blocked:', refusal_.message)
+  } catch (error_) {
+    console.log('Descriptor access blocked:', error_.message)
   }
   // Output: Sandbox violation: descriptor access denied for restricted property "__secretKey"
 
@@ -222,8 +222,8 @@ storeSandbox.call(() => {
       // Attempt to access restricted key
       try {
         storeMembrane.proxy.__adminData
-      } catch (refusal_) {
-        console.log('Admin data access blocked:', refusal_.message)
+      } catch (error_) {
+        console.log('Admin data access blocked:', error_.message)
       }
       // Output: Sandbox violation: property "__adminData" is restricted
 
@@ -271,8 +271,8 @@ configSandbox.call(() => {
 
   try {
     configMembrane.proxy.productionKey
-  } catch (refusal_) {
-    console.log('Production key now restricted:', refusal_.message)
+  } catch (error_) {
+    console.log('Production key now restricted:', error_.message)
   }
   // Output: Sandbox violation: property "productionKey" is restricted
 })
@@ -310,8 +310,8 @@ whitelistSandbox.call(() => {
 
   try {
     whitelistMembrane.proxy.deniedProp1
-  } catch (refusal_) {
-    console.log('Denied key blocked:', refusal_.message)
+  } catch (error_) {
+    console.log('Denied key blocked:', error_.message)
   }
   // Output: Sandbox violation: property "deniedProp1" is restricted
 })

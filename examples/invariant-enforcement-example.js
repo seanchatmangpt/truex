@@ -49,8 +49,8 @@ accountInvCtx.call(() => {
   try {
     // Invalid withdrawal - would go negative
     accountMembrane.balance = -100
-  } catch (refusal) {
-    console.log('Refusal prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Refusal prevented:', error_.message)
   }
 
   console.log('Final balance:', accountMembrane.balance)
@@ -85,8 +85,8 @@ userInvCtx.call(() => {
   try {
     // Invalid type
     userMembrane.proxy.age = 'twenty-seven'
-  } catch (refusal) {
-    console.log('Type refusal prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Type refusal prevented:', error_.message)
   }
 })
 
@@ -117,15 +117,15 @@ thermostatInvCtx.call(() => {
   try {
     // Too hot
     thermostatMembrane.proxy.temperature = 50
-  } catch (refusal) {
-    console.log('Range refusal prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Range refusal prevented:', error_.message)
   }
 
   try {
     // Too cold
     thermostatMembrane.proxy.temperature = -20
-  } catch (refusal) {
-    console.log('Range refusal prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Range refusal prevented:', error_.message)
   }
 })
 
@@ -157,15 +157,15 @@ entityInvCtx.call(() => {
   try {
     // Cannot modify immutable property
     entityMembrane.proxy.id = 456
-  } catch (refusal) {
-    console.log('Immutability protected:', refusal.message)
+  } catch (error_) {
+    console.log('Immutability protected:', error_.message)
   }
 
   try {
     // Cannot delete immutable property
     delete entityMembrane.proxy.id
-  } catch (refusal) {
-    console.log('Deletion prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Deletion prevented:', error_.message)
   }
 })
 
@@ -202,8 +202,8 @@ sliderInvCtx.call(() => {
   try {
     // Invalid: would make value > max
     sliderMembrane.proxy.max = 70
-  } catch (refusal) {
-    console.log('Dependency violation prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Dependency violation prevented:', error_.message)
   }
 
   console.log('Final state:', sliderMembrane.proxy)
@@ -241,15 +241,15 @@ contactInvCtx.call(() => {
   try {
     // Invalid email format
     contactMembrane.proxy.email = 'not-an-email'
-  } catch (refusal) {
-    console.log('Pattern refusal prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Pattern refusal prevented:', error_.message)
   }
 
   try {
     // Invalid phone format
     contactMembrane.proxy.phone = '123456789'
-  } catch (refusal) {
-    console.log('Pattern refusal prevented:', refusal.message)
+  } catch (error_) {
+    console.log('Pattern refusal prevented:', error_.message)
   }
 })
 
@@ -280,8 +280,8 @@ docInvCtx.call(() => {
   try {
     // Cannot delete required field
     delete docMembrane.proxy.title
-  } catch (refusal) {
-    console.log('Required field protected:', refusal.message)
+  } catch (error_) {
+    console.log('Required field protected:', error_.message)
   }
 })
 
@@ -329,22 +329,22 @@ personInvCtx.call(() => {
   try {
     // Refuses first invariant (positive)
     personMembrane.proxy.age = -5
-  } catch (refusal) {
-    console.log('First invariant refused:', refusal.message)
+  } catch (error_) {
+    console.log('First invariant refused:', error_.message)
   }
 
   try {
     // Refuses second invariant (maximum)
     personMembrane.proxy.age = 200
-  } catch (refusal) {
-    console.log('Second invariant refused:', refusal.message)
+  } catch (error_) {
+    console.log('Second invariant refused:', error_.message)
   }
 
   try {
     // Refuses third invariant (integer)
     personMembrane.proxy.age = 35.5
-  } catch (refusal) {
-    console.log('Third invariant refused:', refusal.message)
+  } catch (error_) {
+    console.log('Third invariant refused:', error_.message)
   }
 })
 
@@ -382,8 +382,8 @@ configInvCtx.call(() => {
   try {
     // Now enforced
     configMembrane.proxy.maxRetries = -50
-  } catch (refusal) {
-    console.log('Now protected:', refusal.message)
+  } catch (error_) {
+    console.log('Now protected:', error_.message)
   }
 
   // Valid value
@@ -451,8 +451,8 @@ acl.call(() => {
       try {
         // Refuses invariant check (negative balance)
         secureMembrane.proxy.balance = -100
-      } catch (refusal) {
-        console.log('Invariant denied:', refusal.message)
+      } catch (error_) {
+        console.log('Invariant denied:', error_.message)
       }
 
       // Check transaction journal - only valid operation journaled
@@ -466,8 +466,8 @@ acl.call(() => {
       try {
         transaction.rollback()
         console.log('After rollback:', secureMembrane.proxy.balance)
-      } catch (err) {
-        console.log('Rollback status:', err.message)
+      } catch (error_) {
+        console.log('Rollback status:', error_.message)
       }
     })
   })

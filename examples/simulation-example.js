@@ -248,8 +248,8 @@ playerInv.call(() => {
     playerSim.speculate(() => {
       playerMembrane.health = 150 // Would violate invariant!
     })
-  } catch (refusal) {
-    console.log('\nCaught invariant violation:', refusal.message)
+  } catch (error_) {
+    console.log('\nCaught invariant violation:', error_.message)
   }
 
   // Valid change

@@ -96,16 +96,16 @@ secretAudit.call(() => {
     try {
       const _ = secretMembrane.proxy.private
       console.log('This should not print')
-    } catch (refusal_) {
-      console.log(`Denied: ${refusal_.message}`)
+    } catch (error_) {
+      console.log(`Denied: ${error_.message}`)
     }
 
     console.log('\nAttempting to access apiKey...')
     try {
       const _ = secretMembrane.proxy.apiKey
       console.log('This should not print')
-    } catch (refusal_) {
-      console.log(`Denied: ${refusal_.message}`)
+    } catch (error_) {
+      console.log(`Denied: ${error_.message}`)
     }
   })
 })
@@ -155,15 +155,15 @@ accountAudit.call(() => {
     console.log('\nAttempting invalid balance update (negative)...')
     try {
       accountMembrane.proxy.balance = -100
-    } catch (refusal_) {
-      console.log(`Denied: ${refusal_.message}`)
+    } catch (error_) {
+      console.log(`Denied: ${error_.message}`)
     }
 
     console.log('\nAttempting to change immutable owner...')
     try {
       accountMembrane.proxy.owner = 'Charlie'
-    } catch (refusal_) {
-      console.log(`Denied: ${refusal_.message}`)
+    } catch (error_) {
+      console.log(`Denied: ${error_.message}`)
     }
   })
 })
@@ -297,22 +297,22 @@ secureAudit.call(() => {
       console.log('\n✗ Invalid operation: Attempt to read private id')
       try {
         const _ = secureMembrane.proxy.id
-      } catch (refusal_) {
-        console.log(`  ${refusal_.message}`)
+      } catch (error_) {
+        console.log(`  ${error_.message}`)
       }
 
       console.log('\n✗ Invalid operation: Attempt to set balance too high')
       try {
         secureMembrane.proxy.balance = 200_000
-      } catch (refusal_) {
-        console.log(`  ${refusal_.message}`)
+      } catch (error_) {
+        console.log(`  ${error_.message}`)
       }
 
       console.log('\n✗ Invalid operation: Attempt to set invalid status')
       try {
         secureMembrane.proxy.status = 'deleted'
-      } catch (refusal_) {
-        console.log(`  ${refusal_.message}`)
+      } catch (error_) {
+        console.log(`  ${error_.message}`)
       }
     })
   })

@@ -37,9 +37,9 @@ export async function run() {
   runtime.processes.set("consumer", createHookProcess("consumer", consumerBehavior, {}));
 
   const resequencerBehavior = (state: any, msg: any) => {
-    const index = parseInt(msg.delta?.adds?.[0]?.object || "0");
+    const index = Number.parseInt(msg.delta?.adds?.[0]?.object || "0");
     const correlationId = msg.delta?.adds?.[0]?.subject?.replace("seq:", "") || "unknown";
-    const total = parseInt(msg.delta?.adds?.[1]?.object || "0");
+    const total = Number.parseInt(msg.delta?.adds?.[1]?.object || "0");
 
     console.log(`[Resequencer] Received out-of-order message: ${correlationId} #${index}`);
 

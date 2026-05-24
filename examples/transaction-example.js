@@ -178,8 +178,8 @@ console.log('Example 5: Complex Transaction with Multiple Operations')
 
     tx.commit()
     console.log('Transfer committed')
-  } catch (refusal_) {
-    console.log('Transfer refused:', refusal_.message)
+  } catch (error_) {
+    console.log('Transfer refused:', error_.message)
     tx.rollback()
   }
   console.log()
