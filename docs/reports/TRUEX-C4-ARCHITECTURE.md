@@ -6,13 +6,13 @@
 ## 0. Generation Receipt
 
 ```yaml
-generatedAt: 2026-05-24T08:39:22.211Z
-astFilesScanned: 227
-mappedFiles: 220
+generatedAt: 2026-05-24T08:48:09.719Z
+astFilesScanned: 228
+mappedFiles: 221
 orphanFiles: 7
-topologyHash: c2d27828d4fa38d7d7acec409d9fffe350fbbb07e946efa297c2f97d6fdcf5db
-receiptHash: a982cab5-09cc-41bb-9add-b127e4da13cf
-diagramHash: 0decd33f61c36323f52b733dae1e061e383356cc44fb7b4fddb9a4a05c8944b6 pending
+topologyHash: 27cc7abce1bfed9e6abaae073d0bf4d2c4f65de6d832b28638704071f54b825e
+receiptHash: 962f49d0-9209-4481-8d84-b16cadc92756
+diagramHash: e13371054a7004b3323c051895eb4a2c2645756197ad14a1482e1a53c3f8563e pending
 doctorCommand: npx tsx scripts/truex.ts doctor prove architecture
 ```
 
@@ -264,7 +264,7 @@ sequenceDiagram
 
 ## 8. Architecture Accounting
 This map actively indexes the codebase dependencies.
-**Total Mapped Nodes:** 227
+**Total Mapped Nodes:** 228
 
 ## 9. Orphans / Drift / Unmapped Files
 ❌ Found Orphans:

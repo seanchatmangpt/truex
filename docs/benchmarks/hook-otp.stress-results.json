@@ -21,7 +21,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 0
+    "durationMs": 1
   },
   {
     "name": "Restart Budget Exhaustion",
@@ -33,7 +33,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 1
+    "durationMs": 0
   },
   {
     "name": "Poison Message Quarantine",
@@ -45,7 +45,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 0
+    "durationMs": 1
   },
   {
     "name": "Capacity Backpressure",
@@ -69,7 +69,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 1
+    "durationMs": 0
   },
   {
     "name": "Tamper After Process",
@@ -81,7 +81,7 @@
     "replayConverged": 0,
     "receiptVerified": 0,
     "reported": 1,
-    "durationMs": 0
+    "durationMs": 1
   },
   {
     "name": "Deterministic Lifecycle Hash",
@@ -93,7 +93,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 60
+    "durationMs": 59
   },
   {
     "name": "Observable Artifact Integrity",
@@ -117,6 +117,6 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 1354
+    "durationMs": 1351
   }
 ]

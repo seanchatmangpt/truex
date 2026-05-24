@@ -689,6 +689,11 @@ export const createOcelId = (id: string): OcelId => id as OcelId;
 export const createOcelTypeName = (name: string): OcelTypeName => name as OcelTypeName;
 export const createQualifier = (q: string): Qualifier => q as Qualifier;
 export const createISODateTime = (dt: string): ISODateTime => dt as ISODateTime;
+export const createHash256 = (hash: string): Hash256 => hash as Hash256;
+export const createReceiptHash = (hash: string): ReceiptHash => hash as ReceiptHash;
+export const createReplayHash = (hash: string): ReplayHash => hash as ReplayHash;
+export const createProjectPath = (path: string): ProjectPath => path as ProjectPath;
+export const createBoundaryPowlNodeId = (id: string): BoundaryPowlNodeId => id as BoundaryPowlNodeId;
 
 export function isOcelEventType(type: any): type is OcelEventType {
   return typeof type === 'object' && type !== null && typeof type.name === 'string';
@@ -774,6 +779,75 @@ export function isOcelV2Log(log: any): log is OcelV2Log {
     log.eventTypes.every(isOcelEventType) &&
     Array.isArray(log.objectTypes) &&
     log.objectTypes.every(isOcelObjectType)
+  );
+}
+
+export function isPersistentMailboxMessage(msg: any): msg is PersistentMailboxMessage {
+  return (
+    typeof msg === 'object' &&
+    msg !== null &&
+    typeof msg.id === 'string' &&
+    typeof msg.queue === 'string' &&
+    typeof msg.state === 'string' &&
+    typeof msg.payloadHash === 'string' &&
+    msg.payloadJson !== undefined &&
+    typeof msg.uniqueConsequenceKey === 'string' &&
+    typeof msg.attempt === 'number' &&
+    typeof msg.maxAttempts === 'number' &&
+    typeof msg.priority === 'number' &&
+    typeof msg.scheduledAt === 'string' &&
+    typeof msg.availableAt === 'string' &&
+    typeof msg.createdAt === 'string' &&
+    typeof msg.updatedAt === 'string'
+  );
+}
+
+export function isWizardProjectReport(report: any): report is WizardProjectReport {
+  return (
+    typeof report === 'object' &&
+    report !== null &&
+    report.case === 'truex-project-wizard' &&
+    typeof report.status === 'string' &&
+    typeof report.projectCell === 'object' &&
+    typeof report.mission === 'object' &&
+    typeof report.topology === 'object' &&
+    Array.isArray(report.checkpoints) &&
+    typeof report.accounting === 'object' &&
+    typeof report.proofs === 'object' &&
+    typeof report.metrics === 'object'
+  );
+}
+
+export function isBoundaryGallCheckpoint(checkpoint: any): checkpoint is BoundaryGallCheckpoint {
+  return (
+    typeof checkpoint === 'object' &&
+    checkpoint !== null &&
+    typeof checkpoint.id === 'string' &&
+    typeof checkpoint.name === 'string' &&
+    typeof checkpoint.purpose === 'string' &&
+    typeof checkpoint.proofCommand === 'string' &&
+    typeof checkpoint.accountingDomainId === 'string' &&
+    typeof checkpoint.successMetric === 'string' &&
+    typeof checkpoint.refusalCondition === 'string' &&
+    Array.isArray(checkpoint.expectedArtifacts) &&
+    Array.isArray(checkpoint.expectedReports) &&
+    typeof checkpoint.workflow === 'object'
+  );
+}
+
+export function isBoundaryProjectCell(cell: any): cell is BoundaryProjectCell {
+  return (
+    typeof cell === 'object' &&
+    cell !== null &&
+    typeof cell.projectId === 'string' &&
+    typeof cell.root === 'string' &&
+    typeof cell.truexDir === 'string' &&
+    typeof cell.receiptsDir === 'string' &&
+    typeof cell.reportsDir === 'string' &&
+    typeof cell.checkpointsDir === 'string' &&
+    typeof cell.missionDir === 'string' &&
+    typeof cell.docsDir === 'string' &&
+    typeof cell.testsDir === 'string'
   );
 }
 

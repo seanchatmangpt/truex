@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779612667549-a5f7gcn",
+  "spanId": "span-unknown",
+  "startTime": 1779612667549,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779612668000,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779612668000,
+  "durationMs": 451
+}

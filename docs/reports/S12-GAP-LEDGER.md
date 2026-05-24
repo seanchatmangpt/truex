@@ -15,5 +15,7 @@ $$\text{Attempted} = \text{Succeeded} + \text{Failed} + \text{Refused} + \text{Q
 | **S12G-C: Doctor Verification Check** | 5 | 5 | 0 | 0 | 0 | 0 | Conserved |
 | **S12G-D: Accounting Conservation** | 6 | 6 | 0 | 0 | 0 | 0 | Conserved |
 | **S12G-E: Observatory Facts Generation** | 3 | 3 | 0 | 0 | 0 | 0 | Conserved |
+| **S12G-F: Projection Fidelity + Round-Trip** | 16 | 16 | 0 | 0 | 0 | 0 | Conserved |
+| **S12G-G: OCPQ Constraint Coverage** | 35 | 35 | 0 | 0 | 0 | 0 | Conserved |
 
-Total integrity is maintained. All domains sum to their attempted count.
+Total integrity is maintained. All domains sum to their attempted count.\n## Mission Status\nAll 5 agents (Agents 1-5) have successfully completed their technical implementations and generated their reports. Gap statuses are closed.

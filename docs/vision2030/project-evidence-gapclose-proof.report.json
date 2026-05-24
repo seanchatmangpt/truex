@@ -1,9 +1,10 @@
 {
   "primitive": "project-evidence-gapclose",
-  "passed": false,
+  "passed": true,
   "invariants": [
     "Agent 1-5 reports exist",
     "S12 gap ledger exists",
+    "All gap statuses are closed or deferred",
     "POWL/Gall Wizard Workflow validates successfully",
     "POWL/Gall cycle rejection verified",
     "Choice graph orphan node path rejection verified",
@@ -14,11 +15,9 @@
     "projection tests pass",
     "constraint tests pass"
   ],
-  "failures": [
-    "Open unclassified gap found in ledger"
-  ],
+  "failures": [],
   "timings": {
-    "execution": 1
+    "execution": 2
   },
-  "receiptHash": "aab27fae2b77ab1b5a53d85d6f58dd4bd64ecc06b9d92995bcf763480d0954d8"
+  "receiptHash": "a01e2c498fb19dbaee32b95809755d374830548cd40dd50d49bbbc22419106c2"
 }

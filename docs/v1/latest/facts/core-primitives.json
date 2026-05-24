@@ -54,9 +54,9 @@
   },
   "stats": {
     "totalFiles": 67,
-    "totalFunctions": 160,
+    "totalFunctions": 165,
     "totalClasses": 37,
-    "totalExportedSymbols": 395
+    "totalExportedSymbols": 405
   },
   "files": [
     {
@@ -489,7 +489,7 @@
     },
     {
       "path": "packages/truex-core/src/ocel2-project-types.ts",
-      "functions": 9,
+      "functions": 13,
       "classes": 0,
       "symbols": [
         "isOcelEventType",
@@ -501,10 +501,19 @@
         "isOcelEvent",
         "isOcelObject",
         "isOcelV2Log",
+        "isPersistentMailboxMessage",
+        "isWizardProjectReport",
+        "isBoundaryGallCheckpoint",
+        "isBoundaryProjectCell",
         "createOcelId",
         "createOcelTypeName",
         "createQualifier",
         "createISODateTime",
+        "createHash256",
+        "createReceiptHash",
+        "createReplayHash",
+        "createProjectPath",
+        "createBoundaryPowlNodeId",
         "Brand",
         "ISODateTime",
         "Hash256",
@@ -586,10 +595,11 @@
     },
     {
       "path": "packages/truex-core/src/ocpq-project-constraints.gall.ts",
-      "functions": 3,
+      "functions": 4,
       "classes": 0,
       "symbols": [
         "evaluatePredicate",
+        "validateNestedQuery",
         "evaluateProjectConstraint",
         "evaluateProjectConstraintsAll",
         "SUPPORTED_PREDICATES",
@@ -1010,6 +1020,6 @@
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T08:39:22.216Z"
+    "timestamp": "2026-05-24T08:48:09.724Z"
   }
 }

@@ -7,9 +7,10 @@ import { type HookDefinition } from '../../src/runtime-law.js';
 import { verifyReceipt } from '../../src/receipt.js';
 
 describe('AutonomicGallLoop Integration Tests', () => {
-  const dbPath = path.resolve(process.cwd(), 'gall_truex_test.db');
-  const tempFilePath = path.resolve(process.cwd(), 'temp_test_file.ts');
+  let dbPath: string;
+  let tempFilePath: string;
   let loop: AutonomicGallLoop;
+  let testCounter = 0;
 
   // Set up standard hooks for tests
   const testHooks: HookDefinition[] = [
@@ -28,6 +29,10 @@ describe('AutonomicGallLoop Integration Tests', () => {
   ];
 
   beforeEach(() => {
+    testCounter++;
+    dbPath = path.resolve(process.cwd(), `gall_truex_test_${testCounter}_${Date.now()}.db`);
+    tempFilePath = path.resolve(process.cwd(), `temp_test_file_${testCounter}_${Date.now()}.ts`);
+
     // Cleanup files if left over
     if (fs.existsSync(dbPath)) {
       try { fs.unlinkSync(dbPath); } catch {}

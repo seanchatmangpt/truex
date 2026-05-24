@@ -23,9 +23,9 @@ Our test suite validates all core invariants using actual runtimes under Vitest:
 
 ## 4. Cryptographic Overhead Analysis (CTQ Safe Threshold)
 The system's performance was evaluated against the Critical-to-Quality (CTQ) threshold of **<80.000x** safe overhead:
-- **Raw Execution Speed**: `7997312.90 ops/sec`
-- **Receipt-Backed Execution Speed**: `28645.40 ops/sec`
-- **Measured Overhead Ratio**: `279.183x`
+- **Raw Execution Speed**: `8733624.45 ops/sec`
+- **Receipt-Backed Execution Speed**: `27847.75 ops/sec`
+- **Measured Overhead Ratio**: `313.620x`
 - **Safe Threshold Status**: **VIOLATED** (overhead exceeds the 80x budget due to serial hashing, cloning, and cryptographic integrity management).
 - **Operating Mode**: **degraded**
 

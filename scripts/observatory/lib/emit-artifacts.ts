@@ -223,6 +223,41 @@ function generateMarkdown(name: string, data: any): string {
   
   break;
   }
+  case 'project-evidence-gapclose': {
+    md += `## S12G Gapclose Verification\n\n`;
+    if (data.report) {
+      md += `### Status & Metadata\n`;
+      md += `- **Passed:** ${data.report.passed ? '✅ Yes' : '❌ No'}\n`;
+      md += `- **Receipt Hash:** \`${data.report.receiptHash || 'N/A'}\`\n\n`;
+
+      if (data.report.invariants && data.report.invariants.length > 0) {
+        md += `### Invariants Proven\n`;
+        for (const inv of data.report.invariants) {
+          md += `- ${inv}\n`;
+        }
+        md += `\n`;
+      }
+      
+      if (data.report.failures && data.report.failures.length > 0) {
+        md += `### Failures\n`;
+        for (const fail of data.report.failures) {
+          md += `- ❌ ${fail}\n`;
+        }
+        md += `\n`;
+      }
+    }
+
+    if (data.ledger && data.ledger.domains) {
+      md += `### S12G Domain Ledger Table\n\n`;
+      md += `| Domain | Attempted | Succeeded | Failed | Refused | Quarantined | Skipped | Status |\n`;
+      md += `| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |\n`;
+      for (const d of data.ledger.domains) {
+        md += `| **${d.domain}** | ${d.attempted} | ${d.succeeded} | ${d.failed} | ${d.refused} | ${d.quarantined} | ${d.skipped} | ${d.status} |\n`;
+      }
+      md += `\n`;
+    }
+    break;
+  }
   default: {
     // Generic fallback for other facts
     md += `## Data Summary\n\n`;

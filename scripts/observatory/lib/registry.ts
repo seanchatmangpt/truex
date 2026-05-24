@@ -28,6 +28,7 @@ import { MembraneReplayDiagramEmitter } from './emit-membrane-replay-diagram.js'
 import { WalReconstructionVisualizationEmitter } from './emit-wal-reconstruction-visualization.js';
 import { S8FactsEmitter } from './emit-s8-facts.js';
 import { S8DiagramEmitter } from './emit-s8-diagram.js';
+import { ProjectEvidenceGapcloseFactsEmitter } from './emit-project-evidence-gapclose-facts.js';
 import {
   OtpPressureFactsEmitter,
   MailboxPressureDiagramEmitter,
@@ -118,6 +119,11 @@ export const Registry: RegisteredEmitter[] = [
     name: 'S8 Facts',
     run: () => new S8FactsEmitter().emit(),
     priority: 78
+  },
+  {
+    name: 'Project Evidence Gapclose Facts',
+    run: () => new ProjectEvidenceGapcloseFactsEmitter().emit(),
+    priority: 79
   },
   {
     name: 'Topology Diagram',

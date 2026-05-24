@@ -1,7 +1,7 @@
 # Invariant, Contract & Virtual Value Stress Test Report
 
 ## Metadata
-- **Timestamp:** 2026-05-24T08:40:31.897Z
+- **Timestamp:** 2026-05-24T08:51:52.003Z
 - **Target OS:** mac
 - **Test Runner:** Vitest
 
@@ -15,11 +15,11 @@
 | Depth | Memoized | Duration (ms) | Result Value | Caching Efficiency |
 |-------|----------|---------------|--------------|-------------------|
 | 10 | Yes 🚀 | 0ms | 20 | Speedup: N/A |
-| 10 | No 🐢 | 0ms | 20 | Speedup: N/A |
+| 10 | No 🐢 | 1ms | 20 | Speedup: N/A |
 | 100 | Yes 🚀 | 0ms | 110 | Speedup: N/A |
 | 100 | No 🐢 | 0ms | 110 | Speedup: N/A |
-| 500 | Yes 🚀 | 1ms | 510 | Speedup: 1.00x |
-| 500 | No 🐢 | 1ms | 510 | Speedup: 1.00x |
+| 500 | Yes 🚀 | 0ms | 510 | Speedup: N/A |
+| 500 | No 🐢 | 0ms | 510 | Speedup: N/A |
 | 1000 | Yes 🚀 | 1ms | 1010 | Speedup: 1.00x |
 | 1000 | No 🐢 | 1ms | 1010 | Speedup: 1.00x |
 

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779612418362-opvc5h5",
+  "spanId": "span-unknown",
+  "startTime": 1779612418362,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779612418849,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779612418849,
+  "durationMs": 487
+}

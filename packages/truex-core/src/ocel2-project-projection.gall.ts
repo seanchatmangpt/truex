@@ -88,13 +88,16 @@ export function receiptToOcelObject(receipt: WizardCommandReceipt | any): OcelOb
   };
 }
 
-export function wizardCommandToOcelEvent(command: WizardCommandReceipt | any): OcelEvent {
+export function wizardCommandToOcelEvent(command: WizardCommandReceipt | any, projectId?: string): OcelEvent {
   const isTerminal = command.status === 'succeeded' || command.status === 'failed' || command.status === 'refused';
   const relationships: OcelEventObjectRelationship[] = [
     { objectId: `wizard_command_${command.id}` as OcelId, qualifier: 'changed' as Qualifier }
   ];
   if (isTerminal && command.receiptHash) {
      relationships.push({ objectId: `receipt_${command.receiptHash}` as OcelId, qualifier: 'emitted' as Qualifier });
+  }
+  if (projectId) {
+     relationships.push({ objectId: projectId as OcelId, qualifier: 'changed' as Qualifier });
   }
   
   let type = 'project_mapped';
@@ -121,7 +124,7 @@ export function wizardCommandToOcelEvent(command: WizardCommandReceipt | any): O
   };
 }
 
-export function proofCommandToOcelEvent(command: any): OcelEvent {
+export function proofCommandToOcelEvent(command: any, projectId?: string): OcelEvent {
   const isSuccess = command.exitCode === 0 || command.status === 'succeeded';
   
   const relationships: OcelEventObjectRelationship[] = [
@@ -131,6 +134,10 @@ export function proofCommandToOcelEvent(command: any): OcelEvent {
   
   if (command.receiptHash) {
     relationships.push({ objectId: `receipt_${command.receiptHash}` as OcelId, qualifier: 'emitted' as Qualifier });
+  }
+
+  if (projectId) {
+    relationships.push({ objectId: projectId as OcelId, qualifier: 'changed' as Qualifier });
   }
   
   return {
@@ -185,25 +192,42 @@ export function projectReportToOcel(report: WizardProjectReport): OcelV2Log {
   for (const cp of report.checkpoints) {
     objects.push(checkpointToOcelObject(cp));
     
+    const propRels: OcelEventObjectRelationship[] = [
+      { objectId: `checkpoint_${cp.id}` as OcelId, qualifier: 'proposed_by' as Qualifier }
+    ];
+    if (report.mission.agents.length > 0) {
+      propRels.push({ objectId: report.mission.agents[0] as OcelId, qualifier: 'proposed_by' as Qualifier });
+    }
+
     events.push({
       id: `evt_cp_prop_${cp.id}` as OcelId,
       type: 'checkpoint_proposed' as OcelTypeName,
       time: report.mission.startedAt,
       attributes: [],
-      relationships: [
-        { objectId: `checkpoint_${cp.id}` as OcelId, qualifier: 'proposed_by' as Qualifier }
-      ]
+      relationships: propRels
     });
 
     if (report.status === 'passed') {
+      const accRels: OcelEventObjectRelationship[] = [
+        { objectId: `checkpoint_${cp.id}` as OcelId, qualifier: 'accepted_by' as Qualifier }
+      ];
+      if (cp.proofCommand) {
+        const proofCmdId = `proof_cmd_${cp.id}` as OcelId;
+        accRels.push({ objectId: proofCmdId, qualifier: 'proved_by' as Qualifier });
+        objects.push({
+          id: proofCmdId,
+          type: 'proof_command' as OcelTypeName,
+          attributes: [{ name: 'command', value: cp.proofCommand, time: report.mission.startedAt }],
+          relationships: []
+        });
+      }
+
       events.push({
         id: `evt_cp_acc_${cp.id}` as OcelId,
         type: 'checkpoint_accepted' as OcelTypeName,
         time: (report.mission.minimumElapsedAt || report.mission.startedAt) as ISODateTime,
         attributes: [],
-        relationships: [
-          { objectId: `checkpoint_${cp.id}` as OcelId, qualifier: 'accepted_by' as Qualifier }
-        ]
+        relationships: accRels
       });
     }
   }
@@ -314,14 +338,19 @@ export function mailboxReportToOcel(messages: PersistentMailboxMessage[]): OcelV
        }));
     }
 
+    const enqRels: OcelEventObjectRelationship[] = [
+      { objectId: msg.id, qualifier: 'emitted' as Qualifier }
+    ];
+    if (msg.parentReceiptHash) {
+      enqRels.push({ objectId: `receipt_${msg.parentReceiptHash}` as OcelId, qualifier: 'caused_by' as Qualifier });
+    }
+
     events.push({
       id: `enq_${msg.id}` as OcelId,
       type: 'mailbox_enqueued' as OcelTypeName,
       time: msg.createdAt,
       attributes: [],
-      relationships: [
-        { objectId: msg.id, qualifier: 'emitted' as Qualifier }
-      ]
+      relationships: enqRels
     });
 
     if (msg.state === 'confirmed') {
@@ -330,6 +359,9 @@ export function mailboxReportToOcel(messages: PersistentMailboxMessage[]): OcelV
         { objectId: `queue_${msg.queue}` as OcelId, qualifier: 'depends_on' as Qualifier },
         { objectId: `receipt_${rHash}` as OcelId, qualifier: 'emitted' as Qualifier }
       ];
+      if (msg.parentReceiptHash) {
+        rels.push({ objectId: `receipt_${msg.parentReceiptHash}` as OcelId, qualifier: 'caused_by' as Qualifier });
+      }
 
       events.push({
         id: `conf_${msg.id}` as OcelId,
@@ -352,6 +384,9 @@ export function mailboxReportToOcel(messages: PersistentMailboxMessage[]): OcelV
       });
       rels.push({ objectId: `failure_${failId}` as OcelId, qualifier: 'blocked_by' as Qualifier });
       rels.push({ objectId: `receipt_${rHash}` as OcelId, qualifier: 'emitted' as Qualifier });
+      if (msg.parentReceiptHash) {
+        rels.push({ objectId: `receipt_${msg.parentReceiptHash}` as OcelId, qualifier: 'caused_by' as Qualifier });
+      }
 
       events.push({
         id: `ref_${msg.id}` as OcelId,
@@ -381,6 +416,10 @@ export function mailboxReportToOcel(messages: PersistentMailboxMessage[]): OcelV
 export function validateOcelIntegrity(log: OcelV2Log): void {
   const objectIds = new Set(log.objects.map(o => o.id));
   for (const event of log.events) {
+    if (event.relationships.length === 0) {
+      throw new Error(`Integrity Error: Event ${event.id} of type ${event.type} has no relationships to objects`);
+    }
+
     for (const rel of event.relationships) {
       if (!objectIds.has(rel.objectId)) {
         throw new Error(`Integrity Error: Event ${event.id} references missing object ${rel.objectId}`);

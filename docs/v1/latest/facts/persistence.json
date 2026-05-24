@@ -61,15 +61,15 @@
     ]
   },
   "realtimeStats": {
-    "totalDeltas": 455,
-    "appliedDeltas": 226,
+    "totalDeltas": 467,
+    "appliedDeltas": 232,
     "receiptChainHeight": 49,
-    "lastUpdated": "2026-05-24T08:39:22.217Z"
+    "lastUpdated": "2026-05-24T08:48:09.725Z"
   },
   "actuationTriggers": [],
   "_metadata": {
     "emitter": "Persistence Facts Emitter",
     "description": "Extracts architectural facts about the SQLite persistence layer",
-    "timestamp": "2026-05-24T08:39:22.223Z"
+    "timestamp": "2026-05-24T08:48:09.730Z"
   }
 }

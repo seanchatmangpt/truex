@@ -110,6 +110,31 @@ export {
   getWizard8VerbWorkflow
 } from "./powl-project-workflow.gall.js";
 
+export {
+  createOcelId,
+  createOcelTypeName,
+  createQualifier,
+  createISODateTime,
+  createHash256,
+  createReceiptHash,
+  createReplayHash,
+  createProjectPath,
+  createBoundaryPowlNodeId,
+  isOcelEventType,
+  isOcelObjectType,
+  isOcelEventObjectRelationship,
+  isOcelObjectObjectRelationship,
+  isOcelEventAttribute,
+  isOcelObjectAttribute,
+  isOcelEvent,
+  isOcelObject,
+  isOcelV2Log,
+  isPersistentMailboxMessage,
+  isWizardProjectReport,
+  isBoundaryGallCheckpoint,
+  isBoundaryProjectCell
+} from "./ocel2-project-types.js";
+
 // Explicit type-only exports for non-conflicting types in ocel2-project-types.ts
 export type {
   OcelId,

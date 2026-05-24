@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779612548670-6cibh7u",
+  "spanId": "span-unknown",
+  "startTime": 1779612548670,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779612549167,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779612549166,
+  "durationMs": 496
+}

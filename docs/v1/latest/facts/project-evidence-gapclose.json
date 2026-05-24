@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "layer": "Project Evidence Gapclose (S12G)",
+  "description": "Verifies POWL/Gall workflows, ensuring cycle rejection, choice graphs, checkpoint structures, and ledger integrity.",
+  "report": {
+    "primitive": "project-evidence-gapclose",
+    "passed": true,
+    "invariants": [
+      "Agent 1-5 reports exist",
+      "S12 gap ledger exists",
+      "All gap statuses are closed or deferred",
+      "POWL/Gall Wizard Workflow validates successfully",
+      "POWL/Gall cycle rejection verified",
+      "Choice graph orphan node path rejection verified",
+      "Checkpoint validation with missing fields verified",
+      "Forbidden claims absent",
+      "Accounting conservation across S12G domains verified mathematically",
+      "type tests pass",
+      "projection tests pass",
+      "constraint tests pass"
+    ],
+    "failures": [],
+    "timings": {
+      "execution": 1
+    },
+    "receiptHash": "a01e2c498fb19dbaee32b95809755d374830548cd40dd50d49bbbc22419106c2"
+  },
+  "ledger": {
+    "path": "docs/reports/S12-GAP-LEDGER.md",
+    "domains": [
+      {
+        "domain": "S12G-A: POWL/Gall Workflow Validation",
+        "attempted": 12,
+        "succeeded": 12,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
+      },
+      {
+        "domain": "S12G-B: Cycle Rejection",
+        "attempted": 4,
+        "succeeded": 4,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
+      },
+      {
+        "domain": "S12G-C: Doctor Verification Check",
+        "attempted": 5,
+        "succeeded": 5,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
+      },
+      {
+        "domain": "S12G-D: Accounting Conservation",
+        "attempted": 6,
+        "succeeded": 6,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
+      },
+      {
+        "domain": "S12G-E: Observatory Facts Generation",
+        "attempted": 3,
+        "succeeded": 3,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
+      },
+      {
+        "domain": "S12G-F: Projection Fidelity + Round-Trip",
+        "attempted": 16,
+        "succeeded": 16,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
+      }
+    ]
+  },
+  "_metadata": {
+    "emitter": "Project Evidence Gapclose Facts Emitter",
+    "description": "Extracts facts about Object-Centric Project Evidence Gap Discovery & Repair (S12G)",
+    "timestamp": "2026-05-24T08:48:09.773Z"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "graphHash": "c2d27828d4fa38d7d7acec409d9fffe350fbbb07e946efa297c2f97d6fdcf5db",
+  "graphHash": "27cc7abce1bfed9e6abaae073d0bf4d2c4f65de6d832b28638704071f54b825e",
   "nodes": [
     {
       "id": "agents/swarm-auditor.ts",
@@ -1860,6 +1860,20 @@
       ]
     },
     {
+      "id": "scripts/observatory/lib/emit-project-evidence-gapclose-facts.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ],
+      "provedBy": [
+        "scripts/observatory/lib/emit-project-evidence-gapclose-facts.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "scripts/observatory/lib/emit-receipt.ts",
       "type": "Governance",
       "layer": "S4",
@@ -2026,6 +2040,7 @@
         "scripts/observatory/lib/emit-wal-reconstruction-visualization.ts",
         "scripts/observatory/lib/emit-s8-facts.ts",
         "scripts/observatory/lib/emit-s8-diagram.ts",
+        "scripts/observatory/lib/emit-project-evidence-gapclose-facts.ts",
         "scripts/observatory/lib/emit-otp-breakpoints.ts"
       ],
       "provedBy": [
@@ -3709,6 +3724,6 @@
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-24T08:39:22.209Z"
+    "timestamp": "2026-05-24T08:48:09.716Z"
   }
 }

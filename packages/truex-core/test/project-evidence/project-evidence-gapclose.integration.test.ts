@@ -42,10 +42,12 @@ describe('Project Evidence Gapclose S12G Integration Tests', () => {
     }
   });
 
-  afterAll(() => {
+  afterAll(async () => {
     for (const [p, content] of Object.entries(backupFiles)) {
       fs.writeFileSync(p, content, 'utf8');
     }
+    const doctor = new DoctorAgent();
+    await doctor.prove('project-evidence-gapclose');
   });
 
   describe('1. Workflow Validation', () => {

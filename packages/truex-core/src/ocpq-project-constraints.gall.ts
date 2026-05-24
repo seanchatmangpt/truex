@@ -186,6 +186,9 @@ export function evaluatePredicate(predicate: OcpqPredicate, binding: Record<stri
   switch (predicate.kind) {
     case 'attribute': {
       const pred = predicate as OcpqAttributePredicate;
+      if (!pred.variable || !pred.attribute || !pred.op) {
+        throw new Error("Malformed predicate");
+      }
       if (UNSUPPORTED_ATTRIBUTE_OPS.includes(pred.op)) {
         throw new Error(`Unsupported attribute comparison operator: ${pred.op}`);
       }
@@ -200,6 +203,9 @@ export function evaluatePredicate(predicate: OcpqPredicate, binding: Record<stri
     }
     case 'relationship': {
       const pred = predicate as OcpqRelationshipPredicate;
+      if (!pred.fromVariable || !pred.toVariable) {
+        throw new Error("Malformed predicate");
+      }
       const fromObj = binding[pred.fromVariable];
       const toObj = binding[pred.toVariable];
       if (!fromObj || !toObj) return false;
@@ -209,6 +215,9 @@ export function evaluatePredicate(predicate: OcpqPredicate, binding: Record<stri
     }
     case 'temporal': {
       const pred = predicate as OcpqTemporalPredicate;
+      if (!pred.leftEventVariable || !pred.rightEventVariable || !pred.op) {
+        throw new Error("Malformed predicate");
+      }
       if (UNSUPPORTED_TEMPORAL_OPS.includes(pred.op)) {
         throw new Error(`Unsupported temporal operator: ${pred.op}`);
       }
@@ -232,31 +241,37 @@ export function evaluatePredicate(predicate: OcpqPredicate, binding: Record<stri
   }
 }
 
+export function validateNestedQuery(query: OcpqNestedQuery, log: OcelV2Log): void {
+  if (!query) {
+    throw new Error("Malformed nested query");
+  }
+  if (!query.id || !query.quantifier || !query.variables) {
+    throw new Error("Malformed nested query");
+  }
+  for (const v of query.variables) {
+    if (!v || !v.id || !v.kind) {
+      throw new Error("Malformed nested query");
+    }
+  }
+  if (query.predicates) {
+    for (const pred of query.predicates) {
+      evaluatePredicate(pred, {}, log);
+    }
+  }
+  if (query.children) {
+    for (const child of query.children) {
+      validateNestedQuery(child, log);
+    }
+  }
+}
+
 export function evaluateProjectConstraint(constraint: OcpqConstraint, log: OcelV2Log): OcpqViolation[] {
   const violations: OcpqViolation[] = [];
 
-  // Check malformed query structure
-  if (constraint.violationQuery?.children) {
-    for (const child of constraint.violationQuery.children) {
-      if (!child.id || !child.quantifier) {
-        throw new Error("Malformed nested query");
-      }
-    }
+  if (!constraint || !constraint.violationQuery) {
+    throw new Error("Malformed nested query");
   }
-
-  // Pre-evaluate predicates explicitly if given to trigger refusal logic during evaluation
-  if (constraint.violationQuery?.predicates) {
-    for (const pred of constraint.violationQuery.predicates) {
-      // Just pass a dummy binding to trigger kind/op errors
-      try {
-        evaluatePredicate(pred, {}, log);
-      } catch (e: any) {
-        if (e.message.includes("Unsupported") || e.message.includes("Unknown") || e.message.includes("Malformed")) {
-          throw e; // Bubble up for Refused
-        }
-      }
-    }
-  }
+  validateNestedQuery(constraint.violationQuery, log);
 
   if (constraint.id === 'c-proof-command-missing') {
     for (const obj of log.objects) {

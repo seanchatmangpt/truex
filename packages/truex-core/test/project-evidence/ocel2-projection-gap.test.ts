@@ -13,7 +13,8 @@ import type {
   PersistentMailboxMessage,
   OcelId,
   ISODateTime,
-  OcelV2Log
+  OcelV2Log,
+  OcelTypeName
 } from '../../src/ocel2-project-types.js';
 
 describe('OCEL2 Projection Gap & Fidelity Tests', () => {
@@ -129,7 +130,7 @@ describe('OCEL2 Projection Gap & Fidelity Tests', () => {
     expect(handoffCompleted.relationships.some(r => r.objectId.startsWith('receipt_'))).toBe(true);
   });
 
-  it('proof failed event links proof command and report', () => {
+  it('proof failed event links proof command, report, and project', () => {
     const mockProofCmd = {
       id: 'proof_cmd_bad',
       checkpointId: 'cp_1',
@@ -140,7 +141,7 @@ describe('OCEL2 Projection Gap & Fidelity Tests', () => {
       status: 'failed'
     };
 
-    const proofEvent = proofCommandToOcelEvent(mockProofCmd);
+    const proofEvent = proofCommandToOcelEvent(mockProofCmd, 'proj_123');
     expect(proofEvent.type).toBe('proof_failed');
     
     const proofCmdRel = proofEvent.relationships.find(r => r.qualifier === 'proved_by');
@@ -148,6 +149,70 @@ describe('OCEL2 Projection Gap & Fidelity Tests', () => {
 
     const reportRel = proofEvent.relationships.find(r => r.qualifier === 'reported_in');
     expect(reportRel?.objectId).toBe('report_rep_hash_1');
+
+    const projRel = proofEvent.relationships.find(r => r.objectId === 'proj_123');
+    console.log("DEBUG PROOF EVENT RELS:", JSON.stringify(proofEvent.relationships, null, 2));
+    expect(projRel).toBeDefined();
+  });
+
+  it('checkpoint event connects proposing agent and proof command', () => {
+    const log = projectReportToOcel(baseMockReport);
+    
+    const propEvent = log.events.find(e => e.type === 'checkpoint_proposed')!;
+    expect(propEvent).toBeDefined();
+    expect(propEvent.relationships.some(r => r.objectId === 'checkpoint_cp_1')).toBe(true);
+    expect(propEvent.relationships.some(r => r.objectId === 'agent-1-cli')).toBe(true);
+
+    const accEvent = log.events.find(e => e.type === 'checkpoint_accepted')!;
+    expect(accEvent).toBeDefined();
+    expect(accEvent.relationships.some(r => r.objectId === 'checkpoint_cp_1')).toBe(true);
+    expect(accEvent.relationships.some(r => r.objectId === 'proof_cmd_cp_1')).toBe(true);
+  });
+
+  it('wizard command projection connects project and receipt', () => {
+    const mockCmd = {
+      id: 'cmd_1',
+      verb: 'prove',
+      status: 'succeeded',
+      startedAt: '2024-01-01T00:00:00Z',
+      receiptHash: 'rec_hash_cmd'
+    };
+
+    const evt = wizardCommandToOcelEvent(mockCmd, 'proj_123');
+    expect(evt.type).toBe('proof_succeeded');
+    expect(evt.relationships.some(r => r.objectId === 'wizard_command_cmd_1')).toBe(true);
+    expect(evt.relationships.some(r => r.objectId === 'receipt_rec_hash_cmd')).toBe(true);
+    expect(evt.relationships.some(r => r.objectId === 'proj_123')).toBe(true);
+  });
+
+  it('mailbox events connect parent receipt if present', () => {
+    const mockMessages: PersistentMailboxMessage[] = [
+      {
+        id: 'msg_parent' as OcelId,
+        queue: 'hook',
+        state: 'confirmed',
+        payloadHash: 'phash' as any,
+        payloadJson: {},
+        uniqueConsequenceKey: 'uck' as any,
+        attempt: 1,
+        maxAttempts: 3,
+        priority: 5,
+        scheduledAt: '2024-01-01T00:00:00Z' as any,
+        availableAt: '2024-01-01T00:00:00Z' as any,
+        createdAt: '2024-01-01T00:00:00Z' as any,
+        updatedAt: '2024-01-01T00:00:00Z' as any,
+        receiptHash: 'rec_hash_child' as any,
+        parentReceiptHash: 'rec_hash_parent' as any
+      }
+    ];
+
+    const log = mailboxReportToOcel(mockMessages);
+    
+    const enqEvent = log.events.find(e => e.type === 'mailbox_enqueued')!;
+    expect(enqEvent.relationships.some(r => r.objectId === 'receipt_rec_hash_parent')).toBe(true);
+
+    const confEvent = log.events.find(e => e.type === 'mailbox_confirmed')!;
+    expect(confEvent.relationships.some(r => r.objectId === 'receipt_rec_hash_parent')).toBe(true);
   });
 
   it('mailbox refused links failure and receipt', () => {
@@ -272,5 +337,82 @@ describe('OCEL2 Projection Gap & Fidelity Tests', () => {
     const evt = log.events.find(e => e.type === 'mailbox_refused');
     expect(evt).toBeDefined();
     expect(evt?.relationships.some(r => r.objectId === 'failure_tampered_hash')).toBe(true);
+  });
+
+  it('projection refuses event with zero relationships', () => {
+    const log = projectReportToOcel(baseMockReport);
+    // Add a fake event with zero relationships
+    const badEvent = {
+      id: 'bad_event_zero_rels' as OcelId,
+      type: 'project_mapped' as OcelTypeName,
+      time: '2024-01-01T00:00:00Z' as ISODateTime,
+      attributes: [],
+      relationships: []
+    };
+    const logWithBadEvent: OcelV2Log = {
+      ...log,
+      events: [...log.events, badEvent]
+    };
+
+    expect(() => validateOcelIntegrity(logWithBadEvent)).toThrowError(/Integrity Error: Event bad_event_zero_rels of type project_mapped has no relationships to objects/);
+  });
+
+  it('proves round-trip reconstruction of original domain primitives from projected OCEL log', () => {
+    // 1. Round-trip Project Report
+    const log = projectReportToOcel(baseMockReport);
+    validateOcelIntegrity(log);
+
+    // Reconstruct Project Cell root
+    const projObj = log.objects.find(o => o.type === 'project')!;
+    const rootAttr = projObj.attributes.find(a => a.name === 'root')!;
+    expect(rootAttr.value).toBe(baseMockReport.projectCell.root);
+
+    // Reconstruct Handoff Status and Receipt Hash
+    const receiptObj = log.objects.find(o => o.type === 'receipt' && o.id.startsWith('receipt_rep_hash_1'))!;
+    const hashAttr = receiptObj.attributes.find(a => a.name === 'receiptHash')!;
+    const statusAttr = receiptObj.attributes.find(a => a.name === 'status')!;
+    expect(hashAttr.value).toBe(baseMockReport.metrics.reportHash);
+    expect(statusAttr.value).toBe('succeeded'); // since baseMockReport.status is 'passed'
+
+    // Reconstruct checkpoints
+    for (const cp of baseMockReport.checkpoints) {
+      const cpObj = log.objects.find(o => o.type === 'gall_checkpoint' && o.id === `checkpoint_${cp.id}`)!;
+      const nameAttr = cpObj.attributes.find(a => a.name === 'name')!;
+      const purposeAttr = cpObj.attributes.find(a => a.name === 'purpose')!;
+      expect(nameAttr.value).toBe(cp.name);
+      expect(purposeAttr.value).toBe(cp.purpose);
+    }
+
+    // 2. Round-trip Mailbox Messages
+    const mockMessages: PersistentMailboxMessage[] = [
+      {
+        id: 'msg_1' as OcelId,
+        queue: 'hook',
+        state: 'confirmed',
+        payloadHash: 'phash1' as any,
+        payloadJson: {},
+        uniqueConsequenceKey: 'uck1' as any,
+        attempt: 1,
+        maxAttempts: 3,
+        priority: 5,
+        scheduledAt: '2024-01-01T00:00:00Z' as any,
+        availableAt: '2024-01-01T00:00:00Z' as any,
+        createdAt: '2024-01-01T00:00:00Z' as any,
+        updatedAt: '2024-01-01T00:00:00Z' as any,
+        receiptHash: 'rec_1' as any
+      }
+    ];
+
+    const mLog = mailboxReportToOcel(mockMessages);
+    validateOcelIntegrity(mLog);
+
+    const mObj = mLog.objects.find(o => o.type === 'mailbox_message' && o.id === 'msg_1')!;
+    const queueAttr = mObj.attributes.find(a => a.name === 'queue')!;
+    const stateAttr = mObj.attributes.find(a => a.name === 'state')!;
+    expect(queueAttr.value).toBe('hook');
+    expect(stateAttr.value).toBe('confirmed');
+
+    const mReceiptObj = mLog.objects.find(o => o.type === 'receipt' && o.id === 'receipt_rec_1')!;
+    expect(mReceiptObj).toBeDefined();
   });
 });

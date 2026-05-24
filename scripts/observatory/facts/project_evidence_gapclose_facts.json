@@ -1,11 +1,11 @@
 {
-  "provenAt": "2026-05-24T08:40:32.848Z",
-  "reportHash": "aab27fae2b77ab1b5a53d85d6f58dd4bd64ecc06b9d92995bcf763480d0954d8",
-  "status": "failed",
+  "provenAt": "2026-05-24T08:52:07.536Z",
+  "reportHash": "a01e2c498fb19dbaee32b95809755d374830548cd40dd50d49bbbc22419106c2",
+  "status": "passed",
   "metrics": {
     "workflowNodesValidated": 16,
     "workflowEdgesValidated": 18,
-    "invariantsProven": 11,
-    "reportHash": "aab27fae2b77ab1b5a53d85d6f58dd4bd64ecc06b9d92995bcf763480d0954d8"
+    "invariantsProven": 12,
+    "reportHash": "a01e2c498fb19dbaee32b95809755d374830548cd40dd50d49bbbc22419106c2"
   }
 }
