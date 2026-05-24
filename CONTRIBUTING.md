@@ -149,11 +149,15 @@ describe('feature name', () => {
 
 ## Documentation
 
-- Keep documentation updated with code changes
-- Write clear, beginner-friendly examples
-- Update API documentation in `/docs/api.md` for API changes
-- Add examples to `/docs/examples.md` for new features
-- Ensure all code examples work correctly
+Documentation in this repository is governed by strict deterministic and object-centric principles. We do not write speculative or marketing documentation; we write **projections of proven authority**.
+
+Before contributing to or modifying any documentation, you **must** read and adhere to our [Truex Documentation Guidelines](./docs/DOCUMENTATION_GUIDELINES.md).
+
+Key requirements:
+- **No Fake Green**: Only document features proven by `doctor prove` or tests.
+- **Refusal is First-Class**: Always document what the system refuses or quarantines.
+- **Object-Centric Process Evidence**: Describe reality in terms of discrete, bounded objects (`HookedConsequenceAttempt`, `TelcoReceipt`).
+- **Use the Grammar of Consequence**: Use words like *Attempt*, *Admit/Refuse*, *Conserve*, and *Promote*.
 
 ## Commit Messages
 
