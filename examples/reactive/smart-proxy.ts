@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -30,7 +31,10 @@ async function run() {
   dispatchMessage(runtime, { 
     id: "msg-proxy-1", 
     targetProcessId: "smart-proxy", 
-    delta: { id: "d1", adds: ["request_protected_data"], deletes: [] } 
+    delta: { id: "d1", adds: [], deletes: [] } 
   });
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

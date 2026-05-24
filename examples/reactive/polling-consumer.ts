@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -21,6 +22,7 @@ async function run() {
 
   const consumerBehavior = (state: any, msg: any) => {
     if (msg.type === 'START_POLLING') {
+      console.log('Consumer: Starting polling cycle...');
       return { effects: [{ type: 'send', targetProcessId: 'queue', delta: { id: 'poll-req', adds: [], deletes: [] }, messageId: 'poll-1', type: 'POLL', replyTo: 'consumer' }], nextState: state };
     }
     if (msg.payload) {
@@ -35,4 +37,7 @@ async function run() {
 
   dispatchMessage(runtime, { id: "start-1", targetProcessId: "consumer", delta: { id: "d1", adds: [], deletes: [] }, type: 'START_POLLING' } as any);
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 
 // Content Filter Pattern: Removing unnecessary data before passing along
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -39,4 +40,7 @@ async function run() {
 
   dispatchMessage(runtime, rawMessage);
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

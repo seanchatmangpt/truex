@@ -1,26 +1,26 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
   // Idempotent Receiver: Safely handles duplicate messages.
   const idempotentBehavior = (state: any, msg: any) => {
-    if (state.processedMessageIds.has(msg.id)) {
+    if (state.processedMessageIds.includes(msg.id)) {
       console.log(`Receiver: Ignoring duplicate message ${msg.id}`);
       return { effects: [], nextState: state };
     }
     
     console.log(`Receiver: Processing new message ${msg.id}`);
-    const nextProcessed = new Set(state.processedMessageIds);
-    nextProcessed.add(msg.id);
+    const nextProcessed = [...state.processedMessageIds, msg.id];
     
     return { effects: [], nextState: { ...state, processedMessageIds: nextProcessed, count: state.count + 1 } };
   };
 
-  runtime.processes.set("receiver", createHookProcess("receiver", idempotentBehavior, { processedMessageIds: new Set(), count: 0 }));
+  runtime.processes.set("receiver", createHookProcess("receiver", idempotentBehavior, { processedMessageIds: [], count: 0 }));
 
   const msg1 = { id: "msg-1", targetProcessId: "receiver", delta: { id: "d1", adds: [], deletes: [] }, payload: 'X' };
   
@@ -28,4 +28,7 @@ async function run() {
   // Duplicate delivery
   dispatchMessage(runtime, msg1 as any);
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

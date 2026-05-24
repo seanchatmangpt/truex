@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -31,4 +32,7 @@ async function run() {
   // Simulate send
   dispatchMessage(runtime, { id: "trigger-1", targetProcessId: "sender", delta: { id: "d1", adds: [], deletes: [] }, type: 'SEND' } as any);
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

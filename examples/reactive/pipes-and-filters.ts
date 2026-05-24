@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { 
   createHookOtpRuntime, 
@@ -14,7 +15,7 @@ function createOrderDelta(id: string, text: string): GraphDelta {
   };
 }
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -85,4 +86,7 @@ async function run() {
   console.log("PipesAndFilters: completed.");
 }
 
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

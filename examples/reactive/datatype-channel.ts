@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 
 // Datatype Channel Pattern: Specific channels for specific datatypes
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -33,4 +34,7 @@ async function run() {
   sendDocument({ type: "order", id: "123", amount: 100 });
   sendDocument({ type: "invoice", id: "inv-456", total: 100 });
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

@@ -1,8 +1,9 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
 import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -29,4 +30,7 @@ async function run() {
   dispatchMessage(runtime, { id: "msg-2", targetProcessId: "aggregator", delta: { id: "d2", adds: [], deletes: [] }, type: 'PART', payload: 'B' } as any);
   dispatchMessage(runtime, { id: "msg-3", targetProcessId: "aggregator", delta: { id: "d3", adds: [], deletes: [] }, type: 'PART', payload: 'C' } as any);
 }
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

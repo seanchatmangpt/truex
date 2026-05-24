@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext, type TruexContext } from '../../packages/truex-core/src/context.js';
 import { 
   createHookOtpRuntime, 
@@ -36,7 +37,7 @@ class EventBus {
   }
 }
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
   const bus = new EventBus(runtime);
@@ -75,4 +76,7 @@ async function run() {
   console.log("SubClassification: is completed.");
 }
 
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { 
   createHookOtpRuntime, 
@@ -22,7 +23,7 @@ function createQuoteDelta(id: string, rfqId: string, quoterId: string, price: nu
   };
 }
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -121,4 +122,7 @@ async function run() {
   console.log("ScatterGather: is completed.");
 }
 
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}

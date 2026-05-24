@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
 import { 
   createHookOtpRuntime, 
@@ -23,7 +24,7 @@ function createSequenceDelta(id: string, correlationId: string, index: number, t
   };
 }
 
-async function run() {
+export async function run() {
   const runtime = createHookOtpRuntime();
   const ctx = createDeterministicContext(42);
 
@@ -98,4 +99,7 @@ async function run() {
   console.log("Resequencer: is completed.");
 }
 
-run();
+const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
+if (isMain) {
+  run().catch(console.error);
+}
