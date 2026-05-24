@@ -1,0 +1,36 @@
+import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
+import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
+import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
+
+async function run() {
+  const runtime = createHookOtpRuntime();
+  const ctx = createDeterministicContext(42);
+
+  const proxyBehavior = (state: any, msg: any) => {
+    const nextCount = state.messagesIntercepted + 1;
+    console.log(`[SmartProxy] Intercepted message: ${msg.id}. Total handled: ${nextCount}`);
+    
+    // Potential cross-cutting concerns like logging, auth, metric tracking
+    console.log(`[SmartProxy] Metrics updated. Delegating to target process: ${state.targetId}`);
+    
+    return { effects: [], nextState: { ...state, messagesIntercepted: nextCount } };
+  };
+
+  const actualServiceBehavior = (state: any, msg: any) => {
+    console.log(`[ActualService] Executing core business logic.`);
+    return { effects: [], nextState: state };
+  };
+
+  runtime.processes.set("actual-service", createHookProcess("actual-service", actualServiceBehavior, {}));
+  runtime.processes.set("smart-proxy", createHookProcess("smart-proxy", proxyBehavior, { 
+    targetId: "actual-service", 
+    messagesIntercepted: 0 
+  }));
+
+  dispatchMessage(runtime, { 
+    id: "msg-proxy-1", 
+    targetProcessId: "smart-proxy", 
+    delta: { id: "d1", adds: ["request_protected_data"], deletes: [] } 
+  });
+}
+run();

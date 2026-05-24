@@ -1,0 +1,53 @@
+import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
+import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
+import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
+
+async function run() {
+  const runtime = createHookOtpRuntime();
+  const ctx = createDeterministicContext(42);
+
+  // Setup Recipients
+  ['R1', 'R2', 'R3'].forEach(name => {
+    runtime.processes.set(name, createHookProcess(name, (state, msg) => {
+      console.log(`[${name}] Received message: ${msg.id}`);
+      return { effects: [], nextState: state };
+    }, {}));
+  });
+
+  // Determine recipients dynamically based on message contents
+  const getRecipientsFor = (msg: any) => {
+    return msg.delta.payload?.type === 'alert' ? ['R1', 'R2'] : ['R3'];
+  };
+
+  const recipientListBehavior = (state: any, msg: any) => {
+    if (msg.delta.payload) {
+      const recipients = getRecipientsFor(msg);
+      console.log(`[RecipientList] Routing message ${msg.id} to ${recipients.join(', ')}`);
+      
+      // Dispatch to each recipient in the list
+      recipients.forEach((rec, idx) => {
+        dispatchMessage(runtime, { 
+          id: `routed-${msg.id}-${idx}`, 
+          targetProcessId: rec, 
+          delta: msg.delta 
+        });
+      });
+    }
+    return { effects: [], nextState: state };
+  };
+  runtime.processes.set("recipient-list", createHookProcess("recipient-list", recipientListBehavior, {}));
+
+  // Trigger messages through the Recipient List
+  dispatchMessage(runtime, { 
+    id: "msg-alert", 
+    targetProcessId: "recipient-list", 
+    delta: { id: "d1", adds: [], deletes: [], payload: { type: 'alert' } } as any 
+  });
+  
+  dispatchMessage(runtime, { 
+    id: "msg-info", 
+    targetProcessId: "recipient-list", 
+    delta: { id: "d2", adds: [], deletes: [], payload: { type: 'info' } } as any 
+  });
+}
+run();
