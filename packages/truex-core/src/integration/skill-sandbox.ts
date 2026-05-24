@@ -35,18 +35,18 @@ export function validateSkillMarkdown(skillMarkdown: string): ValidationResult {
   const violations: string[] = [];
 
   // 1. Check for Math.random (case-sensitive as it is a JS API)
-  const mathRandomRegex = /Math\.random/;
+  const mathRandomRegex = /\bMath\s*(\.\s*random|\[\s*["'`\\]random["'`\\]\s*\])/;
   if (mathRandomRegex.test(skillMarkdown)) {
     violations.push("Use of Math.random is forbidden to ensure deterministic execution (Entropy Law).");
   }
 
   // 2. Check for clock calls / time references
   const clockPatterns = [
-    { regex: /\bDate\.now\b/, name: "Date.now" },
+    { regex: /\bDate\s*(\.\s*now|\[\s*["'`\\]now["'`\\]\s*\])/, name: "Date.now" },
     { regex: /\bnew\s+Date\b/, name: "new Date" },
     { regex: /\bDate\(\s*\)/, name: "Date() call" },
-    { regex: /\bperformance\.now\b/, name: "performance.now" },
-    { regex: /\bprocess\.hrtime\b/, name: "process.hrtime" },
+    { regex: /\bperformance\s*(\.\s*now|\[\s*["'`\\]now["'`\\]\s*\])/, name: "performance.now" },
+    { regex: /\bprocess\s*(\.\s*hrtime|\[\s*["'`\\]hrtime["'`\\]\s*\])/, name: "process.hrtime" },
     { regex: /\bsetTimeout\b/, name: "setTimeout" },
     { regex: /\bsetInterval\b/, name: "setInterval" },
     { regex: /\bsetImmediate\b/, name: "setImmediate" },
@@ -61,8 +61,8 @@ export function validateSkillMarkdown(skillMarkdown: string): ValidationResult {
   // 3. Check for prototype pollution / modification
   const protoPatterns = [
     { regex: /__proto__/, name: "__proto__" },
-    { regex: /\[\s*["']__proto__["']\s*\]/, name: "bracket __proto__ access" },
-    { regex: /\[\s*["']prototype["']\s*\]/, name: "bracket prototype access" },
+    { regex: /\[\s*["'`\\]__proto__["'`\\]\s*\]/, name: "bracket __proto__ access" },
+    { regex: /\[\s*["'`\\]prototype["'`\\]\s*\]/, name: "bracket prototype access" },
     { regex: /\bObject\.prototype\b/, name: "Object.prototype" },
     { regex: /\bconstructor\.prototype\b/, name: "constructor.prototype" },
     { regex: /\.prototype\b/, name: "dot prototype access" },

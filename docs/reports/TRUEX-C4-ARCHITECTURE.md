@@ -6,13 +6,13 @@
 ## 0. Generation Receipt
 
 ```yaml
-generatedAt: 2026-05-24T08:48:09.719Z
-astFilesScanned: 228
-mappedFiles: 221
-orphanFiles: 7
-topologyHash: 27cc7abce1bfed9e6abaae073d0bf4d2c4f65de6d832b28638704071f54b825e
-receiptHash: 962f49d0-9209-4481-8d84-b16cadc92756
-diagramHash: e13371054a7004b3323c051895eb4a2c2645756197ad14a1482e1a53c3f8563e pending
+generatedAt: 2026-05-24T10:01:57.940Z
+astFilesScanned: 243
+mappedFiles: 231
+orphanFiles: 12
+topologyHash: 2f05b2ff4175e37ba51721d404c9428850babe73ad98230e86c97a1a7cf56f7f
+receiptHash: d9cdd028-c4dc-45a7-9e0a-70deb3d4f745
+diagramHash: 809958f126641f6dd609d1e102fe45c932a12a68755f14b49a60bfdd4fb43dca pending
 doctorCommand: npx tsx scripts/truex.ts doctor prove architecture
 ```
 
@@ -264,7 +264,7 @@ sequenceDiagram
 
 ## 8. Architecture Accounting
 This map actively indexes the codebase dependencies.
-**Total Mapped Nodes:** 228
+**Total Mapped Nodes:** 243
 
 ## 9. Orphans / Drift / Unmapped Files
 ❌ Found Orphans:
@@ -275,6 +275,11 @@ This map actively indexes the codebase dependencies.
 - packages/truex-core/src/ocpq-project-constraints.gall.ts
 - packages/truex-core/src/powl-project-workflow.gall.ts
 - packages/truex-core/src/project-wizard.gall.ts
+- packages/truex-core/src/wizard/project-cell.ts
+- packages/truex-core/src/wizard/project-route.ts
+- packages/truex-core/src/wizard/verbs/init.ts
+- packages/truex-core/src/wizard/verbs/map.ts
+- packages/truex-core/src/wizard/verbs/plan.ts
 
 ## 10. Final Classification
 
@@ -283,7 +288,7 @@ Truex C4 Architecture State:
 - Alignment: Proven via Doctor
 - Dynamic Coverage: Active
 - Deployment Scope: Local-First (No Cloud)
-- Orphan Count: 7
+- Orphan Count: 12
 ```
 
 *Legend:*

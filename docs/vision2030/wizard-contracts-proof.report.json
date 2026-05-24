@@ -1,0 +1,16 @@
+{
+  "primitive": "wizard-contracts",
+  "passed": true,
+  "invariants": [
+    "WizardContext defined",
+    "WizardDecision defined",
+    "ProjectConsequenceCell defined",
+    "WizardVerbAttempt defined",
+    "WizardVerb defined",
+    "WizardReceipt defined"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1
+  }
+}

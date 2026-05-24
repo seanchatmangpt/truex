@@ -531,18 +531,55 @@ const wizardInitCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const durationHours = Number.parseFloat(args['duration-hours'] || args.durationHours || '12');
-    const agents = Number.parseInt(args.agents || '5', 10);
+    try {
+      if (typeof projectPath !== 'string' || !projectPath.trim()) {
+        throw new Error("Project path must be a non-empty string");
+      }
+      if (projectPath.includes('\0')) {
+        throw new Error("Project path contains null bytes");
+      }
 
-    const cell = new ProjectCell(projectPath);
-    const receipt = cell.init({
-      path: projectPath,
-      mission: args.mission,
-      durationHours,
-      agents,
-      status: 'initialized'
-    });
-    console.log(JSON.stringify(receipt, null, 2));
+      const durationHours = Number.parseFloat(args['duration-hours'] || args.durationHours || '12');
+      if (Number.isNaN(durationHours) || durationHours < 12) {
+        throw new Error("Config format failure: 'durationHours' must be a number greater than or equal to 12");
+      }
+
+      const agents = Number.parseInt(args.agents || '5', 10);
+      if (Number.isNaN(agents) || !Number.isInteger(agents) || agents < 1) {
+        throw new Error("Config format failure: 'agents' must be a positive integer");
+      }
+
+      const cell = new ProjectCell(projectPath);
+      const receipt = cell.init({
+        path: projectPath,
+        mission: args.mission,
+        durationHours,
+        agents,
+        status: 'initialized'
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const receipt = cell.emitReceipt('init', 'refused', startedAt, completedAt, {
+          details: `Init validation failure: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch (e2) {
+        const completedAt = new Date().toISOString();
+        console.log(JSON.stringify({
+          receiptHash: '',
+          projectPath,
+          verb: 'init',
+          status: 'refused',
+          startedAt,
+          completedAt,
+          details: `Init validation failure (unable to write receipt): ${e.message}`
+        }, null, 2));
+      }
+      throw e;
+    }
   }
 });
 
@@ -562,23 +599,33 @@ const wizardMapCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('map', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
-    }
+    try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
 
-    cell.updateHeartbeat();
-    const mapper = new ProjectMapper(cell);
-    const { hash } = mapper.map();
-    const completedAt = new Date().toISOString();
-    const receipt = cell.emitReceipt('map', 'succeeded', startedAt, completedAt, {
-      reportPath: '.truex/reports/project-topology.json',
-      details: `Topology mapped. Hash: ${hash}`
-    });
-    console.log(JSON.stringify(receipt, null, 2));
+      cell.updateHeartbeat();
+      const mapper = new ProjectMapper(cell);
+      const { hash } = mapper.map();
+      const completedAt = new Date().toISOString();
+      const receipt = cell.emitReceipt('map', 'succeeded', startedAt, completedAt, {
+        reportPath: '.truex/reports/project-topology.json',
+        details: `Topology mapped. Hash: ${hash}`
+      });
+      console.log(JSON.stringify(receipt, null, 2));
+    } catch (e: any) {
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized');
+        const receipt = cell.emitReceipt('map', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Map execution failure: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
+      throw e;
+    }
   }
 });
 
@@ -621,35 +668,47 @@ const wizardPlanCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
+    try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
+
+      cell.updateHeartbeat();
+
+      const mode = args['checkpoint-mode'] || args.checkpointMode;
+      if (mode && mode !== 'agent-proposed') {
+        throw new Error("Plan refused: unsupported checkpoint-mode. Must be 'agent-proposed'.");
+      }
+
+      const topoPath = cell.resolvePath('.truex/reports/project-topology.json');
+      if (!fs.existsSync(topoPath)) {
+        throw new Error("Project topology map missing. Run wizard map first.");
+      }
+
+      const topology = JSON.parse(fs.readFileSync(topoPath, 'utf8'));
+
+      const planner = new CheckpointPlanner(cell);
+      const { hash: regHash } = planner.plan(topology);
+
       const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('plan', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
+      const receipt = cell.emitReceipt('plan', 'succeeded', startedAt, completedAt, {
+        reportPath: '.truex/checkpoints/checkpoint-registry.json',
+        details: `Checkpoint registry generated. Hash: ${regHash}`
+      });
       console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
+    } catch (e: any) {
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized') || e.message.includes('missing') || e.message.includes('refused');
+        const receipt = cell.emitReceipt('plan', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Plan failed: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
+      throw e;
     }
-
-    cell.updateHeartbeat();
-
-    const topoPath = cell.resolvePath('.truex/reports/project-topology.json');
-    if (!fs.existsSync(topoPath)) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('plan', 'refused', startedAt, completedAt, { details: 'Project topology map missing' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project topology map missing. Run wizard map first.");
-    }
-
-    const topology = JSON.parse(fs.readFileSync(topoPath, 'utf8'));
-
-    const planner = new CheckpointPlanner(cell);
-    const { hash: regHash } = planner.plan(topology);
-
-    const completedAt = new Date().toISOString();
-    const receipt = cell.emitReceipt('plan', 'succeeded', startedAt, completedAt, {
-      reportPath: '.truex/checkpoints/checkpoint-registry.json',
-      details: `Checkpoint registry generated. Hash: ${regHash}`
-    });
-    console.log(JSON.stringify(receipt, null, 2));
   }
 });
 
@@ -675,19 +734,19 @@ const wizardForgeCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('forge', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
-    }
-
-    cell.updateHeartbeat();
-    const checkpointId = args.checkpoint || 'cp-cli-contract';
-
-    const engine = new ExecutionEngine(cell);
     try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
+
+      cell.updateHeartbeat();
+      const checkpointId = args.checkpoint;
+      if (!checkpointId || !checkpointId.trim()) {
+        throw new Error("Forge refused: checkpoint ID option is required.");
+      }
+
+      const engine = new ExecutionEngine(cell);
       engine.forge(checkpointId);
       const completedAt = new Date().toISOString();
       const receipt = cell.emitReceipt('forge', 'succeeded', startedAt, completedAt, {
@@ -695,11 +754,15 @@ const wizardForgeCommand = defineCommand({
       });
       console.log(JSON.stringify(receipt, null, 2));
     } catch (e: any) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('forge', 'failed', startedAt, completedAt, {
-        details: `Forge failed: ${e.message}`
-      });
-      console.log(JSON.stringify(receipt, null, 2));
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized') || e.message.includes('refused') || e.message.includes('violation');
+        const receipt = cell.emitReceipt('forge', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Forge failed: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
       throw e;
     }
   }
@@ -727,19 +790,19 @@ const wizardBindCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('bind', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
-    }
-
-    cell.updateHeartbeat();
-    const checkpointId = args.checkpoint || 'cp-cli-contract';
-
-    const engine = new ExecutionEngine(cell);
     try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
+
+      cell.updateHeartbeat();
+      const checkpointId = args.checkpoint;
+      if (!checkpointId || !checkpointId.trim()) {
+        throw new Error("Bind refused: checkpoint ID option is required.");
+      }
+
+      const engine = new ExecutionEngine(cell);
       engine.bind(checkpointId);
       const completedAt = new Date().toISOString();
       const receipt = cell.emitReceipt('bind', 'succeeded', startedAt, completedAt, {
@@ -747,11 +810,15 @@ const wizardBindCommand = defineCommand({
       });
       console.log(JSON.stringify(receipt, null, 2));
     } catch (e: any) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('bind', 'failed', startedAt, completedAt, {
-        details: `Bind failed: ${e.message}`
-      });
-      console.log(JSON.stringify(receipt, null, 2));
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized') || e.message.includes('refused') || e.message.includes('not found');
+        const receipt = cell.emitReceipt('bind', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Bind failed: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
       throw e;
     }
   }
@@ -779,19 +846,19 @@ const wizardProveVerbCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('prove', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
-    }
-
-    cell.updateHeartbeat();
-    const checkpointId = args.checkpoint || 'cp-cli-contract';
-
-    const engine = new ExecutionEngine(cell);
     try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
+
+      cell.updateHeartbeat();
+      const checkpointId = args.checkpoint;
+      if (!checkpointId || !checkpointId.trim()) {
+        throw new Error("Prove refused: checkpoint ID option is required.");
+      }
+
+      const engine = new ExecutionEngine(cell);
       const res = engine.prove(checkpointId);
       const completedAt = new Date().toISOString();
       const receipt = cell.emitReceipt('prove', 'succeeded', startedAt, completedAt, {
@@ -800,11 +867,15 @@ const wizardProveVerbCommand = defineCommand({
       });
       console.log(JSON.stringify(receipt, null, 2));
     } catch (e: any) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('prove', 'failed', startedAt, completedAt, {
-        details: `Proof failed: ${e.message}`
-      });
-      console.log(JSON.stringify(receipt, null, 2));
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized') || e.message.includes('refused');
+        const receipt = cell.emitReceipt('prove', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Proof failed: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
       throw e;
     }
   }
@@ -832,19 +903,19 @@ const wizardHardenCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('harden', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
-    }
-
-    cell.updateHeartbeat();
-    const checkpointId = args.checkpoint || 'cp-cli-contract';
-
-    const engine = new ExecutionEngine(cell);
     try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
+
+      cell.updateHeartbeat();
+      const checkpointId = args.checkpoint;
+      if (!checkpointId || !checkpointId.trim()) {
+        throw new Error("Harden refused: checkpoint ID option is required.");
+      }
+
+      const engine = new ExecutionEngine(cell);
       const res = engine.harden(checkpointId);
       const completedAt = new Date().toISOString();
       const receipt = cell.emitReceipt('harden', 'succeeded', startedAt, completedAt, {
@@ -853,11 +924,15 @@ const wizardHardenCommand = defineCommand({
       });
       console.log(JSON.stringify(receipt, null, 2));
     } catch (e: any) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('harden', 'failed', startedAt, completedAt, {
-        details: `Hardening failed: ${e.message}`
-      });
-      console.log(JSON.stringify(receipt, null, 2));
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized') || e.message.includes('refused');
+        const receipt = cell.emitReceipt('harden', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Hardening failed: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
       throw e;
     }
   }
@@ -903,22 +978,23 @@ const wizardHandoffCommand = defineCommand({
       throw new Error("Missing project path");
     }
 
-    const cell = new ProjectCell(projectPath);
-    if (!cell.isInitialized()) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('handoff', 'refused', startedAt, completedAt, { details: 'Project cell not initialized' });
-      console.log(JSON.stringify(receipt, null, 2));
-      throw new Error("Project cell not initialized");
-    }
-
-    cell.updateHeartbeat();
-    const controller = new MissionController(cell);
-
-    const reqElapsed = args['require-elapsed'] ?? args.requireElapsed ?? false;
-    const reqGallCp = args['require-gall-checkpoints'] ?? args.requireGallCheckpoints ?? false;
-    const countReports = Number.parseInt(args['require-agent-reports'] || args.requireAgentReports || '5', 10);
-
     try {
+      const cell = new ProjectCell(projectPath);
+      if (!cell.isInitialized()) {
+        throw new Error("Project cell not initialized");
+      }
+
+      cell.updateHeartbeat();
+      const controller = new MissionController(cell);
+
+      const reqElapsed = args['require-elapsed'] ?? args.requireElapsed ?? false;
+      const reqGallCp = args['require-gall-checkpoints'] ?? args.requireGallCheckpoints ?? false;
+      const rawCountReports = args['require-agent-reports'] || args.requireAgentReports || '5';
+      const countReports = Number.parseInt(rawCountReports, 10);
+      if (Number.isNaN(countReports) || countReports < 0) {
+        throw new Error("Handoff refused: require-agent-reports must be a non-negative integer.");
+      }
+
       controller.verifyHandoff({
         requireElapsed: reqElapsed,
         requireGallCheckpoints: reqGallCp,
@@ -944,11 +1020,15 @@ const wizardHandoffCommand = defineCommand({
       });
       console.log(JSON.stringify(receipt, null, 2));
     } catch (e: any) {
-      const completedAt = new Date().toISOString();
-      const receipt = cell.emitReceipt('handoff', 'refused', startedAt, completedAt, {
-        details: `Handoff verification failed: ${e.message}`
-      });
-      console.log(JSON.stringify(receipt, null, 2));
+      try {
+        const cell = new ProjectCell(projectPath);
+        const completedAt = new Date().toISOString();
+        const isRefused = e.message.includes('not initialized') || e.message.includes('refused') || e.message.includes('Refused') || e.message.includes('missing') || e.message.includes('not found');
+        const receipt = cell.emitReceipt('handoff', isRefused ? 'refused' : 'failed', startedAt, completedAt, {
+          details: `Handoff verification failed: ${e.message}`
+        });
+        console.log(JSON.stringify(receipt, null, 2));
+      } catch {}
       throw e;
     }
   }
@@ -1093,6 +1173,18 @@ const projectEvidenceGapcloseCommand = defineCommand({
   }
 });
 
+const projectWizardCompleteCommand = defineCommand({
+  meta: {
+    name: 'project-wizard-complete',
+    description: 'Prove the complete S11G Project Wizard verification suite.'
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("project-wizard-complete");
+    if (!report.passed) throw new Error("Project wizard complete proof failed");
+  }
+});
+
 const proveCommand = defineCommand({
   meta: {
     name: 'prove',
@@ -1128,7 +1220,8 @@ const proveCommand = defineCommand({
     "wizard-simulate": wizardSimulateProveCommand,
     "wizard-walkthrough": wizardWalkthroughProveCommand,
     "project-evidence-types": projectEvidenceTypesCommand,
-    "project-evidence-gapclose": projectEvidenceGapcloseCommand
+    "project-evidence-gapclose": projectEvidenceGapcloseCommand,
+    "project-wizard-complete": projectWizardCompleteCommand
   }
 });
 

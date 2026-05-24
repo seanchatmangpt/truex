@@ -1,0 +1,30 @@
+{
+  "primitive": "project-wizard-complete",
+  "passed": true,
+  "invariants": [
+    "verb 'init' executed and returned succeeded status",
+    "verb 'map' executed and generated project topology hash",
+    "verb 'plan' executed and generated checkpoint registry",
+    "verb 'forge' executed and materialized files expected by checkpoint",
+    "verb 'bind' executed and generated integration-map.json with all binding connections verified",
+    "verb 'prove' executed and returned exitCode 0",
+    "verb 'harden' executed and verified failure envelope boundaries",
+    "path traversal attack correctly caught and refused",
+    "vague checkpoint proposal correctly validated and rejected by planner",
+    "premature finalization correctly blocked by 12H Monotonic Release Gate",
+    "missing agent report files correctly validated and rejected during handoff",
+    "accounting ledger correctly counts prior verbs and artifacts",
+    "verb 'handoff' executed and completed project finalization successfully",
+    "stress run: path traversal attack caught and refused",
+    "stress run: vague checkpoint configuration rejected by planner",
+    "stress run: premature finalization blocked by 12H Monotonic Release Gate",
+    "stress run: missing agent report files rejected during handoff",
+    "benchmark: wizard counterfactual simulation throughput calculated at 3904.961 ops/sec",
+    "benchmark: filesystem latency measured at 1ms"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 5769
+  },
+  "receiptHash": "7aa1ec56eba8273e15d08c9699c2b2aefc410dc2cc8962d35591454fc1dc854a"
+}

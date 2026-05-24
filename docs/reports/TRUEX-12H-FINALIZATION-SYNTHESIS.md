@@ -24,16 +24,16 @@ All unit, integration, and stress tests pass:
 
 [1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/Users/sac/truex[39m
 
-[90mstdout[2m | test/invariants/cap-inv-contract-virtual-breakpoint.test.ts[2m > [22m[2mInvariant, Contract & Virtual Value Stress Tests[2m > [22m[2mContract Isolation[2m > [22m[2mensures that mutations are rolled back when a post-condition (return type verification) fails
-[22m[39mDEBUG: BEFORE CALLING updateValue
-DEBUG: ERROR THROWN: TypeError: Access to raw global prototype is refused
-    at Object.getPrototypeOf [90m(/Users/sac/truex/[39msrc/proxy/create-proxy.js:222:15[90m)[39m
-    at Proxy.bind (<anonymous>)
-    at [90m/Users/sac/truex/[39mtest/invariants/cap-inv-contract-virtual-breakpoint.test.ts:372:45
-    at runInterceptors [90m(/Users/sac/truex/[39msrc/proxy/traps.js:19:20[90m)[39m
-    at Object.get [90m(/Users/sac/truex/[39msrc/proxy/create-proxy.js:138:34[90m)[39m
-    at [90m/Users/sac/truex/[39mtest/invariants/cap-inv-contract-virtual-breakpoint.test.ts:388:31
-    ...
+ [32m✓[39m packages/truex-core/test/benchmark/hookbench.gall.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 29092[2mms[22m[39m
+     [33m[2m✓[22m[39m should run T0 successfully [33m 28467[2mms[22m[39m
+[90mstdout[2m | packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts
+[22m[39m📄 Mailbox breakpoint reports written successfully.
+
+ [32m✓[39m packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 19500[2mms[22m[39m
+     [33m[2m✓[22m[39m runs the multi-producer interleaving and mailbox size stress tests [33m 19489[2mms[22m[39m
+ [32m✓[39m packages/truex-core/test/project-wizard/project-wizard-cli.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 4501[2mms[22m[39m
+     [33m[2m✓[22m[39m should run all 8 CLI subcommands in sequence and emit receipts [33m 1362[2mms[22m[39m
+     [33m[2m✓[22m[39m...
 ```
 
 ## 5. Report Evidence
@@ -67,7 +67,7 @@ Should database corruption or concurrency lockouts occur in staging/production:
 ---
 
 Truex 12H Finalization:
-- 12H Gate: Failed
+- 12H Gate: Passed
 - Runtime Closure: Closed
 - Failure Envelope: Bounded
 - Accounting: Converged

@@ -89,14 +89,14 @@
     "rollbackReceipts": 4,
     "stormCandidates": 3,
     "stormRefusals": 1,
-    "durationMs": 3,
+    "durationMs": 4,
     "topologyHash": "3bc3db582ed1f6cf74f55a15a1e7f7ea756cd8e2c3ba0f6d0aea0ceb6e303ab1",
     "totalActivations": 3,
     "maxDepthReached": 2,
     "depthCeilingEnforced": true,
     "causalLineageVerified": true,
     "determinismVerified": true,
-    "executionTimeMs": 3
+    "executionTimeMs": 4
   },
   "invariants": [
     "single hook execution registered correctly as depth-0 activation",

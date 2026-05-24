@@ -21,7 +21,7 @@
     ],
     "failures": [],
     "timings": {
-      "execution": 1
+      "execution": 2
     },
     "receiptHash": "a01e2c498fb19dbaee32b95809755d374830548cd40dd50d49bbbc22419106c2"
   },
@@ -87,12 +87,22 @@
         "quarantined": 0,
         "skipped": 0,
         "status": "Conserved"
+      },
+      {
+        "domain": "S12G-G: OCPQ Constraint Coverage",
+        "attempted": 35,
+        "succeeded": 35,
+        "failed": 0,
+        "refused": 0,
+        "quarantined": 0,
+        "skipped": 0,
+        "status": "Conserved"
       }
     ]
   },
   "_metadata": {
     "emitter": "Project Evidence Gapclose Facts Emitter",
     "description": "Extracts facts about Object-Centric Project Evidence Gap Discovery & Repair (S12G)",
-    "timestamp": "2026-05-24T08:48:09.773Z"
+    "timestamp": "2026-05-24T10:01:57.986Z"
   }
 }

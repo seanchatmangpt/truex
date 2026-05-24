@@ -21,6 +21,9 @@ import { proveMembrane } from "../../skills/membrane/proofs.js";
 import { proveAdapter } from "../../skills/adapter/proofs.js";
 import { proveHook } from "../../skills/hook/proofs.js";
 import { proveRepository, proveOntology } from "../../skills/repository-proof.js";
+import { proveWizardContracts } from "../../skills/wizard/wizard-contracts-proof.js";
+import { proveWizardMap } from "../../skills/wizard/wizard-map-proof.js";
+import { proveWizardPlan } from "../../skills/wizard/wizard-plan-proof.js";
 import { proveArchitecture } from "../../skills/architecture-proof.js";
 import { runBenchmark, persistReport } from "../../packages/truex-core/src/benchmark/runner.js";
 import type { HookBenchReporter } from "../../packages/truex-core/src/benchmark/hookbench.gall.js";
@@ -33,7 +36,7 @@ import { TelcoAgent } from "../telco/agent.js";
 import { WizardAgent } from "../wizard/agent.js";
 import { OcelCollector } from "../../skills/membrane/mutations.js";
 import { proveTelco } from "../../skills/telco/telco-proof.js";
-import { proveWizard } from "../../skills/wizard/wizard-proof.js";
+import { proveWizard, proveProjectWizardComplete } from "../../skills/wizard/proofs.js";
 import { proveMailbox } from "../../skills/mailbox/proofs.js";
 import { proveFinalization } from "../../skills/finalization/proofs.js";
 import { proveProjectEvidenceTypes, proveProjectEvidenceGapclose } from "../../skills/project-evidence/proofs.js";
@@ -1046,6 +1049,19 @@ Truex OTP Non-Mockable Stress State:
         break;
       }
 
+      case "wizard-contracts": {
+        result = proveWizardContracts();
+        break;
+      }
+      case "wizard-map": {
+        result = await proveWizardMap();
+        break;
+      }
+      case "wizard-plan": {
+        result = await proveWizardPlan();
+        break;
+      }
+      
       case "wizard": {
         const report = proveWizard();
         
@@ -1694,6 +1710,26 @@ Truex OTP Non-Mockable Stress State:
           result = {
             passed: false,
             failures: [e.message || "Unknown error during Project Evidence Gapclose verification"],
+            invariants: []
+          };
+        }
+        break;
+      }
+
+      case "project-wizard-complete": {
+        console.log("🚀 Starting Project Wizard Complete (S11G) verification...");
+        try {
+          const completeReport = await proveProjectWizardComplete();
+          result = {
+            passed: completeReport.passed,
+            failures: completeReport.failures,
+            invariants: completeReport.invariants,
+            receiptHash: completeReport.metrics.reportHash
+          };
+        } catch (e: any) {
+          result = {
+            passed: false,
+            failures: [e.message || "Unknown error during Project Wizard Complete verification"],
             invariants: []
           };
         }

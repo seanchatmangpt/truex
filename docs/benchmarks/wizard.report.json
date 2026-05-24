@@ -6,8 +6,8 @@
     "simulationsRun": 1000,
     "validCommits": 500,
     "invalidRollbacks": 500,
-    "simulateDurationMs": 253.2652079999998,
-    "simulateOpsPerSecond": 3948.430216281428
+    "simulateDurationMs": 248.63929199999984,
+    "simulateOpsPerSecond": 4021.890474173328
   },
   "invariants": [
     "valid range mutation successfully commits state change",
@@ -15,9 +15,7 @@
     "project cell initialization creates config structure",
     "project topology mapper scans files and outputs C4 diagrams",
     "checkpoint planner creates agent checkpoints and rejects vague inputs",
-    "execution ledger updates accounting values for command, artifacts, and proofs",
-    "12-hour monotonic release gate correctly refuses premature handoff",
-    "synthesis finalization produces PROJECT-WIZARD-S11-SYNTHESIS.md and evidence reports"
+    "verification of all checkpoints, facts, reports, and ledger files complete and valid"
   ],
-  "reportHash": "ee40ac2e7a3f60e902c48663d5fa20d9634638e1e78f22d30bec2c48223c7a9f"
+  "reportHash": "db50d5736a78c99b1629cec7da4274f1cd7daf4d9bcf04cdf2fd6bcdf42864f6"
 }

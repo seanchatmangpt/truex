@@ -50,7 +50,7 @@
   "_metadata": {
     "emitter": "OTP Pressure Facts Emitter",
     "description": "Extracts state conservation data across domains O1 to O5",
-    "timestamp": "2026-05-24T08:48:09.773Z"
+    "timestamp": "2026-05-24T10:01:57.987Z"
   }
 }
 ```

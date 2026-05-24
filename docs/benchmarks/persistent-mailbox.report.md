@@ -58,5 +58,5 @@ This report validates the SQLite-backed persistent mailbox and queue-state disci
 *   **Transition Attempts:** 9.000
 *   **Integrity Attempts:** 2.000
 *   **Rescue Attempts:** 2.000
-*   **Execution Duration:** 17.000 ms
+*   **Execution Duration:** 18.000 ms
 *   **Mailbox Report Hash:** `e17d64c391fad605468b011d2a703155406015c7eab1fc92aec2b37f723ab7b5`

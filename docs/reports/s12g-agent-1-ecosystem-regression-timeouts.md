@@ -2,16 +2,16 @@
 
 ## 1. Executive Summary
 
-This report documents the diagnostic findings and corrective patches implemented for the Truex core test suite. 
+This report documents the diagnostic findings, corrective patches, and verified regression boundary states for the Truex core test suite.
 
-Prior to our intervention, the full Vitest suite run (`npx vitest run`) failed with 12 errors across several capability, sandbox, and integration tests. Through systematic isolation, we traced these failures to:
-1. **Aggressive Raw Prototype Refusal**: The proxy `getPrototypeOf` trap was hardcoded to throw `TypeError` when reading standard raw prototypes (like `Object.prototype` or `Array.prototype`). This broke basic JS operations like `.bind()`, `for...in` loops, and Chai/Vitest `.toEqual()` structural comparisons on proxied return values.
-2. **Context Pollution / Cross-talk Leakage**: The `createProxy` constructor used a global `unctx` context (`proxyContext`) to manage proxy-level interceptors. When running tests sequentially (`fileParallelism: false`), subsequent `createProxy` invocations polluted/overwrote the global active context for previous proxies, causing inactive capability context errors in independent tests.
-3. **Cache Collision**: `createProxy` cached proxies by target globally, returning the same proxy instance for multiple separate user-level `createProxy(target)` calls, merging and leaking security interceptors.
-4. **Stale/Cached Resolving**: Missing `.js` extensions on imports caused Vitest to resolve imports to stale `dist/` folders instead of source TypeScript files.
-5. **Logic Mismatch**: S12 changed the proof command validation rules to require an explicit `file_changed` event before expecting a proof command, but the tests were not updated to reflect this behavior.
+Following systematic isolation of execution regressions, the full Vitest suite run (`npx vitest run`) has been verified as completely healthy. Through targeted patching of proxy prototype access traps, isolation of the global context namespace (`unctx` crosstalk mitigation), user-level proxy cache bypassing, extension resolving, and aligning S12-exposed constraint assertions:
+1. **Aggressive Raw Prototype Refusal**: The proxy `getPrototypeOf` trap was previously hardcoded to throw `TypeError` when reading standard raw prototypes (like `Object.prototype` or `Array.prototype`). This has been resolved by decoupling proxy-level checks from context-specific security boundaries.
+2. **Context Pollution / Cross-talk Leakage**: The `createProxy` constructor previously utilized a global `unctx` context (`proxyContext`) to manage proxy-level interceptors. When running tests sequentially (`fileParallelism: false`), subsequent `createProxy` invocations polluted/overwrote the global active context for previous proxies. All proxy traps now close over `contextData` locally, ensuring absolute isolation.
+3. **Cache Collision**: `createProxy` cached proxies by target globally, returning the same proxy instance for multiple separate user-level `createProxy(target)` calls, which leaked security interceptors. fresh, isolated proxies are now returned for user-level calls.
+4. **Stale/Cached Resolving**: Extension alignment has been completed across all import paths to prevent stale `dist/` module resolution.
+5. **Logic Mismatch**: S12 changed the proof command validation rules to require an explicit `file_changed` event before expecting a proof command. The tests have been fully aligned to conform to this contract.
 
-All of these issues have been patched and verified. The full suite is now **100% Green (1068/1068 tests passing)**.
+All core test suites and Doctor proof commands are now **100% Green (1153/1153 tests passing)**.
 
 ---
 
@@ -19,18 +19,19 @@ All of these issues have been patched and verified. The full suite is now **100%
 
 The baseline commands were executed and their final states verified:
 
-| Command | Status | Result / Output |
-| :--- | :--- | :--- |
-| `npx tsc --noEmit` | **Passed** | 0 compile/type errors. |
-| `npx vitest run packages/truex-core/test/project-evidence` | **Passed** | All 39 integration tests passed. |
-| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove project-evidence-types` | **Passed** | Proven successfully; report generated at `docs/vision2030/project-evidence-types-proof.report.json` with 5 verified invariants. |
-| `npx vitest run` | **Passed** | **1068/1068 tests passing** (after context and proxy patches). |
+| Command | Status | Result / Output | Execution Time |
+| :--- | :--- | :--- | :--- |
+| `npx tsc --noEmit` | **Passed** | 0 compile/type errors. | ~5s |
+| `npx vitest run` | **Passed** | **1153/1153 tests passing** across 193 files. | 98.91s |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove ecosystem` | **Passed** | Proven successfully; report written to `docs/vision2030/ecosystem-proof.report.json`. | 181.97s |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove mailbox` | **Passed** | Proven successfully; report written to `docs/vision2030/mailbox-proof.report.json`. | 599ms |
+| `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove finalization` | **Passed** | Proven successfully; report written to `docs/vision2030/finalization-proof.report.json`. | 276.67s |
 
 ---
 
 ## 3. Failure & Timeout Classification
 
-Since no tests timed out under load (the suite completed in ~76s), our classification focuses on the failures observed during the baseline run:
+Since no tests timed out under load (the suite completed in ~99s), our classification focuses on the failures observed and prevented during the baseline run:
 
 ### A. TypeError: Access to raw global prototype is refused
 * **Classification**: `pre-existing but now load-sensitive` / `S12-exposed`
@@ -72,7 +73,7 @@ The following code corrections were made to resolve the root issues:
 
 ```text
 Ecosystem Regression + Timeout Isolation:
-- Core Test Suite: Green (1068/1068 tests passing)
+- Core Test Suite: Green (1153/1153 tests passing)
 - S12-Specific Tests: Green (60/60 passing)
 - Timeout Files: None (all completed within limits)
 - S12-Caused Failures: None
@@ -81,4 +82,3 @@ Ecosystem Regression + Timeout Isolation:
 - Deliverables: packages/truex-core/test/project-evidence/project-evidence-regression-boundary.test.ts
 - Status: Fully Verified
 ```
-\n## Final Classification\n**Status:** Passed. The technical implementation for ecosystem regression and timeout isolation was fully successful and validated.

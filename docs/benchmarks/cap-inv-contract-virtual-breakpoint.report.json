@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-05-24T08:51:52.003Z",
+  "timestamp": "2026-05-24T10:01:22.561Z",
   "circularInvariants": {
-    "rawLoopDurationMs": 1,
+    "rawLoopDurationMs": 0,
     "customGuardDurationMs": 0,
     "rawLoopMaxDepth": 1
   },
@@ -33,19 +33,19 @@
     {
       "depth": 500,
       "memoized": true,
-      "durationMs": 0,
+      "durationMs": 1,
       "value": 510
     },
     {
       "depth": 500,
       "memoized": false,
-      "durationMs": 0,
+      "durationMs": 1,
       "value": 510
     },
     {
       "depth": 1000,
       "memoized": true,
-      "durationMs": 1,
+      "durationMs": 2,
       "value": 1010
     },
     {

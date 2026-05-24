@@ -1,0 +1,14 @@
+{
+  "primitive": "wizard-map",
+  "passed": true,
+  "invariants": [
+    "Map verb successfully admitted and mapped directory",
+    "Identified source file correctly",
+    "Identified test file correctly",
+    "Topology hash is generated and stable"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 4
+  }
+}

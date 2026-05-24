@@ -442,7 +442,7 @@ describe('OCPQ Constraint Gap Coverage', () => {
     it('refuses unknown predicate kinds', () => {
       expect(() => evaluatePredicate({
         kind: 'weird_kind' as any
-      }, {}, dummyLog)).toThrowError(/Unknown predicate kind: weird_kind/);
+      } as any, {}, dummyLog)).toThrowError(/Unknown predicate kind: weird_kind/);
     });
 
     it('refuses malformed predicate missing kind', () => {

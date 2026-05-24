@@ -1,6 +1,6 @@
 # Antigravity Artifact: Topology.graph
 
-> **Generated:** 2026-05-24T08:48:09.716Z
+> **Generated:** 2026-05-24T10:01:57.937Z
 > **Version:** 2.0.0
 
 ## Data Summary
@@ -8,7 +8,7 @@
 ```json
 {
   "version": "2.0.0",
-  "graphHash": "27cc7abce1bfed9e6abaae073d0bf4d2c4f65de6d832b28638704071f54b825e",
+  "graphHash": "2f05b2ff4175e37ba51721d404c9428850babe73ad98230e86c97a1a7cf56f7f",
   "nodes": [
     {
       "id": "agents/swarm-auditor.ts",
@@ -223,6 +223,9 @@
         "skills/adapter/proofs.ts",
         "skills/hook/proofs.ts",
         "skills/repository-proof.ts",
+        "skills/wizard/wizard-contracts-proof.ts",
+        "skills/wizard/wizard-map-proof.ts",
+        "skills/wizard/wizard-plan-proof.ts",
         "skills/architecture-proof.ts",
         "packages/truex-core/src/benchmark/runner.ts",
         "packages/truex-core/src/benchmark/hookbench.gall.ts",
@@ -235,7 +238,7 @@
         "agents/wizard/agent.ts",
         "skills/membrane/mutations.ts",
         "skills/telco/telco-proof.ts",
-        "skills/wizard/wizard-proof.ts",
+        "skills/wizard/proofs.ts",
         "skills/mailbox/proofs.ts",
         "skills/finalization/proofs.ts",
         "skills/project-evidence/proofs.ts"
@@ -391,7 +394,9 @@
       "id": "skills/finalization/proofs.ts",
       "type": "Test",
       "layer": "Verification",
-      "dependencies": [],
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
       "provedBy": [
         "skills/finalization/proofs.ts"
       ],
@@ -716,11 +721,60 @@
       "type": "Test",
       "layer": "Verification",
       "dependencies": [
+        "packages/truex-core/src/hash.ts",
         "agents/wizard/agent.ts",
+        "packages/truex-core/src/project-wizard.gall.ts",
         "packages/truex-core/src/project-wizard.gall.ts"
       ],
       "provedBy": [
         "skills/wizard/proofs.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "skills/wizard/wizard-contracts-proof.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [],
+      "provedBy": [
+        "skills/wizard/wizard-contracts-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "skills/wizard/wizard-map-proof.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/wizard/verbs/init.ts",
+        "packages/truex-core/src/wizard/verbs/map.ts",
+        "packages/truex-core/src/wizard/project-cell.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/wizard-map-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "skills/wizard/wizard-plan-proof.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/wizard/verbs/init.ts",
+        "packages/truex-core/src/wizard/verbs/map.ts",
+        "packages/truex-core/src/wizard/verbs/plan.ts",
+        "packages/truex-core/src/wizard/project-cell.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/wizard-plan-proof.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-core-facts.ts"
@@ -841,6 +895,24 @@
       ]
     },
     {
+      "id": "test/security/hardening.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "src/lib/gall-truex/receipt-proof.ts",
+        "src/lib/gall-truex/signature-proof.ts",
+        "src/lib/gall-truex/sqlite-proof.ts",
+        "packages/truex-core/src/integration/skill-sandbox.ts",
+        "src/proxy/create-proxy/index.ts"
+      ],
+      "provedBy": [
+        "test/security/hardening.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -938,6 +1010,8 @@
         "skills/receipt/proofs.ts",
         "skills/replay/proofs.ts",
         "skills/topology/proofs.ts",
+        "skills/wizard/wizard-map-proof.ts",
+        "skills/wizard/wizard-plan-proof.ts",
         "test/invariants/runaway-recursion.test.ts",
         "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/adapter.test.ts",
@@ -966,6 +1040,7 @@
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts",
         "packages/truex-core/test/topology/topology-rollback-storm.test.ts",
@@ -984,6 +1059,7 @@
         "skills/mailbox/proofs.ts",
         "skills/membrane/membrane-replay-proof.ts",
         "skills/project-evidence/proofs.ts",
+        "skills/wizard/proofs.ts",
         "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/adapter.test.ts",
         "packages/truex-core/test/benchmark-entropy.test.ts",
@@ -998,6 +1074,8 @@
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
         "packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-benchmark.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts"
       ],
@@ -1188,7 +1266,8 @@
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
-        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts"
+        "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -1217,13 +1296,19 @@
         "packages/truex-core/src/runtime-law.ts"
       ],
       "provedBy": [
+        "skills/finalization/proofs.ts",
         "skills/wizard/proofs.ts",
         "skills/wizard/wizard-proof.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-benchmark.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-bind.test.ts",
         "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts",
         "packages/truex-core/test/project-wizard/project-wizard-execution.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-functional.test.ts",
         "packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts",
         "packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts",
-        "packages/truex-core/test/project-wizard/project-wizard-plan.test.ts"
+        "packages/truex-core/test/project-wizard/project-wizard-plan.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-validation.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -2214,6 +2299,7 @@
       "dependencies": [],
       "provedBy": [
         "skills/repository-proof.ts",
+        "test/security/hardening.test.ts",
         "packages/truex-core/test/integration-surface.test.ts",
         "packages/truex-core/test/skill-sandbox.test.ts"
       ],
@@ -2539,7 +2625,8 @@
       "layer": "S3",
       "dependencies": [],
       "provedBy": [
-        "packages/truex-core/test/persistence/lock.test.ts"
+        "packages/truex-core/test/persistence/lock.test.ts",
+        "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-persistence-facts.ts"
@@ -2791,6 +2878,43 @@
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/wizard/project-cell.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/wizard-map-proof.ts",
+        "skills/wizard/wizard-plan-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/wizard/project-receipts.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/wizard/project-route.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/wizard/project-cell.ts"
+      ],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
       ]
     },
     {
@@ -3553,6 +3677,35 @@
       ]
     },
     {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-benchmark.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts",
+        "packages/truex-core/src/hash.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-benchmark.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-bind.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-bind.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -3576,6 +3729,21 @@
       ],
       "provedBy": [
         "packages/truex-core/test/project-wizard/project-wizard-execution.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-functional.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts",
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-functional.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -3619,6 +3787,39 @@
       ],
       "provedBy": [
         "packages/truex-core/test/project-wizard/project-wizard-plan.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts",
+        "packages/truex-core/src/persistence/lock.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistent-mailbox.gall.ts",
+        "packages/truex-core/src/hash.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-stress.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-wizard/project-wizard-validation.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts",
+        "packages/truex-core/src/project-wizard.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-wizard/project-wizard-validation.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -3727,12 +3928,60 @@
       "documentedBy": [
         "scripts/observatory/lib/emit-core-facts.ts"
       ]
+    },
+    {
+      "id": "packages/truex-core/src/wizard/verbs/init.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/wizard/project-cell.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/wizard-map-proof.ts",
+        "skills/wizard/wizard-plan-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/wizard/verbs/map.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/wizard/project-cell.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/wizard-map-proof.ts",
+        "skills/wizard/wizard-plan-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/wizard/verbs/plan.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/wizard/project-cell.ts",
+        "packages/truex-core/src/wizard/project-route.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/wizard-plan-proof.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
     }
   ],
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-24T08:48:09.716Z"
+    "timestamp": "2026-05-24T10:01:57.937Z"
   }
 }
 ```

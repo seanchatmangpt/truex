@@ -66,6 +66,14 @@
       "deterministic": true
     },
     {
+      "id": "refine_isBinary",
+      "targetSymbol": "isBinary",
+      "sourceFile": "packages/truex-core/src/project-wizard.gall.ts",
+      "action": "REPLACE_AMBIENT",
+      "description": "Deterministic implementation found for isBinary. Prioritize internal path in packages/truex-core/src/project-wizard.gall.ts.",
+      "deterministic": true
+    },
+    {
       "id": "refine_matchesCondition",
       "targetSymbol": "matchesCondition",
       "sourceFile": "packages/truex-core/src/topology.gall.ts",
@@ -95,13 +103,13 @@
     }
   ],
   "stats": {
-    "internalSymbolsCount": 9,
-    "rulesGenerated": 9,
+    "internalSymbolsCount": 10,
+    "rulesGenerated": 10,
     "heuristicsCount": 3
   },
   "_metadata": {
     "emitter": "Refinement Rules Emitter",
     "description": "Generates refinement rules for the bridge based on internal logic paths",
-    "timestamp": "2026-05-24T08:48:09.731Z"
+    "timestamp": "2026-05-24T10:01:57.954Z"
   }
 }

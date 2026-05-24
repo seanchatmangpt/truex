@@ -1,6 +1,6 @@
 # Antigravity Artifact: Project Evidence Gapclose
 
-> **Generated:** 2026-05-24T08:48:09.773Z
+> **Generated:** 2026-05-24T10:01:57.986Z
 > **Version:** 1.0.0
 
 ## S12G Gapclose Verification
@@ -33,6 +33,7 @@
 | **S12G-D: Accounting Conservation** | 6 | 6 | 0 | 0 | 0 | 0 | Conserved |
 | **S12G-E: Observatory Facts Generation** | 3 | 3 | 0 | 0 | 0 | 0 | Conserved |
 | **S12G-F: Projection Fidelity + Round-Trip** | 16 | 16 | 0 | 0 | 0 | 0 | Conserved |
+| **S12G-G: OCPQ Constraint Coverage** | 35 | 35 | 0 | 0 | 0 | 0 | Conserved |
 
 
 ---

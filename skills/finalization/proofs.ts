@@ -7,7 +7,9 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import * as os from 'node:os';
 import { execSync } from 'node:child_process';
+import { ProjectCell, MissionController } from '../../packages/truex-core/src/project-wizard.gall.js';
 
 export interface FinalizationProofReport {
   passed: boolean;
@@ -62,19 +64,82 @@ export async function proveFinalization(): Promise<FinalizationProofReport> {
   console.log("🔭 4/4 Running Observatory fact/diagram generation...");
   const observatoryRes = runAndMeasure('TSX_DISABLE_CACHE=1 npx tsx scripts/observatory/index.ts');
 
-  const passed = vitestRes.passed && ecosystemRes.passed && mailboxRes.passed && observatoryRes.passed;
+  // 5. Verify 12h Monotonic Gate Enforce Block
+  console.log("⏱️ 5/6 Verifying 12-hour monotonic elapsed gate block...");
+  let gateBlocksCorrectly = false;
+  try {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'truex-finalization-gate-test-'));
+    const cell = new ProjectCell(tempDir);
+    cell.init({
+      path: tempDir,
+      mission: 'Finalization Gate Test',
+      durationHours: 12,
+      agents: 5,
+      status: 'initialized'
+    });
+    const controller = new MissionController(cell);
+    try {
+      controller.verifyHandoff({ requireElapsed: true });
+    } catch (e: any) {
+      if (e.message.includes("Handoff Refused: Monotonic mission gate has not opened yet")) {
+        gateBlocksCorrectly = true;
+      }
+    } finally {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    }
+  } catch (err: any) {
+    console.error("Error during monotonic gate block check:", err);
+  }
+
+  // 6. Verify Risk Ledger contains all deferred risks
+  console.log("📝 6/6 Verifying risk ledger contains all deferred risks...");
+  const riskLedgerPath = path.resolve(process.cwd(), 'docs', 'reports', 'RISK-LEDGER.md');
+  let riskLedgerValid = false;
+  const missingRisks: string[] = [];
+  if (fs.existsSync(riskLedgerPath)) {
+    const riskContent = fs.readFileSync(riskLedgerPath, 'utf8');
+    const expectedDeferredRisks = [
+      "preemptive timeslicing",
+      "preemptive scheduling thread delegation",
+      "main thread locking",
+      "event-loop blocking",
+      "distributed contention",
+      "cross-process concurrency",
+      "manual checkpoint fine-tuning",
+      "static ast dependency analysis"
+    ];
+    for (const risk of expectedDeferredRisks) {
+      const regex = new RegExp(risk.replace(/\s+/g, '\\s+'), 'i');
+      if (!regex.test(riskContent)) {
+        missingRisks.push(risk);
+      }
+    }
+    if (missingRisks.length === 0) {
+      riskLedgerValid = true;
+    }
+  }
+
+  const passed = vitestRes.passed && ecosystemRes.passed && mailboxRes.passed && observatoryRes.passed && gateBlocksCorrectly && riskLedgerValid;
   const failures: string[] = [];
 
   if (!vitestRes.passed) failures.push("Vitest unit tests failed");
   if (!ecosystemRes.passed) failures.push("Doctor ecosystem proof failed");
   if (!mailboxRes.passed) failures.push("Doctor mailbox proof failed");
   if (!observatoryRes.passed) failures.push("Observatory run failed");
+  if (!gateBlocksCorrectly) failures.push("12-hour monotonic elapsed gate did not block handoff on a fresh project cell");
+  if (!fs.existsSync(riskLedgerPath)) {
+    failures.push("Risk ledger RISK-LEDGER.md is missing in docs/reports/");
+  } else if (missingRisks.length > 0) {
+    failures.push(`Risk ledger is missing deferred risks: ${missingRisks.join(', ')}`);
+  }
 
   const invariants = [
     `Vitest suite validation: ${vitestRes.passed ? 'PASSED' : 'FAILED'} (${vitestRes.durationMs}ms)`,
     `Ecosystem proof validation: ${ecosystemRes.passed ? 'PASSED' : 'FAILED'} (${ecosystemRes.durationMs}ms)`,
     `Mailbox S10 proof validation: ${mailboxRes.passed ? 'PASSED' : 'FAILED'} (${mailboxRes.durationMs}ms)`,
-    `Observatory generator validation: ${observatoryRes.passed ? 'PASSED' : 'FAILED'} (${observatoryRes.durationMs}ms)`
+    `Observatory generator validation: ${observatoryRes.passed ? 'PASSED' : 'FAILED'} (${observatoryRes.durationMs}ms)`,
+    `12H monotonic gate block validation: ${gateBlocksCorrectly ? 'PASSED' : 'FAILED'}`,
+    `Risk ledger validation (all deferred risks logged): ${riskLedgerValid ? 'PASSED' : 'FAILED'}`
   ];
 
   const report: FinalizationProofReport = {

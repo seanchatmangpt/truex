@@ -7,12 +7,10 @@
     "project cell initialization creates config structure",
     "project topology mapper scans files and outputs C4 diagrams",
     "checkpoint planner creates agent checkpoints and rejects vague inputs",
-    "execution ledger updates accounting values for command, artifacts, and proofs",
-    "12-hour monotonic release gate correctly refuses premature handoff",
-    "synthesis finalization produces PROJECT-WIZARD-S11-SYNTHESIS.md and evidence reports"
+    "verification of all checkpoints, facts, reports, and ledger files complete and valid"
   ],
   "failures": [],
   "timings": {
-    "execution": 1617
+    "execution": 6085
   }
 }

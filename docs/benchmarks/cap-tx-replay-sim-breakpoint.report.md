@@ -8,9 +8,9 @@ We evaluated nested transactions executing at depths of 10, 100, and 1,000 recur
 
 | Nesting Depth | Execution Time (ms) | Heap Delta (Bytes) | Stack Overflow? | Status |
 |---|---|---|---|---|
-| 10 | 0.533 | 456448 | ✅ No | passed |
-| 100 | 1.109 | 3041768 | ✅ No | passed |
-| 1000 | 101.226 | 5626280 | ✅ No | passed |
+| 10 | 0.546 | 461368 | ✅ No | passed |
+| 100 | 1.128 | 3041768 | ✅ No | passed |
+| 1000 | 102.278 | 5795976 | ✅ No | passed |
 
 ### Analysis:
 - **Stack Limit:** The JS engines support up to 1,000+ deep recursive contexts before nearing standard Call Stack exhaustion limit (usually ~10,000 frames). No Stack Overflow was triggered.
@@ -39,4 +39,4 @@ We evaluated replay convergence and divergence under different mutation and non-
 - **Nesting Pass Rate:** 100%
 - **Rollback Success Rate:** 100%
 - **Replay Divergence Coverage:** 100%
-- **Benchmark Generated:** 2026-05-24T08:51:47.442Z
+- **Benchmark Generated:** 2026-05-24T10:01:17.306Z

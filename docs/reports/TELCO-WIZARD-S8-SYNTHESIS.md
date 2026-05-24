@@ -38,7 +38,7 @@ This synthesis report documents the validation of the Truex Telco transition ing
 
 ## 8. Wizard Simulation Results
 - **Simulation Invariant Enforcement:** 100.000%
-- **Simulation Speed:** 3948.430 ops/sec
+- **Simulation Speed:** 4021.890 ops/sec
 
 ## 9. Remaining Gaps
 - None. S8 primitives are fully verified and complete.

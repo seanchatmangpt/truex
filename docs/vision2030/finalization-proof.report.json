@@ -1,11 +1,17 @@
 {
   "primitive": "finalization",
-  "passed": false,
-  "invariants": [],
-  "failures": [
-    "Finalization gate failed: Vitest unit tests failed"
+  "passed": true,
+  "invariants": [
+    "Vitest suite validation: PASSED (102361ms)",
+    "Ecosystem proof validation: PASSED (195694ms)",
+    "Mailbox S10 proof validation: PASSED (1125ms)",
+    "Observatory generator validation: PASSED (2086ms)",
+    "12H monotonic gate block validation: PASSED",
+    "Risk ledger validation (all deferred risks logged): PASSED"
   ],
+  "failures": [],
   "timings": {
-    "execution": 263211
-  }
+    "execution": 301272
+  },
+  "receiptHash": "95398db2ff87f00a259c984bffbaa0c0218fff7351d5435e20a4cc90eb50374b"
 }

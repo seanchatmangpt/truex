@@ -9,7 +9,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 72
+    "durationMs": 71
   },
   {
     "name": "Sibling Crash Containment",
@@ -45,7 +45,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 1
+    "durationMs": 0
   },
   {
     "name": "Capacity Backpressure",
@@ -69,7 +69,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 0
+    "durationMs": 1
   },
   {
     "name": "Tamper After Process",
@@ -81,7 +81,7 @@
     "replayConverged": 0,
     "receiptVerified": 0,
     "reported": 1,
-    "durationMs": 1
+    "durationMs": 0
   },
   {
     "name": "Deterministic Lifecycle Hash",
@@ -93,7 +93,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 59
+    "durationMs": 58
   },
   {
     "name": "Observable Artifact Integrity",
@@ -117,6 +117,6 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 1351
+    "durationMs": 1333
   }
 ]

@@ -53,10 +53,10 @@
     }
   },
   "stats": {
-    "totalFiles": 67,
+    "totalFiles": 73,
     "totalFunctions": 165,
-    "totalClasses": 37,
-    "totalExportedSymbols": 405
+    "totalClasses": 40,
+    "totalExportedSymbols": 421
   },
   "files": [
     {
@@ -811,12 +811,16 @@
         "CheckpointPlanner",
         "ExecutionEngine",
         "MissionController",
+        "BoundaryDeclaration",
         "ProjectCellConfig",
         "CommandReceipt",
+        "GenesisReceipt",
         "GallCheckpoint",
         "AccountingData"
       ],
-      "internalLogicPaths": []
+      "internalLogicPaths": [
+        "isBinary"
+      ]
     },
     {
       "path": "packages/truex-core/src/receipt.ts",
@@ -1015,11 +1019,75 @@
         "getType"
       ],
       "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/wizard/project-cell.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [
+        "WizardVerbKind",
+        "WizardDecisionKind",
+        "WizardDecision",
+        "WizardContext",
+        "ProjectConsequenceCell",
+        "WizardVerbAttempt",
+        "WizardVerb"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/wizard/project-receipts.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [
+        "WizardReceipt"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/wizard/project-route.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [
+        "Powl8Operator",
+        "RouteCell",
+        "ProjectCheckpoint",
+        "ProjectRoute"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/wizard/verbs/init.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "InitVerb"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/wizard/verbs/map.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "MapVerb",
+        "ProjectTopology"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/wizard/verbs/plan.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "PlanVerb"
+      ],
+      "internalLogicPaths": []
     }
   ],
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T08:48:09.724Z"
+    "timestamp": "2026-05-24T10:01:57.947Z"
   }
 }

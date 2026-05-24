@@ -1,12 +1,12 @@
 # Invariant, Contract & Virtual Value Stress Test Report
 
 ## Metadata
-- **Timestamp:** 2026-05-24T08:51:52.003Z
+- **Timestamp:** 2026-05-24T10:01:22.561Z
 - **Target OS:** mac
 - **Test Runner:** Vitest
 
 ## 1. Circular Invariants
-- **Raw Loop Duration:** 1ms
+- **Raw Loop Duration:** 0ms
 - **V8 Stack Overflow Call Depth:** 1 frames
 - **Custom Guard Duration:** 0ms
 - **Status:** ✅ Successfully resolved without thread freezing. V8 cleanly terminated with RangeError (wrapped in Jidoka Error), and programmatic guard terminated with custom loop-breaker Error.
@@ -18,10 +18,10 @@
 | 10 | No 🐢 | 1ms | 20 | Speedup: N/A |
 | 100 | Yes 🚀 | 0ms | 110 | Speedup: N/A |
 | 100 | No 🐢 | 0ms | 110 | Speedup: N/A |
-| 500 | Yes 🚀 | 0ms | 510 | Speedup: N/A |
-| 500 | No 🐢 | 0ms | 510 | Speedup: N/A |
-| 1000 | Yes 🚀 | 1ms | 1010 | Speedup: 1.00x |
-| 1000 | No 🐢 | 1ms | 1010 | Speedup: 1.00x |
+| 500 | Yes 🚀 | 1ms | 510 | Speedup: 1.00x |
+| 500 | No 🐢 | 1ms | 510 | Speedup: 1.00x |
+| 1000 | Yes 🚀 | 2ms | 1010 | Speedup: 0.50x |
+| 1000 | No 🐢 | 1ms | 1010 | Speedup: 0.50x |
 
 - **Circular Virtual Fields (vA -> vB -> vA):** ✅ Safely terminated via V8 RangeError (Maximum call stack size exceeded).
 

@@ -22,8 +22,8 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
 
 ## Benchmark & Performance Telemetry
 - **Total Operations Evaluated:** 100,000 ops
-- **Throughput:** 2660636 ops/sec
-- **Peak Heap Memory:** 19.824 MB
+- **Throughput:** 2686583 ops/sec
+- **Peak Heap Memory:** 19.952 MB
 
 ---
 *Audit completed successfully by Sandbox & ACL Breaker subagent.*

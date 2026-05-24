@@ -1,12 +1,12 @@
 # Sandbox & ACL Capability Breakpoint Report
 
-**Timestamp:** `2026-05-24T08:51:50.264Z`
+**Timestamp:** `2026-05-24T10:01:20.382Z`
 
 ## 1. Security Breakpoint Analysis
 
 | Vector / Attack Scenario | Attempted | Bypassed / Succeeded | Refused / Prevented | Vulnerability Status | Details |
 | :--- | :---: | :---: | :---: | :--- | :--- |
-| **ACL Read/Write Stress** (Performance) | Yes | No | Yes | ✅ REFUSED (Secure) | Executed 100000 proxy operations under capability context. Throughput: 2660636 ops/sec. |
+| **ACL Read/Write Stress** (Performance) | Yes | No | Yes | ✅ REFUSED (Secure) | Executed 100000 proxy operations under capability context. Throughput: 2686583 ops/sec. |
 | **Prototype Traversal (getPrototypeOf)** (Security Bypass) | Yes | No | Yes | ✅ REFUSED (Secure) | Refused. Proxy successfully intercepted getPrototypeOf. |
 | **Prototype Traversal (__proto__)** (Security Bypass) | Yes | No | Yes | ✅ REFUSED (Secure) | Refused. Reading __proto__ was blocked. |
 | **Prototype Pollution (getPrototypeOf Mutation)** (Prototype Pollution) | Yes | No | Yes | ✅ REFUSED (Secure) | Refused. Prototype pollution attempt blocked. |
@@ -16,11 +16,11 @@
 ## 2. Performance & Stress Test Metrics
 
 - **Total Stress Operations:** 100,000 ops (mixed read/write)
-- **Total Latency:** 37.59 ms
-- **Throughput:** 2,660,636 ops/sec
-- **Initial Heap Allocation:** 12.217 MB
-- **Final Heap Allocation:** 17.663 MB
-- **Peak Heap Allocation:** 19.824 MB
+- **Total Latency:** 37.22 ms
+- **Throughput:** 2,686,583 ops/sec
+- **Initial Heap Allocation:** 12.348 MB
+- **Final Heap Allocation:** 17.855 MB
+- **Peak Heap Allocation:** 19.952 MB
 
 ## 3. Confirmed Vulnerability Breakpoints
 
