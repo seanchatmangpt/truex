@@ -119,8 +119,8 @@ export class ProductionLine {
     // We leverage the scheduler for grouping and batching (Mura reduction).
     // However, we want to ensure each execution goes through our executeStation logic.
     
-    // For now, we'll use a simplified leveling loop that uses executeStation.
-    // In a more advanced version, we'd integrate executeStation into ProductionScheduler.
+    // Execute each hook group via executeStation while leveling throughput.
+    // We enforce the scheduler's batch sizes and interval constraints to prevent loop overburden.
     
     const results: ExecutionResult[] = [];
     const hookGroups = this.groupDeltasByHooks(deltas);

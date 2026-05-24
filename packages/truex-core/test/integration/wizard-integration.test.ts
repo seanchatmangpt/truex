@@ -39,7 +39,7 @@ describe('Wizard Agent Integration Tests', () => {
       expect(trace[0].step).toBe('Initial State Setup');
       expect(trace[1].step).toBe('Speculative Write Failure');
       expect(trace[1].success).toBe(false);
-      expect(trace[1].error).toContain('Invariant violation: Property "score" must be between 0 and 100');
+      expect(trace[1]!.error).toContain('Invariant violation: Property "score" must be between 0 and 100');
       expect(trace[2].step).toBe('Transaction Rollback');
       expect(trace[2].success).toBe(true);
       expect(trace[2].value.score).toBe(initialScore); // Rollback to initial
@@ -59,12 +59,12 @@ describe('Wizard Agent Integration Tests', () => {
       // Verify the final commit value
       const commits = trace.filter(t => t.step === 'Transaction Commit');
       expect(commits.length).toBe(2);
-      expect(commits[0].value.score).toBe(75);
-      expect(commits[1].value.score).toBe(40);
+      expect(commits[0]!.value.score).toBe(75);
+      expect(commits[1]!.value.score).toBe(40);
 
       const rollbacks = trace.filter(t => t.step === 'Transaction Rollback');
       expect(rollbacks.length).toBe(1);
-      expect(rollbacks[0].value.score).toBe(75); // rolled back to last committed state
+      expect(rollbacks[0]!.value.score).toBe(75); // rolled back to last committed state
     });
   });
 
@@ -114,3 +114,6 @@ describe('Wizard Agent Integration Tests', () => {
     });
   });
 });
+
+;
+

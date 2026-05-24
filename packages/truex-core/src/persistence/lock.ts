@@ -36,6 +36,7 @@ export class SQLiteLockManager {
     initialDelayMs: 50,
     maxDelayMs: 1000,
   };
+  private jitterCounter = 0;
 
   constructor(private readonly db: Database.Database) {}
 
@@ -80,8 +81,11 @@ export class SQLiteLockManager {
             maxDelayMs
           );
           
-          // Add some jitter (±10%) to avoid thundering herd problem
-          const jitter = (Math.random() * 0.2 - 0.1) * delay;
+          // Add some jitter (±10%) to avoid thundering herd problem using a deterministic LCG seed
+          this.jitterCounter = (this.jitterCounter + 1) % 1000000;
+          const jitterSeed = (attempt * 1234567) + this.jitterCounter;
+          const pseudoRand = ((jitterSeed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+          const jitter = (pseudoRand * 0.2 - 0.1) * delay;
           await new Promise((resolve) => setTimeout(resolve, Math.max(0, delay + jitter)));
           
           continue;

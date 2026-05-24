@@ -1,6 +1,6 @@
 # Antigravity Artifact: Core Primitives
 
-> **Generated:** 2026-05-24T03:21:32.989Z
+> **Generated:** 2026-05-24T03:30:01.485Z
 > **Version:** 1.0.0
 
 ## Core Primitives
@@ -26,9 +26,9 @@
 | Metric | Value |
 | :--- | :--- |
 | totalFiles | 60 |
-| totalFunctions | 110 |
+| totalFunctions | 112 |
 | totalClasses | 32 |
-| totalExportedSymbols | 227 |
+| totalExportedSymbols | 229 |
 
 ## File Inventory
 
@@ -66,7 +66,7 @@
 | `packages/truex-core/src/manufacturing/swarm-actuator.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/manufacturing/topology.ts` | 0 | 2 | 4 |
 | `packages/truex-core/src/manufacturing/visual.ts` | 0 | 1 | 2 |
-| `packages/truex-core/src/membrane-replay.gall.ts` | 11 | 0 | 20 |
+| `packages/truex-core/src/membrane-replay.gall.ts` | 13 | 0 | 22 |
 | `packages/truex-core/src/membrane.ts` | 0 | 0 | 0 |
 | `packages/truex-core/src/persistence/audit-engine.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/persistence/index.ts` | 0 | 1 | 2 |

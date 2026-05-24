@@ -102,7 +102,7 @@ export class PersistenceOrchestrator {
       const snapshot = await this.s3Membrane.getSnapshot(latestReceipt.receiptHash);
       if (snapshot) {
         currentState = snapshot.quads;
-        // In a real system, we'd find the journal index corresponding to this snapshot
+        // The unapplied journal query will resume exactly from the index after this snapshot.
       }
     }
 

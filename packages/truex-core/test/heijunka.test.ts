@@ -6,9 +6,10 @@ import { hookDefinitionArbitrary, graphDeltaArbitrary } from './utils/arbitrarie
 import { TruexContext } from '../src/context.js';
 
 describe('ProductionScheduler (Heijunka) - Property Tests', () => {
+  let uuidCounter = 0;
   const mockContext: TruexContext = {
-    uuid: () => Math.random().toString(36).slice(7),
-    now: () => Date.now(),
+    uuid: () => `mock-uuid-${++uuidCounter}`,
+    now: () => 1716595200000,
   };
 
   it('should group deltas by hooks and execute them regardless of delta complexity', async () => {

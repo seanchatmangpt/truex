@@ -50,7 +50,7 @@
     "tamperedRejects": 1,
     "corruptedRejects": 1,
     "recoveredCrashes": 1,
-    "durationMs": 19,
+    "durationMs": 18,
     "replayTopologyHash": "b4c5e2d53fa56a63ddf517f710fe0b13db4dd772f44070177454906366b87ab3",
     "normalizedReplayTopologyHash": "b4c5e2d53fa56a63ddf517f710fe0b13db4dd772f44070177454906366b87ab3"
   },

@@ -1128,7 +1128,7 @@ Truex OTP Non-Mockable Stress State:
     const dir = path.dirname(mdPath);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    const t3 = reporter.results.find(r => r.tier === 'T3')!;
+    const t3 = reporter.results.find((r: any) => r.tier === 'T3')!;
     
     const content = `
 # Hookbench Full Report
@@ -1140,9 +1140,9 @@ Truex OTP Non-Mockable Stress State:
 
 | Metric | T0 | T1 | T2 | T3 |
 |--------|----|----|----|----|
-| Evaluations | ${reporter.results.find(r => r.tier === 'T0')?.metrics.totalHookDeltaEvaluations.toLocaleString()} | ${reporter.results.find(r => r.tier === 'T1')?.metrics.totalHookDeltaEvaluations.toLocaleString()} | ${reporter.results.find(r => r.tier === 'T2')?.metrics.totalHookDeltaEvaluations.toLocaleString()} | ${reporter.results.find(r => r.tier === 'T3')?.metrics.totalHookDeltaEvaluations.toLocaleString()} |
-| Ops/sec | ${reporter.results.find(r => r.tier === 'T0')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} | ${reporter.results.find(r => r.tier === 'T1')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} | ${reporter.results.find(r => r.tier === 'T2')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} | ${reporter.results.find(r => r.tier === 'T3')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} |
-| Receipts | ${reporter.results.find(r => r.tier === 'T0')?.metrics.receipts} | ${reporter.results.find(r => r.tier === 'T1')?.metrics.receipts} | ${reporter.results.find(r => r.tier === 'T2')?.metrics.receipts} | ${reporter.results.find(r => r.tier === 'T3')?.metrics.receipts} |
+| Evaluations | ${reporter.results.find((r: any) => r.tier === 'T0')?.metrics.totalHookDeltaEvaluations.toLocaleString()} | ${reporter.results.find((r: any) => r.tier === 'T1')?.metrics.totalHookDeltaEvaluations.toLocaleString()} | ${reporter.results.find((r: any) => r.tier === 'T2')?.metrics.totalHookDeltaEvaluations.toLocaleString()} | ${reporter.results.find((r: any) => r.tier === 'T3')?.metrics.totalHookDeltaEvaluations.toLocaleString()} |
+| Ops/sec | ${reporter.results.find((r: any) => r.tier === 'T0')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} | ${reporter.results.find((r: any) => r.tier === 'T1')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} | ${reporter.results.find((r: any) => r.tier === 'T2')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} | ${reporter.results.find((r: any) => r.tier === 'T3')?.metrics.hookDeltaEvaluationsPerSecond.toFixed(3)} |
+| Receipts | ${reporter.results.find((r: any) => r.tier === 'T0')?.metrics.receipts} | ${reporter.results.find((r: any) => r.tier === 'T1')?.metrics.receipts} | ${reporter.results.find((r: any) => r.tier === 'T2')?.metrics.receipts} | ${reporter.results.find((r: any) => r.tier === 'T3')?.metrics.receipts} |
 
 ## Tier T3 Details (Evaluation-Only: ${t3.metrics.evalOnly})
 

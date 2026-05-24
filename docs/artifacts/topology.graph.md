@@ -1,6 +1,6 @@
 # Antigravity Artifact: Topology.graph
 
-> **Generated:** 2026-05-24T03:21:32.982Z
+> **Generated:** 2026-05-24T03:30:01.479Z
 > **Version:** 2.0.0
 
 ## Data Summary
@@ -8,8 +8,28 @@
 ```json
 {
   "version": "2.0.0",
-  "graphHash": "bf6f40f29bdceb9f2c5b4fca5d92d5e3e018679693acc6507fac8092adac15f5",
+  "graphHash": "8da6c9cd9e6440f99bb499acff849dfcb27936a10ebdf8f6001467031222d926",
   "nodes": [
+    {
+      "id": "agents/swarm-auditor.ts",
+      "type": "Agent",
+      "layer": "AGY",
+      "dependencies": [
+        "skills/hash/mutations.ts",
+        "skills/receipt/invariant.ts",
+        "skills/membrane/mutations.ts",
+        "skills/membrane/invariant.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "skills/receipt/proofs.ts",
+        "skills/membrane/proofs.ts"
+      ],
+      "provedBy": [
+        "agents/swarm-auditor.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-agy-facts.ts"
+      ]
+    },
     {
       "id": "scripts/after-tool-hook.ts",
       "type": "CLI",
@@ -170,6 +190,88 @@
       ]
     },
     {
+      "id": "agents/doctor/agent.ts",
+      "type": "Agent",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/index.ts",
+        "skills/hash/proofs.ts",
+        "skills/receipt/proofs.ts",
+        "skills/replay/proofs.ts",
+        "skills/membrane/proofs.ts",
+        "skills/adapter/proofs.ts",
+        "skills/hook/proofs.ts",
+        "skills/repository-proof.ts",
+        "packages/truex-core/src/benchmark/runner.ts",
+        "packages/truex-core/src/benchmark/runner.ts",
+        "packages/truex-core/src/benchmark/stress-tests.ts",
+        "packages/truex-core/src/hook-otp.gall.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "skills/topology/proofs.ts",
+        "skills/membrane/membrane-replay-proof.ts",
+        "agents/telco/agent.ts",
+        "agents/wizard/agent.ts",
+        "skills/membrane/mutations.ts",
+        "skills/telco/telco-proof.ts",
+        "skills/wizard/wizard-proof.ts"
+      ],
+      "provedBy": [
+        "agents/doctor/agent.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-agy-facts.ts"
+      ]
+    },
+    {
+      "id": "agents/entropy/agent.ts",
+      "type": "Agent",
+      "layer": "AGY",
+      "dependencies": [
+        "src/lib/entropy.ts",
+        "packages/truex-core/src/index.ts"
+      ],
+      "provedBy": [
+        "test/entropy.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-agy-facts.ts"
+      ]
+    },
+    {
+      "id": "agents/telco/agent.ts",
+      "type": "Agent",
+      "layer": "AGY",
+      "dependencies": [
+        "skills/membrane/mutations.ts",
+        "packages/truex-core/src/context.ts"
+      ],
+      "provedBy": [
+        "skills/telco/proofs.ts",
+        "skills/telco/telco-proof.ts",
+        "packages/truex-core/test/integration/telco-integration.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-s8-facts.ts"
+      ]
+    },
+    {
+      "id": "agents/wizard/agent.ts",
+      "type": "Agent",
+      "layer": "AGY",
+      "dependencies": [
+        "skills/membrane/mutations.ts",
+        "skills/membrane/invariant.ts"
+      ],
+      "provedBy": [
+        "skills/wizard/proofs.ts",
+        "skills/wizard/wizard-proof.ts",
+        "packages/truex-core/test/integration/wizard-integration.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-s8-facts.ts"
+      ]
+    },
+    {
       "id": "scripts/observatory/index.ts",
       "type": "Governance",
       "layer": "S4",
@@ -185,19 +287,21 @@
     },
     {
       "id": "skills/adapter/invariant.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/runtime-law.ts"
       ],
-      "provedBy": [],
+      "provedBy": [
+        "skills/adapter/invariant.ts"
+      ],
       "documentedBy": [
         "scripts/observatory/lib/emit-agy-facts.ts"
       ]
     },
     {
       "id": "skills/adapter/mutations.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "skills/hash/mutations.ts",
@@ -1636,7 +1740,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/consequence-actuator.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/runtime-law.ts"
@@ -1650,7 +1754,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/env-actuator.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/runtime-law.ts"
@@ -1664,7 +1768,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/hook-interceptor.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/runtime-law.ts"
@@ -1679,7 +1783,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/report-receipt.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/receipt.ts",
@@ -1697,7 +1801,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/skill-sandbox.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [],
       "provedBy": [
@@ -1711,7 +1815,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/swarm-controller.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/hash.ts",
@@ -1726,7 +1830,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/task-delta.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [
         "packages/truex-core/src/hash.ts",
@@ -1743,7 +1847,7 @@
     },
     {
       "id": "packages/truex-core/src/integration/trajectory-replay.ts",
-      "type": "Integration",
+      "type": "Agent",
       "layer": "AGY",
       "dependencies": [],
       "provedBy": [
@@ -2409,7 +2513,8 @@
         "packages/truex-core/src/receipt.ts",
         "packages/truex-core/src/hook.ts",
         "packages/truex-core/src/manufacturing/jidoka.ts",
-        "packages/truex-core/src/runtime-law.ts"
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts"
       ],
       "provedBy": [
         "packages/truex-core/test/integration/closed-loop-convergence.test.ts"
@@ -2785,7 +2890,7 @@
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-24T03:21:32.982Z"
+    "timestamp": "2026-05-24T03:30:01.479Z"
   }
 }
 ```

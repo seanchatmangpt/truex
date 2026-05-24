@@ -1,6 +1,6 @@
 # Antigravity Artifact: Topology
 
-> **Generated:** 2026-05-24T03:21:33.017Z
+> **Generated:** 2026-05-24T03:30:01.518Z
 > **Version:** 1.0.0
 
 ## Data Summary
@@ -14,11 +14,11 @@
     "refuseOnBreach": true
   },
   "accounting": {
-    "totalChains": 42,
-    "confirmedReceipts": 35,
-    "refusedReceipts": 7,
+    "totalChains": 49,
+    "confirmedReceipts": 43,
+    "refusedReceipts": 6,
     "rollbackReceipts": 0,
-    "preventedStorms": 7
+    "preventedStorms": 6
   },
   "vkgProjections": {
     "totalQuads": 0,
@@ -32,7 +32,7 @@
   "_metadata": {
     "emitter": "Topology Facts Emitter",
     "description": "Extracts topology facts, chain/rollback/storm accounting, and VKG projection facts",
-    "timestamp": "2026-05-24T03:21:33.017Z"
+    "timestamp": "2026-05-24T03:30:01.518Z"
   }
 }
 ```

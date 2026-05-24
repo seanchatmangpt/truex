@@ -54,9 +54,9 @@
   },
   "stats": {
     "totalFiles": 60,
-    "totalFunctions": 110,
+    "totalFunctions": 112,
     "totalClasses": 32,
-    "totalExportedSymbols": 227
+    "totalExportedSymbols": 229
   },
   "files": [
     {
@@ -434,9 +434,11 @@
     },
     {
       "path": "packages/truex-core/src/membrane-replay.gall.ts",
-      "functions": 11,
+      "functions": 13,
       "classes": 0,
       "symbols": [
+        "executeWithRetrySync",
+        "checkpointDatabase",
         "initializeMembraneReplaySchema",
         "appendJournalEntry",
         "loadJournal",
@@ -777,6 +779,6 @@
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T03:21:32.989Z"
+    "timestamp": "2026-05-24T03:30:01.485Z"
   }
 }

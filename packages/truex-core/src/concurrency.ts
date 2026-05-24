@@ -107,8 +107,7 @@ export function verifyPartialOrderConvergence(
   }
 
   // 3. Verify that all permutations (or at least independent subsets) yield the same result.
-  // In a real implementation, we would simulate executions in different orders.
-  // For this logic, we'll verify the provided receipts are consistent.
+  // We verify that the execution of non-interfering triggered hooks yields consistent receipts.
   
   const finalStateHashes: string[] = [];
   

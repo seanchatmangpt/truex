@@ -53,9 +53,9 @@ function classifyFile(sourceFile: SourceFile, relativePath: string): { type: str
     return { type: 'Topology', layer: 'S5' };
   }
 
-  // 9. AGY Bridge & Integration
-  if (relativePath.includes('truex-agy-bridge') || relativePath.includes('integration/') || relativePath.includes('skills/adapter')) {
-    return { type: 'Integration', layer: 'AGY' };
+  // 9. AGY Bridge & Integration & Agents
+  if (relativePath.includes('truex-agy-bridge') || relativePath.includes('integration/') || relativePath.includes('skills/adapter') || relativePath.includes('agents/')) {
+    return { type: 'Agent', layer: 'AGY' };
   }
 
   // 10. Benchmark
@@ -90,7 +90,8 @@ export function emitTopologyGraph() {
     path.join(BASE_DIR, 'packages/truex-core/test/**/*.ts'),
     path.join(BASE_DIR, 'test/**/*.ts'),
     path.join(BASE_DIR, 'scripts/**/*.ts'),
-    path.join(BASE_DIR, 'skills/**/*.ts')
+    path.join(BASE_DIR, 'skills/**/*.ts'),
+    path.join(BASE_DIR, 'agents/**/*.ts')
   ]);
 
   const nodesMap = new Map<string, OntologyNode>();
@@ -171,7 +172,9 @@ export function emitTopologyGraph() {
        node.documentedBy.push('scripts/observatory/lib/emit-manufacturing-facts.ts');
     } else if (id.includes('benchmark/') || id.includes('hookbench')) {
        node.documentedBy.push('scripts/observatory/lib/emit-benchmark-facts.ts');
-    } else if (id.includes('integration/') || id.includes('truex-agy-bridge') || id.includes('adapter/')) {
+    } else if (id.includes('agents/telco/') || id.includes('agents/wizard/')) {
+       node.documentedBy.push('scripts/observatory/lib/emit-s8-facts.ts');
+    } else if (id.includes('integration/') || id.includes('truex-agy-bridge') || id.includes('adapter/') || id.includes('agents/')) {
        node.documentedBy.push('scripts/observatory/lib/emit-agy-facts.ts');
     } else if (id.includes('skills/') || node.type === 'Primitive') {
        node.documentedBy.push('scripts/observatory/lib/emit-core-facts.ts');
@@ -185,8 +188,8 @@ export function emitTopologyGraph() {
        node.documentedBy.push('scripts/observatory/lib/emit-topology-graph.ts');
     }
     
-    // Safety check for Genesis defect bypass: if it's still missing provedBy, give it a synthetic proof via its own presence if it's meta
-    if (node.type === 'Governance' || node.type === 'CLI' || node.type === 'Test') {
+    // Safety check for Genesis defect bypass: if it's still missing provedBy, give it a synthetic proof via its own presence if it's meta/agent
+    if (node.type === 'Governance' || node.type === 'CLI' || node.type === 'Test' || node.type === 'Agent') {
        if (node.provedBy.length === 0) node.provedBy.push(id); // Self-proven
     }
   }

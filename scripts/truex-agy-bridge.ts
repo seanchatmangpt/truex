@@ -152,9 +152,16 @@ async function main() {
 
   try {
     // Autonomic Topology Enforcement
-    const filePath = args.file_path || args.path || args.TargetFile;
-    if (filePath && filePath !== 'dummy.ts' && !filePath.includes('dummy') && ontologyRegistry.isOrphaned(filePath)) {
-      process.stderr.write(`⚠️  WARNING: Genesis Mutation (${filePath}). File is unmapped in the operational ontology. Ensure a test is written to satisfy the Documentation Law (prove ontology).\n`);
+    let filePath = args.file_path || args.path || args.TargetFile;
+    if (filePath) {
+      if (path.isAbsolute(filePath)) {
+        filePath = path.relative(process.cwd(), filePath);
+      } else {
+        filePath = path.normalize(filePath).replace(/\\/g, '/');
+      }
+      if (filePath !== 'dummy.ts' && !filePath.includes('dummy') && ontologyRegistry.isOrphaned(filePath)) {
+        process.stderr.write(`⚠️  WARNING: Genesis Mutation (${filePath}). File is unmapped in the operational ontology. Ensure a test is written to satisfy the Documentation Law (prove ontology).\n`);
+      }
     }
 
     // 2. Custom Law Enforcement (Poka-yoke)
@@ -216,7 +223,14 @@ async function main() {
   }
 }
 
-main().catch(error_ => {
-  console.error(error_);
-  process.exit(1);
-});
+const isMain = process.argv.some(arg => 
+  arg.includes('truex-agy-bridge.ts') || 
+  arg.includes('truex-agy-bridge.js')
+);
+
+if (isMain) {
+  main().catch(error_ => {
+    console.error(error_);
+    process.exit(1);
+  });
+}

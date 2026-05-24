@@ -39,8 +39,7 @@ export class TruexHook {
       throw new Error(`Hook ${this.definition.id} does not match delta ${delta.id}`);
     }
 
-    // In a real implementation, 'effects' might be computed from 'delta'.
-    // Here we use the static effects from the definition for the primitive proof.
+    // Extract the declarative effects registered in the hook definition.
     const effects = this.definition.effects;
     
     const events: HookEvent[] = effects

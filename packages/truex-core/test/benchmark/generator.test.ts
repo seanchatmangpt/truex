@@ -54,18 +54,16 @@ describe('Benchmark Data Generator', () => {
   });
 
   describe('Match Ratio', () => {
-    it('should approximate the requested match ratio (STUB - currently failing)', () => {
+    it('should approximate the requested match ratio', () => {
       const seed = 777;
       const hookCount = 10;
-      const deltaCount = 100;
+      const deltaCount = 1000;
       const matchRatio = 0.5;
 
       const hookDefs = generateChurchHooks(seed, hookCount);
       const hooks = hookDefs.map(def => new TruexHook(def));
-      const deltas = generateChurchDeltas(seed, deltaCount);
-
-      console.log('Hook predicates:', hookDefs.map(h => (h.condition as any).predicate));
-      console.log('Delta 0 predicates:', deltas[0].adds.map(a => a.predicate));
+      const targetedPredicates = [...new Set(hookDefs.map(h => (h.condition as any).predicate))];
+      const deltas = generateChurchDeltas(seed, deltaCount, matchRatio, targetedPredicates);
 
       let matchedDeltas = 0;
       for (const delta of deltas) {
@@ -74,12 +72,34 @@ describe('Benchmark Data Generator', () => {
       }
 
       const actualRatio = matchedDeltas / deltaCount;
-      console.log(`Actual match ratio: ${actualRatio} (requested: ${matchRatio})`);
-      console.log(`Matched deltas: ${matchedDeltas}/${deltaCount}`);
-      
-      if (matchedDeltas > 0) {
-        console.log('Sample match:', JSON.stringify(deltas.find(d => hooks.some(h => h.matches(d))), null, 2));
+
+      // With deltaCount = 1000, actual ratio should be extremely close to 0.5 (e.g. between 0.45 and 0.55)
+      expect(actualRatio).toBeGreaterThanOrEqual(0.45);
+      expect(actualRatio).toBeLessThanOrEqual(0.55);
+
+      // Verify that it behaves deterministically (same seed -> same matches)
+      const deltas2 = generateChurchDeltas(seed, deltaCount, matchRatio, targetedPredicates);
+      let matchedDeltas2 = 0;
+      for (const delta of deltas2) {
+        const isMatched = hooks.some(hook => hook.matches(delta));
+        if (isMatched) matchedDeltas2++;
       }
+      expect(matchedDeltas).toBe(matchedDeltas2);
+
+      // Verify that with a different seed, we get a different set of matches or ratio
+      const seed2 = 999;
+      const deltas3 = generateChurchDeltas(seed2, deltaCount, matchRatio, targetedPredicates);
+      let matchedDeltas3 = 0;
+      for (const delta of deltas3) {
+        const isMatched = hooks.some(hook => hook.matches(delta));
+        if (isMatched) matchedDeltas3++;
+      }
+      const actualRatio3 = matchedDeltas3 / deltaCount;
+      expect(actualRatio3).toBeGreaterThanOrEqual(0.45);
+      expect(actualRatio3).toBeLessThanOrEqual(0.55);
+
+      // Compare actual stringified deltas to verify seed uniqueness/determinism
+      expect(JSON.stringify(deltas)).not.toBe(JSON.stringify(deltas3));
     });
   });
 });

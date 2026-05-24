@@ -6,12 +6,12 @@
     "simulationsRun": 1000,
     "validCommits": 500,
     "invalidRollbacks": 500,
-    "simulateDurationMs": 250.67658400000005,
-    "simulateOpsPerSecond": 3989.203873944604
+    "simulateDurationMs": 254.833666,
+    "simulateOpsPerSecond": 3924.128297867833
   },
   "invariants": [
     "valid range mutation successfully commits state change",
     "invalid range mutation correctly rejected and state rolled back"
   ],
-  "reportHash": "08abe5e74decc2d3e87af1c1f49b33bcfed139be42e6220c6b02efe5c865a3cd"
+  "reportHash": "dc8811096bb66d030d5a7eab4ddc6cd89886b8dd1ee6004c878d021bc951f55a"
 }

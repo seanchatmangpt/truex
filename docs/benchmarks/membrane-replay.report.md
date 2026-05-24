@@ -56,7 +56,7 @@ The membrane logs all transaction steps into a physical SQLite WAL database (`to
 - **Tampered Rejects:** 1.000
 - **Corrupted Rejects:** 1.000
 - **Recovered Crashes:** 1.000
-- **Duration (ms):** 19.000
+- **Duration (ms):** 18.000
 - **Replay Topology Hash:** `b4c5e2d53fa56a63ddf517f710fe0b13db4dd772f44070177454906366b87ab3`
 - **Normalized Replay Topology Hash:** `b4c5e2d53fa56a63ddf517f710fe0b13db4dd772f44070177454906366b87ab3`
 

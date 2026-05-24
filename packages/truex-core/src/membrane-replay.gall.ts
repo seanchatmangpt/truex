@@ -5,6 +5,9 @@ import { type Receipt, parseReceipt, type HookCondition, type HookEffect } from 
 import { createDeterministicContext, type TruexContext } from "./context.js";
 import { hash, createReceipt, verifyReceipt } from "./index.js";
 
+// Cache of initialized database instances to avoid redundant DDL executions and pragma runs.
+const initializedDbs = new WeakSet<Database>();
+
 // Database monkeypatch to automatically initialize the schema when needed.
 const originalPrepare = DatabaseClass.prototype.prepare;
 let initializing = false;
@@ -19,6 +22,70 @@ DatabaseClass.prototype.prepare = function (sql: string) {
   }
   return originalPrepare.apply(this, arguments as any);
 };
+
+let globalJitterCounter = 0;
+
+/**
+ * Executes a database operation with synchronous retry logic on locking conflicts.
+ * Under high concurrent writes, SQLite might return SQLITE_BUSY or SQLITE_BUSY_SNAPSHOT.
+ * This helper retries the operation with exponential backoff and randomized jitter to avoid thundering herd.
+ */
+export function executeWithRetrySync<T>(db: Database, fn: () => T, maxRetries = 10): T {
+  let attempt = 0;
+  const initialDelayMs = 50;
+  const maxDelayMs = 1000;
+
+  while (true) {
+    try {
+      return fn();
+    } catch (error: any) {
+      attempt++;
+      
+      const isLockError =
+        error.code === "SQLITE_BUSY" ||
+        error.code === "SQLITE_BUSY_SNAPSHOT" ||
+        (error.message && (error.message.includes("busy") || error.message.includes("locked")));
+
+      if (isLockError && attempt <= maxRetries) {
+        // If we are already in an active transaction, retrying inside the transaction won't succeed in SQLite
+        // since the transaction is aborted by SQLite. The caller must retry the outer transaction.
+        if (db.inTransaction) {
+          throw error;
+        }
+
+        const delay = Math.min(initialDelayMs * Math.pow(2, attempt - 1), maxDelayMs);
+        globalJitterCounter = (globalJitterCounter + 1) % 1000000;
+        const jitterSeed = (attempt * 1234567) + globalJitterCounter;
+        const pseudoRand = ((jitterSeed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+        const jitter = (pseudoRand * 0.2 - 0.1) * delay;
+        const sleepMs = Math.max(0, Math.floor(delay + jitter));
+
+        // Perform synchronous sleep
+        try {
+          const sab = new SharedArrayBuffer(4);
+          const int32 = new Int32Array(sab);
+          Atomics.wait(int32, 0, 0, sleepMs);
+        } catch {
+          const start = Date.now();
+          while (Date.now() - start < sleepMs) {}
+        }
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+
+/**
+ * Triggers a manual WAL checkpoint.
+ * This flushes the Write-Ahead Log to the main database file.
+ */
+export function checkpointDatabase(db: Database): void {
+  initializeMembraneReplaySchema(db);
+  executeWithRetrySync(db, () => {
+    db.pragma("wal_checkpoint(PASSIVE)");
+  });
+}
 
 
 // ==========================================
@@ -98,6 +165,19 @@ export interface MembraneReplayAccounting {
 // ==========================================
 
 export function initializeMembraneReplaySchema(db: Database): void {
+  if (initializedDbs.has(db)) {
+    return;
+  }
+
+  // Ensure WAL serialization and busy timeout options are configured.
+  try {
+    db.pragma("journal_mode = WAL");
+    db.pragma("synchronous = NORMAL");
+    db.pragma("busy_timeout = 5000");
+  } catch (error) {
+    console.warn("Failed to set pragmas on SQLite database:", error);
+  }
+
   db.prepare(`
     CREATE TABLE IF NOT EXISTS topology_journal (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -134,6 +214,8 @@ export function initializeMembraneReplaySchema(db: Database): void {
       timestamp INTEGER NOT NULL
     )
   `).run();
+
+  initializedDbs.add(db);
 }
 
 // ==========================================
@@ -147,26 +229,28 @@ export function appendJournalEntry(db: Database, entry: Omit<JournalEntry, "id">
       chain_id, delta_id, node_id, depth, payload, previous_receipt_hash, receipt_hash, status, timestamp, signature, public_key, rollback_of, failed_child_id, reason
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `);
-  const info = stmt.run(
-    entry.chainId,
-    entry.deltaId,
-    entry.nodeId,
-    entry.depth,
-    entry.payload,
-    entry.previousReceiptHash,
-    entry.receiptHash,
-    entry.status,
-    entry.timestamp,
-    entry.signature || null,
-    entry.publicKey || null,
-    entry.rollbackOf || null,
-    entry.failedChildId || null,
-    entry.reason || null
-  );
-  return {
-    ...entry,
-    id: info.lastInsertRowid as number,
-  };
+  return executeWithRetrySync(db, () => {
+    const info = stmt.run(
+      entry.chainId,
+      entry.deltaId,
+      entry.nodeId,
+      entry.depth,
+      entry.payload,
+      entry.previousReceiptHash,
+      entry.receiptHash,
+      entry.status,
+      entry.timestamp,
+      entry.signature || null,
+      entry.publicKey || null,
+      entry.rollbackOf || null,
+      entry.failedChildId || null,
+      entry.reason || null
+    );
+    return {
+      ...entry,
+      id: info.lastInsertRowid as number,
+    };
+  });
 }
 
 export function loadJournal(db: Database, chainId: string): JournalEntry[] {
@@ -174,24 +258,26 @@ export function loadJournal(db: Database, chainId: string): JournalEntry[] {
   const stmt = db.prepare(`
     SELECT * FROM topology_journal WHERE chain_id = ? ORDER BY id ASC
   `);
-  const rows = stmt.all(chainId) as any[];
-  return rows.map((r) => ({
-    id: r.id,
-    chainId: r.chain_id,
-    deltaId: r.delta_id,
-    nodeId: r.node_id,
-    depth: r.depth,
-    payload: r.payload,
-    previousReceiptHash: r.previous_receipt_hash,
-    receiptHash: r.receipt_hash,
-    status: r.status as any,
-    timestamp: r.timestamp,
-    signature: r.signature || undefined,
-    publicKey: r.public_key || undefined,
-    rollbackOf: r.rollback_of || undefined,
-    failedChildId: r.failed_child_id || undefined,
-    reason: r.reason || undefined,
-  }));
+  return executeWithRetrySync(db, () => {
+    const rows = stmt.all(chainId) as any[];
+    return rows.map((r) => ({
+      id: r.id,
+      chainId: r.chain_id,
+      deltaId: r.delta_id,
+      nodeId: r.node_id,
+      depth: r.depth,
+      payload: r.payload,
+      previousReceiptHash: r.previous_receipt_hash,
+      receiptHash: r.receipt_hash,
+      status: r.status as any,
+      timestamp: r.timestamp,
+      signature: r.signature || undefined,
+      publicKey: r.public_key || undefined,
+      rollbackOf: r.rollback_of || undefined,
+      failedChildId: r.failed_child_id || undefined,
+      reason: r.reason || undefined,
+    }));
+  });
 }
 
 export function reconstructTopologyState(db: Database, chainId: string, targetReceiptHash?: string): Record<string, any> {
@@ -222,15 +308,19 @@ export function saveRollbackSnapshot(
   states: Record<string, { state: any; lastReceiptHash: string | null }>
 ): void {
   initializeMembraneReplaySchema(db);
-  db.prepare(`
-    INSERT OR REPLACE INTO rollback_snapshots (run_id, failed_receipt_id, states, timestamp)
-    VALUES (?, ?, ?, ?)
-  `).run(runId, failedReceiptId, JSON.stringify(states), Date.now());
+  executeWithRetrySync(db, () => {
+    db.prepare(`
+      INSERT OR REPLACE INTO rollback_snapshots (run_id, failed_receipt_id, states, timestamp)
+      VALUES (?, ?, ?, ?)
+    `).run(runId, failedReceiptId, JSON.stringify(states), Date.now());
+  });
 }
 
 export function reconstructRollbackState(db: Database, runId: string): Record<string, any> {
   initializeMembraneReplaySchema(db);
-  const row = db.prepare(`SELECT states FROM rollback_snapshots WHERE run_id = ?`).get(runId) as any;
+  const row = executeWithRetrySync(db, () => {
+    return db.prepare(`SELECT states FROM rollback_snapshots WHERE run_id = ?`).get(runId) as any;
+  });
   if (!row) return {};
   const statesWithMeta = JSON.parse(row.states);
   const states: Record<string, any> = {};
@@ -401,111 +491,120 @@ export function recoverFromCrash(
 ): MembraneRecovery {
   initializeMembraneReplaySchema(db);
 
-  const runs = db.prepare("SELECT DISTINCT chain_id FROM topology_journal").all() as { chain_id: string }[];
-  const activeChainsRolledBack: string[] = [];
-  const receipts: JournalEntry[] = [];
-
   const stepCtx = createDeterministicContext(parentSeed);
 
-  for (const { chain_id } of runs) {
-    const entries = loadJournal(db, chain_id);
-    if (entries.length === 0) continue;
+  // Wrap the entire recovery process in an exclusive transaction (BEGIN IMMEDIATE)
+  // to ensure atomicity. If a crash or locking failure happens, SQLite will roll back
+  // completely, preventing partial recovery states that lead to replay divergence.
+  const recoveryTx = db.transaction(() => {
+    const runs = db.prepare("SELECT DISTINCT chain_id FROM topology_journal").all() as { chain_id: string }[];
+    const activeChainsRolledBack: string[] = [];
+    const receipts: JournalEntry[] = [];
 
-    const hasRollback = entries.some((e) => e.status === "rollback" || e.rollbackOf !== undefined);
-    const latestEntry = entries[entries.length - 1];
+    for (const { chain_id } of runs) {
+      const entries = loadJournal(db, chain_id);
+      if (entries.length === 0) continue;
 
-    const rollbackSnapRow = db.prepare("SELECT states, failed_receipt_id FROM rollback_snapshots WHERE run_id = ?").get(chain_id) as any;
+      const hasRollback = entries.some((e) => e.status === "rollback" || e.rollbackOf !== undefined);
+      const latestEntry = entries[entries.length - 1];
 
-    if (rollbackSnapRow && !hasRollback) {
-      activeChainsRolledBack.push(chain_id);
+      const rollbackSnapRow = db.prepare("SELECT states, failed_receipt_id FROM rollback_snapshots WHERE run_id = ?").get(chain_id) as any;
 
-      const preRunStates = JSON.parse(rollbackSnapRow.states);
-      for (const [nodeId, meta] of Object.entries(preRunStates)) {
-        const hook = registeredHooks.get(nodeId);
-        if (hook) {
-          hook.state = JSON.parse(JSON.stringify((meta as any).state));
-          hook.lastReceiptHash = (meta as any).lastReceiptHash;
+      if (rollbackSnapRow && !hasRollback) {
+        activeChainsRolledBack.push(chain_id);
+
+        const preRunStates = JSON.parse(rollbackSnapRow.states);
+        for (const [nodeId, meta] of Object.entries(preRunStates)) {
+          const hook = registeredHooks.get(nodeId);
+          if (hook) {
+            hook.state = JSON.parse(JSON.stringify((meta as any).state));
+            hook.lastReceiptHash = (meta as any).lastReceiptHash;
+          }
         }
-      }
 
-      let lastReceiptHash = latestEntry.receiptHash;
-      for (let i = entries.length - 1; i >= 0; i--) {
-        const entry = entries[i];
-        if (entry.status !== "confirmed") continue;
+        let lastReceiptHash = latestEntry.receiptHash;
+        for (let i = entries.length - 1; i >= 0; i--) {
+          const entry = entries[i];
+          if (entry.status !== "confirmed") continue;
 
-        const rollbackPayload = JSON.stringify({
-          nodeId: entry.nodeId,
-          stateBefore: JSON.parse(entry.payload).stateAfter,
-          stateAfter: preRunStates[entry.nodeId]?.state || {},
-        });
+          const rollbackPayload = JSON.stringify({
+            nodeId: entry.nodeId,
+            stateBefore: JSON.parse(entry.payload).stateAfter,
+            stateAfter: preRunStates[entry.nodeId]?.state || {},
+          });
 
-        const rbEntryHash = hash({
-          id: `rb_${entry.receiptHash}`,
-          eventId: `evt_rollback_${stepCtx.uuid()}`,
-          deltaId: entry.deltaId,
-          inputHash: hash({ deltaId: entry.deltaId }),
-          outputHash: hash({ rolledBack: true }),
+          const rbEntryHash = hash({
+            id: `rb_${entry.receiptHash}`,
+            eventId: `evt_rollback_${stepCtx.uuid()}`,
+            deltaId: entry.deltaId,
+            inputHash: hash({ deltaId: entry.deltaId }),
+            outputHash: hash({ rolledBack: true }),
+            previousReceiptHash: lastReceiptHash,
+            status: "refused",
+            rollbackOf: entry.receiptHash,
+            failedChildId: rollbackSnapRow.failed_receipt_id,
+            reason: "Crash recovery rollback",
+          });
+
+          const rollbackEntry = appendJournalEntry(db, {
+            chainId: chain_id,
+            deltaId: entry.deltaId,
+            nodeId: entry.nodeId,
+            depth: entry.depth,
+            payload: rollbackPayload,
+            previousReceiptHash: lastReceiptHash,
+            receiptHash: rbEntryHash,
+            status: "rollback",
+            timestamp: Date.now(),
+            rollbackOf: entry.receiptHash,
+            failedChildId: rollbackSnapRow.failed_receipt_id,
+            reason: "Crash recovery rollback",
+          });
+
+          lastReceiptHash = rollbackEntry.receiptHash;
+        }
+
+        const recoveryReceiptHash = hash({
+          id: `rec_${chain_id}`,
+          eventId: `evt_recovery_${stepCtx.uuid()}`,
+          deltaId: latestEntry.deltaId,
+          inputHash: hash({ chainId: chain_id }),
+          outputHash: hash({ recovered: true }),
           previousReceiptHash: lastReceiptHash,
           status: "refused",
-          rollbackOf: entry.receiptHash,
           failedChildId: rollbackSnapRow.failed_receipt_id,
-          reason: "Crash recovery rollback",
+          reason: "Crash recovery completed",
         });
 
-        const rollbackEntry = appendJournalEntry(db, {
+        const recoveryEntry = appendJournalEntry(db, {
           chainId: chain_id,
-          deltaId: entry.deltaId,
-          nodeId: entry.nodeId,
-          depth: entry.depth,
-          payload: rollbackPayload,
+          deltaId: latestEntry.deltaId,
+          nodeId: "crash-recovery-service",
+          depth: latestEntry.depth + 1,
+          payload: JSON.stringify({ reason: "Crash recovery completed" }),
           previousReceiptHash: lastReceiptHash,
-          receiptHash: rbEntryHash,
-          status: "rollback",
+          receiptHash: recoveryReceiptHash,
+          status: "refused",
           timestamp: Date.now(),
-          rollbackOf: entry.receiptHash,
           failedChildId: rollbackSnapRow.failed_receipt_id,
-          reason: "Crash recovery rollback",
+          reason: "Crash recovery completed",
         });
 
-        lastReceiptHash = rollbackEntry.receiptHash;
+        receipts.push(recoveryEntry);
       }
-
-      const recoveryReceiptHash = hash({
-        id: `rec_${chain_id}`,
-        eventId: `evt_recovery_${stepCtx.uuid()}`,
-        deltaId: latestEntry.deltaId,
-        inputHash: hash({ chainId: chain_id }),
-        outputHash: hash({ recovered: true }),
-        previousReceiptHash: lastReceiptHash,
-        status: "refused",
-        failedChildId: rollbackSnapRow.failed_receipt_id,
-        reason: "Crash recovery completed",
-      });
-
-      const recoveryEntry = appendJournalEntry(db, {
-        chainId: chain_id,
-        deltaId: latestEntry.deltaId,
-        nodeId: "crash-recovery-service",
-        depth: latestEntry.depth + 1,
-        payload: JSON.stringify({ reason: "Crash recovery completed" }),
-        previousReceiptHash: lastReceiptHash,
-        receiptHash: recoveryReceiptHash,
-        status: "refused",
-        timestamp: Date.now(),
-        failedChildId: rollbackSnapRow.failed_receipt_id,
-        reason: "Crash recovery completed",
-      });
-
-      receipts.push(recoveryEntry);
     }
-  }
 
-  const quarantinedCountRow = db.prepare("SELECT COUNT(*) as count FROM topology_journal WHERE status = 'failed'").get() as any;
+    const quarantinedCountRow = db.prepare("SELECT COUNT(*) as count FROM topology_journal WHERE status = 'failed'").get() as any;
 
-  return {
-    recovered: activeChainsRolledBack.length > 0,
-    activeChainsRolledBack,
-    quarantinedEntriesCount: quarantinedCountRow?.count || 0,
-    receipts,
-  };
+    return {
+      recovered: activeChainsRolledBack.length > 0,
+      activeChainsRolledBack,
+      quarantinedEntriesCount: quarantinedCountRow?.count || 0,
+      receipts,
+    };
+  });
+
+  // Execute the transaction using BEGIN IMMEDIATE to avoid concurrent write deadlocks,
+  // retrying defensively on SQLITE_BUSY locking errors.
+  return executeWithRetrySync(db, () => recoveryTx.immediate());
 }

@@ -15,8 +15,8 @@ export class ClosedLoopGovernor {
   private lastReceiptHash: string | null = null;
 
   constructor(
-    private readonly ctx: { uuid: () => string },
-    initialQuads: Quad[] = []
+    private readonly ctx: TruexContext,
+    initialQuads: readonly Quad[] = []
   ) {
     for (const q of initialQuads) {
       const key = `${q.subject}:${q.predicate}`;
@@ -402,7 +402,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
         fc.integer({ min: 1, max: 100 }), // new agent ID suffix
         (initial, newAgentSuffix) => {
           const ctx = createDeterministicContext(initial.seed);
-          const governor = new ClosedLoopGovernor(ctx, initial.quads);
+          const governor = new ClosedLoopGovernor(ctx, initial.quads as Quad[]);
           
           const reassignmentHook = new TaskReassignmentHook('hook-reassign', () => governor.getState());
           const fossilHook = new FossilRemediationHook('hook-fossil');
@@ -445,7 +445,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
         initialSystemStateArb,
         (initial) => {
           const ctx = createDeterministicContext(initial.seed);
-          const governor = new ClosedLoopGovernor(ctx, initial.quads);
+          const governor = new ClosedLoopGovernor(ctx, initial.quads as Quad[]);
           
           const reassignmentHook = new TaskReassignmentHook('hook-reassign', () => governor.getState());
           governor.registerHook(reassignmentHook);
@@ -555,7 +555,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
         ),
         (initial, violation) => {
           const ctx = createDeterministicContext(initial.seed);
-          const governor = new ClosedLoopGovernor(ctx, initial.quads);
+          const governor = new ClosedLoopGovernor(ctx, initial.quads as Quad[]);
           const reassignmentHook = new TaskReassignmentHook('hook-reassign', () => governor.getState());
           governor.registerHook(reassignmentHook);
 
@@ -582,7 +582,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
         initialSystemStateArb,
         (initial) => {
           const ctx = createDeterministicContext(initial.seed);
-          const governor = new ClosedLoopGovernor(ctx, initial.quads);
+          const governor = new ClosedLoopGovernor(ctx, initial.quads as Quad[]);
           const fossilHook = new FossilRemediationHook('hook-fossil');
           governor.registerHook(fossilHook);
 
@@ -621,7 +621,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
         initialSystemStateArb,
         (initial) => {
           const ctx = createDeterministicContext(initial.seed);
-          const governor = new ClosedLoopGovernor(ctx, initial.quads);
+          const governor = new ClosedLoopGovernor(ctx, initial.quads as Quad[]);
           const reassignmentHook = new TaskReassignmentHook('hook-reassign', () => governor.getState());
           governor.registerHook(reassignmentHook);
 
@@ -651,7 +651,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
 
           // Verify tampering with receipt status causes replay to fail
           const tamperedReceipt1: Receipt = { ...receipt, status: 'refused' };
-          const replayTampered1 = replayGovernor.replay(initial.quads, delta, tamperedReceipt1);
+          const replayTampered1 = replayGovernor.replay(initial.quads as Quad[], delta, tamperedReceipt1);
           expect(replayTampered1).toBe(false);
 
           // Verify tampering with receipt hash causes replay to fail
@@ -662,4 +662,5 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
       )
     );
   });
+});
 });

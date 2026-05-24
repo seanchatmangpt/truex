@@ -1,6 +1,6 @@
 # Antigravity Artifact: Membrane Replay
 
-> **Generated:** 2026-05-24T03:21:33.016Z
+> **Generated:** 2026-05-24T03:30:01.517Z
 > **Version:** 1.0.0
 
 ## Data Summary
@@ -35,6 +35,8 @@
     ]
   },
   "exportedMethods": [
+    "executeWithRetrySync",
+    "checkpointDatabase",
     "initializeMembraneReplaySchema",
     "appendJournalEntry",
     "loadJournal",
@@ -53,12 +55,12 @@
     "rollbackEntries": 0,
     "failedEntries": 0,
     "reconstructedChainsCount": 0,
-    "lastUpdated": "2026-05-24T03:21:33.015Z"
+    "lastUpdated": "2026-05-24T03:30:01.516Z"
   },
   "_metadata": {
     "emitter": "Membrane Replay Facts Emitter",
     "description": "Extracts architectural facts and DB metrics about the S7 Membrane Replay layer",
-    "timestamp": "2026-05-24T03:21:33.016Z"
+    "timestamp": "2026-05-24T03:30:01.517Z"
   }
 }
 ```

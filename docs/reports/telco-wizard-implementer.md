@@ -109,3 +109,20 @@ All doctor proof subcommands compile and pass:
      - Invariant verified: Out-of-bounds writes roll back successfully
      - Invariant verified: State trajectory maintains logical continuity
   ```
+
+---
+
+## 5. Gall S8 Benchmarking & Synthesis Reports
+
+To satisfy the requirements of Gall S8 checkpointing, we added high-throughput performance benchmarks for both agents under the `truex doctor prove telco` and `truex doctor prove wizard` primitives:
+
+1. **Telco Benchmark (`truex doctor prove telco`)**:
+   - Ingests 1,000 transitions sequentially and validates the generated receipt envelope 1,000 times to measure ops/sec throughput.
+   - Outputs benchmark reports at [telco.report.json](file:///Users/sac/truex/docs/benchmarks/telco.report.json) and [telco.report.md](file:///Users/sac/truex/docs/benchmarks/telco.report.md).
+
+2. **Wizard Benchmark (`truex doctor prove wizard`)**:
+   - Executes 1,000 speculative simulation transactions (alternating between in-bounds writes that commit and out-of-bounds writes that rollback) to measure ops/sec throughput.
+   - Outputs benchmark reports at [wizard.report.json](file:///Users/sac/truex/docs/benchmarks/wizard.report.json) and [wizard.report.md](file:///Users/sac/truex/docs/benchmarks/wizard.report.md).
+
+3. **S8 Synthesis Checkpoint Report**:
+   - Consolidates the results and execution parameters into the synthesis document: [TELCO-WIZARD-S8-SYNTHESIS.md](file:///Users/sac/truex/docs/reports/TELCO-WIZARD-S8-SYNTHESIS.md).
