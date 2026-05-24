@@ -1,58 +1,12 @@
-# S12G Agent 4 — OCPQ Constraint Coverage & Adversarial Fixture Report
+# S12G Agent 4 OCPQ Constraint Coverage
 
-This report summarizes the implementation, validation, and coverage details for the **Object-Centric Project Query (OCPQ) Constraint Evaluator** and **Adversarial Fixtures** (Gall S12).
-
----
-
-## 1. Unsupported Predicates & Refusal Architecture
-
-To enforce process integrity and prevent silent failures, the evaluator now explicitly registers and refuses unsupported OCPQ predicate kinds and operators. Any attempt to pass these structures results in a hard runtime exception rather than a silent failure.
-
-### Refused Predicate Kinds
-The following logical structures are defined in the types but are explicitly refused by the evaluator at runtime:
-- **`and`**
-- **`or`**
-- **`not`**
-- **`implies`**
-
-### Refused Operators
-- **Attribute Operators**: `lt`, `lte`, `gt`, `gte`, `contains`, `startsWith`, `endsWith`
-- **Temporal Operators**: `within`
-
-When encountered, these raise explicit errors, ensuring that constraints containing unimplemented syntax are caught immediately.
-
----
-
-## 2. Expanded Project Governance Constraints
-
-Two new governance rules were introduced to safeguard the project execution:
-
-| Constraint ID | Name | Description | Severity | Target Object Type |
-|---|---|---|---|---|
-| `c-stale-report` | No stale report allowed | Flags report objects that have not been updated within 2 hours of the latest event in the log. | `warning` | `report` |
-| `c-queue-starvation` | No queue starvation allowed | Detects mailbox messages stuck in `available` state for more than 10 minutes. | `error` | `mailbox_message` |
-
----
-
-## 3. Adversarial Fixtures & Compliance Profiles
-
-We constructed comprehensive compliancy profiles in the test suite to verify the detection of various project governance failures:
-
-1. **Pass Fixture (Clean log)**: Ensures that a perfect log containing all correct relations, timely reports, and active queues generates zero violations.
-2. **Changed File Without Proof**: Asserts a `source_file` object with no corresponding `proof_succeeded` event triggers `c-proof-command-missing`.
-3. **Checkpoint Without Accounting Domain**: Asserts a checkpoint missing a `purpose` attribute triggers `c-checkpoint-accounting`.
-4. **Handoff Before 12h Gate**: Asserts a handoff completing in less than 12 hours from initialization triggers `c-handoff-timing`.
-5. **Terminal Message Missing Receipt**: Asserts confirmed/refused messages without an `emitted` or `parent_receipt` qualifier relation trigger `c-mailbox-receipt-missing`.
-6. **Stale Report**: Asserts reports with an `updatedAt` value older than 2 hours trigger `c-stale-report`.
-7. **Queue Starvation**: Asserts messages in the `available` state older than 10 minutes trigger `c-queue-starvation`.
-
----
-
-## 4. Verification Coverage
-
-The test cases are implemented under:
-`packages/truex-core/test/project-evidence/ocpq-constraint-gap.test.ts`
-
-These tests verify both the positive (compliance) and negative (violations & parser refusals) pathways.
-- **Pass rate**: 100% (all 10 new test cases pass)
-- **Integration validation**: Cleanly integrates with `doctor prove project-evidence-types` primitive checks.
+## OCPQ-Style Constraint Coverage:
+- Supported Predicates: `attribute`, `relationship`, `temporal` (`before`, `after`, `sameTime`), `exists`, `eq`, `neq`.
+- Unsupported Predicate Refusal: Implemented explicitly. `UNSUPPORTED_PREDICATES` (`and`, `or`, `not`, `implies`) and unsupported operators trigger explicit `Error` to enforce refusal, rather than silent failure.
+- Constraint Library: Evaluator expanded to 8 standard constraints: `c-proof-command-missing`, `c-checkpoint-accounting`, `c-handoff-timing`, `c-mailbox-receipt-missing`, `c-stale-report`, `c-queue-starvation`, `c-completion-accounting`, `c-proof-after-failure`.
+- Pass Fixtures: Added in `ocpq-constraint-gap.test.ts` to ensure constraints don't produce false positives (e.g. `changed file with later proof passes`).
+- Violation Fixtures: Added in `ocpq-constraint-gap.test.ts` checking for `c-checkpoint-accounting`, `c-handoff-timing`, `c-mailbox-receipt-missing`, `c-stale-report` (with missing artifacts), `c-completion-accounting`, and `c-proof-after-failure`.
+- Malformed Fixtures: Added tests verifying `malformed nested query refuses` and `unsupported predicate kind refuses` mapping directly to the ledger's refused state.
+- Accounting: Aggregated `OcpqConstraintReport` implemented, conserving all attempted constraints into exactly one terminal state: `attempted = passed + violated + refused + failed`.
+- Patches Applied: Refactored `ocpq-project-constraints.gall.ts` to implement the three missing governance tests (`c-completion-accounting`, `c-proof-after-failure`, extended `c-stale-report`). Implemented rigorous evaluation loop accounting with `evaluateProjectConstraintsAll`. Created `ocpq-constraint-gap.test.ts`.
+- Remaining Risks: Nested logical constraints (`and`/`or`/`not`) remain unsupported, meaning complex compositional constraints currently map to multiple discrete constraints or are refused. This should be addressed if composite predicates become essential.

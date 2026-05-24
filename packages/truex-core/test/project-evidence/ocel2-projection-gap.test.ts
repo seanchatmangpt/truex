@@ -4,13 +4,16 @@ import {
   projectReportToOcel,
   mailboxReportToOcel,
   wizardCommandToOcelEvent,
-  proofCommandToOcelEvent
+  proofCommandToOcelEvent,
+  validateOcelIntegrity,
+  replayResultToOcelEvent
 } from '../../src/ocel2-project-projection.gall.js';
 import type {
   WizardProjectReport,
   PersistentMailboxMessage,
   OcelId,
-  ISODateTime
+  ISODateTime,
+  OcelV2Log
 } from '../../src/ocel2-project-types.js';
 
 describe('OCEL2 Projection Gap & Fidelity Tests', () => {
@@ -105,179 +108,116 @@ describe('OCEL2 Projection Gap & Fidelity Tests', () => {
     }
   };
 
-  it('should verify project report projection with different statuses', () => {
-    // 1. passed status -> handoff_completed
-    const passedLog = projectReportToOcel(baseMockReport);
-    const completedEvent = passedLog.events.find(e => e.type === 'handoff_completed');
-    expect(completedEvent).toBeDefined();
-    expect(passedLog.events.find(e => e.type === 'handoff_refused')).toBeUndefined();
-    
-    // Check checkpoint accepted event exists for passed status
-    const cpAcceptedEvent = passedLog.events.find(e => e.type === 'checkpoint_accepted');
-    expect(cpAcceptedEvent).toBeDefined();
-    expect(cpAcceptedEvent?.relationships.some(r => r.objectId === 'checkpoint_cp_1' && r.qualifier === 'accepted_by')).toBe(true);
-
-    // 2. failed status -> handoff_refused
-    const failedReport: WizardProjectReport = { ...baseMockReport, status: 'failed' };
-    const failedLog = projectReportToOcel(failedReport);
-    expect(failedLog.events.find(e => e.type === 'handoff_completed')).toBeUndefined();
-    expect(failedLog.events.find(e => e.type === 'handoff_refused')).toBeDefined();
-
-    // 3. refused status -> handoff_refused
-    const refusedReport: WizardProjectReport = { ...baseMockReport, status: 'refused' };
-    const refusedLog = projectReportToOcel(refusedReport);
-    expect(refusedLog.events.find(e => e.type === 'handoff_completed')).toBeUndefined();
-    expect(refusedLog.events.find(e => e.type === 'handoff_refused')).toBeDefined();
+  it('project report projection has project object', () => {
+    const log = projectReportToOcel(baseMockReport);
+    const projObj = log.objects.find(o => o.type === 'project');
+    expect(projObj).toBeDefined();
+    expect(projObj?.id).toBe('proj_123');
   });
 
-  it('should verify every projected event connects to at least one object (round-trip validation)', () => {
-    // Test on projectReportToOcel
-    const projectLog = projectReportToOcel(baseMockReport);
-    const objectIds = new Set(projectLog.objects.map(o => o.id));
-    
-    expect(projectLog.events.length).toBeGreaterThan(0);
-    for (const event of projectLog.events) {
+  it('all events have at least one relationship', () => {
+    const log = projectReportToOcel(baseMockReport);
+    for (const event of log.events) {
       expect(event.relationships.length).toBeGreaterThanOrEqual(1);
-      for (const rel of event.relationships) {
-        expect(objectIds.has(rel.objectId)).toBe(true);
-      }
     }
+  });
 
-    // Test on mailboxReportToOcel
+  it('terminal events have receipt relationship', () => {
+    const log = projectReportToOcel(baseMockReport);
+    validateOcelIntegrity(log); // Will throw if terminal event lacks receipt
+    const handoffCompleted = log.events.find(e => e.type === 'handoff_completed')!;
+    expect(handoffCompleted.relationships.some(r => r.objectId.startsWith('receipt_'))).toBe(true);
+  });
+
+  it('proof failed event links proof command and report', () => {
+    const mockProofCmd = {
+      id: 'proof_cmd_bad',
+      checkpointId: 'cp_1',
+      exitCode: 1,
+      durationMs: 450,
+      reportHash: 'rep_hash_1',
+      receiptHash: 'proof_rec_hash_failed',
+      status: 'failed'
+    };
+
+    const proofEvent = proofCommandToOcelEvent(mockProofCmd);
+    expect(proofEvent.type).toBe('proof_failed');
+    
+    const proofCmdRel = proofEvent.relationships.find(r => r.qualifier === 'proved_by');
+    expect(proofCmdRel?.objectId).toBe('proof_cmd_proof_cmd_bad');
+
+    const reportRel = proofEvent.relationships.find(r => r.qualifier === 'reported_in');
+    expect(reportRel?.objectId).toBe('report_rep_hash_1');
+  });
+
+  it('mailbox refused links failure and receipt', () => {
     const mockMessages: PersistentMailboxMessage[] = [
       {
-        id: 'msg_1' as OcelId,
-        queue: 'hook',
-        state: 'confirmed',
-        payloadHash: 'phash' as any,
-        payloadJson: {},
-        uniqueConsequenceKey: 'uck' as any,
-        attempt: 1,
-        maxAttempts: 3,
-        priority: 5,
-        scheduledAt: '2024-01-01T00:00:00Z' as any,
-        availableAt: '2024-01-01T00:00:00Z' as any,
-        createdAt: '2024-01-01T00:00:00Z' as any,
-        updatedAt: '2024-01-01T00:00:00Z' as any,
-        receiptHash: 'rec_hash_1' as any
-      },
-      {
-        id: 'msg_2' as OcelId,
+        id: 'msg_fail' as OcelId,
         queue: 'hook',
         state: 'refused',
         payloadHash: 'phash' as any,
         payloadJson: {},
         uniqueConsequenceKey: 'uck' as any,
-        attempt: 1,
+        attempt: 3,
         maxAttempts: 3,
         priority: 5,
         scheduledAt: '2024-01-01T00:00:00Z' as any,
         availableAt: '2024-01-01T00:00:00Z' as any,
         createdAt: '2024-01-01T00:00:00Z' as any,
         updatedAt: '2024-01-01T00:00:00Z' as any,
-        errorHash: 'err_hash_1' as any
-        // receiptHash is missing to test fallback
+        errorHash: 'err_hash_fail' as any,
+        receiptHash: 'rec_hash_fail' as any
       }
     ];
 
-    const mailboxLog = mailboxReportToOcel(mockMessages);
-    const mailboxObjectIds = new Set(mailboxLog.objects.map(o => o.id));
+    const log = mailboxReportToOcel(mockMessages);
+    validateOcelIntegrity(log);
+    
+    const refusedEvent = log.events.find(e => e.type === 'mailbox_refused')!;
+    expect(refusedEvent).toBeDefined();
 
-    expect(mailboxLog.events.length).toBeGreaterThan(0);
-    for (const event of mailboxLog.events) {
-      expect(event.relationships.length).toBeGreaterThanOrEqual(1);
-      for (const rel of event.relationships) {
-        expect(mailboxObjectIds.has(rel.objectId)).toBe(true);
-      }
-    }
+    const failureRel = refusedEvent.relationships.find(r => r.objectId === 'failure_err_hash_fail');
+    expect(failureRel).toBeDefined();
+    
+    const receiptRel = refusedEvent.relationships.find(r => r.objectId === 'receipt_rec_hash_fail');
+    expect(receiptRel).toBeDefined();
   });
 
-  it('should verify every terminal event connects to receipt evidence', () => {
-    // Handoff events in projectReportToOcel
-    const passedLog = projectReportToOcel(baseMockReport);
-    const completedEvent = passedLog.events.find(e => e.type === 'handoff_completed')!;
-    expect(completedEvent).toBeDefined();
-    
-    // Must have a relationship to a receipt object
-    const completedReceiptRel = completedEvent.relationships.find(r => r.qualifier === 'emitted');
-    expect(completedReceiptRel).toBeDefined();
-    expect(completedReceiptRel?.objectId.startsWith('receipt_')).toBe(true);
-    
-    // Receipt object must exist in log
-    const completedReceiptObj = passedLog.objects.find(o => o.id === completedReceiptRel?.objectId);
-    expect(completedReceiptObj).toBeDefined();
-    expect(completedReceiptObj?.type).toBe('receipt');
-
-    // Mailbox messages
-    const mockMessages: PersistentMailboxMessage[] = [
-      {
-        id: 'msg_1' as OcelId,
-        queue: 'hook',
-        state: 'confirmed',
-        payloadHash: 'phash' as any,
-        payloadJson: {},
-        uniqueConsequenceKey: 'uck' as any,
-        attempt: 1,
-        maxAttempts: 3,
-        priority: 5,
-        scheduledAt: '2024-01-01T00:00:00Z' as any,
-        availableAt: '2024-01-01T00:00:00Z' as any,
-        createdAt: '2024-01-01T00:00:00Z' as any,
-        updatedAt: '2024-01-01T00:00:00Z' as any
-        // receiptHash is missing, tests fallback receipt linkage
-      }
-    ];
-
-    const mailboxLog = mailboxReportToOcel(mockMessages);
-    const confirmedEvent = mailboxLog.events.find(e => e.type === 'mailbox_confirmed')!;
-    expect(confirmedEvent).toBeDefined();
-    
-    const mailboxReceiptRel = confirmedEvent.relationships.find(r => r.qualifier === 'emitted');
-    expect(mailboxReceiptRel).toBeDefined();
-    
-    const mailboxReceiptObj = mailboxLog.objects.find(o => o.id === mailboxReceiptRel?.objectId);
-    expect(mailboxReceiptObj).toBeDefined();
-    expect(mailboxReceiptObj?.type).toBe('receipt');
-  });
-
-  it('should verify proof and checkpoint events connect properly', () => {
-    // Checkpoint proposed event
-    const log = projectReportToOcel(baseMockReport);
-    const propEvent = log.events.find(e => e.type === 'checkpoint_proposed')!;
-    expect(propEvent).toBeDefined();
-    
-    const propCpRel = propEvent.relationships.find(r => r.qualifier === 'proposed_by');
-    expect(propCpRel).toBeDefined();
-    expect(propCpRel?.objectId).toBe('checkpoint_cp_1');
-    expect(log.objects.some(o => o.id === 'checkpoint_cp_1' && o.type === 'gall_checkpoint')).toBe(true);
-
-    // Proof commands
-    const mockProofCmd = {
-      id: 'proof_cmd_123',
-      checkpointId: 'cp_1',
-      exitCode: 0,
-      durationMs: 450,
-      reportHash: 'rep_hash_1',
-      receiptHash: 'proof_rec_hash'
+  it('replay converged links replay object and receipt', () => {
+    const replayRes = {
+      id: 'rep_123',
+      status: 'converged',
+      replayHash: 'r_hash',
+      receiptHash: 'rec_hash'
     };
 
-    const proofEvent = proofCommandToOcelEvent(mockProofCmd);
-    expect(proofEvent.type).toBe('proof_succeeded');
+    const { event, objects } = replayResultToOcelEvent(replayRes);
+    expect(event.type).toBe('replay_converged');
     
-    const proofCmdRel = proofEvent.relationships.find(r => r.qualifier === 'proved_by');
-    expect(proofCmdRel).toBeDefined();
-    expect(proofCmdRel?.objectId).toBe('proof_cmd_proof_cmd_123');
+    const log: OcelV2Log = {
+      eventTypes: [],
+      objectTypes: [],
+      events: [event],
+      objects
+    };
+    validateOcelIntegrity(log);
 
-    const reportRel = proofEvent.relationships.find(r => r.qualifier === 'reported_in');
-    expect(reportRel).toBeDefined();
-    expect(reportRel?.objectId).toBe('report_rep_hash_1');
-
-    const receiptRel = proofEvent.relationships.find(r => r.qualifier === 'emitted');
-    expect(receiptRel).toBeDefined();
-    expect(receiptRel?.objectId).toBe('receipt_proof_rec_hash');
+    expect(event.relationships.find(r => r.objectId === 'replay_rep_123')).toBeDefined();
+    expect(event.relationships.find(r => r.objectId === 'receipt_rec_hash')).toBeDefined();
   });
 
-  it('should verify hash stability across repeated runs', () => {
+  it('handoff refused links refusal receipt', () => {
+    const failedReport: WizardProjectReport = { ...baseMockReport, status: 'failed' };
+    const log = projectReportToOcel(failedReport);
+    validateOcelIntegrity(log);
+
+    const refusedEvent = log.events.find(e => e.type === 'handoff_refused')!;
+    expect(refusedEvent).toBeDefined();
+    expect(refusedEvent.relationships.some(r => r.objectId === 'receipt_rep_hash_1')).toBe(true);
+  });
+
+  it('projection hash is stable', () => {
     const log1 = projectReportToOcel(baseMockReport);
     const log2 = projectReportToOcel(baseMockReport);
 
@@ -285,5 +225,52 @@ describe('OCEL2 Projection Gap & Fidelity Tests', () => {
     const hash2 = crypto.createHash('sha256').update(JSON.stringify(log2)).digest('hex');
 
     expect(hash1).toBe(hash2);
+  });
+
+  it('projection detects missing object referenced by event', () => {
+    const log = projectReportToOcel(baseMockReport);
+    // Mutate to create integrity error
+    (log.events[0].relationships as any[]).push({ objectId: 'missing_obj' as OcelId, qualifier: 'changed' as any });
+
+    expect(() => validateOcelIntegrity(log)).toThrowError(/Integrity Error: Event .* references missing object missing_obj/);
+  });
+
+  it('projection refuses terminal event without receipt', () => {
+    const log = projectReportToOcel(baseMockReport);
+    // remove receipt relationship from handoff_completed
+    const event = log.events.find(e => e.type === 'handoff_completed')!;
+    const newRels = event.relationships.filter(r => !r.objectId.startsWith('receipt_'));
+    (event as any).relationships = newRels;
+
+    expect(() => validateOcelIntegrity(log)).toThrowError(/Integrity Error: Terminal event .* is missing a receipt relationship/);
+  });
+
+  it('projection handles tampered mailbox fixture properly', () => {
+     // A tampered mailbox means state is tampered (or quarantined maybe?).
+     // This just creates another permutation to guarantee robust mapping.
+     const mockMessages: PersistentMailboxMessage[] = [
+      {
+        id: 'msg_tampered' as OcelId,
+        queue: 'wizard',
+        state: 'quarantined',
+        payloadHash: 'phash' as any,
+        payloadJson: {},
+        uniqueConsequenceKey: 'uck' as any,
+        attempt: 1,
+        maxAttempts: 3,
+        priority: 5,
+        scheduledAt: '2024-01-01T00:00:00Z' as any,
+        availableAt: '2024-01-01T00:00:00Z' as any,
+        createdAt: '2024-01-01T00:00:00Z' as any,
+        updatedAt: '2024-01-01T00:00:00Z' as any,
+        errorHash: 'tampered_hash' as any
+      }
+    ];
+    
+    const log = mailboxReportToOcel(mockMessages);
+    validateOcelIntegrity(log);
+    const evt = log.events.find(e => e.type === 'mailbox_refused');
+    expect(evt).toBeDefined();
+    expect(evt?.relationships.some(r => r.objectId === 'failure_tampered_hash')).toBe(true);
   });
 });

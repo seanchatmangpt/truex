@@ -5,6 +5,7 @@
  * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
  */
 import { createContext } from '../context/context.js'
+import { isRawGlobalPrototype } from '../proxy/create-proxy.js'
 
 /**
  * Sandboxing & Structural Containment for Proxyable.
@@ -424,6 +425,24 @@ export function createSandboxGetInterceptor(sandboxCtx) {
 }
 
 /**
+ * GetPrototypeOf interceptor for sandboxing.
+ * Denies access to raw global prototype to prevent sandbox bypass under active context.
+ */
+export function createSandboxGetPrototypeOfInterceptor(sandboxCtx) {
+  return (target) => {
+    const ctx = sandboxCtx.context.tryUse()
+    if (!ctx) {
+      return undefined
+    }
+    const rawProto = Reflect.getPrototypeOf(target)
+    if (rawProto && isRawGlobalPrototype(rawProto)) {
+      throw new TypeError('Access to raw global prototype is refused')
+    }
+    return undefined
+  }
+}
+
+/**
  * Helper function to register all sandbox interceptors with a proxy.
  *
  * @param {object} proxyInterface - The proxy interface returned by createProxy
@@ -440,4 +459,5 @@ export function registerSandboxInterceptors(proxyInterface, sandboxCtx) {
   proxyInterface.defineHasInterceptor(createSandboxHasInterceptor(sandboxCtx))
   proxyInterface.defineApplyInterceptor(createSandboxApplyInterceptor(sandboxCtx))
   proxyInterface.defineGetInterceptor(createSandboxGetInterceptor(sandboxCtx))
+  proxyInterface.defineGetPrototypeOfInterceptor(createSandboxGetPrototypeOfInterceptor(sandboxCtx))
 }

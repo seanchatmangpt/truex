@@ -4,7 +4,7 @@
 - **Case:** wizard-counterfactual-simulation
 - **Status:** ✅ Passed
 - **Layer:** S8
-- **Report Hash:** 3d77cbb8533394c94cf087c9712e7f03c4d54ebdf1953a2b76bfa691ce6418f5
+- **Report Hash:** ee40ac2e7a3f60e902c48663d5fa20d9634638e1e78f22d30bec2c48223c7a9f
 
 ## Operational Metrics
 | Metric | Value |
@@ -12,8 +12,8 @@
 | Simulations Run | 1000.000 |
 | Valid Commits | 500.000 |
 | Invalid Rollbacks | 500.000 |
-| Simulation Duration (ms) | 242.197 |
-| Simulation Throughput (ops/sec) | 4128.862 |
+| Simulation Duration (ms) | 253.265 |
+| Simulation Throughput (ops/sec) | 3948.430 |
 
 ## Validated Invariants
 *   **Invariant:** valid range mutation successfully commits state change

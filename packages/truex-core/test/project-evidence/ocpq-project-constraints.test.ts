@@ -12,7 +12,17 @@ describe('OCPQ Project Constraints', () => {
     const log: OcelV2Log = {
       eventTypes: [],
       objectTypes: [],
-      events: [],
+      events: [
+        {
+          id: 'evt_change' as OcelId,
+          type: 'file_changed' as OcelTypeName,
+          time: '2026-05-24T00:00:00Z' as ISODateTime,
+          attributes: [],
+          relationships: [
+            { objectId: 'file_index.ts' as OcelId, qualifier: 'changed' as any }
+          ]
+        }
+      ],
       objects: [
         {
           id: 'file_index.ts' as OcelId,
@@ -37,9 +47,18 @@ describe('OCPQ Project Constraints', () => {
       objectTypes: [],
       events: [
         {
+          id: 'evt_change' as OcelId,
+          type: 'file_changed' as OcelTypeName,
+          time: '2026-05-24T00:00:00Z' as ISODateTime,
+          attributes: [],
+          relationships: [
+            { objectId: 'file_index.ts' as OcelId, qualifier: 'changed' as any }
+          ]
+        },
+        {
           id: 'evt_proof' as OcelId,
           type: 'proof_succeeded' as OcelTypeName,
-          time: '2026-05-24T00:00:00Z' as ISODateTime,
+          time: '2026-05-24T01:00:00Z' as ISODateTime,
           attributes: [],
           relationships: [
             { objectId: 'file_index.ts' as OcelId, qualifier: 'proved_by' as any }

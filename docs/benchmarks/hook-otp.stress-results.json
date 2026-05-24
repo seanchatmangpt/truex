@@ -9,7 +9,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 82
+    "durationMs": 72
   },
   {
     "name": "Sibling Crash Containment",
@@ -57,7 +57,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 2
+    "durationMs": 1
   },
   {
     "name": "Replay Under Schedule Noise",
@@ -69,7 +69,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 0
+    "durationMs": 1
   },
   {
     "name": "Tamper After Process",
@@ -81,7 +81,7 @@
     "replayConverged": 0,
     "receiptVerified": 0,
     "reported": 1,
-    "durationMs": 1
+    "durationMs": 0
   },
   {
     "name": "Deterministic Lifecycle Hash",
@@ -93,7 +93,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 68
+    "durationMs": 60
   },
   {
     "name": "Observable Artifact Integrity",
@@ -105,7 +105,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 23
+    "durationMs": 20
   },
   {
     "name": "AGY Bridge Visibility",
@@ -117,6 +117,6 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 1648
+    "durationMs": 1354
   }
 ]

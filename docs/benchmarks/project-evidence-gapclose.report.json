@@ -1,0 +1,99 @@
+{
+  "case": "project-evidence-gapclose",
+  "status": "failed",
+  "domains": {
+    "workflowValidation": {
+      "attempted": 12,
+      "succeeded": 12,
+      "failed": 0,
+      "refused": 0,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 100,
+      "failureRatePct": 0,
+      "refusalRatePct": 0,
+      "quarantineRatePct": 0,
+      "successRatePctString": "100.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "0.000%",
+      "quarantineRatePctString": "0.000%"
+    },
+    "cycleRejection": {
+      "attempted": 4,
+      "succeeded": 4,
+      "failed": 0,
+      "refused": 0,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 100,
+      "failureRatePct": 0,
+      "refusalRatePct": 0,
+      "quarantineRatePct": 0,
+      "successRatePctString": "100.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "0.000%",
+      "quarantineRatePctString": "0.000%"
+    },
+    "doctorCheck": {
+      "attempted": 5,
+      "succeeded": 5,
+      "failed": 0,
+      "refused": 0,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 100,
+      "failureRatePct": 0,
+      "refusalRatePct": 0,
+      "quarantineRatePct": 0,
+      "successRatePctString": "100.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "0.000%",
+      "quarantineRatePctString": "0.000%"
+    },
+    "accountingConservation": {
+      "attempted": 6,
+      "succeeded": 6,
+      "failed": 0,
+      "refused": 0,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 100,
+      "failureRatePct": 0,
+      "refusalRatePct": 0,
+      "quarantineRatePct": 0,
+      "successRatePctString": "100.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "0.000%",
+      "quarantineRatePctString": "0.000%"
+    },
+    "observatoryFacts": {
+      "attempted": 3,
+      "succeeded": 3,
+      "failed": 0,
+      "refused": 0,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 100,
+      "failureRatePct": 0,
+      "refusalRatePct": 0,
+      "quarantineRatePct": 0,
+      "successRatePctString": "100.000%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "0.000%",
+      "quarantineRatePctString": "0.000%"
+    }
+  },
+  "proofs": {
+    "powlWorkflowValidationPassed": true,
+    "cycleRejectionVerified": true,
+    "doctorCheckVerified": true,
+    "accountingConservationVerified": true,
+    "observatoryFactsGenerated": true
+  },
+  "metrics": {
+    "workflowNodesValidated": 16,
+    "workflowEdgesValidated": 18,
+    "invariantsProven": 11,
+    "reportHash": "aab27fae2b77ab1b5a53d85d6f58dd4bd64ecc06b9d92995bcf763480d0954d8"
+  }
+}

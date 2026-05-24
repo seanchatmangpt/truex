@@ -5,6 +5,7 @@
  * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
  */
 import { createContext } from '../context/context.js'
+import { isRawGlobalPrototype } from '../proxy/create-proxy.js'
 
 /**
  * Capability-based access control for Proxyable.
@@ -288,6 +289,24 @@ export function createConstructInterceptor(capabilityContext) {
 }
 
 /**
+ * GetPrototypeOf interceptor for capability-based access control.
+ * Denies access to raw global prototype to prevent sandbox/ACL bypass under active context.
+ */
+export function createGetPrototypeOfInterceptor(capabilityContext) {
+  return (target) => {
+    const context = capabilityContext.context.tryUse()
+    if (!context) {
+      return undefined
+    }
+    const rawProto = Reflect.getPrototypeOf(target)
+    if (rawProto && isRawGlobalPrototype(rawProto)) {
+      throw new TypeError('Access to raw global prototype is refused')
+    }
+    return undefined
+  }
+}
+
+/**
  * Helper function to create all interceptors at once and register them with a proxy.
  *
  * @param {object} proxyInterface - The proxy interface returned by createProxy
@@ -304,4 +323,5 @@ export function registerCapabilityInterceptors(proxyInterface, capabilityContext
   )
   proxyInterface.defineApplyInterceptor(createApplyInterceptor(capabilityContext))
   proxyInterface.defineConstructInterceptor(createConstructInterceptor(capabilityContext))
+  proxyInterface.defineGetPrototypeOfInterceptor(createGetPrototypeOfInterceptor(capabilityContext))
 }

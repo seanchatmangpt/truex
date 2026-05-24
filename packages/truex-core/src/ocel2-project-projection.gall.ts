@@ -6,7 +6,7 @@ import type {
   OcelObject,
   WizardProjectReport,
   PersistentMailboxMessage,
-  GallCheckpoint,
+  BoundaryGallCheckpoint,
   OcelId,
   OcelTypeName,
   Qualifier,
@@ -62,7 +62,7 @@ export const PROJECT_EVENT_TYPES: OcelEventType[] = [
   { name: 'handoff_completed' as OcelTypeName, attributes: [] }
 ];
 
-export function checkpointToOcelObject(checkpoint: GallCheckpoint): OcelObject {
+export function checkpointToOcelObject(checkpoint: BoundaryGallCheckpoint): OcelObject {
   return {
     id: `checkpoint_${checkpoint.id}` as OcelId,
     type: 'gall_checkpoint' as OcelTypeName,
@@ -376,4 +376,56 @@ export function mailboxReportToOcel(messages: PersistentMailboxMessage[]): OcelV
     events,
     objects: Array.from(uniqueObjectsMap.values())
   };
+}
+
+export function validateOcelIntegrity(log: OcelV2Log): void {
+  const objectIds = new Set(log.objects.map(o => o.id));
+  for (const event of log.events) {
+    for (const rel of event.relationships) {
+      if (!objectIds.has(rel.objectId)) {
+        throw new Error(`Integrity Error: Event ${event.id} references missing object ${rel.objectId}`);
+      }
+    }
+    
+    // Check terminal events for receipts
+    const isTerminal = ['handoff_completed', 'handoff_refused', 'proof_succeeded', 'proof_failed', 'mailbox_confirmed', 'mailbox_refused', 'mailbox_quarantined', 'replay_converged', 'replay_diverged'].includes(event.type as string);
+    if (isTerminal) {
+      const hasReceipt = event.relationships.some(r => r.objectId.startsWith('receipt_'));
+      if (!hasReceipt) {
+        throw new Error(`Integrity Error: Terminal event ${event.id} of type ${event.type} is missing a receipt relationship`);
+      }
+    }
+  }
+}
+
+export function replayResultToOcelEvent(replayResult: any): { event: OcelEvent, objects: OcelObject[] } {
+  const isConverged = replayResult.status === 'converged';
+  
+  const replayObj: OcelObject = {
+    id: `replay_${replayResult.id}` as OcelId,
+    type: 'replay' as OcelTypeName,
+    attributes: [
+      { name: 'replayHash', value: replayResult.replayHash, time: new Date().toISOString() as ISODateTime }
+    ],
+    relationships: []
+  };
+
+  const receiptObj = receiptToOcelObject({
+    receiptHash: replayResult.receiptHash,
+    status: isConverged ? 'succeeded' : 'failed',
+    completedAt: new Date().toISOString()
+  });
+
+  const event: OcelEvent = {
+    id: `evt_replay_${replayResult.id}` as OcelId,
+    type: (isConverged ? 'replay_converged' : 'replay_diverged') as OcelTypeName,
+    time: new Date().toISOString() as ISODateTime,
+    attributes: [],
+    relationships: [
+      { objectId: replayObj.id, qualifier: 'executed_by' as Qualifier },
+      { objectId: receiptObj.id, qualifier: 'emitted' as Qualifier }
+    ]
+  };
+
+  return { event, objects: [replayObj, receiptObj] };
 }

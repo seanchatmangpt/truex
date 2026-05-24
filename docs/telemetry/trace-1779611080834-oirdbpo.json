@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779611080834-oirdbpo",
+  "spanId": "span-unknown",
+  "startTime": 1779611080834,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779611081288,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779611081288,
+  "durationMs": 454
+}

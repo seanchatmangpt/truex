@@ -1,0 +1,24 @@
+{
+  "primitive": "project-evidence-gapclose",
+  "passed": false,
+  "invariants": [
+    "Agent 1-5 reports exist",
+    "S12 gap ledger exists",
+    "POWL/Gall Wizard Workflow validates successfully",
+    "POWL/Gall cycle rejection verified",
+    "Choice graph orphan node path rejection verified",
+    "Checkpoint validation with missing fields verified",
+    "Forbidden claims absent",
+    "Accounting conservation across S12G domains verified mathematically",
+    "type tests pass",
+    "projection tests pass",
+    "constraint tests pass"
+  ],
+  "failures": [
+    "Open unclassified gap found in ledger"
+  ],
+  "timings": {
+    "execution": 1
+  },
+  "receiptHash": "aab27fae2b77ab1b5a53d85d6f58dd4bd64ecc06b9d92995bcf763480d0954d8"
+}

@@ -1,6 +1,6 @@
 # Antigravity Artifact: Topology.graph
 
-> **Generated:** 2026-05-24T08:11:39.799Z
+> **Generated:** 2026-05-24T08:39:22.209Z
 > **Version:** 2.0.0
 
 ## Data Summary
@@ -8,7 +8,7 @@
 ```json
 {
   "version": "2.0.0",
-  "graphHash": "f9b645833c3495126d49a24bb6b053bf2dab7e9ed6dfdaeac9e971f582b48d87",
+  "graphHash": "c2d27828d4fa38d7d7acec409d9fffe350fbbb07e946efa297c2f97d6fdcf5db",
   "nodes": [
     {
       "id": "agents/swarm-auditor.ts",
@@ -241,7 +241,7 @@
         "skills/project-evidence/proofs.ts"
       ],
       "provedBy": [
-        "agents/doctor/agent.ts"
+        "packages/truex-core/test/project-evidence/project-evidence-gapclose.integration.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-agy-facts.ts"
@@ -1127,7 +1127,8 @@
       ],
       "provedBy": [
         "skills/project-evidence/proofs.ts",
-        "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts"
+        "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts",
+        "packages/truex-core/test/project-evidence/ocel2-projection-gap.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -1142,6 +1143,9 @@
         "skills/project-evidence/proofs.ts",
         "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts",
         "packages/truex-core/test/project-evidence/ocel2-project-types.test.ts",
+        "packages/truex-core/test/project-evidence/ocel2-projection-gap.test.ts",
+        "packages/truex-core/test/project-evidence/ocel2-type-boundary-gap.test.ts",
+        "packages/truex-core/test/project-evidence/ocpq-constraint-gap.test.ts",
         "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts"
       ],
       "documentedBy": [
@@ -1157,6 +1161,7 @@
       ],
       "provedBy": [
         "skills/project-evidence/proofs.ts",
+        "packages/truex-core/test/project-evidence/ocpq-constraint-gap.test.ts",
         "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts"
       ],
       "documentedBy": [
@@ -1196,7 +1201,8 @@
       "dependencies": [],
       "provedBy": [
         "skills/project-evidence/proofs.ts",
-        "packages/truex-core/test/project-evidence/powl-project-workflow.test.ts"
+        "packages/truex-core/test/project-evidence/powl-project-workflow.test.ts",
+        "packages/truex-core/test/project-evidence/project-evidence-gapclose.integration.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -1289,6 +1295,7 @@
         "packages/truex-core/test/manufacturing/line.test.ts",
         "packages/truex-core/test/manufacturing/visual.test.ts",
         "packages/truex-core/test/persistence/journal.test.ts",
+        "packages/truex-core/test/project-evidence/project-evidence-gapclose.integration.test.ts",
         "packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts",
@@ -3414,6 +3421,51 @@
       ]
     },
     {
+      "id": "packages/truex-core/test/project-evidence/ocel2-projection-gap.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-projection.gall.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/ocel2-projection-gap.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/ocel2-type-boundary-gap.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-types.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/ocel2-type-boundary-gap.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/ocpq-constraint-gap.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/ocpq-project-constraints.gall.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/ocpq-constraint-gap.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -3437,6 +3489,34 @@
       ],
       "provedBy": [
         "packages/truex-core/test/project-evidence/powl-project-workflow.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/project-evidence-gapclose.integration.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/powl-project-workflow.gall.ts",
+        "agents/doctor/agent.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/project-evidence-gapclose.integration.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/project-evidence-regression-boundary.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/project-evidence-regression-boundary.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -3637,7 +3717,7 @@
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-24T08:11:39.799Z"
+    "timestamp": "2026-05-24T08:39:22.209Z"
   }
 }
 ```

@@ -54,9 +54,9 @@
   },
   "stats": {
     "totalFiles": 67,
-    "totalFunctions": 157,
+    "totalFunctions": 160,
     "totalClasses": 37,
-    "totalExportedSymbols": 376
+    "totalExportedSymbols": 395
   },
   "files": [
     {
@@ -471,7 +471,7 @@
     },
     {
       "path": "packages/truex-core/src/ocel2-project-projection.gall.ts",
-      "functions": 6,
+      "functions": 8,
       "classes": 0,
       "symbols": [
         "checkpointToOcelObject",
@@ -480,6 +480,8 @@
         "proofCommandToOcelEvent",
         "projectReportToOcel",
         "mailboxReportToOcel",
+        "validateOcelIntegrity",
+        "replayResultToOcelEvent",
         "PROJECT_OBJECT_TYPES",
         "PROJECT_EVENT_TYPES"
       ],
@@ -550,21 +552,21 @@
         "ProcessRuleKind",
         "ProcessRule",
         "ProcessKnowledgeBase",
-        "PowlNodeId",
-        "PowlActivity",
-        "PowlSilent",
-        "PowlPartialOrder",
-        "PowlChoiceGraph",
-        "PowlNode",
-        "PowlOrderEdge",
-        "PowlChoiceEdge",
-        "GallCheckpoint",
+        "BoundaryPowlNodeId",
+        "BoundaryPowlActivity",
+        "BoundaryPowlSilent",
+        "BoundaryPowlPartialOrder",
+        "BoundaryPowlChoiceGraph",
+        "BoundaryPowlNode",
+        "BoundaryPowlOrderEdge",
+        "BoundaryPowlChoiceEdge",
+        "BoundaryGallCheckpoint",
         "WizardVerb",
         "WizardCommandStatus",
         "WizardCommandReceipt",
         "MissionAgentId",
         "WizardMission",
-        "ProjectCell",
+        "BoundaryProjectCell",
         "ProjectTopology",
         "PersistentMailboxQueue",
         "PersistentMailboxState",
@@ -584,14 +586,21 @@
     },
     {
       "path": "packages/truex-core/src/ocpq-project-constraints.gall.ts",
-      "functions": 2,
+      "functions": 3,
       "classes": 0,
       "symbols": [
         "evaluatePredicate",
         "evaluateProjectConstraint",
+        "evaluateProjectConstraintsAll",
         "SUPPORTED_PREDICATES",
+        "UNSUPPORTED_PREDICATES",
+        "SUPPORTED_ATTRIBUTE_OPS",
+        "UNSUPPORTED_ATTRIBUTE_OPS",
+        "SUPPORTED_TEMPORAL_OPS",
+        "UNSUPPORTED_TEMPORAL_OPS",
         "PROJECT_CONSTRAINTS",
-        "OcpqViolation"
+        "OcpqViolation",
+        "OcpqConstraintReport"
       ],
       "internalLogicPaths": []
     },
@@ -1001,6 +1010,6 @@
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T08:11:39.808Z"
+    "timestamp": "2026-05-24T08:39:22.216Z"
   }
 }

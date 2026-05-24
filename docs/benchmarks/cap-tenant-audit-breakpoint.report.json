@@ -4,97 +4,97 @@
     "arch": "arm64",
     "cpu": "Apple M3 Max",
     "nodeVersion": "v24.15.0",
-    "timestamp": "2026-05-24T08:14:00.045Z"
+    "timestamp": "2026-05-24T08:40:15.134Z"
   },
   "tenantMetrics": {
-    "creationLatencyP50": 0.18766599999992195,
-    "creationLatencyP95": 0.34637500000008004,
-    "creationLatencyP99": 0.41133300000001327,
-    "opLatencyP50": 0.0013750000000527507,
-    "opLatencyP95": 0.0030000000000001137,
-    "opLatencyP99": 0.013207999999849562,
-    "heapBeforeMb": 13.82,
-    "heapAfterMb": 40.97,
-    "heapPostGcMb": 43.95,
+    "creationLatencyP50": 0.17000000000007276,
+    "creationLatencyP95": 0.3312499999999545,
+    "creationLatencyP99": 0.3636669999998503,
+    "opLatencyP50": 0.0012920000000065102,
+    "opLatencyP95": 0.002250000000003638,
+    "opLatencyP99": 0.012833999999998014,
+    "heapBeforeMb": 13.86,
+    "heapAfterMb": 40.96,
+    "heapPostGcMb": 44,
     "stateBleedDetected": false
   },
   "auditMetrics": {
-    "initialHeapMb": 44.01,
-    "finalHeapMb": 118.41,
-    "peakHeapMb": 118.41,
-    "initialRssMb": 108.47,
-    "finalRssMb": 215.16,
-    "peakRssMb": 215.16,
+    "initialHeapMb": 44.06,
+    "finalHeapMb": 118.11,
+    "peakHeapMb": 118.11,
+    "initialRssMb": 108.58,
+    "finalRssMb": 214.03,
+    "peakRssMb": 214.03,
     "steps": [
       {
         "entriesCount": 10000,
-        "heapUsedMb": 44.29,
-        "rssMb": 137.64,
-        "durationMs": 33.22,
-        "opsPerSec": 300978.55
+        "heapUsedMb": 44.12,
+        "rssMb": 137.23,
+        "durationMs": 31,
+        "opsPerSec": 322553.33
       },
       {
         "entriesCount": 20000,
-        "heapUsedMb": 57.57,
-        "rssMb": 149.67,
-        "durationMs": 24.32,
-        "opsPerSec": 411193.36
+        "heapUsedMb": 57.39,
+        "rssMb": 148.89,
+        "durationMs": 23.62,
+        "opsPerSec": 423284.9
       },
       {
         "entriesCount": 30000,
-        "heapUsedMb": 52.15,
-        "rssMb": 170.11,
-        "durationMs": 25.98,
-        "opsPerSec": 384964.58
+        "heapUsedMb": 51.86,
+        "rssMb": 169.25,
+        "durationMs": 25.2,
+        "opsPerSec": 396799.15
       },
       {
         "entriesCount": 40000,
-        "heapUsedMb": 65.61,
-        "rssMb": 172.53,
-        "durationMs": 21.11,
-        "opsPerSec": 473795.17
+        "heapUsedMb": 65.33,
+        "rssMb": 171.67,
+        "durationMs": 21.66,
+        "opsPerSec": 461670.76
       },
       {
         "entriesCount": 50000,
-        "heapUsedMb": 78.2,
-        "rssMb": 174.11,
-        "durationMs": 21.17,
-        "opsPerSec": 472331.24
+        "heapUsedMb": 77.92,
+        "rssMb": 173.27,
+        "durationMs": 21.18,
+        "opsPerSec": 472123.09
       },
       {
         "entriesCount": 60000,
-        "heapUsedMb": 66.07,
-        "rssMb": 184.78,
-        "durationMs": 24.5,
-        "opsPerSec": 408111.91
+        "heapUsedMb": 65.78,
+        "rssMb": 183.98,
+        "durationMs": 24.87,
+        "opsPerSec": 402116.47
       },
       {
         "entriesCount": 70000,
-        "heapUsedMb": 78.66,
-        "rssMb": 186.33,
-        "durationMs": 20.66,
-        "opsPerSec": 484088.61
+        "heapUsedMb": 78.37,
+        "rssMb": 185.55,
+        "durationMs": 21.42,
+        "opsPerSec": 466757.16
       },
       {
         "entriesCount": 80000,
-        "heapUsedMb": 91.25,
-        "rssMb": 189.3,
-        "durationMs": 20.7,
-        "opsPerSec": 483146.24
+        "heapUsedMb": 90.96,
+        "rssMb": 188.2,
+        "durationMs": 21.24,
+        "opsPerSec": 470708.23
       },
       {
         "entriesCount": 90000,
-        "heapUsedMb": 105.81,
-        "rssMb": 203.22,
-        "durationMs": 21.99,
-        "opsPerSec": 454759.92
+        "heapUsedMb": 105.52,
+        "rssMb": 202.13,
+        "durationMs": 22.07,
+        "opsPerSec": 453127.72
       },
       {
         "entriesCount": 100000,
-        "heapUsedMb": 118.41,
-        "rssMb": 215.16,
-        "durationMs": 21.81,
-        "opsPerSec": 458460.6
+        "heapUsedMb": 118.11,
+        "rssMb": 214.03,
+        "durationMs": 22.51,
+        "opsPerSec": 444229.73
       }
     ],
     "totalWrites": 100000,

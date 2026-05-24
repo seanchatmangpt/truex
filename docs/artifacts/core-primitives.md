@@ -1,6 +1,6 @@
 # Antigravity Artifact: Core Primitives
 
-> **Generated:** 2026-05-24T08:11:39.808Z
+> **Generated:** 2026-05-24T08:39:22.216Z
 > **Version:** 1.0.0
 
 ## Core Primitives
@@ -26,9 +26,9 @@
 | Metric | Value |
 | :--- | :--- |
 | totalFiles | 67 |
-| totalFunctions | 157 |
+| totalFunctions | 160 |
 | totalClasses | 37 |
-| totalExportedSymbols | 376 |
+| totalExportedSymbols | 395 |
 
 ## File Inventory
 
@@ -68,9 +68,9 @@
 | `packages/truex-core/src/manufacturing/visual.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/membrane-replay.gall.ts` | 13 | 0 | 22 |
 | `packages/truex-core/src/membrane.ts` | 0 | 0 | 0 |
-| `packages/truex-core/src/ocel2-project-projection.gall.ts` | 6 | 0 | 8 |
+| `packages/truex-core/src/ocel2-project-projection.gall.ts` | 8 | 0 | 10 |
 | `packages/truex-core/src/ocel2-project-types.ts` | 9 | 0 | 89 |
-| `packages/truex-core/src/ocpq-project-constraints.gall.ts` | 2 | 0 | 5 |
+| `packages/truex-core/src/ocpq-project-constraints.gall.ts` | 3 | 0 | 12 |
 | `packages/truex-core/src/persistence/audit-engine.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/persistence/index.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/persistence/journal.ts` | 0 | 1 | 1 |

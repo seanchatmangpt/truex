@@ -1081,6 +1081,18 @@ const projectEvidenceTypesCommand = defineCommand({
   }
 });
 
+const projectEvidenceGapcloseCommand = defineCommand({
+  meta: {
+    name: 'project-evidence-gapclose',
+    description: 'Prove the Object-Centric Project Evidence Gap Discovery & Repair (S12G).'
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("project-evidence-gapclose");
+    if (!report.passed) throw new Error("Project evidence gapclose proof failed");
+  }
+});
+
 const proveCommand = defineCommand({
   meta: {
     name: 'prove',
@@ -1115,7 +1127,8 @@ const proveCommand = defineCommand({
     "telco-validate": telcoValidateProveCommand,
     "wizard-simulate": wizardSimulateProveCommand,
     "wizard-walkthrough": wizardWalkthroughProveCommand,
-    "project-evidence-types": projectEvidenceTypesCommand
+    "project-evidence-types": projectEvidenceTypesCommand,
+    "project-evidence-gapclose": projectEvidenceGapcloseCommand
   }
 });
 

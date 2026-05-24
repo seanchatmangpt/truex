@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779611779438-eohtkn5",
+  "spanId": "span-unknown",
+  "startTime": 1779611779438,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"mailbox\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779611780000,
+      "attributes": {
+        "primitive": "mailbox",
+        "receiptHash": "e17d64c391fad605468b011d2a703155406015c7eab1fc92aec2b37f723ab7b5",
+        "status": "confirmed",
+        "executionTimeMs": 20,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779611780000,
+  "durationMs": 562
+}

@@ -5,6 +5,7 @@
  * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
  */
 import { createContext as unctxCreateContext, createNamespace as unctxCreateNamespace } from 'unctx'
+import { AsyncLocalStorage } from 'node:async_hooks'
 
 // Proxyable's global namespace to avoid context conflicts
 const _proxyableNamespace = unctxCreateNamespace('proxyable')
@@ -16,7 +17,11 @@ const _proxyableNamespace = unctxCreateNamespace('proxyable')
  * @returns {object} An object containing methods to manage the context.
  */
 export function createContext() {
-  const ctx = unctxCreateContext()
+  const ctx = unctxCreateContext({
+    asyncContext: true,
+    AsyncLocalStorage
+  })
+
 
   return {
     /**

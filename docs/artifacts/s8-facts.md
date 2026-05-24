@@ -1,6 +1,6 @@
 # Antigravity Artifact: S8 Facts
 
-> **Generated:** 2026-05-24T08:11:39.846Z
+> **Generated:** 2026-05-24T08:39:22.260Z
 > **Version:** 1.0.0
 
 ## Data Summary
@@ -31,8 +31,8 @@
         "walkthrough"
       ],
       "benchmark": {
-        "simulateOpsPerSecond": 4128.862492024998,
-        "reportHash": "3d77cbb8533394c94cf087c9712e7f03c4d54ebdf1953a2b76bfa691ce6418f5",
+        "simulateOpsPerSecond": 3948.430216281428,
+        "reportHash": "ee40ac2e7a3f60e902c48663d5fa20d9634638e1e78f22d30bec2c48223c7a9f",
         "status": "passed"
       }
     }
@@ -40,7 +40,7 @@
   "_metadata": {
     "emitter": "S8 Facts Emitter",
     "description": "Extracts architectural facts and benchmark performance for S8 (Telco and Wizard)",
-    "timestamp": "2026-05-24T08:11:39.846Z"
+    "timestamp": "2026-05-24T08:39:22.260Z"
   }
 }
 ```

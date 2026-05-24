@@ -6,8 +6,8 @@
     "simulationsRun": 1000,
     "validCommits": 500,
     "invalidRollbacks": 500,
-    "simulateDurationMs": 242.1974580000001,
-    "simulateOpsPerSecond": 4128.862492024998
+    "simulateDurationMs": 253.2652079999998,
+    "simulateOpsPerSecond": 3948.430216281428
   },
   "invariants": [
     "valid range mutation successfully commits state change",
@@ -19,5 +19,5 @@
     "12-hour monotonic release gate correctly refuses premature handoff",
     "synthesis finalization produces PROJECT-WIZARD-S11-SYNTHESIS.md and evidence reports"
   ],
-  "reportHash": "3d77cbb8533394c94cf087c9712e7f03c4d54ebdf1953a2b76bfa691ce6418f5"
+  "reportHash": "ee40ac2e7a3f60e902c48663d5fa20d9634638e1e78f22d30bec2c48223c7a9f"
 }

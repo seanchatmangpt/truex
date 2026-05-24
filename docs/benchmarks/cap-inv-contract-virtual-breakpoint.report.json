@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-05-24T08:14:00.812Z",
+  "timestamp": "2026-05-24T08:40:31.897Z",
   "circularInvariants": {
-    "rawLoopDurationMs": 0,
+    "rawLoopDurationMs": 1,
     "customGuardDurationMs": 0,
     "rawLoopMaxDepth": 1
   },
@@ -9,7 +9,7 @@
     {
       "depth": 10,
       "memoized": true,
-      "durationMs": 1,
+      "durationMs": 0,
       "value": 20
     },
     {
@@ -51,13 +51,13 @@
     {
       "depth": 1000,
       "memoized": false,
-      "durationMs": 2,
+      "durationMs": 1,
       "value": 1010
     }
   ],
   "contractIsolation": {
-    "transactionRollbackPassed": false,
-    "simulationAbortPassed": false,
-    "purityViolationPassed": false
+    "transactionRollbackPassed": true,
+    "simulationAbortPassed": true,
+    "purityViolationPassed": true
   }
 }

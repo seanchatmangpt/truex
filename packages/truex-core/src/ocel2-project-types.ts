@@ -344,52 +344,52 @@ export interface ProcessKnowledgeBase {
  * POWL 2.0 / GALL WORKFLOW TYPES
  * ========================================================================== */
 
-export type PowlNodeId = Brand<string, "PowlNodeId">;
+export type BoundaryPowlNodeId = Brand<string, "BoundaryPowlNodeId">;
 
-export interface PowlActivity {
+export interface BoundaryPowlActivity {
   readonly kind: "activity";
-  readonly id: PowlNodeId;
+  readonly id: BoundaryPowlNodeId;
   readonly label: string;
 }
 
-export interface PowlSilent {
+export interface BoundaryPowlSilent {
   readonly kind: "silent";
-  readonly id: PowlNodeId;
+  readonly id: BoundaryPowlNodeId;
 }
 
-export interface PowlPartialOrder {
+export interface BoundaryPowlPartialOrder {
   readonly kind: "partial_order";
-  readonly id: PowlNodeId;
-  readonly children: readonly PowlNode[];
-  readonly order: readonly PowlOrderEdge[];
+  readonly id: BoundaryPowlNodeId;
+  readonly children: readonly BoundaryPowlNode[];
+  readonly order: readonly BoundaryPowlOrderEdge[];
 }
 
-export interface PowlChoiceGraph {
+export interface BoundaryPowlChoiceGraph {
   readonly kind: "choice_graph";
-  readonly id: PowlNodeId;
-  readonly children: readonly PowlNode[];
-  readonly edges: readonly PowlChoiceEdge[];
+  readonly id: BoundaryPowlNodeId;
+  readonly children: readonly BoundaryPowlNode[];
+  readonly edges: readonly BoundaryPowlChoiceEdge[];
   readonly start: "▷";
   readonly end: "□";
 }
 
-export type PowlNode =
-  | PowlActivity
-  | PowlSilent
-  | PowlPartialOrder
-  | PowlChoiceGraph;
+export type BoundaryPowlNode =
+  | BoundaryPowlActivity
+  | BoundaryPowlSilent
+  | BoundaryPowlPartialOrder
+  | BoundaryPowlChoiceGraph;
 
-export interface PowlOrderEdge {
-  readonly before: PowlNodeId;
-  readonly after: PowlNodeId;
+export interface BoundaryPowlOrderEdge {
+  readonly before: BoundaryPowlNodeId;
+  readonly after: BoundaryPowlNodeId;
 }
 
-export interface PowlChoiceEdge {
-  readonly from: PowlNodeId | "▷";
-  readonly to: PowlNodeId | "□";
+export interface BoundaryPowlChoiceEdge {
+  readonly from: BoundaryPowlNodeId | "▷";
+  readonly to: BoundaryPowlNodeId | "□";
 }
 
-export interface GallCheckpoint {
+export interface BoundaryGallCheckpoint {
   readonly id: string;
   readonly name: string;
   readonly purpose: string;
@@ -399,7 +399,7 @@ export interface GallCheckpoint {
   readonly refusalCondition: string;
   readonly expectedArtifacts: readonly ProjectPath[];
   readonly expectedReports: readonly ProjectPath[];
-  readonly workflow: PowlNode;
+  readonly workflow: BoundaryPowlNode;
 }
 
 /* ============================================================================
@@ -457,7 +457,7 @@ export interface WizardMission {
     | "handoff_completed";
 }
 
-export interface ProjectCell {
+export interface BoundaryProjectCell {
   readonly projectId: OcelId;
   readonly root: ProjectPath;
   readonly truexDir: ProjectPath;
@@ -647,10 +647,10 @@ export type GallCheckpointAccounting = AccountingDomain<
 export interface WizardProjectReport {
   readonly case: "truex-project-wizard";
   readonly status: "passed" | "failed" | "refused";
-  readonly projectCell: ProjectCell;
+  readonly projectCell: BoundaryProjectCell;
   readonly mission: WizardMission;
   readonly topology: ProjectTopology;
-  readonly checkpoints: readonly GallCheckpoint[];
+  readonly checkpoints: readonly BoundaryGallCheckpoint[];
   readonly ocelProjection?: TruexOcelProjection;
   readonly knowledgeBase?: ProcessKnowledgeBase;
   readonly accounting: {

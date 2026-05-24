@@ -218,7 +218,7 @@ function rewriteImportPaths(importsText: string, originalFilePath: string): stri
         relativeToGen = './' + relativeToGen;
       }
       return `${p1}${relativeToGen}${p3}`;
-    } else if (p2.startsWith('src/') || p2.startsWith('packages/')) {
+    } else if (p2.startsWith('src/') || p2.startsWith('packages/') || p2.startsWith('examples/')) {
       const resolved = path.resolve(process.cwd(), p2);
       let relativeToGen = path.relative('.generated/doctests', resolved);
       if (!relativeToGen.startsWith('.')) {
@@ -239,7 +239,7 @@ function rewriteImportPaths(importsText: string, originalFilePath: string): stri
         relativeToGen = './' + relativeToGen;
       }
       return `${p1}${relativeToGen}${p3}`;
-    } else if (p2.startsWith('src/') || p2.startsWith('packages/')) {
+    } else if (p2.startsWith('src/') || p2.startsWith('packages/') || p2.startsWith('examples/')) {
       const resolved = path.resolve(process.cwd(), p2);
       let relativeToGen = path.relative('.generated/doctests', resolved);
       if (!relativeToGen.startsWith('.')) {

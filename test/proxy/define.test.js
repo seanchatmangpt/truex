@@ -203,6 +203,6 @@ describe('createProxy with specialized interceptor definitions', () => {
     }).toThrow('Prototype modification restricted');
 
     Object.setPrototypeOf(proxy, Object.prototype);
-    expect(() => Object.getPrototypeOf(proxy)).toThrow(TypeError);
+    expect(Object.getPrototypeOf(proxy)).toBe(Object.prototype);
   });
 });

@@ -36,7 +36,7 @@ import { proveTelco } from "../../skills/telco/telco-proof.js";
 import { proveWizard } from "../../skills/wizard/wizard-proof.js";
 import { proveMailbox } from "../../skills/mailbox/proofs.js";
 import { proveFinalization } from "../../skills/finalization/proofs.js";
-import { proveProjectEvidenceTypes } from "../../skills/project-evidence/proofs.js";
+import { proveProjectEvidenceTypes, proveProjectEvidenceGapclose } from "../../skills/project-evidence/proofs.js";
 
 
 /**
@@ -1674,6 +1674,26 @@ Truex OTP Non-Mockable Stress State:
           result = {
             passed: false,
             failures: [e.message || "Unknown error during Project Evidence Types verification"],
+            invariants: []
+          };
+        }
+        break;
+      }
+
+      case "project-evidence-gapclose": {
+        console.log("🚀 Starting Object-Centric Project Evidence Gap Discovery & Repair (S12G) verification...");
+        try {
+          const gapcloseReport = proveProjectEvidenceGapclose();
+          result = {
+            passed: gapcloseReport.passed,
+            failures: gapcloseReport.failures,
+            invariants: gapcloseReport.invariants,
+            receiptHash: gapcloseReport.metrics.reportHash
+          };
+        } catch (e: any) {
+          result = {
+            passed: false,
+            failures: [e.message || "Unknown error during Project Evidence Gapclose verification"],
             invariants: []
           };
         }
