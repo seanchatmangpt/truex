@@ -114,7 +114,7 @@ class TruexCapture {
           // RECEIPT REFUSED
           console.error(`\n❌ [ReceiptRefused] Illegal transition: ${oldValue} -> ${newValue}. Expected: ${expectedNext}`)
           this.emitRefusalEvent(evtId, timestamp, oldValue, newValue, currentAction)
-          return true // Block mutation but satisfy strict-mode Proxy traps
+          return true // Block mutation but satisfy strict-mode Membrane traps
         }
         currentObservedIdx++
       
@@ -255,7 +255,7 @@ async function runCaptureDemo() {
   const { state: stateB, causalityContext: ctxB } = captureB.getContextWrapper({ checkoutStatus: 'idle', cartTotal: 0, shippingAddress: null })
 
   ctxB.call('User tapped \'Add to Cart\'', () => { stateB.cartTotal = 150 })
-  // Missing address added & missing processing! Try to jump straight to paid
+  // Missing address added & missing processing! Attempt to jump straight to paid
   ctxB.call('Hacked API call', () => { stateB.checkoutStatus = 'paid' })
 
   await captureB.egress('APP_SESSION_991', 'DEVICE_A22', 'fraudulent')

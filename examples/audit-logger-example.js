@@ -17,11 +17,11 @@ console.log('Observability & Audit - Comprehensive Example')
 console.log('='.repeat(80))
 
 // ============================================================================
-// Example 1: Basic Audit Logging
+// Example 1: Basic Audit Receipting
 // ============================================================================
 
 console.log('\n' + '='.repeat(80))
-console.log('Example 1: Basic Audit Logging')
+console.log('Example 1: Basic Audit Receipting')
 console.log('='.repeat(80))
 
 const user = {
@@ -31,32 +31,32 @@ const user = {
   balance: 100,
 }
 
-const userProxy = createProxy(user)
+const userMembrane = createProxy(user)
 const userAudit = createAuditContext(user, {
   format: 'json',
   includeTimestamp: true,
 })
 
-registerAuditInterceptors(userProxy, userAudit)
+registerAuditInterceptors(userMembrane, userAudit)
 
 userAudit.call(() => {
-  // These operations will be logged
-  const name = userProxy.proxy.name
+  // These operations will be receipted
+  const name = userMembrane.proxy.name
   console.log(`\nRead name: ${name}`)
 
-  userProxy.proxy.balance = 150
+  userMembrane.proxy.balance = 150
   console.log('Updated balance to 150')
 
-  delete userProxy.proxy.email
+  delete userMembrane.proxy.email
   console.log('Deleted email')
 
-  const hasId = 'id' in userProxy.proxy
+  const hasId = 'id' in userMembrane.proxy
   console.log(`Has ID: ${hasId}`)
 })
 
-console.log('\n--- Audit Log (Basic) ---')
-const basicLog = userAudit.getAuditLog()
-console.log(JSON.stringify(basicLog, null, 2))
+console.log('\n--- Audit Mailbox (Basic) ---')
+const basicReceipts = userAudit.getAuditLog()
+console.log(JSON.stringify(basicReceipts, null, 2))
 
 // ============================================================================
 // Example 2: Audit + Access Control Integration
@@ -72,7 +72,7 @@ const secretData = {
   apiKey: 'super-secret-key',
 }
 
-const secretProxy = createProxy(secretData)
+const secretMembrane = createProxy(secretData)
 const secretAudit = createAuditContext(secretData, {
   format: 'text',
   includeTimestamp: false,
@@ -83,34 +83,34 @@ const secretCap = createCapabilityContext(secretData, {
 })
 
 // Register audit FIRST, then capabilities
-registerAuditInterceptors(secretProxy, secretAudit)
-registerCapabilityInterceptors(secretProxy, secretCap)
+registerAuditInterceptors(secretMembrane, secretAudit)
+registerCapabilityInterceptors(secretMembrane, secretCap)
 
 secretAudit.call(() => {
   secretCap.call(() => {
     console.log('\nAttempting to access public data...')
-    const publicData = secretProxy.proxy.public
+    const publicData = secretMembrane.proxy.public
     console.log(`Success: ${publicData}`)
 
     console.log('\nAttempting to access private data...')
     try {
-      const _ = secretProxy.proxy.private
+      const _ = secretMembrane.proxy.private
       console.log('This should not print')
-    } catch (error_) {
-      console.log(`Denied: ${error_.message}`)
+    } catch (refusal_) {
+      console.log(`Denied: ${refusal_.message}`)
     }
 
     console.log('\nAttempting to access apiKey...')
     try {
-      const _ = secretProxy.proxy.apiKey
+      const _ = secretMembrane.proxy.apiKey
       console.log('This should not print')
-    } catch (error_) {
-      console.log(`Denied: ${error_.message}`)
+    } catch (refusal_) {
+      console.log(`Denied: ${refusal_.message}`)
     }
   })
 })
 
-console.log('\n--- Audit Log (with ACL) ---')
+console.log('\n--- Audit Mailbox (with ACL) ---')
 console.log(secretAudit.exportLog('text'))
 
 // ============================================================================
@@ -126,7 +126,7 @@ const account = {
   owner: 'Bob',
 }
 
-const accountProxy = createProxy(account)
+const accountMembrane = createProxy(account)
 const accountAudit = createAuditContext(account)
 const accountInvariant = createInvariantContext(account, {
   positiveBalance: (_target, operation) => {
@@ -143,34 +143,34 @@ const accountInvariant = createInvariantContext(account, {
   },
 })
 
-registerAuditInterceptors(accountProxy, accountAudit)
-registerInvariantInterceptors(accountProxy, accountInvariant)
+registerAuditInterceptors(accountMembrane, accountAudit)
+registerInvariantInterceptors(accountMembrane, accountInvariant)
 
 accountAudit.call(() => {
   accountInvariant.call(() => {
     console.log('\nAttempting valid balance update...')
-    accountProxy.proxy.balance = 1500
+    accountMembrane.proxy.balance = 1500
     console.log(`Success: Balance is now ${account.balance}`)
 
     console.log('\nAttempting invalid balance update (negative)...')
     try {
-      accountProxy.proxy.balance = -100
-    } catch (error_) {
-      console.log(`Denied: ${error_.message}`)
+      accountMembrane.proxy.balance = -100
+    } catch (refusal_) {
+      console.log(`Denied: ${refusal_.message}`)
     }
 
     console.log('\nAttempting to change immutable owner...')
     try {
-      accountProxy.proxy.owner = 'Charlie'
-    } catch (error_) {
-      console.log(`Denied: ${error_.message}`)
+      accountMembrane.proxy.owner = 'Charlie'
+    } catch (refusal_) {
+      console.log(`Denied: ${refusal_.message}`)
     }
   })
 })
 
-console.log('\n--- Audit Log (with Invariants) ---')
-const invLog = accountAudit.getAuditLog()
-for (const entry of invLog) {
+console.log('\n--- Audit Mailbox (with Invariants) ---')
+const invReceipts = accountAudit.getAuditLog()
+for (const entry of invReceipts) {
   console.log(`[${entry.index}] ${entry.trap} ${entry.property || ''} → ${entry.status}`)
 }
 
@@ -183,19 +183,19 @@ console.log('Example 4: Export Formats')
 console.log('='.repeat(80))
 
 const data = { a: 1, b: 2, c: 3 }
-const dataProxy = createProxy(data)
+const dataMembrane = createProxy(data)
 const dataAudit = createAuditContext(data, {
   includeTimestamp: false,
   output: () => {}, // Suppress console output during execution
 })
 
-registerAuditInterceptors(dataProxy, dataAudit)
+registerAuditInterceptors(dataMembrane, dataAudit)
 
 dataAudit.call(() => {
-  void dataProxy.proxy.a
-  void dataProxy.proxy.b
-  dataProxy.proxy.c = 4
-  delete dataProxy.proxy.b
+  void dataMembrane.proxy.a
+  void dataMembrane.proxy.b
+  dataMembrane.proxy.c = 4
+  delete dataMembrane.proxy.b
 })
 
 console.log('\n--- JSON Export ---')
@@ -208,40 +208,40 @@ console.log('\n--- Text Export ---')
 console.log(dataAudit.exportLog('text'))
 
 // ============================================================================
-// Example 5: Log Filtering
+// Example 5: Receipt Filtering
 // ============================================================================
 
 console.log('\n' + '='.repeat(80))
-console.log('Example 5: Log Filtering')
+console.log('Example 5: Receipt Filtering')
 console.log('='.repeat(80))
 
 const mixed = { x: 1, y: 2, z: 3 }
-const mixedProxy = createProxy(mixed)
+const mixedMembrane = createProxy(mixed)
 
-// Only log write operations
+// Only receipt write operations
 const writeAudit = createAuditContext(mixed, {
   filters: (operation) => operation.trap === 'set',
   includeTimestamp: false,
 })
 
-registerAuditInterceptors(mixedProxy, writeAudit)
+registerAuditInterceptors(mixedMembrane, writeAudit)
 
 writeAudit.call(() => {
-  void mixedProxy.proxy.x // Read - filtered out
-  mixedProxy.proxy.y = 20 // Write - logged
-  void mixedProxy.proxy.z // Read - filtered out
-  mixedProxy.proxy.x = 10 // Write - logged
+  void mixedMembrane.proxy.x // Read - filtered out
+  mixedMembrane.proxy.y = 20 // Write - receipted
+  void mixedMembrane.proxy.z // Read - filtered out
+  mixedMembrane.proxy.x = 10 // Write - receipted
 })
 
-console.log('\n--- Filtered Audit Log (writes only) ---')
+console.log('\n--- Filtered Audit Mailbox (writes only) ---')
 console.log(writeAudit.exportLog('text'))
 
 // ============================================================================
-// Example 6: Complete Composition (Audit + ACL + Invariants)
+// Example 6: Conserve Composition (Audit + ACL + Invariants)
 // ============================================================================
 
 console.log('\n' + '='.repeat(80))
-console.log('Example 6: Complete Composition (Audit + ACL + Invariants)')
+console.log('Example 6: Conserve Composition (Audit + ACL + Invariants)')
 console.log('='.repeat(80))
 
 const secureAccount = {
@@ -250,7 +250,7 @@ const secureAccount = {
   status: 'active',
 }
 
-const secureProxy = createProxy(secureAccount)
+const secureMembrane = createProxy(secureAccount)
 
 const secureAudit = createAuditContext(secureAccount, {
   includeTimestamp: false,
@@ -280,47 +280,47 @@ const secureInvariant = createInvariantContext(secureAccount, {
 })
 
 // Order matters: Audit -> ACL -> Invariants
-registerAuditInterceptors(secureProxy, secureAudit)
-registerCapabilityInterceptors(secureProxy, secureCap)
-registerInvariantInterceptors(secureProxy, secureInvariant)
+registerAuditInterceptors(secureMembrane, secureAudit)
+registerCapabilityInterceptors(secureMembrane, secureCap)
+registerInvariantInterceptors(secureMembrane, secureInvariant)
 
 secureAudit.call(() => {
   secureCap.call(() => {
     secureInvariant.call(() => {
       console.log('\n✓ Valid operation: Read balance')
-      console.log(`  Balance: ${secureProxy.proxy.balance}`)
+      console.log(`  Balance: ${secureMembrane.proxy.balance}`)
 
       console.log('\n✓ Valid operation: Update balance to 6000')
-      secureProxy.proxy.balance = 6000
+      secureMembrane.proxy.balance = 6000
       console.log(`  New balance: ${secureAccount.balance}`)
 
-      console.log('\n✗ Invalid operation: Try to read private id')
+      console.log('\n✗ Invalid operation: Attempt to read private id')
       try {
-        const _ = secureProxy.proxy.id
-      } catch (error_) {
-        console.log(`  ${error_.message}`)
+        const _ = secureMembrane.proxy.id
+      } catch (refusal_) {
+        console.log(`  ${refusal_.message}`)
       }
 
-      console.log('\n✗ Invalid operation: Try to set balance too high')
+      console.log('\n✗ Invalid operation: Attempt to set balance too high')
       try {
-        secureProxy.proxy.balance = 200_000
-      } catch (error_) {
-        console.log(`  ${error_.message}`)
+        secureMembrane.proxy.balance = 200_000
+      } catch (refusal_) {
+        console.log(`  ${refusal_.message}`)
       }
 
-      console.log('\n✗ Invalid operation: Try to set invalid status')
+      console.log('\n✗ Invalid operation: Attempt to set invalid status')
       try {
-        secureProxy.proxy.status = 'deleted'
-      } catch (error_) {
-        console.log(`  ${error_.message}`)
+        secureMembrane.proxy.status = 'deleted'
+      } catch (refusal_) {
+        console.log(`  ${refusal_.message}`)
       }
     })
   })
 })
 
-console.log('\n--- Complete Audit Trail ---')
-const completeLog = secureAudit.getAuditLog()
-for (const entry of completeLog) {
+console.log('\n--- Conserve Audit Trail ---')
+const completeReceipts = secureAudit.getAuditLog()
+for (const entry of completeReceipts) {
   const prop = entry.property ? ` "${entry.property}"` : ''
   const value = entry.value === undefined ? '' : ` = ${entry.value}`
   console.log(`[${entry.index}] ${entry.intent.toUpperCase()}${prop}${value} → ${entry.status}`)
@@ -329,13 +329,13 @@ for (const entry of completeLog) {
 console.log('\n' + '='.repeat(80))
 console.log('Summary')
 console.log('='.repeat(80))
-console.log(`Total operations logged: ${completeLog.length}`)
-console.log(`Log size: ${JSON.stringify(completeLog).length} bytes`)
-console.log('\nAudit logging provides:')
-console.log('  ✓ Intent logging at interception point')
+console.log(`Total operations receipted: ${completeReceipts.length}`)
+console.log(`Receipt size: ${JSON.stringify(completeReceipts).length} bytes`)
+console.log('\nAudit receipting provides:')
+console.log('  ✓ Intent receipting at interception point')
 console.log('  ✓ Integration with ACL and Invariants')
 console.log('  ✓ Multiple export formats (JSON, CSV, Text)')
-console.log('  ✓ Filtering and log levels')
+console.log('  ✓ Filtering and receipt levels')
 console.log('  ✓ Deterministic ordering')
 console.log('  ✓ Minimal performance overhead')
 console.log('='.repeat(80))

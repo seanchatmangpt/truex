@@ -202,9 +202,9 @@ uppercaseTenant.call(proxy => {
 });
 
 // ============================================================================
-// Example 4: Transform on Set (Validation/Normalization)
+// Example 4: Project on Set (Validation/Normalization)
 // ============================================================================
-console.log('\n--- Example 4: Transform on Set ---');
+console.log('\n--- Example 4: Project on Set ---');
 
 const config = {
   maxUsers: 100,
@@ -519,8 +519,8 @@ testTenant.call(proxy => {
   const rawTarget = getRawTarget(proxy);
 
   console.log('Tenant ID:', tenantId);
-  console.log('Raw target is original:', rawTarget === testData);
-  console.log('Proxy value:', proxy.value);
+  console.log('Raw substrate is original:', rawTarget === testData);
+  console.log('Membrane value:', proxy.value);
 });
 
 console.log('\n=== End of Examples ===');

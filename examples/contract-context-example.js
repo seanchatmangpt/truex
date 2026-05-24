@@ -29,7 +29,7 @@ const userService = {
   },
 }
 
-const { proxy: userProxy } = createProxy(userService.createUser)
+const { proxy: userMembrane } = createProxy(userService.createUser)
 
 const userContractCtx = createContractContext(userService, {
   createUser: {
@@ -45,22 +45,22 @@ const userContractCtx = createContractContext(userService, {
   },
 })
 
-registerContractInterceptors({ proxy: userProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, userContractCtx)
+registerContractInterceptors({ proxy: userMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, userContractCtx)
 
 userContractCtx.call(() => {
   try {
     // Valid user creation
-    const user = userProxy('Alice', 'alice@example.com', 30)
+    const user = userMembrane('Alice', 'alice@example.com', 30)
     console.log('✓ Created user:', user)
-  } catch (error) {
-    console.log('✗ Error:', error.message)
+  } catch (refusal) {
+    console.log('✗ Refusal:', refusal.message)
   }
 
   try {
     // Invalid: wrong email format
-    userProxy('Bob', 'not-an-email', 25)
-  } catch (error) {
-    console.log('✗ Caught expected error:', error.message)
+    userMembrane('Bob', 'not-an-email', 25)
+  } catch (refusal) {
+    console.log('✗ Caught expected refusal:', refusal.message)
   }
 })
 
@@ -91,9 +91,9 @@ const database = {
   },
 }
 
-const { proxy: beginProxy } = createProxy(database.begin)
-const { proxy: queryProxy } = createProxy(database.query)
-const { proxy: commitProxy } = createProxy(database.commit)
+const { proxy: beginMembrane } = createProxy(database.begin)
+const { proxy: queryMembrane } = createProxy(database.query)
+const { proxy: commitMembrane } = createProxy(database.commit)
 
 const dbContractCtx = createContractContext(database, {
   begin: {
@@ -108,29 +108,29 @@ const dbContractCtx = createContractContext(database, {
   },
 })
 
-registerContractInterceptors({ proxy: beginProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, dbContractCtx)
-registerContractInterceptors({ proxy: queryProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, dbContractCtx)
-registerContractInterceptors({ proxy: commitProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, dbContractCtx)
+registerContractInterceptors({ proxy: beginMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, dbContractCtx)
+registerContractInterceptors({ proxy: queryMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, dbContractCtx)
+registerContractInterceptors({ proxy: commitMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, dbContractCtx)
 
 dbContractCtx.call(() => {
   try {
     // Correct sequence
-    beginProxy()
-    queryProxy('SELECT * FROM users')
-    commitProxy()
-    console.log('✓ Transaction completed successfully')
-  } catch (error) {
-    console.log('✗ Error:', error.message)
+    beginMembrane()
+    queryMembrane('SELECT * FROM users')
+    commitMembrane()
+    console.log('✓ Transaction conserved successfully')
+  } catch (refusal) {
+    console.log('✗ Refusal:', refusal.message)
   }
 
   // Reset for next example
   dbContractCtx.resetSequence()
 
   try {
-    // Incorrect sequence: trying to commit before begin
-    commitProxy()
-  } catch (error) {
-    console.log('✗ Caught expected error:', error.message)
+    // Incorrect sequence: attempting to commit before begin
+    commitMembrane()
+  } catch (refusal) {
+    console.log('✗ Caught expected refusal:', refusal.message)
   }
 })
 
@@ -148,7 +148,7 @@ const apiService = {
   },
 }
 
-const { proxy: apiProxy } = createProxy(apiService.fetchData)
+const { proxy: apiMembrane } = createProxy(apiService.fetchData)
 
 const apiContractCtx = createContractContext(apiService, {
   fetchData: {
@@ -161,24 +161,24 @@ const apiContractCtx = createContractContext(apiService, {
   },
 })
 
-registerContractInterceptors({ proxy: apiProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, apiContractCtx)
+registerContractInterceptors({ proxy: apiMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, apiContractCtx)
 
 apiContractCtx.call(() => {
   // First 3 calls should succeed
   for (let index = 0; index < 3; index++) {
     try {
-      const result = apiProxy('/api/users')
+      const result = apiMembrane('/api/users')
       console.log(`✓ Call ${index + 1} succeeded`)
-    } catch (error) {
-      console.log(`✗ Call ${index + 1} failed:`, error.message)
+    } catch (refusal) {
+      console.log(`✗ Call ${index + 1} refused:`, refusal.message)
     }
   }
 
-  // 4th call should fail due to rate limit
+  // 4th call should refuse due to rate limit
   try {
-    apiProxy('/api/users')
-  } catch (error) {
-    console.log('✗ Caught expected error:', error.message)
+    apiMembrane('/api/users')
+  } catch (refusal) {
+    console.log('✗ Caught expected refusal:', refusal.message)
   }
 
   // Check rate limit stats
@@ -203,7 +203,7 @@ const mathService = {
   },
 }
 
-const { proxy: sumProxy } = createProxy(mathService.sum)
+const { proxy: sumMembrane } = createProxy(mathService.sum)
 
 const mathContractCtx = createContractContext(mathService, {
   sum: {
@@ -213,14 +213,14 @@ const mathContractCtx = createContractContext(mathService, {
   },
 })
 
-registerContractInterceptors({ proxy: sumProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, mathContractCtx)
+registerContractInterceptors({ proxy: sumMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, mathContractCtx)
 
 mathContractCtx.call(() => {
   try {
-    const result = sumProxy([1, 2, 3, 4, 5])
+    const result = sumMembrane([1, 2, 3, 4, 5])
     console.log('✓ Pure function result:', result)
-  } catch (error) {
-    console.log('✗ Error:', error.message)
+  } catch (refusal) {
+    console.log('✗ Refusal:', refusal.message)
   }
 })
 
@@ -271,7 +271,7 @@ const secureApi = {
   },
 }
 
-const { proxy: secureProxy } = createProxy(secureApi.authenticatedRequest)
+const { proxy: secureMembrane } = createProxy(secureApi.authenticatedRequest)
 
 const secureContractCtx = createContractContext(secureApi, {
   authenticatedRequest: {
@@ -293,21 +293,21 @@ const secureContractCtx = createContractContext(secureApi, {
   },
 })
 
-registerContractInterceptors({ proxy: secureProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, secureContractCtx)
+registerContractInterceptors({ proxy: secureMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, secureContractCtx)
 
 secureContractCtx.call(() => {
   try {
-    const result = secureProxy('valid_token_12345678901234567890', '/api/secure/data')
-    console.log('✓ Secure request succeeded:', result)
-  } catch (error) {
-    console.log('✗ Error:', error.message)
+    const result = secureMembrane('valid_token_12345678901234567890', '/api/secure/data')
+    console.log('✓ Secure attempt succeeded:', result)
+  } catch (refusal) {
+    console.log('✗ Refusal:', refusal.message)
   }
 
   try {
-    // Should fail: token too short
-    secureProxy('short', '/api/secure/data')
-  } catch (error) {
-    console.log('✗ Caught expected error:', error.message)
+    // Should refuse: token too short
+    secureMembrane('short', '/api/secure/data')
+  } catch (refusal) {
+    console.log('✗ Caught expected refusal:', refusal.message)
   }
 
   // Check stats
@@ -330,7 +330,7 @@ const User = function User(name, email) {
   this.createdAt = new Date()
 }
 
-const { proxy: UserProxy } = createProxy(User)
+const { proxy: UserMembrane } = createProxy(User)
 
 const constructorContractCtx = createContractContext(User, {
   User: {
@@ -343,22 +343,22 @@ const constructorContractCtx = createContractContext(User, {
   },
 })
 
-registerContractInterceptors({ proxy: UserProxy, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, constructorContractCtx)
+registerContractInterceptors({ proxy: UserMembrane, defineApplyInterceptor: (fn) => fn, defineConstructInterceptor: (fn) => fn }, constructorContractCtx)
 
 constructorContractCtx.call(() => {
   try {
-    const user = new UserProxy('Charlie', 'charlie@example.com')
+    const user = new UserMembrane('Charlie', 'charlie@example.com')
     console.log('✓ User created:', user)
-  } catch (error) {
-    console.log('✗ Error:', error.message)
+  } catch (refusal) {
+    console.log('✗ Refusal:', refusal.message)
   }
 
   try {
-    // Should fail: invalid email
-    new UserProxy('Dave', 'not-an-email')
-  } catch (error) {
-    console.log('✗ Caught expected error:', error.message)
+    // Should refuse: invalid email
+    new UserMembrane('Dave', 'not-an-email')
+  } catch (refusal) {
+    console.log('✗ Caught expected refusal:', refusal.message)
   }
 })
 
-console.log('\n=== Contract Context Example Complete ===')
+console.log('\n=== Contract Context Example Conserve ===')

@@ -41,24 +41,24 @@ async function run() {
       actor: "person_admin_001",
     },
     () => {
-      // These changes happen ONLY to a shadow target and shadow OCEL!
+      // These changes happen ONLY to a shadow substrate and shadow OCEL!
       church.services.push("2026-05-24T11:00:00Z")
       church.name = "Zoe Church (Updated)"
     }
   )
 
-  console.log("Is target mutated by simulation? ->", churchTarget.name === "Zoe Church" ? "No, safe!" : "Yes, leaked!")
+  console.log("Is substrate mutated by simulation? ->", churchTarget.name === "Zoe Church" ? "No, safe!" : "Yes, leaked!")
 
   // 4. Examine Simulation Trajectory and Decide
   if (simulation.trajectory.valid) {
     console.log("Simulation was valid, committing to reality...")
     simulation.settle()
   } else {
-    console.log("Simulation failed, discarding...", simulation.trajectory.result)
+    console.log("Simulation refused, discarding...", simulation.trajectory.result)
     simulation.discard()
   }
 
-  console.log("Final Target Name:", churchTarget.name)
+  console.log("Final Substrate Name:", churchTarget.name)
 
   // 5. Export Envelopes (Ready for Truex cryptographic receipts)
   const finalOcelJson = ocel.exportEnvelope("trace_demo", "span_membrane")

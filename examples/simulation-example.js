@@ -2,12 +2,12 @@
  * Simulation & Counterfactual Execution Example
  *
  * This example demonstrates the simulation capability which allows
- * speculative execution of code paths without mutating the real target.
+ * speculative execution of code paths without mutating the real substrate.
  *
  * Key Features:
  * - Speculative execution - run "what-if" scenarios
- * - Isolation - real target never modified during speculation
- * - Commit/Abort - apply or discard changes
+ * - Isolation - real substrate never modified during speculation
+ * - Commit/Abort - promote or discard changes
  * - Changesets - see what would change
  * - Nested simulations - simulations within simulations
  * - Checkpoints - save and restore speculative state
@@ -40,7 +40,7 @@ console.log('\n1. BASIC SPECULATIVE EXECUTION')
 console.log('-'.repeat(70))
 
 const account = { balance: 1000, transactions: [] }
-const { proxy: accountProxy, ...accountInterface } = createProxy(account)
+const { proxy: accountMembrane, ...accountInterface } = createProxy(account)
 const accountSim = createSimulationContext(account)
 registerSimulationInterceptors(accountInterface, accountSim)
 
@@ -48,14 +48,14 @@ console.log('Initial balance:', account.balance)
 
 // Run a what-if scenario
 accountSim.speculate(() => {
-  accountProxy.balance -= 500
-  accountProxy.transactions.push({ type: 'withdrawal', amount: 500 })
+  accountMembrane.balance -= 500
+  accountMembrane.transactions.push({ type: 'withdrawal', amount: 500 })
 
-  console.log('Inside speculation - balance:', accountProxy.balance)
-  console.log('Inside speculation - transactions:', accountProxy.transactions.length)
+  console.log('Inside speculation - balance:', accountMembrane.balance)
+  console.log('Inside speculation - transactions:', accountMembrane.transactions.length)
 })
 
-// Real target is unchanged!
+// Real substrate is unchanged!
 console.log('After speculation - real balance:', account.balance)
 console.log('After speculation - real transactions:', account.transactions.length)
 
@@ -66,7 +66,7 @@ console.log('\n2. COMMIT AND ABORT')
 console.log('-'.repeat(70))
 
 const inventory = { apple: 10, banana: 20, orange: 15 }
-const { proxy: inventoryProxy, ...inventoryInterface } = createProxy(inventory)
+const { proxy: inventoryMembrane, ...inventoryInterface } = createProxy(inventory)
 const inventorySim = createSimulationContext(inventory)
 registerSimulationInterceptors(inventoryInterface, inventorySim)
 
@@ -74,8 +74,8 @@ console.log('Initial inventory:', inventory)
 
 // Scenario 1: Test a purchase and commit
 inventorySim.speculate(() => {
-  inventoryProxy.apple -= 5
-  inventoryProxy.banana -= 3
+  inventoryMembrane.apple -= 5
+  inventoryMembrane.banana -= 3
 })
 
 const changeset1 = inventorySim.getChangeSet()
@@ -86,8 +86,8 @@ console.log('After commit:', inventory)
 
 // Scenario 2: Test a purchase and abort
 inventorySim.speculate(() => {
-  inventoryProxy.apple -= 20 // Would go negative!
-  inventoryProxy.banana -= 15
+  inventoryMembrane.apple -= 20 // Would go negative!
+  inventoryMembrane.banana -= 15
 })
 
 console.log('\nSpeculative state:', inventorySim.getSpeculativeState())
@@ -102,14 +102,14 @@ console.log('\n3. CHANGESETS - WHAT WOULD CHANGE')
 console.log('-'.repeat(70))
 
 const user = { name: 'Alice', age: 30, email: 'alice@example.com' }
-const { proxy: userProxy, ...userInterface } = createProxy(user)
+const { proxy: userMembrane, ...userInterface } = createProxy(user)
 const userSim = createSimulationContext(user)
 registerSimulationInterceptors(userInterface, userSim)
 
 userSim.speculate(() => {
-  userProxy.age = 31 // Modified
-  userProxy.city = 'New York' // Added
-  delete userProxy.email // Deleted
+  userMembrane.age = 31 // Modified
+  userMembrane.city = 'New York' // Added
+  delete userMembrane.email // Deleted
 })
 
 const changeset = userSim.getChangeSet()
@@ -128,26 +128,26 @@ console.log('\n4. NESTED SIMULATIONS')
 console.log('-'.repeat(70))
 
 const game = { score: 100, lives: 3, level: 1 }
-const { proxy: gameProxy, ...gameInterface } = createProxy(game)
+const { proxy: gameMembrane, ...gameInterface } = createProxy(game)
 const gameSim = createSimulationContext(game, { nested: true })
 registerSimulationInterceptors(gameInterface, gameSim)
 
 console.log('Initial game state:', game)
 
 gameSim.speculate(() => {
-  gameProxy.score += 50
-  gameProxy.level = 2
-  console.log('\nOuter speculation - score:', gameProxy.score, 'level:', gameProxy.level)
+  gameMembrane.score += 50
+  gameMembrane.level = 2
+  console.log('\nOuter speculation - score:', gameMembrane.score, 'level:', gameMembrane.level)
 
   // Nested speculation within speculation
   gameSim.speculate(() => {
-    gameProxy.score += 100
-    gameProxy.lives -= 1
-    console.log('  Inner speculation - score:', gameProxy.score, 'lives:', gameProxy.lives)
+    gameMembrane.score += 100
+    gameMembrane.lives -= 1
+    console.log('  Inner speculation - score:', gameMembrane.score, 'lives:', gameMembrane.lives)
   })
 
   // After inner speculation, outer continues
-  console.log('Back to outer speculation - score:', gameProxy.score)
+  console.log('Back to outer speculation - score:', gameMembrane.score)
 })
 
 // Real game state unchanged
@@ -160,27 +160,27 @@ console.log('\n5. CHECKPOINTS AND RESTORE')
 console.log('-'.repeat(70))
 
 const document = { title: '', content: '', version: 1 }
-const { proxy: docProxy, ...docInterface } = createProxy(document)
+const { proxy: docMembrane, ...docInterface } = createProxy(document)
 const docSim = createSimulationContext(document, { checkpoint: true })
 registerSimulationInterceptors(docInterface, docSim)
 
 docSim.speculate(() => {
-  docProxy.title = 'My Document'
-  docProxy.version = 2
+  docMembrane.title = 'My Document'
+  docMembrane.version = 2
 
   const checkpoint1 = docSim.checkpoint()
   console.log('Created checkpoint 1:', checkpoint1.slice(0, 8) + '...')
   console.log('State at checkpoint 1:', docSim.getSpeculativeState())
 
-  docProxy.content = 'Some content'
-  docProxy.version = 3
+  docMembrane.content = 'Some content'
+  docMembrane.version = 3
 
   const checkpoint2 = docSim.checkpoint()
   console.log('\nCreated checkpoint 2:', checkpoint2.slice(0, 8) + '...')
   console.log('State at checkpoint 2:', docSim.getSpeculativeState())
 
-  docProxy.content = 'More content'
-  docProxy.version = 4
+  docMembrane.content = 'More content'
+  docMembrane.version = 4
   console.log('\nCurrent state:', docSim.getSpeculativeState())
 
   // Restore to checkpoint 1
@@ -197,19 +197,19 @@ console.log('\n6. EXECUTION TREE')
 console.log('-'.repeat(70))
 
 const data = { value: 0 }
-const { proxy: dataProxy, ...dataInterface } = createProxy(data)
+const { proxy: dataMembrane, ...dataInterface } = createProxy(data)
 const dataSim = createSimulationContext(data, { nested: true })
 registerSimulationInterceptors(dataInterface, dataSim)
 
 dataSim.speculate(() => {
-  dataProxy.value = 10
+  dataMembrane.value = 10
 
   dataSim.speculate(() => {
-    dataProxy.value = 20
+    dataMembrane.value = 20
   })
 
   dataSim.speculate(() => {
-    dataProxy.value = 30
+    dataMembrane.value = 30
   })
 })
 
@@ -228,7 +228,7 @@ console.log('\n7. COMPOSITION WITH INVARIANTS')
 console.log('-'.repeat(70))
 
 const player = { health: 100, mana: 50 }
-const { proxy: playerProxy, ...playerInterface } = createProxy(player)
+const { proxy: playerMembrane, ...playerInterface } = createProxy(player)
 
 // Setup invariants first
 const playerInv = createInvariantContext(player, {
@@ -246,16 +246,16 @@ console.log('Initial player:', player)
 playerInv.call(() => {
   try {
     playerSim.speculate(() => {
-      playerProxy.health = 150 // Would violate invariant!
+      playerMembrane.health = 150 // Would violate invariant!
     })
-  } catch (error) {
-    console.log('\nCaught invariant violation:', error.message)
+  } catch (refusal) {
+    console.log('\nCaught invariant violation:', refusal.message)
   }
 
   // Valid change
   playerSim.speculate(() => {
-    playerProxy.health = 80
-    playerProxy.mana = 30
+    playerMembrane.health = 80
+    playerMembrane.mana = 30
   })
 
   console.log('Speculative state (valid):', playerSim.getSpeculativeState())
@@ -269,7 +269,7 @@ console.log('\n8. COMPOSITION WITH TRANSACTIONS')
 console.log('-'.repeat(70))
 
 const bankAccount = { balance: 1000, pendingTransfers: [] }
-const { proxy: bankProxy, ...bankInterface } = createProxy(bankAccount)
+const { proxy: bankMembrane, ...bankInterface } = createProxy(bankAccount)
 
 const bankTx = createTransactionContext(bankAccount)
 registerTransactionInterceptors(bankInterface, bankTx)
@@ -282,13 +282,13 @@ console.log('Initial account:', bankAccount)
 // Simulate a transaction
 bankSim.speculate(() => {
   bankTx.call(() => {
-    bankProxy.balance -= 200
-    bankProxy.pendingTransfers.push({ amount: 200, to: 'Bob' })
+    bankMembrane.balance -= 200
+    bankMembrane.pendingTransfers.push({ amount: 200, to: 'Bob' })
   })
 
   // Transaction is journaled in speculative state
   console.log('\nInside simulation:')
-  console.log('  Speculative balance:', bankProxy.balance)
+  console.log('  Speculative balance:', bankMembrane.balance)
   console.log('  Transaction journal:', bankTx.getJournal().length, 'entries')
 })
 
@@ -309,7 +309,7 @@ const gameState = {
   turn: 1,
 }
 
-const { proxy: gameStateProxy, ...gameStateInterface } = createProxy(gameState)
+const { proxy: gameStateMembrane, ...gameStateInterface } = createProxy(gameState)
 const gameStateSim = createSimulationContext(gameState, { nested: true })
 registerSimulationInterceptors(gameStateInterface, gameStateSim)
 
@@ -326,15 +326,15 @@ console.log('\nEvaluating move options:')
 
 for (const move of moveOptions) {
   gameStateSim.speculate(() => {
-    gameStateProxy.player.x += move.dx
-    gameStateProxy.player.y += move.dy
-    gameStateProxy.turn += 1
+    gameStateMembrane.player.x += move.dx
+    gameStateMembrane.player.y += move.dy
+    gameStateMembrane.turn += 1
 
     if (move.attack) {
       // Find nearest enemy
-      const nearest = gameStateProxy.enemies[0]
+      const nearest = gameStateMembrane.enemies[0]
       nearest.health -= 25
-      gameStateProxy.player.health -= 10 // Counter-attack
+      gameStateMembrane.player.health -= 10 // Counter-attack
     }
 
     const result = gameStateSim.getSpeculativeState()
@@ -354,7 +354,7 @@ console.log('\n10. MULTIPLE SPECULATIONS IN SEQUENCE')
 console.log('-'.repeat(70))
 
 const counter = { value: 0 }
-const { proxy: counterProxy, ...counterInterface } = createProxy(counter)
+const { proxy: counterMembrane, ...counterInterface } = createProxy(counter)
 const counterSim = createSimulationContext(counter)
 registerSimulationInterceptors(counterInterface, counterSim)
 
@@ -363,7 +363,7 @@ console.log('Initial counter:', counter.value)
 // Each speculation is independent
 for (let index = 1; index <= 3; index++) {
   counterSim.speculate(() => {
-    counterProxy.value = index * 10
+    counterMembrane.value = index * 10
   })
 
   console.log(`\nAfter speculation ${index}:`)

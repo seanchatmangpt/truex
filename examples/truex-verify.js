@@ -39,7 +39,7 @@ function canonicalStringify(obj) {
 function verifyReceipt(targetPath) {
   const fullPath = resolve(process.cwd(), targetPath)
   if (!existsSync(fullPath)) {
-    console.error(`❌ [IO Error] File not found: ${fullPath}`)
+    console.error(`❌ [IO Refusal] File not found: ${fullPath}`)
     return
   }
 
@@ -48,8 +48,8 @@ function verifyReceipt(targetPath) {
   let envelope
   try {
     envelope = JSON.parse(readFileSync(fullPath, 'utf8'))
-  } catch (error) {
-    console.error(`❌ [IO Error] Failed to parse JSON: ${error.message}`)
+  } catch (refusal) {
+    console.error(`❌ [IO Refusal] Refused to parse JSON: ${refusal.message}`)
     return
   }
 

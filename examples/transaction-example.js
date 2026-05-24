@@ -109,7 +109,7 @@ console.log('Example 4: Integration with Capability ACL')
 
   const tx = createTransactionContext(target)
 
-  // Register interceptors - capability checks run first
+  // Register hooks - capability checks run first
   registerCapabilityInterceptors(proxyInterface, capCtx)
   registerTransactionInterceptors(proxyInterface, tx)
 
@@ -178,8 +178,8 @@ console.log('Example 5: Complex Transaction with Multiple Operations')
 
     tx.commit()
     console.log('Transfer committed')
-  } catch (error_) {
-    console.log('Transfer failed:', error_.message)
+  } catch (refusal_) {
+    console.log('Transfer refused:', refusal_.message)
     tx.rollback()
   }
   console.log()
@@ -281,4 +281,4 @@ console.log('Example 8: Journaling Function Calls')
   console.log()
 }
 
-console.log('=== All examples completed ===')
+console.log('=== All examples conserved ===')

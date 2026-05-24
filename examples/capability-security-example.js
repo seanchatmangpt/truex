@@ -24,7 +24,7 @@ const document = {
   metadata: { created: '2024-01-01' }
 }
 
-const { proxy: docProxy, ...docInterface } = createProxy(document)
+const { proxy: docMembrane, ...docInterface } = createProxy(document)
 
 // Create a read-only capability (can read title and author, but not content)
 const readOnlyCtx = createCapabilityContext(document, {
@@ -36,17 +36,17 @@ registerCapabilityInterceptors(docInterface, readOnlyCtx)
 
 readOnlyCtx.call(() => {
   console.log('Read-only access:')
-  console.log('  Title:', docProxy.title) // ✓ Allowed
-  console.log('  Author:', docProxy.author) // ✓ Allowed
+  console.log('  Title:', docMembrane.title) // ✓ Allowed
+  console.log('  Author:', docMembrane.author) // ✓ Allowed
 
   try {
-    console.log('  Content:', docProxy.content) // ✗ Denied
+    console.log('  Content:', docMembrane.content) // ✗ Denied
   } catch {
     console.log('  Content: Access denied ✗')
   }
 
   try {
-    docProxy.title = 'Modified Title' // ✗ Denied
+    docMembrane.title = 'Modified Title' // ✗ Denied
     console.log('  Write: Success')
   } catch {
     console.log('  Write: Denied ✗')
@@ -66,24 +66,24 @@ const database = {
   secretKey: 'super-secret-key'
 }
 
-// Public proxy - minimal access
-const { proxy: publicProxy, ...publicInterface } = createProxy(database)
+// Public membrane - minimal access
+const { proxy: publicMembrane, ...publicInterface } = createProxy(database)
 const publicCtx = createCapabilityContext(database, {
   canRead: new Set(['publicData']),
   canWrite: new Set(),
 })
 registerCapabilityInterceptors(publicInterface, publicCtx)
 
-// User proxy - more access
-const { proxy: userProxy, ...userInterface } = createProxy(database)
+// User membrane - more access
+const { proxy: userMembrane, ...userInterface } = createProxy(database)
 const userCtx = createCapabilityContext(database, {
   canRead: new Set(['publicData', 'userData']),
   canWrite: new Set(['userData']),
 })
 registerCapabilityInterceptors(userInterface, userCtx)
 
-// Admin proxy - full access
-const { proxy: adminProxy, ...adminInterface } = createProxy(database)
+// Admin membrane - full access
+const { proxy: adminMembrane, ...adminInterface } = createProxy(database)
 const adminCtx = createCapabilityContext(database, {
   canRead: new Set(['publicData', 'userData', 'adminData', 'secretKey']),
   canWrite: new Set(['publicData', 'userData', 'adminData']),
@@ -93,9 +93,9 @@ registerCapabilityInterceptors(adminInterface, adminCtx)
 
 console.log('Public context:')
 publicCtx.call(() => {
-  console.log('  publicData:', publicProxy.publicData) // ✓
+  console.log('  publicData:', publicMembrane.publicData) // ✓
   try {
-    console.log('  userData:', publicProxy.userData)
+    console.log('  userData:', publicMembrane.userData)
   } catch {
     console.log('  userData: Access denied ✗')
   }
@@ -103,12 +103,12 @@ publicCtx.call(() => {
 
 console.log('\nUser context:')
 userCtx.call(() => {
-  console.log('  publicData:', userProxy.publicData) // ✓
-  console.log('  userData:', userProxy.userData) // ✓
-  userProxy.userData = 'Updated user data' // ✓
+  console.log('  publicData:', userMembrane.publicData) // ✓
+  console.log('  userData:', userMembrane.userData) // ✓
+  userMembrane.userData = 'Updated user data' // ✓
   console.log('  Updated userData:', database.userData)
   try {
-    console.log('  adminData:', userProxy.adminData)
+    console.log('  adminData:', userMembrane.adminData)
   } catch {
     console.log('  adminData: Access denied ✗')
   }
@@ -116,10 +116,10 @@ userCtx.call(() => {
 
 console.log('\nAdmin context:')
 adminCtx.call(() => {
-  console.log('  publicData:', adminProxy.publicData) // ✓
-  console.log('  userData:', adminProxy.userData) // ✓
-  console.log('  adminData:', adminProxy.adminData) // ✓
-  console.log('  secretKey:', adminProxy.secretKey) // ✓
+  console.log('  publicData:', adminMembrane.publicData) // ✓
+  console.log('  userData:', adminMembrane.userData) // ✓
+  console.log('  adminData:', adminMembrane.adminData) // ✓
+  console.log('  secretKey:', adminMembrane.secretKey) // ✓
 })
 
 console.log()
@@ -136,7 +136,7 @@ const apiConfig = {
   private_key: 'sk_456',
 }
 
-const { proxy: apiProxy, ...apiInterface } = createProxy(apiConfig)
+const { proxy: apiMembrane, ...apiInterface } = createProxy(apiConfig)
 
 // Capability: Can read anything starting with 'public_', can write nothing
 const apiCtx = createCapabilityContext(apiConfig, {
@@ -148,16 +148,16 @@ registerCapabilityInterceptors(apiInterface, apiCtx)
 
 apiCtx.call(() => {
   console.log('Function-based read capability (public_* only):')
-  console.log('  public_endpoint:', apiProxy.public_endpoint) // ✓
-  console.log('  public_key:', apiProxy.public_key) // ✓
+  console.log('  public_endpoint:', apiMembrane.public_endpoint) // ✓
+  console.log('  public_key:', apiMembrane.public_key) // ✓
 
   try {
-    console.log('  private_endpoint:', apiProxy.private_endpoint)
+    console.log('  private_endpoint:', apiMembrane.private_endpoint)
   } catch {
     console.log('  private_endpoint: Access denied ✗')
   }
 
-  const keys = Reflect.ownKeys(apiProxy)
+  const keys = Reflect.ownKeys(apiMembrane)
   console.log('  Visible keys:', keys) // Only public_* keys
 })
 
@@ -182,7 +182,7 @@ const calculator = function (operation, a, b) {
   }
 }
 
-const { proxy: calcProxy, ...calcInterface } = createProxy(calculator)
+const { proxy: calcMembrane, ...calcInterface } = createProxy(calculator)
 
 // Only allow safe operations (no division to prevent divide-by-zero exploits)
 const calcCtx = createCapabilityContext(calculator, {
@@ -195,11 +195,11 @@ registerCapabilityInterceptors(calcInterface, calcCtx)
 
 calcCtx.call(() => {
   console.log('Safe operations allowed:')
-  console.log('  add(5, 3):', calcProxy('add', 5, 3)) // ✓
-  console.log('  multiply(4, 7):', calcProxy('multiply', 4, 7)) // ✓
+  console.log('  add(5, 3):', calcMembrane('add', 5, 3)) // ✓
+  console.log('  multiply(4, 7):', calcMembrane('multiply', 4, 7)) // ✓
 
   try {
-    console.log('  divide(10, 2):', calcProxy('divide', 10, 2))
+    console.log('  divide(10, 2):', calcMembrane('divide', 10, 2))
   } catch {
     console.log('  divide(10, 2): Access denied ✗')
   }
@@ -218,13 +218,13 @@ class User {
   }
 }
 
-const { proxy: UserProxy, ...userClassInterface } = createProxy(User)
+const { proxy: UserMembrane, ...userClassInterface } = createProxy(User)
 
 // Only allow construction of non-admin users
 const constructCtx = createCapabilityContext(User, {
   canRead: new Set(['prototype', 'name', 'length']), // Allow reading constructor metadata
   canConstruct: (target, [name, role]) => {
-    return role !== 'admin' // Prevent admin creation through this proxy
+    return role !== 'admin' // Prevent admin creation through this membrane
   },
 })
 
@@ -233,11 +233,11 @@ registerCapabilityInterceptors(userClassInterface, constructCtx)
 constructCtx.call(() => {
   console.log('Constructor capability (non-admin only):')
 
-  const user1 = new UserProxy('Alice', 'user')
+  const user1 = new UserMembrane('Alice', 'user')
   console.log('  Created user:', user1.name, '-', user1.role) // ✓
 
   try {
-    const admin = new UserProxy('Bob', 'admin')
+    const admin = new UserMembrane('Bob', 'admin')
     console.log('  Created admin:', admin.name)
   } catch {
     console.log('  Admin creation: Access denied ✗')
@@ -246,8 +246,8 @@ constructCtx.call(() => {
 
 console.log()
 
-// Example 6: Composing with Other Interceptors
-console.log('Example 6: Composition with Logging')
+// Example 6: Composing with Other Hooks
+console.log('Example 6: Composition with Receipting')
 console.log('-'.repeat(50))
 
 const secureStore = {
@@ -257,16 +257,16 @@ const secureStore = {
 }
 
 const storeInterface = createProxy(secureStore)
-const storeProxy = storeInterface.proxy
+const storeMembrane = storeInterface.proxy
 
-// Add logging interceptor first
-const accessLog = []
+// Add receipting hook first
+const accessReceipts = []
 storeInterface.defineGetInterceptor((target, prop) => {
-  accessLog.push({ prop: String(prop), timestamp: Date.now() })
-  return undefined // Continue to next interceptor
+  accessReceipts.push({ prop: String(prop), timestamp: Date.now() })
+  return undefined // Continue to next hook
 })
 
-// Add capability interceptor
+// Add capability hook
 const storeCtx = createCapabilityContext(secureStore, {
   canRead: new Set(['apiUrl', 'timeout']), // apiKey is secret
 })
@@ -274,17 +274,17 @@ const storeCtx = createCapabilityContext(secureStore, {
 registerCapabilityInterceptors(storeInterface, storeCtx)
 
 storeCtx.call(() => {
-  console.log('Composed interceptors (logging + capabilities):')
-  console.log('  apiUrl:', storeProxy.apiUrl) // Logged and allowed
+  console.log('Composed hooks (receipting + capabilities):')
+  console.log('  apiUrl:', storeMembrane.apiUrl) // Receipted and allowed
 
   try {
-    console.log('  apiKey:', storeProxy.apiKey) // Logged but denied
+    console.log('  apiKey:', storeMembrane.apiKey) // Receipted but denied
   } catch {
     console.log('  apiKey: Access denied ✗')
   }
 
-  console.log('  Access log entries:', accessLog.length)
-  console.log('  Logged properties:', accessLog.map(l => l.prop))
+  console.log('  Access receipt entries:', accessReceipts.length)
+  console.log('  Receipted properties:', accessReceipts.map(l => l.prop))
 })
 
 console.log()
@@ -299,7 +299,7 @@ const sharedResource = {
 }
 
 const resourceInterface = createProxy(sharedResource)
-const resourceProxy = resourceInterface.proxy
+const resourceMembrane = resourceInterface.proxy
 
 const ctx1 = createCapabilityContext(sharedResource, {
   canRead: new Set(['data']),
@@ -313,9 +313,9 @@ registerCapabilityInterceptors(resourceInterface, ctx1)
 
 console.log('Context 1 (can read "data"):')
 ctx1.call(() => {
-  console.log('  data:', resourceProxy.data) // ✓
+  console.log('  data:', resourceMembrane.data) // ✓
   try {
-    console.log('  counter:', resourceProxy.counter)
+    console.log('  counter:', resourceMembrane.counter)
   } catch {
     console.log('  counter: Access denied ✗')
   }
@@ -323,16 +323,16 @@ ctx1.call(() => {
 
 console.log('\nOutside any context:')
 try {
-  console.log('  data:', resourceProxy.data)
+  console.log('  data:', resourceMembrane.data)
 } catch {
   console.log('  data: No capability context ✗')
 }
 
 console.log()
-console.log('=== Examples Complete ===')
+console.log('=== Examples Conserve ===')
 console.log('\nKey Takeaways:')
 console.log('1. Capabilities are possession-based: having the context = having authority')
-console.log('2. Fail-closed: operations are denied by default unless explicitly granted')
+console.log('2. Refuse-closed: operations are denied by default unless explicitly granted')
 console.log('3. Context-local: permissions are tied to execution context, no global state')
-console.log('4. Composable: works alongside other interceptors without interference')
+console.log('4. Composable: works alongside other hooks without interference')
 console.log('5. Flexible: supports both Set-based and function-based capabilities')
