@@ -1,0 +1,17 @@
+{
+  "primitive": "capability-breakpoints",
+  "passed": true,
+  "invariants": [
+    "Capability Breakpoints: ACL context boundary validation verified.",
+    "Capability Breakpoints: Nested transactions rollback correctness verified.",
+    "Capability Breakpoints: Deterministic versus non-deterministic replay verified.",
+    "Capability Breakpoints: Circular invariant and deep virtual computations verified.",
+    "Capability Breakpoints: Multi-tenant scaling limits and state bleed checks verified.",
+    "Capability Breakpoints: Audit log saturation and heap overhead metrics verified."
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1694
+  },
+  "receiptHash": "9ba62814c7b6e0ae25bb2337b3cb72557cddab1670fb6a05de7ed95dc72b0596"
+}

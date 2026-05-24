@@ -1,0 +1,16 @@
+{
+  "primitive": "otp-breakpoints",
+  "passed": true,
+  "invariants": [
+    "[O1] Mailbox Pressure (Interleaving & queue limit rejections): confirmed(445200.000) + refused(0.000) + failed(0.000) + skipped(0.000) == attempted(445200.000)",
+    "[O2] Supervisor Pressure (Restart budget & crash limits under persistent crash conditions): restarted(992.000) + halted(120.000) + quarantined(0.000) + failed(0.000) == attempted(1112.000)",
+    "[O3] Quarantine Pressure (Poison message isolation & queue limits): quarantined(1112.000) + leaked(0.000) + refused(0.000) + failed(0.000) == attempted(1112.000)",
+    "[O4] Replay Pressure (Cryptographic replay validation & tamper detection under tested mutations): converged(1000.000) + diverged(0.000) + timedOut(0.000) + notAttempted(0.000) == attempted(1000.000)",
+    "[O5] Runtime Resource Pressure (Resource consumption and overhead thresholds): tolerated(126.000) + degraded(8.000) + refused(48.000) + unsafe(0.000) + failed(0.000) == attempted(182.000)"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 4
+  },
+  "receiptHash": "1df806438aac680616e698d299cd5020341239f891b839e82488f48f0fbdffdc"
+}

@@ -1,0 +1,29 @@
+{
+  "primitive": "architecture",
+  "passed": true,
+  "invariants": [
+    "C4 diagrams generated",
+    "Contains section: 0. Generation Receipt",
+    "Contains section: 1. System Landscape",
+    "Contains section: 2. System Context",
+    "Contains section: 3. Container Architecture",
+    "Contains section: 4. Deployment Architecture",
+    "Contains section: 5. Component Diagrams",
+    "Contains section: 6. Dynamic Diagrams",
+    "Contains section: 7. Code Maps",
+    "Contains section: 8. Architecture Accounting",
+    "Contains section: 9. Orphans / Drift / Unmapped Files",
+    "Contains section: 10. Final Classification",
+    "deployment diagram present",
+    "dynamic diagrams present",
+    "AST coverage complete",
+    "orphan files reported",
+    "receipt hash emitted",
+    "diagram hashes stable",
+    "C4 map references source/test/report evidence"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 0
+  }
+}

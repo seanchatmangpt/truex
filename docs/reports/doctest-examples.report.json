@@ -1,0 +1,462 @@
+{
+  "summary": {
+    "total": 50,
+    "attempted": 48,
+    "passed": 48,
+    "failed": 0,
+    "skipped": 1,
+    "deferred": 1
+  },
+  "results": [
+    {
+      "sourceFile": "docs/doctest-sample.md",
+      "lineStart": 7,
+      "lineEnd": 13,
+      "name": "hash-assertion",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-sample.md",
+      "lineStart": 17,
+      "lineEnd": 20,
+      "name": "doctor-prove-hook",
+      "type": "bash",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-sample.md",
+      "lineStart": 24,
+      "lineEnd": 27,
+      "name": "ignored-doctest",
+      "type": "typescript",
+      "status": "skipped",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-sample.md",
+      "lineStart": 29,
+      "lineEnd": 32,
+      "name": "deferred-doctest",
+      "type": "typescript",
+      "status": "deferred",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 8,
+      "lineEnd": 29,
+      "name": "first-hook",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 34,
+      "lineEnd": 58,
+      "name": "replay-confirmed-receipt",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 63,
+      "lineEnd": 88,
+      "name": "tampered-receipt-fails",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 93,
+      "lineEnd": 128,
+      "name": "capacity-breach-refusal",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 133,
+      "lineEnd": 146,
+      "name": "deterministic-context-same-seed",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 151,
+      "lineEnd": 160,
+      "name": "deterministic-context-different-seed",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 165,
+      "lineEnd": 173,
+      "name": "hash-canonicalization-stability",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 178,
+      "lineEnd": 181,
+      "name": "doctor-prove-replay-cmd",
+      "type": "bash",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 186,
+      "lineEnd": 200,
+      "name": "graph-delta-parser-valid",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 205,
+      "lineEnd": 217,
+      "name": "graph-delta-parser-malformed",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 222,
+      "lineEnd": 292,
+      "name": "topology-abc-validation",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/doctest-tutorial.md",
+      "lineStart": 297,
+      "lineEnd": 314,
+      "name": "otp-mailbox-fifo",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 7,
+      "lineEnd": 11,
+      "name": "reactive-aggregator",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 15,
+      "lineEnd": 19,
+      "name": "reactive-claim-check",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 23,
+      "lineEnd": 27,
+      "name": "reactive-competing-consumer",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 31,
+      "lineEnd": 35,
+      "name": "reactive-content-based-router",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 39,
+      "lineEnd": 43,
+      "name": "reactive-content-enricher",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 47,
+      "lineEnd": 51,
+      "name": "reactive-content-filter",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 55,
+      "lineEnd": 59,
+      "name": "reactive-datatype-channel",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 63,
+      "lineEnd": 67,
+      "name": "reactive-domain-model-prototype",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 71,
+      "lineEnd": 75,
+      "name": "reactive-dynamic-router",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 79,
+      "lineEnd": 83,
+      "name": "reactive-envelope-wrapper",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 87,
+      "lineEnd": 91,
+      "name": "reactive-guaranteed-delivery",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 95,
+      "lineEnd": 99,
+      "name": "reactive-idempotent-receiver",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 103,
+      "lineEnd": 107,
+      "name": "reactive-message-bus",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 111,
+      "lineEnd": 115,
+      "name": "reactive-message-expiration",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 119,
+      "lineEnd": 123,
+      "name": "reactive-message-filter",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 127,
+      "lineEnd": 131,
+      "name": "reactive-message-metadata",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 135,
+      "lineEnd": 139,
+      "name": "reactive-message-router",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 143,
+      "lineEnd": 147,
+      "name": "reactive-messaging-bridge",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 151,
+      "lineEnd": 155,
+      "name": "reactive-pipes-and-filters",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 159,
+      "lineEnd": 163,
+      "name": "reactive-point-to-point-channel",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 167,
+      "lineEnd": 171,
+      "name": "reactive-polling-consumer",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 175,
+      "lineEnd": 179,
+      "name": "reactive-process-manager",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 183,
+      "lineEnd": 187,
+      "name": "reactive-publish-subscribe",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 191,
+      "lineEnd": 195,
+      "name": "reactive-recipient-list",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 199,
+      "lineEnd": 203,
+      "name": "reactive-request-reply",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 207,
+      "lineEnd": 211,
+      "name": "reactive-resequencer",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 215,
+      "lineEnd": 219,
+      "name": "reactive-return-address",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 223,
+      "lineEnd": 227,
+      "name": "reactive-routing-slip",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 231,
+      "lineEnd": 235,
+      "name": "reactive-scatter-gather",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 239,
+      "lineEnd": 243,
+      "name": "reactive-selective-consumer",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 247,
+      "lineEnd": 251,
+      "name": "reactive-smart-proxy",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 255,
+      "lineEnd": 259,
+      "name": "reactive-splitter",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 263,
+      "lineEnd": 267,
+      "name": "reactive-transactional-actor",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "sourceFile": "docs/reactive-patterns.md",
+      "lineStart": 271,
+      "lineEnd": 275,
+      "name": "reactive-wire-tap",
+      "type": "typescript",
+      "status": "passed",
+      "error": null
+    }
+  ]
+}

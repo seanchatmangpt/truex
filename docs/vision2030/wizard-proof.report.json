@@ -3,10 +3,16 @@
   "passed": true,
   "invariants": [
     "valid range mutation successfully commits state change",
-    "invalid range mutation correctly rejected and state rolled back"
+    "invalid range mutation correctly rejected and state rolled back",
+    "project cell initialization creates config structure",
+    "project topology mapper scans files and outputs C4 diagrams",
+    "checkpoint planner creates agent checkpoints and rejects vague inputs",
+    "execution ledger updates accounting values for command, artifacts, and proofs",
+    "12-hour monotonic release gate correctly refuses premature handoff",
+    "synthesis finalization produces PROJECT-WIZARD-S11-SYNTHESIS.md and evidence reports"
   ],
   "failures": [],
   "timings": {
-    "execution": 258
+    "execution": 1675
   }
 }

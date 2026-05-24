@@ -1,0 +1,11 @@
+{
+  "primitive": "finalization",
+  "passed": false,
+  "invariants": [],
+  "failures": [
+    "Finalization gate failed: Vitest unit tests failed"
+  ],
+  "timings": {
+    "execution": 263211
+  }
+}
