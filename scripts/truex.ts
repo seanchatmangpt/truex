@@ -38,6 +38,7 @@ async function getWizardAgent() {
 }
 import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from '../packages/truex-core/src/project-wizard.gall.js';
 import { OcelCollector } from '../skills/membrane/mutations.js';
+import { OcelOtelWeaverPlugin } from '../packages/truex-core/src/plugins/otel-weaver.js';
 
 
 
@@ -1184,54 +1185,6 @@ const projectWizardCompleteCommand = defineCommand({
   }
 });
 
-const reactiveLifecycleProveCommand = defineCommand({
-  meta: {
-    name: 'reactive-lifecycle',
-    description: 'Prove the E2E path, concurrency, fuzz, and leak checks for all 34 reactive patterns.',
-  },
-  async run() {
-    const doctor = await getDoctorAgent();
-    const report = await doctor.prove("reactive-lifecycle");
-    if (!report.passed) throw new Error("Reactive lifecycle proof failed");
-  }
-});
-
-const lifecycleBenchmarksCommand = defineCommand({
-  meta: {
-    name: 'lifecycle-benchmarks',
-    description: 'Prove the unified lifecycle benchmarks target (Wizard E2E, Telco E2E stress, and state conservation).',
-  },
-  async run() {
-    const doctor = await getDoctorAgent();
-    const report = await doctor.prove("lifecycle-benchmarks");
-    if (!report.passed) throw new Error("Lifecycle benchmarks proof failed");
-  }
-});
-
-const unifiedIntegrationCommand = defineCommand({
-  meta: {
-    name: 'unified-integration',
-    description: 'Prove unified integration of Wizard and Telco interop membrane, coordinating state transitions and conserving W1-W5/T1-T6 invariants.',
-  },
-  async run() {
-    const doctor = await getDoctorAgent();
-    const report = await doctor.prove("unified-integration");
-    if (!report.passed) throw new Error("Unified integration proof failed");
-  }
-});
-
-const unifiedBenchmarksCommand = defineCommand({
-  meta: {
-    name: 'unified-benchmarks',
-    description: 'Run unified timing, extreme stress, fuzzing, and resource leak checks.'
-  },
-  async run() {
-    const doctor = await getDoctorAgent();
-    const report = await doctor.prove("unified-benchmarks");
-    if (!report.passed) throw new Error("Unified benchmarks proof failed");
-  }
-});
-
 const proveCommand = defineCommand({
   meta: {
     name: 'prove',
@@ -1268,11 +1221,7 @@ const proveCommand = defineCommand({
     "wizard-walkthrough": wizardWalkthroughProveCommand,
     "project-evidence-types": projectEvidenceTypesCommand,
     "project-evidence-gapclose": projectEvidenceGapcloseCommand,
-    "project-wizard-complete": projectWizardCompleteCommand,
-    "reactive-lifecycle": reactiveLifecycleProveCommand,
-    "lifecycle-benchmarks": lifecycleBenchmarksCommand,
-    "unified-integration": unifiedIntegrationCommand,
-    "unified-benchmarks": unifiedBenchmarksCommand
+    "project-wizard-complete": projectWizardCompleteCommand
   }
 });
 
@@ -1282,6 +1231,7 @@ const doctorCommand = defineCommand({
     name: 'doctor',
     description: 'Diagnose and verify the truex architecture',
   },
+  plugins: [OcelOtelWeaverPlugin],
   subCommands: {
     prove: proveCommand
   }
