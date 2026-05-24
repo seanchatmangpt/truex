@@ -1,67 +1,55 @@
-# Truex Strategic Rebrand & Migration Plan
+# Truex Unified Architecture & Master Integration Plan
 
 > **Path:** `docs/vision2030/REBRAND-MIGRATION-PLAN.md`
-> **Status:** Selective Adoption (Governed by Gall Law)
+> **Status:** Unified Master Plan
 
-## 1. The Gall Axiom for Rebranding
-In Truex, we do not adopt architecture simultaneously. As defined in `AGENTS.md`:
-> *"A complex system that works evolves from a simple system that worked. No speculative architecture is allowed above a non-working primitive."*
+## 1. The Unified Axiom
+Every repository, rebrand, and standalone project previously developed is not a separate idea—they are distinct, necessary layers of the exact same **Post-Gall Operating Substrate**. 
 
-While the `docs/truex-rebrands/` directory contains 20+ theoretical rebrands and integrations, adopting them all at once violates the foundational **Decomposition Law**. We will perform a strict, phased triage: **Adopt, Defer, or Refuse**.
-
----
-
-## 2. Phase 1: ADOPT (The Kernel & Membrane)
-These components form the absolute `S0` and `S1` primitives. They provide the physics engine and boundary interception required for the *Chatman Equation*.
-
-### A. `@truex/membrane` (Formerly `proxyable`)
-* **Status:** In progress.
-* **Role:** The JS/TS execution boundary. It intercepts intent (VKG Hooks) and generates the `HookedConsequenceAttempt`.
-* **Action:** Finalize the terminology shift within the codebase. Ensure all exports reflect the "Membrane" and "Substrate" vocabulary.
-
-### B. `@truex/kernel` (Formerly `wasm4pm`)
-* **Status:** Ready for integration.
-* **Role:** The Tier 0 Rust/WASM consequence engine. It takes the OCEL payload from the Membrane, evaluates it against the POWL geometry, and stamps the BLAKE3 cryptographic receipt.
-* **Action:** Move the `wasm4pm` codebase into a formal `packages/truex-kernel` monorepo workspace. Wire the JavaScript Membrane to synchronously pass intents to the WASM binary for adjudication.
-
-### C. `POWL v2` Integration
-* **Status:** Prototype stage.
-* **Role:** The geometric workflow law replacing linear arrays.
-* **Action:** Adopt the core `validatePowlNode` logic. Extract the discovery logic to the Antigravity CLI MCP tools, keeping the runtime lean.
+Instead of discarding or deferring components, this plan maps every project into a single, unified 7-Tier stack. They all solve the same problem: moving enterprise execution from probabilistic claims to mathematically receipted consequence.
 
 ---
 
-## 3. Phase 1b: ADOPT (The Generative Forge)
+## Tier 6: The Avatar-Relative Projection Surface
+**Repositories:** `BusinessOS`
+* **The Role:** The top layer of the glass. Truex is a headless substrate; it requires a projection surface where human and autonomic operators can observe and interact with the system.
+* **The Unification:** BusinessOS will transition from a traditional "backend-driven CRM" into a pure frontend that connects directly to the Truex Membrane, rendering "Time Travel" UIs built entirely on the cryptographic receipts and OCEL models emitted by the lower tiers.
 
-### A. `unrdf sync` / `GGEN`
-* **Status:** Adopted as Build-Time Tooling.
-* **Role:** While raw RDF is dead as a *runtime* database, the `unrdf sync` command (driven by the Ostar operator skills) is the actual generative forge that compiles the `@truex/kernel` (`wasm4pm`). It parses `.ttl` ontologies to manufacture the 60+ Rust algorithms and boilerplate.
-* **Action:** Retain `unrdf sync` exclusively as the build-step compiler for the Rust kernel. Rename the conceptual pipeline to `truex-forge` in documentation to clarify its build-time-only role.
+## Tier 5: Autonomic Manufacturing (The Forge)
+**Repositories:** `GGEN`, `DSPyGen`
+* **The Role:** The build-time generative pipelines.
+* **The Unification:** LLMs are highly probabilistic. GGEN and DSPyGen act as the compilers that force generative outputs into strict adherence with the lower-tier POWL geometries. They manufacture the deterministic boilerplate and typestates (driven by `unrdf sync` and the `ostar-operator`) before the code ever reaches the execution environment.
+
+## Tier 4: The Execution Interface
+**Repositories:** `DesktopCommanderMCP`, `Antigravity CLI`
+* **The Role:** Crossing the AI-to-Metal Boundary.
+* **The Unification:** Cloud-trapped agents need physical hands. The Antigravity CLI and DesktopCommanderMCP provide the execution environment where the Swarm actuates. Crucially, they are wrapped entirely by the `proxyable` Truex Membrane, ensuring every shell command or file write is intercepted and audited before it touches the OS.
+
+## Tier 3: Semantic Ontology
+**Repositories:** `UNRDF`
+* **The Role:** The Lawful Vocabulary (O*).
+* **The Unification:** While raw RDF SPARQL queries proved too static for runtime execution, the *definitions* built in `UNRDF` remain vital. `unrdf sync` serves as the build-time engine that translates static semantic triples into the dynamic OCEL 2.0 object/event types and Rust algorithm registries consumed by `wasm4pm`.
+
+## Tier 2: The Consequence Membrane
+**Repositories:** `proxyable`
+* **The Role:** The Javascript/TypeScript boundary layer.
+* **The Unification:** This is the `src/` directory of the current workspace. It intercepts intent via VKG Hooks, enforces local invariants and ACLs, and passes the proposed operations down to the Tier 1 geometry engines for final adjudication.
+
+## Tier 1: Process & Concurrency Geometry
+**Repositories:** `wasm4pm`, `BitActor`, `POWL v2`
+* **The Role:** The Mathematical Physics Engine.
+* **The Unification:** Once intent passes the Membrane, it must be evaluated. `POWL v2` provides the partial-order graph rules. `wasm4pm` compiles those rules into branchless Rust/WASM for sub-millisecond execution. `BitActor` provides the lock-free, zero-variance isolated memory arenas where the state actually settles.
+
+## Tier 0: Distributed Substrate & Stabilization
+**Repositories:** `BitStar`, `CNS`
+* **The Role:** The Quantum Consensus Network.
+* **The Unification:** When the Truex substrate scales from a single machine to a federated enterprise network, `BitStar` synchronizes the `BitActor` mailboxes. It ensures that a BLAKE3 cryptographic receipt generated by a `wasm4pm` kernel on Node A is mathematically proven and legally recognized by Node B, without requiring a centralized database.
 
 ---
 
-## 4. Phase 2: DEFER (Speculative Architecture & Actors)
-These are valid concepts, but they sit at `S2`, `S3`, or higher. They cannot be built until the `@truex/kernel` successfully refuses bad motion and emits verifiable receipts in production.
-
-### A. `BitActor` / `BitStar`
-* **Concept:** Actor models and consensus networks.
-* **Reason for Deferral:** The `vendors/ReactiveMessagingPatterns_ActorModel` directory already provides the necessary reactive primitives. We do not need a named "BitActor" network until single-node concurrency is mathematically proven.
-
-### B. `SOS` (Synthetic Operations Simulator)
-* **Concept:** Field stabilization testing geometries against historical logs.
-* **Reason for Deferral:** We already have the `mcp_pm4py_*` CLI tools for simulation and discovery.
-
----
-
-## 5. Phase 3: REFUSE & QUARANTINE (Ontological Drift)
-These modules represent older paradigms that conflict with the Post-Gall architecture or violate the restricted CLI noun policy (`doctor`, `wizard`, `telco`).
-
-### A. Orchestration UIs (`BusinessOS`, `DesktopCommanderMCP`)
-* **Status:** Quarantined.
-* **Reason:** Truex is an operational substrate, not a UI framework. The `AGENTS.md` explicitly forbids building dashboard systems or orchestration platforms. The Antigravity CLI serves as our primary operational TUI.
-
----
-
-## 6. Immediate Execution Directive
-Our immediate engineering focus will be entirely on **Phase 1 and 1b**.
-We will utilize `unrdf sync` to compile the `wasm4pm` kernel, extract the binary, and wire it into the `truex-core` membrane to achieve the first true end-to-end receipted consequence.
+## 2. Immediate Execution Trajectory
+While the vision is unified, the construction sequence must remain linear (Gall Law):
+1. **Solidify Tier 2 (Membrane):** Complete the VKG hooks and OCEL2 tracking in TS. *(In Progress)*
+2. **Connect Tier 1 (Kernel):** Wire `wasm4pm` and `POWL v2` to adjudicate the Membrane's intents.
+3. **Automate Tier 4 (Execution):** Maximize the Antigravity CLI to autonomously trigger subagents upon Membrane failures.
+4. **Deploy Tiers 5 & 6:** Re-enable GGEN to build the BusinessOS frontend on top of the newly stabilized substrate.
