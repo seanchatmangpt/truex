@@ -31,36 +31,37 @@ These components form the absolute `S0` and `S1` primitives. They provide the ph
 
 ---
 
-## 3. Phase 2: DEFER (Speculative Manufacturing & Actors)
+## 3. Phase 1b: ADOPT (The Generative Forge)
+
+### A. `unrdf sync` / `GGEN`
+* **Status:** Adopted as Build-Time Tooling.
+* **Role:** While raw RDF is dead as a *runtime* database, the `unrdf sync` command (driven by the Ostar operator skills) is the actual generative forge that compiles the `@truex/kernel` (`wasm4pm`). It parses `.ttl` ontologies to manufacture the 60+ Rust algorithms and boilerplate.
+* **Action:** Retain `unrdf sync` exclusively as the build-step compiler for the Rust kernel. Rename the conceptual pipeline to `truex-forge` in documentation to clarify its build-time-only role.
+
+---
+
+## 4. Phase 2: DEFER (Speculative Architecture & Actors)
 These are valid concepts, but they sit at `S2`, `S3`, or higher. They cannot be built until the `@truex/kernel` successfully refuses bad motion and emits verifiable receipts in production.
 
-### A. `GGEN` / `DSPyGen`
-* **Concept:** Generative agents and prompt compilers.
-* **Reason for Deferral:** We must not build generative actuators until the boundary (`telco`) and the project consequence manufacturer (`wizard`) can mathematically prove that generated code strictly matches a POWL geometric model. Generative pipelines are blocked by the lack of a working conformance gate.
-
-### B. `BitActor` / `BitStar`
+### A. `BitActor` / `BitStar`
 * **Concept:** Actor models and consensus networks.
 * **Reason for Deferral:** The `vendors/ReactiveMessagingPatterns_ActorModel` directory already provides the necessary reactive primitives. We do not need a named "BitActor" network until single-node concurrency is mathematically proven.
 
-### C. `SOS` (Synthetic Operations Simulator)
+### B. `SOS` (Synthetic Operations Simulator)
 * **Concept:** Field stabilization testing geometries against historical logs.
 * **Reason for Deferral:** We already have the `mcp_pm4py_*` CLI tools for simulation and discovery.
 
 ---
 
-## 4. Phase 3: REFUSE & QUARANTINE (Ontological Drift)
+## 5. Phase 3: REFUSE & QUARANTINE (Ontological Drift)
 These modules represent older paradigms that conflict with the Post-Gall architecture or violate the restricted CLI noun policy (`doctor`, `wizard`, `telco`).
 
-### A. `UNRDF` (Semantic Knowledge Graphs)
-* **Status:** Refused.
-* **Reason:** As noted in `TRUEX-REBRAND-UNRDF.md`, RDF does not natively understand time, sequence, or causality. The enterprise reality is temporal motion (OCEL), not static semantic triples. 
-
-### B. Orchestration UIs (`BusinessOS`, `DesktopCommanderMCP`)
+### A. Orchestration UIs (`BusinessOS`, `DesktopCommanderMCP`)
 * **Status:** Quarantined.
 * **Reason:** Truex is an operational substrate, not a UI framework. The `AGENTS.md` explicitly forbids building dashboard systems or orchestration platforms. The Antigravity CLI serves as our primary operational TUI.
 
 ---
 
-## 5. Immediate Execution Directive
-Our immediate engineering focus will be entirely on **Phase 1**.
-We will extract the `wasm4pm` kernel and wire it into the `truex-core` membrane to achieve the first true end-to-end receipted consequence. All Phase 2 and Phase 3 concepts will remain in documentation only.
+## 6. Immediate Execution Directive
+Our immediate engineering focus will be entirely on **Phase 1 and 1b**.
+We will utilize `unrdf sync` to compile the `wasm4pm` kernel, extract the binary, and wire it into the `truex-core` membrane to achieve the first true end-to-end receipted consequence.
