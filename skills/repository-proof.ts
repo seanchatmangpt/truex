@@ -97,6 +97,22 @@ export function proveOntology() {
     } else {
       failures.push(`Found ${unmapped.length} unmapped files: ${unmapped.map(u => u.id).join(', ')}`);
     }
+
+    // New Operational Documentation Laws
+    for (const node of graph.nodes) {
+      if (node.type === 'Primitive' || node.type === 'Manufacturing' || node.type === 'Persistence') {
+        if (!node.provedBy || node.provedBy.length === 0) {
+          failures.push(`Genesis Defect: Core file ${node.id} has no tests proving its capability.`);
+        }
+        if (!node.documentedBy || node.documentedBy.length === 0) {
+          failures.push(`Observability Defect: Core file ${node.id} is not mapped by any Observatory Fact Emitter.`);
+        }
+      }
+    }
+
+    if (failures.length === 0) {
+      invariants.push('All core files have cryptographic proof and observatory documentation');
+    }
     
     db.close();
   } catch (error: any) {

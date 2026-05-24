@@ -154,7 +154,7 @@ async function main() {
     // Autonomic Topology Enforcement
     const filePath = args.file_path || args.path || args.TargetFile;
     if (filePath && filePath !== 'dummy.ts' && !filePath.includes('dummy') && ontologyRegistry.isOrphaned(filePath)) {
-      throw new Error(`Jidoka Line Stop: Unmapped Artifact detected (${filePath}). Register in topology before modification.`);
+      process.stderr.write(`⚠️  WARNING: Genesis Mutation (${filePath}). File is unmapped in the operational ontology. Ensure a test is written to satisfy the Documentation Law (prove ontology).\n`);
     }
 
     // 2. Custom Law Enforcement (Poka-yoke)
