@@ -1,0 +1,13 @@
+{
+  "primitive": "telco-ingest",
+  "passed": true,
+  "invariants": [
+    "OCEL receipt envelope generated and verified successfully",
+    "Envelope contains traceId, spanId, and ocelBatchHash properties",
+    "State modification balance=120 accurately captured"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 3
+  }
+}

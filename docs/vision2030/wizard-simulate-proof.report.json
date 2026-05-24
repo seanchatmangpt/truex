@@ -1,0 +1,13 @@
+{
+  "primitive": "wizard-simulate",
+  "passed": true,
+  "invariants": [
+    "Out-of-bounds write detected and rejected",
+    "Transaction rollback successfully executed",
+    "Initial state restored upon rollback"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1
+  }
+}

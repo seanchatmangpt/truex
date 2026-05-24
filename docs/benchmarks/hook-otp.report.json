@@ -26,14 +26,14 @@
     "tamperDivergenceVerified": true
   },
   "benchmark": {
-    "rawHookOpsPerSecond": 19230769.231,
-    "rawHookOpsPerSecondString": "19230769.231 ops/sec",
-    "otpMessageOpsPerSecond": 21127355.7,
-    "otpMessageOpsPerSecondString": "21127355.700 ops/sec",
-    "receiptBackedOtpOpsPerSecond": 26894.974,
-    "receiptBackedOtpOpsPerSecondString": "26894.974 ops/sec",
-    "overheadRatio": 715.032,
-    "overheadRatioString": "715.032x"
+    "rawHookOpsPerSecond": 1442830.718,
+    "rawHookOpsPerSecondString": "1442830.718 ops/sec",
+    "otpMessageOpsPerSecond": 5412719.892,
+    "otpMessageOpsPerSecondString": "5412719.892 ops/sec",
+    "receiptBackedOtpOpsPerSecond": 17015.532,
+    "receiptBackedOtpOpsPerSecondString": "17015.532 ops/sec",
+    "overheadRatio": 84.795,
+    "overheadRatioString": "84.795x"
   },
   "reportHash": "c7031e5ce3d24089024944638dfafccb916f72027a0ab551d658062ae894fd74"
 }

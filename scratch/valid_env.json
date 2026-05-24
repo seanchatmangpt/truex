@@ -1,0 +1,58 @@
+{
+  "profile": "zoe.ocel2.v1",
+  "traceId": "trace_999",
+  "spanId": "span_123",
+  "ocelBatchHash": "dbb54aff86fd3c79e211bba8eec7c8d2d9176b6324a4eccca4d17a695ffd88a7",
+  "receiptHash": "00eb40b9ac71516fd505aea88c31085c7ff8e1fb3c6f66177a303930df05175f",
+  "ocel": {
+    "eventTypes": {
+      "activate_subscription": {
+        "attributes": [
+          "actor",
+          "causationId",
+          "correlationId"
+        ]
+      }
+    },
+    "objectTypes": {
+      "Account": {
+        "attributes": []
+      }
+    },
+    "events": [
+      {
+        "ocel:id": "evt_f8a24fc5-7493-4c94-972c-5a094e02dc0d",
+        "ocel:type": "activate_subscription",
+        "ocel:timestamp": "2024-05-23T16:00:00.001Z",
+        "ocel:attributes": {
+          "actor": "user_1"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "ocel:id": "obj_1",
+        "ocel:type": "Account",
+        "ocel:attributes": {
+          "balance": 100
+        }
+      }
+    ],
+    "event-object": [
+      {
+        "ocel:event-id": "evt_f8a24fc5-7493-4c94-972c-5a094e02dc0d",
+        "ocel:object-id": "obj_1",
+        "ocel:qualifier": "account_modified"
+      }
+    ],
+    "object-object": [],
+    "objectChanges": [
+      {
+        "ocel:object-id": "obj_1",
+        "ocel:time": "2024-05-23T16:00:00.002Z",
+        "ocel:field": "balance",
+        "ocel:value": 120
+      }
+    ]
+  }
+}

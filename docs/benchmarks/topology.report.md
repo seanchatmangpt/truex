@@ -74,7 +74,7 @@ The topology is represented by $\Delta_1 \rightarrow H_1 \rightarrow \Delta_2 \r
 - **Rollback Receipts:** 4.000
 - **Storm Candidates:** 3.000
 - **Storm Refusals:** 1.000
-- **Duration (ms):** 5.000
+- **Duration (ms):** 4.000
 - **Topology Hash:** `3bc3db582ed1f6cf74f55a15a1e7f7ea756cd8e2c3ba0f6d0aea0ceb6e303ab1`
 
 ## 10. Remaining Gaps

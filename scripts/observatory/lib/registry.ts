@@ -1,5 +1,4 @@
 import { emitTopologyGraph } from './emit-topology-graph.js';
-import { FactEmitter } from './fact-emitter.js';
 import { CoreFactsEmitter } from './emit-core-facts.js';
 import { AgyFactsEmitter } from './emit-agy-facts.js';
 import { ManufacturingFactsEmitter } from './emit-manufacturing-facts.js';
@@ -19,6 +18,8 @@ import { emitArtifacts } from './emit-artifacts.js';
 import { MembraneReplayFactsEmitter } from './emit-membrane-replay-facts.js';
 import { MembraneReplayDiagramEmitter } from './emit-membrane-replay-diagram.js';
 import { WalReconstructionVisualizationEmitter } from './emit-wal-reconstruction-visualization.js';
+import { S8FactsEmitter } from './emit-s8-facts.js';
+import { S8DiagramEmitter } from './emit-s8-diagram.js';
 
 export interface RegisteredEmitter {
   name: string;
@@ -88,6 +89,11 @@ export const Registry: RegisteredEmitter[] = [
     priority: 75
   },
   {
+    name: 'S8 Facts',
+    run: () => new S8FactsEmitter().emit(),
+    priority: 78
+  },
+  {
     name: 'Topology Diagram',
     run: () => new TopologyDiagramEmitter().emit(),
     priority: 80
@@ -106,6 +112,11 @@ export const Registry: RegisteredEmitter[] = [
     name: 'Benchmark Diagram',
     run: () => new BenchmarkDiagramEmitter().emit(),
     priority: 85
+  },
+  {
+    name: 'S8 Diagram',
+    run: () => new S8DiagramEmitter().emit(),
+    priority: 88
   },
   {
     name: 'Receipt Emitter',

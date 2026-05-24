@@ -1,6 +1,6 @@
 # 🔭 Truex Observatory Dashboard
 
-*Last Updated: 2026-05-24T03:09:33.306Z*
+*Last Updated: 2026-05-24T03:21:33.077Z*
 
 ## 🏥 System Health
 
@@ -29,6 +29,7 @@
 - [Membrane replay](./diagrams/membrane-replay.mmd)
 - [Operational topology](./diagrams/operational-topology.mmd)
 - [Persistence arch](./diagrams/persistence-arch.mmd)
+- [S8 trace](./diagrams/s8-trace.mmd)
 
 ## 📜 Receipts
 

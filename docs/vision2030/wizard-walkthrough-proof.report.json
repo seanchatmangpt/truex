@@ -1,0 +1,14 @@
+{
+  "primitive": "wizard-walkthrough",
+  "passed": true,
+  "invariants": [
+    "Sequential simulation states match bounds constraint",
+    "In-bounds writes commit successfully",
+    "Out-of-bounds writes roll back successfully",
+    "State trajectory maintains logical continuity"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 1
+  }
+}

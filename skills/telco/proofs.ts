@@ -1,0 +1,70 @@
+import { TelcoAgent } from "../../agents/telco/agent.js";
+import { OcelCollector } from "../membrane/mutations.js";
+
+export type TelcoProofReport = {
+  passed: boolean;
+  failures: string[];
+  invariants: string[];
+};
+
+export function proveTelco(): TelcoProofReport {
+  const failures: string[] = [];
+  const invariants: string[] = [];
+  const telco = new TelcoAgent();
+
+  try {
+    // 1. Ingest a valid transition and verify the envelope
+    const state = { balance: 1000 };
+    const { envelope, isValid } = telco.ingestTransition(
+      "Deposit",
+      "Alice",
+      state,
+      1500
+    );
+
+    if (isValid && OcelCollector.verifyEnvelope(envelope)) {
+      invariants.push("valid ingested transition creates conforming signed envelope");
+    } else {
+      failures.push("failed to verify valid signed envelope");
+    }
+
+    // 2. Tamper the envelope ocel payload
+    const tamperedOcelEnvelope = JSON.parse(JSON.stringify(envelope));
+    tamperedOcelEnvelope.ocel.objects[0]['ocel:attributes'].balance = 999999; // modify balance unlawfully
+    
+    if (!OcelCollector.verifyEnvelope(tamperedOcelEnvelope)) {
+      invariants.push("tampered ocel payload fails validation (tamper resistance proof)");
+    } else {
+      failures.push("failed to reject tampered ocel payload");
+    }
+
+    // 3. Tamper the batch hash
+    const tamperedHashEnvelope = JSON.parse(JSON.stringify(envelope));
+    tamperedHashEnvelope.ocelBatchHash = "corrupted_hash";
+    
+    if (!OcelCollector.verifyEnvelope(tamperedHashEnvelope)) {
+      invariants.push("tampered ocelBatchHash fails validation (tamper resistance proof)");
+    } else {
+      failures.push("failed to reject tampered ocelBatchHash");
+    }
+
+    // 4. Tamper the receipt hash
+    const tamperedReceiptEnvelope = JSON.parse(JSON.stringify(envelope));
+    tamperedReceiptEnvelope.receiptHash = "corrupted_receipt_hash";
+    
+    if (!OcelCollector.verifyEnvelope(tamperedReceiptEnvelope)) {
+      invariants.push("tampered receiptHash fails validation (tamper resistance proof)");
+    } else {
+      failures.push("failed to reject tampered receiptHash");
+    }
+
+  } catch (error: any) {
+    failures.push(`Unexpected error during telco proof: ${error.message}`);
+  }
+
+  return {
+    passed: failures.length === 0,
+    invariants,
+    failures
+  };
+}

@@ -1,0 +1,13 @@
+{
+  "primitive": "telco-validate",
+  "passed": true,
+  "invariants": [
+    "Valid OCEL receipt envelope verifies successfully",
+    "Tampered OCEL receipt envelope verification fails",
+    "Tamper-resistance invariant verified"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 3
+  }
+}

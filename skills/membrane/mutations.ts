@@ -676,7 +676,23 @@ export class OcelCollector {
   static verifyEnvelope(envelope: any): boolean {
     try {
       const { receiptHash, ocel, traceId, spanId, ocelBatchHash, previousReceiptHash } = envelope;
-      const canonicalOcel = canonicalStringify(ocel);
+      
+      // Normalize ocel attributes that might have been stripped of undefined values during JSON serialization
+      let normalizedOcel = ocel;
+      if (ocel && Array.isArray(ocel.events)) {
+        normalizedOcel = {
+          ...ocel,
+          events: ocel.events.map((evt: any) => {
+            if (!evt || !evt['ocel:attributes']) return evt;
+            const attrs = { ...evt['ocel:attributes'] };
+            if (!('causationId' in attrs)) attrs.causationId = undefined;
+            if (!('correlationId' in attrs)) attrs.correlationId = undefined;
+            return { ...evt, 'ocel:attributes': attrs };
+          })
+        };
+      }
+
+      const canonicalOcel = canonicalStringify(normalizedOcel);
       const computedBatchHash = hash(canonicalOcel);
       if (computedBatchHash !== ocelBatchHash) return false;
       

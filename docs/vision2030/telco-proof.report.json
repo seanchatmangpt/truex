@@ -1,0 +1,14 @@
+{
+  "primitive": "telco",
+  "passed": true,
+  "invariants": [
+    "valid ingested transition creates conforming signed envelope",
+    "tampered ocel payload fails validation (tamper resistance proof)",
+    "tampered ocelBatchHash fails validation (tamper resistance proof)",
+    "tampered receiptHash fails validation (tamper resistance proof)"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 189
+  }
+}

@@ -41,4 +41,11 @@ export class TelcoAgent {
       isValid,
     };
   }
+
+  /**
+   * Parses and verifies that an envelope conforms to OCEL trace invariants.
+   */
+  validateEnvelope(envelope: any): boolean {
+    return OcelCollector.verifyEnvelope(envelope);
+  }
 }

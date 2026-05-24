@@ -34,7 +34,9 @@ export class WizardAgent {
 
     try {
       txCtx.call(() => {
-        proxyInterface.proxy.score = val;
+        invCtx.call(() => {
+          proxyInterface.proxy.score = val;
+        });
       });
       
       trace.push({
@@ -58,7 +60,13 @@ export class WizardAgent {
         error: error_.message
       });
 
-      txCtx.rollback();
+      try {
+        if (txCtx.isActive()) {
+          txCtx.rollback();
+        }
+      } catch {
+        // Safe fallback in case Jidoka already executed rollback
+      }
       trace.push({
         step: "Transaction Rollback",
         success: true,
@@ -66,6 +74,24 @@ export class WizardAgent {
       });
     }
 
+    return trace;
+  }
+
+  /**
+   * Conducts sequential simulations over a list of values, propagating states.
+   */
+  walkthrough(initialState: { score: number }, steps: number[]): SimulationStepResult[] {
+    const trace: SimulationStepResult[] = [];
+    let currentState = { ...initialState };
+    for (const val of steps) {
+      const stepTrace = this.simulateTransaction(currentState, val);
+      trace.push(...stepTrace);
+      // propagate successfully committed state forward
+      const commitStep = stepTrace.find(r => r.step === "Transaction Commit");
+      if (commitStep) {
+        currentState = { ...commitStep.value };
+      }
+    }
     return trace;
   }
 }

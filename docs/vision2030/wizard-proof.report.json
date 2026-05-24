@@ -1,0 +1,12 @@
+{
+  "primitive": "wizard",
+  "passed": true,
+  "invariants": [
+    "valid range mutation successfully commits state change",
+    "invalid range mutation correctly rejected and state rolled back"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 253
+  }
+}

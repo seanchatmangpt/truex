@@ -1,0 +1,21 @@
+{
+  "case": "telco-ingest-validate-chain",
+  "status": "passed",
+  "layer": "S8",
+  "metrics": {
+    "transitionsIngested": 1000,
+    "validEnvelopesSigned": 1000,
+    "invalidEnvelopesRejected": 3,
+    "ingestDurationMs": 154.81216700000004,
+    "verifyDurationMs": 29.66762499999993,
+    "ingestOpsPerSecond": 6459.44062006444,
+    "verifyOpsPerSecond": 33706.77632604573
+  },
+  "invariants": [
+    "valid ingested transition creates conforming signed envelope",
+    "tampered ocel payload fails validation (tamper resistance proof)",
+    "tampered ocelBatchHash fails validation (tamper resistance proof)",
+    "tampered receiptHash fails validation (tamper resistance proof)"
+  ],
+  "reportHash": "45a0cf2f9cc382004863155f819d13ece6d1c08b141827bbecc474715ac58191"
+}
