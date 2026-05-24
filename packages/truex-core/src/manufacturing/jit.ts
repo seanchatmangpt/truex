@@ -1,4 +1,4 @@
-import type { GraphDelta, HookDefinition } from '../runtime-law.js';
+import type { GraphDelta, HookDefinition, HookCondition } from '../runtime-law.js';
 import { TruexHook } from '../hook.js';
 
 /**
@@ -81,5 +81,58 @@ export class KanbanSystem {
       for (const h of hooks) allHooks.add(h);
     }
     return allHooks.size;
+  }
+
+  /**
+   * Tightens a hook's constraint by updating its condition.
+   * Proposes a change from 'always' to 'delta-match' or updates the predicate.
+   */
+  tightenConstraint(hookId: string, newCondition: HookCondition): void {
+    // 1. Find the hook in backlog or kanbanBoard
+    let hook: TruexHook | undefined;
+    let originalConditionKind: string | undefined;
+
+    // Check backlog
+    const backlogIdx = this.backlog.findIndex(h => h.definition.id === hookId);
+    if (backlogIdx === -1) {
+      // Check kanbanBoard
+      for (const [predicate, hooks] of this.kanbanBoard.entries()) {
+        const idx = hooks.findIndex(h => h.definition.id === hookId);
+        if (idx !== -1) {
+          hook = hooks[idx];
+          originalConditionKind = 'delta-match';
+          // Remove from current predicate list if it's changing
+          if (newCondition.kind !== 'delta-match' || newCondition.predicate !== predicate) {
+            hooks.splice(idx, 1);
+            if (hooks.length === 0) this.kanbanBoard.delete(predicate);
+          }
+          break;
+        }
+      }
+    } else {
+      hook = this.backlog[backlogIdx];
+      originalConditionKind = 'always';
+      // Remove from backlog if it's no longer 'always'
+      if (newCondition.kind !== 'always') {
+        this.backlog.splice(backlogIdx, 1);
+      }
+    }
+
+    if (!hook) {
+      throw new Error(`Hook ${hookId} not found in KanbanSystem`);
+    }
+
+    // 2. Update the hook definition and re-index
+    hook.definition.condition = newCondition;
+    
+    if (newCondition.kind === 'always') {
+      this.backlog.push(hook);
+    } else if (newCondition.kind === 'delta-match') {
+      const predicate = newCondition.predicate;
+      if (!this.kanbanBoard.has(predicate)) {
+        this.kanbanBoard.set(predicate, []);
+      }
+      this.kanbanBoard.get(predicate)!.push(hook);
+    }
   }
 }

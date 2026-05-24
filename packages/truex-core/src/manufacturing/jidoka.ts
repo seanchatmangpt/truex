@@ -22,6 +22,18 @@ export class AndonSystem {
   private lineStopped: boolean = false;
   private stopReason: string | null = null;
   private activeTransactionId: string | null = null;
+  private chainId: string | null = null;
+  private chainTransactions: string[] = [];
+
+  /**
+   * Starts a new hook chain.
+   *
+   * @param chainId Unique identifier for the hook chain.
+   */
+  startChain(chainId: string): void {
+    this.chainId = chainId;
+    this.chainTransactions = [];
+  }
 
   /**
    * Triggers a 'Line Stop' (Andon).
@@ -33,28 +45,37 @@ export class AndonSystem {
     this.lineStopped = true;
     this.stopReason = reason;
     this.activeTransactionId = transactionId || null;
+    
+    if (transactionId) {
+      this.chainTransactions.push(transactionId);
+    }
   }
 
   /**
-   * Checks if the line is currently stopped for a specific transaction.
-   * In the TPS, a line stop prevents any subsequent work in the same
-   * sequence until the issue is resolved.
+   * Checks if the line is currently stopped for a specific transaction or chain.
    */
   isStopped(transactionId?: string): boolean {
     if (!this.lineStopped) return false;
+    
     // If no transactionId is provided, any stop counts as a line stop.
-    if (!transactionId || !this.activeTransactionId) return this.lineStopped;
-    return this.activeTransactionId === transactionId;
+    if (!transactionId) return this.lineStopped;
+
+    // If it's the exact transaction that stopped the line
+    if (this.activeTransactionId === transactionId) return true;
+
+    // If the transaction is part of the current stopped chain
+    return this.chainTransactions.includes(transactionId);
   }
 
   /**
    * Resets the Andon signal, allowing production to resume.
-   * Typically requires manual intervention (Poka-yoke reset).
    */
   reset(): void {
     this.lineStopped = false;
     this.stopReason = null;
     this.activeTransactionId = null;
+    this.chainId = null;
+    this.chainTransactions = [];
   }
 
   /**
@@ -62,6 +83,13 @@ export class AndonSystem {
    */
   get reason(): string | null {
     return this.stopReason;
+  }
+
+  /**
+   * Returns the current active chain ID.
+   */
+  get activeChainId(): string | null {
+    return this.chainId;
   }
 }
 

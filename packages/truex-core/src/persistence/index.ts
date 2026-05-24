@@ -76,7 +76,7 @@ export class PersistenceOrchestrator {
 
       // We also persist a snapshot for every confirmed receipt to ensure cold-load efficiency
       if (receipt.status === 'confirmed') {
-        const snapshot = SnapshotManager.create(this.currentState, receipt.receiptHash); 
+        const snapshot = SnapshotManager.create(this.currentState, receipt.receiptHash, undefined, ctx); 
         await this.s3Membrane.putSnapshot(receipt.receiptHash, snapshot);
       }
     }
@@ -96,7 +96,7 @@ export class PersistenceOrchestrator {
     // 1. Cold-Load: Find the latest receipt and load its state from S3
     const latestReceipt = this.receiptStore.latest();
     let currentState: Quad[] = [];
-    let startFromJournalIdx = 0;
+    const startFromJournalIdx = 0;
 
     if (latestReceipt) {
       const snapshot = await this.s3Membrane.getSnapshot(latestReceipt.receiptHash);

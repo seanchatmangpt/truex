@@ -6,6 +6,7 @@ import { envelopeReport, verifyReportReceipt } from "../src/integration/report-r
 import { interceptAgyExecution } from "../src/integration/hook-interceptor.js";
 import { replayTrajectory } from "../src/integration/trajectory-replay.js";
 import { validateSkillMarkdown } from "../src/integration/skill-sandbox.js";
+import { proveRepository } from "../../../skills/repository-proof.js";
 import type { HookDefinition } from "../src/runtime-law.js";
 
 describe("AGY-Truex Integration Surface Tests", () => {
@@ -110,5 +111,13 @@ const now = Date.now();
     const invalidResult = validateSkillMarkdown(invalidSkill);
     expect(invalidResult.valid).toBe(false);
     expect(invalidResult.violations.length).toBeGreaterThanOrEqual(2);
+  });
+
+  // Test 6: Repository Verification Primitive
+  it("executes proveRepository check successfully", () => {
+    const report = proveRepository();
+    expect(report.passed).toBe(true);
+    expect(report.invariants.length).toBe(2);
+    expect(report.failures.length).toBe(0);
   });
 });

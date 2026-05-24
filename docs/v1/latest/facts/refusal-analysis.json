@@ -1,0 +1,38 @@
+{
+  "has_refusals": true,
+  "latest_refusal": {
+    "id": "e2541aac-037f-4a3d-9648-b4157e29d9d7",
+    "event_id": "evt_refused_83be197c-ce99-4b45-9e29-61280bf8952b",
+    "timestamp": "2026-05-24 03:07:50",
+    "delta": {
+      "id": "agy_d37dfde5-dfe8-4def-ae45-637360c3ac85",
+      "adds": [
+        {
+          "subject": "agy:tool:write_to_file",
+          "predicate": "agy:action",
+          "object": "write_to_file",
+          "graph": "agy:graph:main"
+        },
+        {
+          "subject": "agy:tool:write_to_file",
+          "predicate": "agy:arguments",
+          "object": "94ff104aaf93bd9ad72c9b22d61ef0e6088e178f2b9296b4cf48a2fdc7830fa5",
+          "graph": "agy:graph:main"
+        },
+        {
+          "subject": "file:dummy.ts",
+          "predicate": "agy:modified_by",
+          "object": "agy:tool:write_to_file",
+          "graph": "agy:graph:main"
+        }
+      ],
+      "deletes": []
+    }
+  },
+  "correction_proposals": [],
+  "_metadata": {
+    "emitter": "Refusal Analysis Emitter",
+    "description": "Analyzes refusal receipts and proposes corrective actions",
+    "timestamp": "2026-05-24T03:09:33.252Z"
+  }
+}

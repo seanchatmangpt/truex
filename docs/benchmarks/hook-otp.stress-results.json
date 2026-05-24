@@ -1,0 +1,122 @@
+[
+  {
+    "name": "FIFO Causal Chain",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 0,
+    "quarantined": 0,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 75
+  },
+  {
+    "name": "Sibling Crash Containment",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 1,
+    "quarantined": 0,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 1
+  },
+  {
+    "name": "Restart Budget Exhaustion",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 4,
+    "quarantined": 1,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 0
+  },
+  {
+    "name": "Poison Message Quarantine",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 1,
+    "quarantined": 1,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 0
+  },
+  {
+    "name": "Capacity Backpressure",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 1,
+    "quarantined": 0,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 1
+  },
+  {
+    "name": "Replay Under Schedule Noise",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 0,
+    "quarantined": 0,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 1
+  },
+  {
+    "name": "Tamper After Process",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 0,
+    "quarantined": 0,
+    "replayConverged": 0,
+    "receiptVerified": 0,
+    "reported": 1,
+    "durationMs": 0
+  },
+  {
+    "name": "Deterministic Lifecycle Hash",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 3,
+    "quarantined": 1,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 60
+  },
+  {
+    "name": "Observable Artifact Integrity",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 0,
+    "quarantined": 0,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 20
+  },
+  {
+    "name": "AGY Bridge Visibility",
+    "attempted": 1,
+    "passed": 1,
+    "failed": 0,
+    "refused": 1,
+    "quarantined": 0,
+    "replayConverged": 1,
+    "receiptVerified": 1,
+    "reported": 1,
+    "durationMs": 3239
+  }
+]

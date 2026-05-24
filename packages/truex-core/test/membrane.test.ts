@@ -9,7 +9,7 @@ import {
 } from "../src/membrane.js";
 
 describe("Membrane Boundary Property Tests", () => {
-  const builtInKeys = ['constructor', 'prototype', 'length', 'size', 'name', 'message', 'stack'];
+  const builtInKeys = new Set(['constructor', 'prototype', 'length', 'size', 'name', 'message', 'stack']);
   const safeKeyArb = fc.string().filter(s => !['__proto__', 'prototype'].includes(s));
 
   it("maintains strict isolation and capability enforcement across random mutation sequences", () => {
@@ -31,7 +31,7 @@ describe("Membrane Boundary Property Tests", () => {
           // Cascading Capability: If we can read/write a key, we allow reading all its sub-properties
           // for the purpose of these property tests, otherwise deep equality checks fail.
           const capCtx = createCapabilityContext(proxyInterface.proxy, { 
-            canRead: (key: string) => canRead.has(key) || builtInKeys.includes(key) || true, // Allow all for this test's deep traversal
+            canRead: (key: string) => canRead.has(key) || builtInKeys.has(key) || true, // Allow all for this test's deep traversal
             canWrite: (key: string) => canWrite.has(key)
           });
           registerCapabilityInterceptors(proxyInterface, capCtx);
@@ -79,12 +79,16 @@ describe("Membrane Boundary Property Tests", () => {
           value: fc.anything()
         }), { minLength: 1 }), // operations to perform
         (initialTarget, operations) => {
-          const target = { ...initialTarget };
+          const clone = (obj: any) => {
+            const c = Object.create(Object.getPrototypeOf(obj));
+            return Object.assign(c, obj);
+          };
+          const target = clone(initialTarget);
           const proxyInterface = createProxy(target);
           const txCtx = createTransactionContext(target);
           registerTransactionInterceptors(proxyInterface, txCtx);
 
-          const finalExpected: Record<string, any> = { ...initialTarget };
+          const finalExpected = clone(initialTarget);
 
           txCtx.call(() => {
             for (const op of operations) {

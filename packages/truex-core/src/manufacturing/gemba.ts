@@ -55,7 +55,7 @@ export class GembaMonitor {
     delta: GraphDelta,
     previousReceiptHash: string | null
   ): Promise<GembaEvidence> {
-    const timestamp = new Date().toISOString();
+    const timestamp = new Date(ctx.clock()).toISOString();
     
     // The 'Gemba' is the simulation of the hook execution
     // where we capture the OCEL 2.0 traces.

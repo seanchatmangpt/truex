@@ -26,7 +26,7 @@ export class TruexAgentAdapter {
       proposal = validateProposal(proposalInput);
     } catch (error_: any) {
       // If validation itself fails, we cannot extract a valid delta, but we create a Refused Receipt
-      const dummyId = `refusal-${Date.now()}`;
+      const dummyId = `refusal-${this.ctx.clock()}`;
       const dummyHash = hash(proposalInput);
       const prevHash = this.engine.getStore().latest()?.receiptHash ?? null;
       const receipt = createReceipt(

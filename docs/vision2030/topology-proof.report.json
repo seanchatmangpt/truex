@@ -1,0 +1,14 @@
+{
+  "primitive": "topology",
+  "passed": true,
+  "invariants": [
+    "single hook execution registered correctly as depth-0 activation",
+    "cascading hooks execute in order with correct receipt chain lineage",
+    "hook storm mitigated: cyclic loop detected and refused",
+    "seeded execution is completely deterministic and reproducible"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 6
+  }
+}

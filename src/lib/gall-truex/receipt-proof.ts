@@ -1,4 +1,6 @@
 import { hash } from "./hash-proof.js";
+import { signReceiptHash, verifySignature } from "./signature-proof.js";
+import type { KeyPair } from "./signature-proof.js";
 
 export type ReceiptPrimitive = {
   id: string;
@@ -9,6 +11,8 @@ export type ReceiptPrimitive = {
   previousReceiptHash: string | null;
   status: "confirmed" | "refused";
   receiptHash: string;
+  signature?: string;
+  publicKey?: string;
 };
 
 let seedState = 12_345;
@@ -60,7 +64,8 @@ export function createReceipt(
   outputHash: string,
   previousReceiptHash: string | null,
   status: "confirmed" | "refused" = "confirmed",
-  ctx?: { uuid: () => string }
+  ctx?: { uuid: () => string },
+  keys?: KeyPair
 ): ReceiptPrimitive {
   const receiptWithoutHash = {
     id: ctx ? ctx.uuid() : deterministicUUID(),
@@ -72,17 +77,40 @@ export function createReceipt(
     status,
   };
 
+  const receiptHash = hash(receiptWithoutHash);
+  let signature: string | undefined;
+  let publicKey: string | undefined;
+
+  if (keys) {
+    signature = signReceiptHash(receiptHash, keys.secretKey);
+    publicKey = keys.publicKey;
+  }
+
   return {
     ...receiptWithoutHash,
-    receiptHash: hash(receiptWithoutHash),
+    receiptHash,
+    signature,
+    publicKey,
   };
 }
 
 export function verifyReceipt(receipt: ReceiptPrimitive): boolean {
-  const { receiptHash, ...receiptWithoutHash } = receipt;
-  return hash(receiptWithoutHash) === receiptHash;
+  const { receiptHash, signature, publicKey, ...receiptWithoutHash } = receipt;
+  
+  // 1. Verify Hash Integrity
+  if (hash(receiptWithoutHash) !== receiptHash) {
+    return false;
+  }
+
+  // 2. Verify Signature Integrity (if present)
+  if (signature && publicKey) {
+    return verifySignature(signature, receiptHash, publicKey);
+  }
+
+  return true;
 }
 
 export function verifyChain(r1: ReceiptPrimitive, r2: ReceiptPrimitive): boolean {
-  return r2.previousReceiptHash === r1.receiptHash;
+  // Lineage requires both receipts be internally valid AND r2 points to r1
+  return verifyReceipt(r1) && verifyReceipt(r2) && r2.previousReceiptHash === r1.receiptHash;
 }

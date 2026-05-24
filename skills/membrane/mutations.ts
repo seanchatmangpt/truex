@@ -266,10 +266,10 @@ export function createTransactionContext(target: any, options: any = {}) {
       const entry = state.journal[i];
       const writeTarget = entry.target || target;
       if (entry.operation === 'set') {
-        if (!entry.hadProperty) {
-          Reflect.deleteProperty(writeTarget, entry.property);
-        } else {
+        if (entry.hadProperty) {
           Reflect.set(writeTarget, entry.property, entry.previousValue);
+        } else {
+          Reflect.deleteProperty(writeTarget, entry.property);
         }
       } else if (entry.operation === 'delete' && entry.hadProperty) {
           Reflect.set(writeTarget, entry.property, entry.previousValue);

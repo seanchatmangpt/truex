@@ -61,11 +61,11 @@ const hasBoolCap = (cap: any, ...args: any[]) => {
 };
 
 export function registerCapabilityInterceptors(proxyInterface: any, capCtx: any) {
-  const builtInKeys = ['constructor', 'prototype', 'length', 'size', 'name', 'message', 'stack'];
+  const builtInKeys = new Set(['constructor', 'prototype', 'length', 'size', 'name', 'message', 'stack']);
   
   const canRead = (prop: any) => {
     if (typeof prop === 'symbol') return true;
-    if (builtInKeys.includes(prop)) return true;
+    if (builtInKeys.has(prop)) return true;
     const caps = capCtx.context.tryUse();
     return caps ? hasPropertyCap(caps.canRead, prop) : false;
   };

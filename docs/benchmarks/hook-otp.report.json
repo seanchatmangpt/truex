@@ -1,0 +1,39 @@
+{
+  "case": "hook-otp-equivalence",
+  "status": "passed",
+  "otpEquivalentNotOtp": true,
+  "runtime": {
+    "processes": 2,
+    "processesStarted": 1,
+    "processesAlive": 0,
+    "processesQuarantined": 1,
+    "messagesDispatched": 5,
+    "messagesProcessed": 4,
+    "messagesConfirmed": 1,
+    "messagesRefused": 4,
+    "messagesQuarantined": 3,
+    "restarts": 2,
+    "restartBudgetExhausted": 1,
+    "fifoOrderingVerified": true,
+    "stateIsolationVerified": true,
+    "siblingCrashContainmentVerified": true
+  },
+  "receipts": {
+    "confirmedReceiptVerified": true,
+    "refusedReceiptVerified": true,
+    "receiptChainVerified": true,
+    "replayConvergenceVerified": true,
+    "tamperDivergenceVerified": true
+  },
+  "benchmark": {
+    "rawHookOpsPerSecond": 19230769.231,
+    "rawHookOpsPerSecondString": "19230769.231 ops/sec",
+    "otpMessageOpsPerSecond": 21127355.7,
+    "otpMessageOpsPerSecondString": "21127355.700 ops/sec",
+    "receiptBackedOtpOpsPerSecond": 26894.974,
+    "receiptBackedOtpOpsPerSecondString": "26894.974 ops/sec",
+    "overheadRatio": 715.032,
+    "overheadRatioString": "715.032x"
+  },
+  "reportHash": "c7031e5ce3d24089024944638dfafccb916f72027a0ab551d658062ae894fd74"
+}

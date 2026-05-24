@@ -1,0 +1,971 @@
+{
+  "version": "1.0.0",
+  "graphHash": "9d61951133552a038c33dd5f0e1db6f48dc563ba44da9e219c3fbba4fe9709d9",
+  "nodes": [
+    {
+      "id": "scripts/after-tool-hook.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "scripts/decouple-hookbench.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": []
+    },
+    {
+      "id": "scripts/receipted-audit.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "skills/replay/mutations.ts",
+        "skills/receipt/invariant.ts",
+        "agents/swarm-auditor.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "scripts/truex-agy-bridge.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/manufacturing/registry.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/persistence/journal.ts",
+        "packages/truex-core/src/persistence/receipt-store.ts",
+        "packages/truex-core/src/persistence/ontology.ts"
+      ]
+    },
+    {
+      "id": "scripts/truex.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "agents/doctor/agent.ts"
+      ]
+    },
+    {
+      "id": "skills/repository-proof.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "packages/truex-core/src/integration/skill-sandbox.ts",
+        "packages/truex-core/src/integration/task-delta.ts",
+        "packages/truex-core/src/persistence/ontology.ts",
+        "scripts/observatory/lib/emit-topology-graph.ts",
+        "packages/truex-core/src/index.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/index.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "scripts/observatory/lib/registry.ts"
+      ]
+    },
+    {
+      "id": "skills/adapter/invariant.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "skills/adapter/mutations.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "skills/hash/mutations.ts",
+        "skills/receipt/mutations.ts",
+        "skills/adapter/invariant.ts",
+        "skills/adapter/invariant.ts",
+        "packages/truex-core/src/context.ts",
+        "skills/replay/mutations.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "skills/adapter/proofs.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "skills/hash/mutations.ts",
+        "skills/replay/mutations.ts",
+        "skills/adapter/mutations.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "skills/receipt/invariant.ts"
+      ]
+    },
+    {
+      "id": "skills/hash/invariant.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "skills/hash/mutations.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "skills/hash/invariant.ts"
+      ]
+    },
+    {
+      "id": "skills/hash/proofs.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "skills/hash/mutations.ts"
+      ]
+    },
+    {
+      "id": "skills/hook/proofs.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "skills/membrane/invariant.ts",
+      "type": "Integration",
+      "layer": "S2",
+      "dependencies": [
+        "skills/membrane/mutations.ts"
+      ]
+    },
+    {
+      "id": "skills/membrane/membrane-replay-proof.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/membrane-replay.gall.ts"
+      ]
+    },
+    {
+      "id": "skills/membrane/mutations.ts",
+      "type": "Integration",
+      "layer": "S2",
+      "dependencies": [
+        "skills/hash/mutations.ts",
+        "packages/truex-core/src/context.ts"
+      ]
+    },
+    {
+      "id": "skills/membrane/proofs.ts",
+      "type": "Integration",
+      "layer": "S2",
+      "dependencies": [
+        "skills/membrane/mutations.ts",
+        "skills/membrane/invariant.ts"
+      ]
+    },
+    {
+      "id": "skills/receipt/invariant.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "skills/hash/mutations.ts",
+        "skills/receipt/mutations.ts"
+      ]
+    },
+    {
+      "id": "skills/receipt/mutations.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "skills/hash/mutations.ts"
+      ]
+    },
+    {
+      "id": "skills/receipt/proofs.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "skills/receipt/mutations.ts",
+        "skills/receipt/invariant.ts",
+        "packages/truex-core/src/context.ts",
+        "skills/hash/mutations.ts"
+      ]
+    },
+    {
+      "id": "skills/replay/invariant.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "skills/hash/mutations.ts"
+      ]
+    },
+    {
+      "id": "skills/replay/mutations.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "skills/hash/mutations.ts",
+        "skills/receipt/mutations.ts",
+        "skills/receipt/invariant.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "skills/replay/proofs.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "skills/hash/mutations.ts",
+        "packages/truex-core/src/context.ts",
+        "skills/replay/mutations.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "skills/topology/proofs.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": [
+        "packages/truex-core/src/topology.gall.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/concurrency.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/hash.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/context.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/hash.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/hook-otp.gall.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/index.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/hook.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/context.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/index.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/membrane-replay.gall.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/index.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/membrane.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/receipt.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/replay.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/runtime-law.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/signature.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/topology.gall.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/index.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/diagnostics.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/docs-link.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-agy-facts.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-artifacts.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": []
+    },
+    {
+      "id": "scripts/observatory/lib/emit-benchmark-diagram.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-benchmark-facts.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-core-facts.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-governance-actuator.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-manufacturing-facts.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/manufacturing/registry.ts",
+        "packages/truex-core/src/manufacturing/standardization.ts",
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-membrane-replay-diagram.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-membrane-replay-facts.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-persistence-diagram.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-persistence-facts.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-receipt.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts",
+        "packages/truex-core/src/signature.ts",
+        "skills/hash/mutations.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-refinement-rules.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts",
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-refusal-analysis.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-topology-diagram.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-topology-facts.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/emit-topology-graph.ts",
+      "type": "Topology",
+      "layer": "S5",
+      "dependencies": []
+    },
+    {
+      "id": "scripts/observatory/lib/emit-wal-reconstruction-visualization.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/fact-emitter.ts"
+      ]
+    },
+    {
+      "id": "scripts/observatory/lib/fact-emitter.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": []
+    },
+    {
+      "id": "scripts/observatory/lib/registry.ts",
+      "type": "Governance",
+      "layer": "S4",
+      "dependencies": [
+        "scripts/observatory/lib/emit-topology-graph.ts",
+        "scripts/observatory/lib/fact-emitter.ts",
+        "scripts/observatory/lib/emit-core-facts.ts",
+        "scripts/observatory/lib/emit-agy-facts.ts",
+        "scripts/observatory/lib/emit-manufacturing-facts.ts",
+        "scripts/observatory/lib/emit-persistence-facts.ts",
+        "scripts/observatory/lib/emit-benchmark-facts.ts",
+        "scripts/observatory/lib/emit-refinement-rules.ts",
+        "scripts/observatory/lib/emit-persistence-diagram.ts",
+        "scripts/observatory/lib/emit-topology-diagram.ts",
+        "scripts/observatory/lib/emit-topology-facts.ts",
+        "scripts/observatory/lib/emit-benchmark-diagram.ts",
+        "scripts/observatory/lib/emit-receipt.ts",
+        "scripts/observatory/lib/diagnostics.ts",
+        "scripts/observatory/lib/emit-refusal-analysis.ts",
+        "scripts/observatory/lib/docs-link.ts",
+        "scripts/observatory/lib/emit-governance-actuator.ts",
+        "scripts/observatory/lib/emit-artifacts.ts",
+        "scripts/observatory/lib/emit-membrane-replay-facts.ts",
+        "scripts/observatory/lib/emit-membrane-replay-diagram.ts",
+        "scripts/observatory/lib/emit-wal-reconstruction-visualization.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/benchmark/hookbench.gall.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/manufacturing/jidoka.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/persistence/journal.ts",
+        "packages/truex-core/src/persistence/schema.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/benchmark/million-hook-church.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/benchmark/runner.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": [
+        "packages/truex-core/src/benchmark/hookbench.gall.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/benchmark/stress-tests.ts",
+      "type": "Benchmark",
+      "layer": "S4",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/manufacturing/jidoka.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/autonomic-loop.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/persistence/journal.ts",
+        "packages/truex-core/src/persistence/receipt-store.ts",
+        "packages/truex-core/src/index.ts",
+        "packages/truex-core/src/integration/hook-interceptor.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/consequence-actuator.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/env-actuator.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/hook-interceptor.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/report-receipt.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/skill-sandbox.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/integration/swarm-controller.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/context.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/task-delta.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/integration/trajectory-replay.ts",
+      "type": "Integration",
+      "layer": "AGY",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/collaboration.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/receipt.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/gemba.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "src/ocel2/index/index.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/heijunka.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/manufacturing/jit.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/jidoka.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/manufacturing/standardization.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/jit.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/kaizen.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/lean.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/hook.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/line.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/manufacturing/jit.ts",
+        "packages/truex-core/src/manufacturing/jidoka.ts",
+        "packages/truex-core/src/manufacturing/heijunka.ts",
+        "packages/truex-core/src/manufacturing/kaizen.ts",
+        "packages/truex-core/src/manufacturing/topology.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/hook.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/registry.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/manufacturing/line.ts",
+        "packages/truex-core/src/manufacturing/jit.ts",
+        "packages/truex-core/src/index.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/standardization.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/swarm-actuator.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/manufacturing/visual.ts",
+        "packages/truex-core/src/context.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/topology.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/receipt.ts",
+        "packages/truex-core/src/hash.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/manufacturing/visual.ts",
+      "type": "Manufacturing",
+      "layer": "S2",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/audit-engine.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/persistence/receipt-store.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/index.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/persistence/journal.ts",
+        "packages/truex-core/src/persistence/receipt-store.ts",
+        "packages/truex-core/src/persistence/snapshot.ts",
+        "packages/truex-core/src/manufacturing/line.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/journal.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/lock.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/persistence/membrane-link.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/membrane.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/ontology.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/persistence/receipt-store.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/receipt.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/replay.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/persistence/journal.ts",
+        "packages/truex-core/src/persistence/receipt-store.ts",
+        "packages/truex-core/src/persistence/snapshot.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/receipt.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/schema.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/persistence/snapshot.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/hash.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/persistence/transactions.ts",
+      "type": "Persistence",
+      "layer": "S3",
+      "dependencies": [
+        "packages/truex-core/src/membrane.ts",
+        "packages/truex-core/src/hook.ts",
+        "packages/truex-core/src/context.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/utils/array.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/error-log.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/log-format.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/memory.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/object.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/proxy-log.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/utils/log-format.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/utils/proxy-overhead.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": [
+        "packages/truex-core/src/membrane.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/utils/string.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/timing.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    },
+    {
+      "id": "packages/truex-core/src/utils/type.ts",
+      "type": "Primitive",
+      "layer": "S0-S1",
+      "dependencies": []
+    }
+  ],
+  "_metadata": {
+    "emitter": "Topology Graph Emitter",
+    "description": "Live source-grounded graph of the Truex operational ontology",
+    "timestamp": "2026-05-24T03:09:33.207Z"
+  }
+}

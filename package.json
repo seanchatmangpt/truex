@@ -29,7 +29,8 @@
     "release": "npm test && changelogen --release && npm publish && git push --follow-tags",
     "test": "npm run lint && npm run test:types && vitest run --coverage",
     "test:types": "tsc --noEmit --skipLibCheck",
-    "truex": "tsx scripts/truex.ts"
+    "truex": "tsx scripts/truex.ts",
+    "observatory": "tsx scripts/observatory/index.ts"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
@@ -43,6 +44,7 @@
     "fast-check": "^4.8.0",
     "jiti": "^2.4.0",
     "prettier": "^3.4.1",
+    "ts-morph": "^28.0.0",
     "typescript": "^5.7.2",
     "unbuild": "^2.0.0",
     "vitest": "^2.1.6"

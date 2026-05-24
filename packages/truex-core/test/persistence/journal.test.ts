@@ -42,7 +42,7 @@ describe('DeltaJournal', () => {
     const idx = journal.append(delta);
     expect(idx).toBe(1);
 
-    const retrieved = Array.from(journal.replay());
+    const retrieved = [...journal.replay()];
     expect(retrieved).toHaveLength(1);
     expect(retrieved[0].idx).toBe(1);
     expect(retrieved[0].delta).toEqual(delta);
@@ -63,9 +63,9 @@ describe('DeltaJournal', () => {
         const replayed = localJournal.replay();
         expect(replayed).toHaveLength(deltas.length);
 
-        for (let i = 0; i < deltas.length; i++) {
+        for (const [i, delta] of deltas.entries()) {
           expect(replayed[i].idx).toBe(indices[i]);
-          expect(replayed[i].delta).toEqual(deltas[i]);
+          expect(replayed[i].delta).toEqual(delta);
         }
         localDb.close();
       }),
@@ -95,11 +95,11 @@ describe('DeltaJournal', () => {
           }
 
           const expectedUnapplied: GraphDelta[] = [];
-          for (let i = 0; i < deltas.length; i++) {
+          for (const [i, delta] of deltas.entries()) {
             if (normalizedApplyFlags[i]) {
               localJournal.markApplied(indices[i]);
             } else {
-              expectedUnapplied.push(deltas[i]);
+              expectedUnapplied.push(delta);
             }
           }
 
@@ -122,7 +122,7 @@ describe('DeltaJournal', () => {
     const idx = journal.append(delta);
     journal.markApplied(idx);
 
-    const unapplied = Array.from(journal.getUnapplied());
+    const unapplied = [...journal.getUnapplied()];
     expect(unapplied).toHaveLength(0);
   });
 
@@ -135,7 +135,7 @@ describe('DeltaJournal', () => {
     journal.append(d2);
     journal.append(d3);
 
-    const replay = Array.from(journal.replay(2));
+    const replay = [...journal.replay(2)];
     expect(replay).toHaveLength(2);
     expect(replay[0].delta.id).toBe('d2');
     expect(replay[1].delta.id).toBe('d3');
@@ -150,7 +150,7 @@ describe('DeltaJournal', () => {
 
     journal.markApplied(idx1);
 
-    const unapplied = Array.from(journal.getUnapplied());
+    const unapplied = [...journal.getUnapplied()];
     expect(unapplied).toHaveLength(1);
     expect(unapplied[0].delta.id).toBe('d2');
   });

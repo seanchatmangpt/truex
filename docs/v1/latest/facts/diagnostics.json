@@ -1,0 +1,138 @@
+{
+  "timestamp": "2026-05-24T03:09:33.226Z",
+  "health_check": {
+    "status": "healthy",
+    "checks": [
+      {
+        "name": "core_symbols",
+        "description": "Verifies presence of at least 5 core Truex primitives",
+        "expected_min": 5,
+        "actual": 7,
+        "symbols": [
+          "createInvariantContext",
+          "createAuditContext",
+          "createContractContext",
+          "createSimulationContext",
+          "OcelCollector",
+          "createProxy",
+          "useContext"
+        ],
+        "status": "pass"
+      }
+    ]
+  },
+  "gall_layer": {
+    "current": "S4",
+    "layers": [
+      {
+        "id": "S0",
+        "name": "Deterministic Entropy",
+        "status": "stable",
+        "found": [
+          "createDeterministicContext",
+          "TruexContext"
+        ],
+        "stable": [
+          "createDeterministicContext",
+          "TruexContext"
+        ],
+        "expected": [
+          "createDeterministicContext",
+          "TruexContext"
+        ]
+      },
+      {
+        "id": "S1",
+        "name": "Canonicalization & Hash",
+        "status": "stable",
+        "found": [
+          "stableJson",
+          "hash"
+        ],
+        "stable": [
+          "stableJson",
+          "hash"
+        ],
+        "expected": [
+          "stableJson",
+          "hash"
+        ]
+      },
+      {
+        "id": "S2",
+        "name": "Structural Trust",
+        "status": "stable",
+        "found": [
+          "createReceipt",
+          "verifyReceipt",
+          "signReceiptHash"
+        ],
+        "stable": [
+          "createReceipt",
+          "verifyReceipt",
+          "signReceiptHash"
+        ],
+        "expected": [
+          "createReceipt",
+          "verifyReceipt",
+          "signReceiptHash"
+        ]
+      },
+      {
+        "id": "S3",
+        "name": "Persistent State",
+        "status": "unstable",
+        "found": [
+          "S3PersistenceMembrane",
+          "SQLiteReceiptStore",
+          "GallTruexSqliteEngine"
+        ],
+        "stable": [
+          "S3PersistenceMembrane",
+          "GallTruexSqliteEngine"
+        ],
+        "expected": [
+          "S3PersistenceMembrane",
+          "SQLiteReceiptStore",
+          "GallTruexSqliteEngine"
+        ]
+      },
+      {
+        "id": "S4",
+        "name": "Autonomic Behavior",
+        "status": "stable",
+        "found": [
+          "TruexHook",
+          "interceptAgyExecution"
+        ],
+        "stable": [
+          "TruexHook",
+          "interceptAgyExecution"
+        ],
+        "expected": [
+          "TruexHook",
+          "interceptAgyExecution"
+        ]
+      }
+    ]
+  },
+  "coverage": {
+    "status": "partially_available",
+    "message": "Coverage directory exists but coverage-summary.json not found. Ensure vitest is configured with \"json-summary\" reporter."
+  },
+  "waste_metrics": {
+    "decomposition_drift": true,
+    "muri": true,
+    "details": {
+      "file_count": 60,
+      "unstable_layers": [
+        "S3"
+      ]
+    }
+  },
+  "_metadata": {
+    "emitter": "Diagnostics Emitter",
+    "description": "Generates a diagnostic report for the Truex architecture",
+    "timestamp": "2026-05-24T03:09:33.251Z"
+  }
+}

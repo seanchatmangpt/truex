@@ -1,0 +1,75 @@
+{
+  "version": "1.0.0",
+  "layer": "Persistence Membrane",
+  "sqlite": {
+    "engine": "better-sqlite3",
+    "mechanisms": [
+      "Write-Ahead Logging (WAL)"
+    ],
+    "tables": [
+      "migrations",
+      "receipts",
+      "events",
+      "deltas",
+      "quads",
+      "wal_deltas",
+      "ontology"
+    ],
+    "optimizations": [
+      "synchronous = NORMAL"
+    ]
+  },
+  "journaling": {
+    "name": "DeltaJournal",
+    "description": "Zero-Loss Cold-Load source of truth",
+    "table": "wal_deltas",
+    "fields": [
+      "id",
+      "delta_id",
+      "payload",
+      "created_at"
+    ],
+    "methods": [
+      "append",
+      "markApplied",
+      "replay",
+      "getUnapplied",
+      "count"
+    ]
+  },
+  "snapshotting": {
+    "manager": "SnapshotManager",
+    "format": "StateSnapshot",
+    "capabilities": [],
+    "structure": [
+      "receiptHash: string;",
+      "quads: Quad[];",
+      "timestamp: number;",
+      "metadata?: Record<string, any>;"
+    ]
+  },
+  "orchestration": {
+    "controller": "PersistenceOrchestrator",
+    "lifecycle": [
+      "Execute",
+      "Receipt",
+      "Persist",
+      "Crash",
+      "Cold-Load",
+      "Replay",
+      "Converge"
+    ]
+  },
+  "realtimeStats": {
+    "totalDeltas": 217,
+    "appliedDeltas": 106,
+    "receiptChainHeight": 42,
+    "lastUpdated": "2026-05-24T03:09:33.217Z"
+  },
+  "actuationTriggers": [],
+  "_metadata": {
+    "emitter": "Persistence Facts Emitter",
+    "description": "Extracts architectural facts about the SQLite persistence layer",
+    "timestamp": "2026-05-24T03:09:33.225Z"
+  }
+}

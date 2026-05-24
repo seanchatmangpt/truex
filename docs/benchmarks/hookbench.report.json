@@ -1,0 +1,179 @@
+{
+  "results": [
+    {
+      "tier": "T0",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 1,
+        "processedDeltas": 1,
+        "matchRatio": 1,
+        "evalOnly": false
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 28.296241760253906,
+        "memoryAfterMb": 28.49700164794922
+      },
+      "metrics": {
+        "registeredHooks": 1,
+        "processedDeltas": 1,
+        "totalHookDeltaEvaluations": 1,
+        "matchedHooks": 1,
+        "emittedEffects": 1,
+        "receipts": 1,
+        "refused": 0,
+        "replayConverged": 1,
+        "replayDiverged": 0,
+        "durationMs": 0.10833400000001348,
+        "hookDeltaEvaluationsPerSecond": 9230.71242638392,
+        "deltasPerSecond": 9230.71242638392,
+        "memoryBeforeMb": 28.296241760253906,
+        "memoryAfterMb": 28.49700164794922
+      },
+      "reportHash": "3950e5223d939a34041aae13b05e6d8b36eaff5146d5823f60308f18420d5e99"
+    },
+    {
+      "tier": "T1",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 100,
+        "processedDeltas": 100,
+        "matchRatio": 0.5,
+        "evalOnly": false
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 28.595741271972656,
+        "memoryAfterMb": 24.421295166015625
+      },
+      "metrics": {
+        "registeredHooks": 100,
+        "processedDeltas": 100,
+        "totalHookDeltaEvaluations": 10000,
+        "matchedHooks": 52,
+        "emittedEffects": 52,
+        "receipts": 52,
+        "refused": 0,
+        "replayConverged": 1,
+        "replayDiverged": 51,
+        "durationMs": 6.077874999999949,
+        "hookDeltaEvaluationsPerSecond": 1645311.889435055,
+        "deltasPerSecond": 16453.118894350548,
+        "memoryBeforeMb": 28.595741271972656,
+        "memoryAfterMb": 24.421295166015625
+      },
+      "reportHash": "442273e9256a7f8b68f4da3c77622c3d9b22152975598012a089372db0d0ceac"
+    },
+    {
+      "tier": "T2",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "matchRatio": 0.5,
+        "evalOnly": false
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 25.122467041015625,
+        "memoryAfterMb": 30.770156860351562
+      },
+      "metrics": {
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "totalHookDeltaEvaluations": 1000000,
+        "matchedHooks": 493,
+        "emittedEffects": 493,
+        "receipts": 493,
+        "refused": 0,
+        "replayConverged": 1,
+        "replayDiverged": 492,
+        "durationMs": 68.20837500000005,
+        "hookDeltaEvaluationsPerSecond": 14660956.224217325,
+        "deltasPerSecond": 14660.956224217325,
+        "memoryBeforeMb": 25.122467041015625,
+        "memoryAfterMb": 30.770156860351562
+      },
+      "reportHash": "bc9f5cdda04e917e960a02efe26a9e77171ab180030dd6c12a3392cb96277f33"
+    },
+    {
+      "tier": "T3",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "matchRatio": 0.5,
+        "evalOnly": true
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 31.471466064453125,
+        "memoryAfterMb": 23.859207153320312
+      },
+      "metrics": {
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "totalHookDeltaEvaluations": 1000000,
+        "matchedHooks": 493,
+        "emittedEffects": 493,
+        "receipts": 0,
+        "refused": 0,
+        "replayConverged": 0,
+        "replayDiverged": 0,
+        "durationMs": 20.079124999999976,
+        "hookDeltaEvaluationsPerSecond": 49802967.01175979,
+        "deltasPerSecond": 49802.967011759785,
+        "memoryBeforeMb": 31.471466064453125,
+        "memoryAfterMb": 23.859207153320312
+      },
+      "reportHash": "9ff6d492ba01ce9189e0059908eac6d85c2bdc517108cb9196a74986ef65e1e9"
+    }
+  ],
+  "stressResults": [
+    {
+      "name": "malformed delta refused",
+      "passed": true
+    },
+    {
+      "name": "nonmatching hook emits zero effects",
+      "passed": true
+    },
+    {
+      "name": "forbidden predicate refused if configured",
+      "passed": true
+    },
+    {
+      "name": "receipt tamper detected",
+      "passed": true
+    },
+    {
+      "name": "replay divergence detected",
+      "passed": true
+    },
+    {
+      "name": "capacity breach refused through real runtime path",
+      "passed": true
+    },
+    {
+      "name": "same seed produces same report hash",
+      "passed": true
+    },
+    {
+      "name": "different seed changes input hash",
+      "passed": true
+    }
+  ],
+  "reportHash": "bb1b1b0b0031e21fa4ad0d0b7faa61c779e50d11ce3f752741fc175059401ba8"
+}

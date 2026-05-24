@@ -1,0 +1,30 @@
+{
+  "primitive": "benchmark",
+  "passed": true,
+  "invariants": [
+    "Gall tiers T0-T3 successfully evaluated",
+    "malformed input verified",
+    "capacity breach / Muri verified",
+    "nonmatching predicate / Muda verified",
+    "forbidden predicate / policy refusal verified",
+    "receipt tamper verified",
+    "receipt chain reorder verified",
+    "replay input divergence verified",
+    "replay law divergence verified",
+    "seed/context divergence verified",
+    "timing/memory nondeterminism in report hash verified",
+    "eval-only misclassified as receipt-backed verified",
+    "benchmark metric miscalculation verified",
+    "WAL persistence mismatch verified",
+    "rollback failure verified",
+    "observatory stale report verified",
+    "Recursive Hook Storms verified",
+    "Cyclical Hook Activation verified",
+    "Cascading Rollback Divergence verified",
+    "Interrupted Receipt Persistence verified"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 32520
+  }
+}

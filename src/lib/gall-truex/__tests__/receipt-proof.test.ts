@@ -1,10 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import fc from 'fast-check';
 import { createReceipt, verifyReceipt, verifyChain } from '../receipt-proof.js';
+import { generateKeyPair } from '../signature-proof.js';
 
 describe('Receipt Primitive', () => {
   const hashArb = fc.string({ minLength: 64, maxLength: 64 });
   const idArb = fc.uuid();
+  const keys = generateKeyPair();
 
   it('Validates pristine receipts', () => {
     fc.assert(
@@ -12,6 +14,20 @@ describe('Receipt Primitive', () => {
         idArb, idArb, hashArb, hashArb, fc.option(hashArb),
         (eventId, deltaId, inputHash, outputHash, prevHash) => {
           const r = createReceipt(eventId, deltaId, inputHash, outputHash, prevHash);
+          expect(verifyReceipt(r)).toBe(true);
+        }
+      )
+    );
+  });
+
+  it('Validates signed receipts', () => {
+    fc.assert(
+      fc.property(
+        idArb, idArb, hashArb, hashArb, fc.option(hashArb),
+        (eventId, deltaId, inputHash, outputHash, prevHash) => {
+          const r = createReceipt(eventId, deltaId, inputHash, outputHash, prevHash, 'confirmed', undefined, keys);
+          expect(r.signature).toBeDefined();
+          expect(r.publicKey).toBe(keys.publicKey);
           expect(verifyReceipt(r)).toBe(true);
         }
       )
@@ -38,6 +54,19 @@ describe('Receipt Primitive', () => {
     );
   });
 
+  it('Fails on tampered signature', () => {
+    fc.assert(
+      fc.property(
+        idArb, idArb, hashArb, hashArb, fc.option(hashArb),
+        (eventId, deltaId, inputHash, outputHash, prevHash) => {
+          const r = createReceipt(eventId, deltaId, inputHash, outputHash, prevHash, 'confirmed', undefined, keys);
+          const tamperedSig = { ...r, signature: r.signature?.replace(/[0-9a-f]/, (m) => (m === '0' ? '1' : '0')) };
+          expect(verifyReceipt(tamperedSig)).toBe(false);
+        }
+      )
+    );
+  });
+
   it('Validates unbroken chains and fails broken ones', () => {
     fc.assert(
       fc.property(
@@ -51,6 +80,9 @@ describe('Receipt Primitive', () => {
 
           const brokenR2 = { ...r2, previousReceiptHash: badHash };
           expect(verifyChain(r1, brokenR2)).toBe(false);
+          
+          const tamperedR1 = { ...r1, inputHash: 'tamper' };
+          expect(verifyChain(tamperedR1, r2)).toBe(false);
         }
       )
     );

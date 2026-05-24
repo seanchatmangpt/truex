@@ -1,0 +1,782 @@
+{
+  "version": "1.0.0",
+  "corePrimitives": {
+    "hash": {
+      "files": [
+        "packages/truex-core/src/hash.ts"
+      ],
+      "resolvedSymbols": [
+        "stableJson",
+        "hash"
+      ]
+    },
+    "signature": {
+      "files": [
+        "packages/truex-core/src/signature.ts"
+      ],
+      "resolvedSymbols": [
+        "generateKeyPair",
+        "signReceiptHash",
+        "verifySignature",
+        "createReceipt",
+        "KeyPair"
+      ]
+    },
+    "receipt": {
+      "files": [
+        "packages/truex-core/src/receipt.ts"
+      ],
+      "resolvedSymbols": [
+        "generateKeyPair",
+        "signReceiptHash",
+        "verifySignature",
+        "createReceipt",
+        "KeyPair",
+        "verifyReceipt",
+        "verifyChain"
+      ]
+    },
+    "replay": {
+      "files": [
+        "packages/truex-core/src/replay.ts"
+      ],
+      "resolvedSymbols": [
+        "conditionMatches",
+        "verifyConvergence",
+        "MemoryReceiptStore",
+        "SQLiteReceiptStore",
+        "GallTruexPureEngine",
+        "GallTruexSqliteEngine",
+        "EvaluationResult",
+        "assertOutputConvergence"
+      ]
+    }
+  },
+  "stats": {
+    "totalFiles": 60,
+    "totalFunctions": 110,
+    "totalClasses": 32,
+    "totalExportedSymbols": 227
+  },
+  "files": [
+    {
+      "path": "packages/truex-core/src/benchmark/hookbench.gall.ts",
+      "functions": 9,
+      "classes": 1,
+      "symbols": [
+        "makeGraphDelta",
+        "makeHookDefinition",
+        "makeHookField",
+        "makeBenchmarkCase",
+        "runHookBench",
+        "runHookTier",
+        "runStressCases",
+        "writeReport",
+        "runGallHookBench",
+        "SeededPRNG",
+        "HookBenchCase",
+        "HookBenchTier",
+        "HookBenchResult",
+        "HookBenchStressCase",
+        "HookBenchReporter"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/benchmark/million-hook-church.ts",
+      "functions": 3,
+      "classes": 1,
+      "symbols": [
+        "generateChurchDeltas",
+        "generateChurchHooks",
+        "runMillionHookBenchmark",
+        "SeededPRNG",
+        "BenchmarkOptions",
+        "BenchmarkResult"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/benchmark/runner.ts",
+      "functions": 2,
+      "classes": 0,
+      "symbols": [
+        "runBenchmark",
+        "persistReport",
+        "BenchmarkOptions"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/benchmark/stress-tests.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "runStressTests"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/concurrency.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "mapHookInterference",
+        "verifyPartialOrderConvergence",
+        "detectRaceConditions",
+        "InterferencePattern",
+        "HookInterference"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/context.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "createDeterministicContext",
+        "TruexContext"
+      ],
+      "internalLogicPaths": [
+        "bytesToHex"
+      ]
+    },
+    {
+      "path": "packages/truex-core/src/hash.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/hook-otp.gall.ts",
+      "functions": 7,
+      "classes": 0,
+      "symbols": [
+        "createHookMailbox",
+        "createHookProcess",
+        "createHookSupervisor",
+        "createHookOtpRuntime",
+        "dispatchMessage",
+        "replayMessage",
+        "runHookOtpProof",
+        "HookProcessId",
+        "HookMessage",
+        "HookMailbox",
+        "HookProcess",
+        "HookSupervisor",
+        "HookQuarantineRecord",
+        "HookOtpRuntime"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/hook.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "TruexHook"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/index.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/autonomic-loop.ts",
+      "functions": 0,
+      "classes": 2,
+      "symbols": [
+        "RefusalError",
+        "AutonomicGallLoop",
+        "ToolAction",
+        "AutonomicLoopResult"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/consequence-actuator.ts",
+      "functions": 4,
+      "classes": 0,
+      "symbols": [
+        "isConformingItem",
+        "rewriteMutation",
+        "injectReceiptIntoOutput",
+        "generateContextInjections",
+        "MutationRule",
+        "DriftMetrics",
+        "TopologyNode",
+        "TopologyEdge",
+        "SystemTopology"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/env-actuator.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "regenerateObservatoryDiagrams",
+        "mutateAgentsRules",
+        "normalizeArtifacts"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/hook-interceptor.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "interceptAgyExecution"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/report-receipt.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "canonicalizeReport",
+        "envelopeReport",
+        "verifyReportReceipt",
+        "SignedReceipt"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/skill-sandbox.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "validateSkillMarkdown",
+        "ValidationResult"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/swarm-controller.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "launchAuditor",
+        "terminateDriftedAgents",
+        "rebalanceTasks",
+        "ActiveAgent",
+        "DriftPolicy",
+        "SwarmTask",
+        "TerminationResult",
+        "RebalanceResult"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/task-delta.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "compileTaskToDelta"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/integration/trajectory-replay.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "useTrajectoryContext",
+        "tryUseTrajectoryContext",
+        "replayTrajectory",
+        "trajectoryContext"
+      ],
+      "internalLogicPaths": [
+        "setNestedProperty",
+        "deleteNestedProperty"
+      ]
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/collaboration.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "PeerReview"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/gemba.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "GembaMonitor",
+        "GembaEvidence"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/heijunka.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "ProductionScheduler",
+        "ExecutionResult"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/jidoka.ts",
+      "functions": 0,
+      "classes": 2,
+      "symbols": [
+        "AndonSystem",
+        "PokaYoke"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/jit.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "KanbanSystem"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/kaizen.ts",
+      "functions": 0,
+      "classes": 2,
+      "symbols": [
+        "RefiningEngine",
+        "GembaInspector",
+        "OptimizationSuggestion",
+        "HookState"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/lean.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "WasteDetector",
+        "MuraReport",
+        "MudaReport"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/line.ts",
+      "functions": 1,
+      "classes": 1,
+      "symbols": [
+        "truexManufacture",
+        "ProductionLine"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/registry.ts",
+      "functions": 1,
+      "classes": 1,
+      "symbols": [
+        "createAgyProductionLine",
+        "RecursiveHookEvolution",
+        "RepositoryLaws"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/standardization.ts",
+      "functions": 2,
+      "classes": 0,
+      "symbols": [
+        "validateTaktTime",
+        "standardize",
+        "WorkStandards"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/swarm-actuator.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "SwarmActuator",
+        "ActuationProposal"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/topology.ts",
+      "functions": 0,
+      "classes": 2,
+      "symbols": [
+        "TopologyRefusalError",
+        "RecursiveHookEngine",
+        "HookActivation",
+        "HookTopology"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/manufacturing/visual.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "ManufacturingDashboard",
+        "DashboardMetrics"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/membrane-replay.gall.ts",
+      "functions": 11,
+      "classes": 0,
+      "symbols": [
+        "initializeMembraneReplaySchema",
+        "appendJournalEntry",
+        "loadJournal",
+        "reconstructTopologyState",
+        "saveRollbackSnapshot",
+        "reconstructRollbackState",
+        "replayJournalLineage",
+        "verifyJournalIntegrity",
+        "generateReplayTopologyHash",
+        "generateNormalizedReplayTopologyHash",
+        "recoverFromCrash",
+        "JournalEntry",
+        "TopologySnapshot",
+        "RollbackSnapshot",
+        "JournalLineage",
+        "ReplayCheckpoint",
+        "MembraneRecovery",
+        "PersistentJournal",
+        "JournalReplay",
+        "MembraneReplayAccounting"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/membrane.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/audit-engine.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "AuditEngine",
+        "HistoricalTrace"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/index.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "PersistenceOrchestrator",
+        "S3PersistenceMembrane"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/journal.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "DeltaJournal"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/lock.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "SQLiteLockManager",
+        "LockOptions"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/membrane-link.ts",
+      "functions": 1,
+      "classes": 1,
+      "symbols": [
+        "createMembraneLink",
+        "MembraneLink"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/ontology.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "OntologyRegistry",
+        "OntologyNode"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/receipt-store.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "SQLiteReceiptStore"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/replay.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "PersistenceReplay"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/schema.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "initializeSchema",
+        "migrations",
+        "Migration"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/snapshot.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "quadEquals",
+        "SnapshotManager",
+        "StateSnapshot"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/persistence/transactions.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "TransactionalMembrane"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/receipt.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/replay.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/runtime-law.ts",
+      "functions": 8,
+      "classes": 0,
+      "symbols": [
+        "parseQuad",
+        "parseGraphDelta",
+        "parseHookCondition",
+        "parseHookEffect",
+        "parseHookDefinition",
+        "parseReceipt",
+        "parseReplayRequest",
+        "computeAccounting",
+        "Quad",
+        "GraphDelta",
+        "HookCondition",
+        "HookEffect",
+        "HookDefinition",
+        "HookEvent",
+        "Receipt",
+        "ReplayRequest",
+        "CountAccounting",
+        "AccountingInput"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/signature.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/topology.gall.ts",
+      "functions": 8,
+      "classes": 0,
+      "symbols": [
+        "createTopologyRuntime",
+        "registerTopologyHook",
+        "emitTopologyDelta",
+        "detectHookStorm",
+        "rollbackTopologyChain",
+        "runTopologyChain",
+        "replayTopologyChain",
+        "generateTopologyReport",
+        "TopologyNode",
+        "TopologyEdge",
+        "TopologyDelta",
+        "TopologyChain",
+        "TopologyReceipt",
+        "TopologyRun",
+        "TopologyRollback",
+        "TopologyStorm",
+        "TopologyReplayReport",
+        "TopologyAccounting",
+        "TopologyRuntime"
+      ],
+      "internalLogicPaths": [
+        "matchesCondition"
+      ]
+    },
+    {
+      "path": "packages/truex-core/src/utils/array.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "flatten",
+        "unique",
+        "intersection",
+        "RecursiveArray"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/error-log.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "sanitize",
+        "getErrorChain",
+        "logError",
+        "DEFAULT_REDACTED_KEYS"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/log-format.ts",
+      "functions": 5,
+      "classes": 0,
+      "symbols": [
+        "setLogLevel",
+        "getLogLevel",
+        "safeStringify",
+        "formatLog",
+        "log",
+        "LogLevel",
+        "LogContext"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/memory.ts",
+      "functions": 1,
+      "classes": 2,
+      "symbols": [
+        "estimateMemoryUsage",
+        "MemoryLeakDetector",
+        "MemoryMonitor"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/object.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "isPlainObject",
+        "deepClone",
+        "deepMerge"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/proxy-log.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "createLoggingProxy",
+        "ProxyLogOptions"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/proxy-overhead.ts",
+      "functions": 6,
+      "classes": 0,
+      "symbols": [
+        "measureProxyCreationTime",
+        "measureTrapOverhead",
+        "compareTrapImplementations",
+        "identifyBottlenecks",
+        "runBenchmarks",
+        "generateReport",
+        "BenchmarkResult",
+        "PerformanceReport"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/string.ts",
+      "functions": 2,
+      "classes": 0,
+      "symbols": [
+        "camelToKebab",
+        "sanitizeString"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/timing.ts",
+      "functions": 2,
+      "classes": 1,
+      "symbols": [
+        "measureTime",
+        "measureTimeAsync",
+        "OperationTracker",
+        "TimingResult"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/utils/type.ts",
+      "functions": 5,
+      "classes": 0,
+      "symbols": [
+        "isFunction",
+        "isPrimitive",
+        "isObject",
+        "isPlainObject",
+        "getType"
+      ],
+      "internalLogicPaths": []
+    }
+  ],
+  "_metadata": {
+    "emitter": "Core Facts Emitter",
+    "description": "Extracts core primitives and exported symbols from truex-core",
+    "timestamp": "2026-05-24T03:09:33.216Z"
+  }
+}

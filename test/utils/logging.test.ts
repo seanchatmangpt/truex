@@ -61,17 +61,17 @@ describe('Logging utilities property tests', () => {
           setLogLevel(LogLevel.DEBUG) // Ensure everything logs
           const formatted = formatLog(level, message, context as any)
           
-          if (level !== LogLevel.NONE) {
-            expect(typeof formatted).toBe('string')
-            expect(formatted).toContain(message)
-            const levelName = LogLevel[level]
-            expect(formatted).toContain(levelName)
-          } else {
+          if (level === LogLevel.NONE) {
             // NONE level should probably not log anything or be handled
             // Based on code: if (level < currentLogLevel) return undefined
             // If currentLogLevel is DEBUG (0), and level is NONE (4), it will log.
             // Wait, LogLevel.NONE is 4. If currentLogLevel is DEBUG(0), 4 > 0, so it logs.
             expect(typeof formatted).toBe('string')
+          } else {
+            expect(typeof formatted).toBe('string')
+            expect(formatted).toContain(message)
+            const levelName = LogLevel[level]
+            expect(formatted).toContain(levelName)
           }
         })
       )

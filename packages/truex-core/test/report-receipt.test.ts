@@ -99,4 +99,110 @@ describe("Report Receipt Integration", () => {
 
     expect(r1).toEqual(r2);
   });
+
+  it("should fail receipt verification if any fields in the receipt are tampered with (tampered receipt fails)", async () => {
+    const report = "Audit payload.";
+    const receipt = await envelopeReport(report, keys.secretKey, null);
+
+    expect(verifyReceipt(receipt)).toBe(true);
+
+    const fieldsToTamper: Array<keyof typeof receipt> = [
+      "id",
+      "eventId",
+      "deltaId",
+      "inputHash",
+      "outputHash",
+      "previousReceiptHash",
+      "status"
+    ];
+
+    for (const field of fieldsToTamper) {
+      const tampered = { ...receipt };
+      if (field === "previousReceiptHash") {
+        tampered[field] = "tampered_prev_hash";
+      } else if (field === "status") {
+        tampered[field] = "refused";
+      } else {
+        tampered[field] = (tampered[field] || "") + "_tampered";
+      }
+      expect(verifyReceipt(tampered)).toBe(false);
+      expect(verifyReportReceipt(tampered, keys.publicKey)).toBe(false);
+    }
+  });
+
+  it("should fail chain verification if the chain is reordered (reordered chain fails)", async () => {
+    const r1 = await envelopeReport("First Part", keys.secretKey, null);
+    const r2 = await envelopeReport("Second Part", keys.secretKey, r1.receiptHash);
+    const r3 = await envelopeReport("Third Part", keys.secretKey, r2.receiptHash);
+
+    // Lawful sequencing passes
+    expect(verifyChain(r1, r2)).toBe(true);
+    expect(verifyChain(r2, r3)).toBe(true);
+
+    // Reordered sequencing fails
+    expect(verifyChain(r2, r1)).toBe(false);
+    expect(verifyChain(r3, r2)).toBe(false);
+    expect(verifyChain(r1, r3)).toBe(false);
+  });
+
+  it("should fail chain verification if the previous hash is incorrect (wrong previous hash fails)", async () => {
+    const r1 = await envelopeReport("First Part", keys.secretKey, null);
+    const r2 = await envelopeReport("Second Part", keys.secretKey, r1.receiptHash);
+
+    const tamperedR2 = {
+      ...r2,
+      previousReceiptHash: "wrong_previous_hash_value"
+    };
+
+    // Note: since previousReceiptHash is changed, self-cryptographic integrity check (verifyReceipt) fails,
+    // and verifyChain fails because r2 is invalid.
+    expect(verifyChain(r1, tamperedR2)).toBe(false);
+  });
+
+  it("should fail report signature verification if signature is tampered (tampered signature fails)", async () => {
+    const report = "Financial Ledger 2026";
+    const receipt = await envelopeReport(report, keys.secretKey, null);
+
+    // Verify it works
+    expect(verifyReportReceipt(receipt, keys.publicKey)).toBe(true);
+
+    // 1. Alter signature parameter
+    const badReceipt1 = {
+      ...receipt,
+      signature: receipt.outputHash.replace(/[0-9a-f]/, '0')
+    };
+    expect(verifyReportReceipt(badReceipt1, keys.publicKey)).toBe(false);
+
+    // 2. Alter outputHash parameter
+    const badReceipt2 = {
+      ...receipt,
+      outputHash: receipt.outputHash.replace(/[0-9a-f]/, '0')
+    };
+    expect(verifyReportReceipt(badReceipt2, keys.publicKey)).toBe(false);
+  });
+
+  it("should fail validation if canonical bytes differ (mismatched canonical bytes fail)", async () => {
+    const json1 = ' { "z": 99, "a": 1 } ';
+    const json2 = '{"a":1,"z":99}';
+    const jsonDifferent = '{"a":1,"z":100}';
+
+    const r1 = await envelopeReport(json1, keys.secretKey, null);
+    const r2 = await envelopeReport(json2, keys.secretKey, null);
+    const rDiff = await envelopeReport(jsonDifferent, keys.secretKey, null);
+
+    // Semantic equivalent objects produce same inputHash
+    expect(r1.inputHash).toBe(r2.inputHash);
+
+    // Different objects produce different inputHash
+    expect(r1.inputHash).not.toBe(rDiff.inputHash);
+
+    // Verifying r1 with rDiff signature fails
+    const mixedReceipt = {
+      ...r1,
+      outputHash: rDiff.outputHash,
+      signature: rDiff.outputHash
+    };
+    // If outputHash/signature is for a different inputHash, signature verification fails
+    expect(verifyReportReceipt(mixedReceipt, keys.publicKey)).toBe(false);
+  });
 });

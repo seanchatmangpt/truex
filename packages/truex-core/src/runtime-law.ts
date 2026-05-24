@@ -43,6 +43,11 @@ export type Receipt = {
   previousReceiptHash: string | null;
   status: 'confirmed' | 'refused';
   receiptHash: string;
+  signature?: string;
+  publicKey?: string;
+  rollbackOf?: string;
+  failedChildId?: string;
+  reason?: string;
 };
 
 export type ReplayRequest = {
@@ -188,7 +193,7 @@ export function parseReceipt(input: unknown): Receipt {
   if (typeof r.receiptHash !== 'string' || !r.receiptHash) {
     throw new Error('Receipt.receiptHash must be a non-empty string');
   }
-  return {
+  const res: Receipt = {
     id: r.id,
     eventId: r.eventId,
     deltaId: r.deltaId,
@@ -198,6 +203,14 @@ export function parseReceipt(input: unknown): Receipt {
     status: r.status,
     receiptHash: r.receiptHash,
   };
+
+  if (typeof r.signature === 'string') res.signature = r.signature;
+  if (typeof r.publicKey === 'string') res.publicKey = r.publicKey;
+  if (typeof r.rollbackOf === 'string') res.rollbackOf = r.rollbackOf;
+  if (typeof r.failedChildId === 'string') res.failedChildId = r.failedChildId;
+  if (typeof r.reason === 'string') res.reason = r.reason;
+
+  return res;
 }
 
 export function parseReplayRequest(input: unknown): ReplayRequest {
@@ -210,3 +223,53 @@ export function parseReplayRequest(input: unknown): ReplayRequest {
     expectedReceipt: parseReceipt(req.expectedReceipt),
   };
 }
+
+export type CountAccounting = {
+  attempted: number;
+  succeeded: number;
+  failed: number;
+  refused: number;
+  quarantined: number;
+  skipped: number;
+  successRatePct: number;
+  failureRatePct: number;
+  refusalRatePct: number;
+  quarantineRatePct: number;
+  successRatePctString: string;
+  failureRatePctString: string;
+  refusalRatePctString: string;
+  quarantineRatePctString: string;
+};
+
+export type AccountingInput = {
+  attempted: number;
+  succeeded: number;
+  failed: number;
+  refused: number;
+  quarantined: number;
+  skipped: number;
+};
+
+export function computeAccounting(counts: AccountingInput): CountAccounting {
+  const attempted = counts.attempted;
+  const getPct = (val: number) => attempted === 0 ? 0.000 : parseFloat(((val / attempted) * 100).toFixed(3));
+  const getPctStr = (val: number) => `${getPct(val).toFixed(3)}%`;
+
+  return {
+    attempted: counts.attempted,
+    succeeded: counts.succeeded,
+    failed: counts.failed,
+    refused: counts.refused,
+    quarantined: counts.quarantined,
+    skipped: counts.skipped,
+    successRatePct: getPct(counts.succeeded),
+    failureRatePct: getPct(counts.failed),
+    refusalRatePct: getPct(counts.refused),
+    quarantineRatePct: getPct(counts.quarantined),
+    successRatePctString: getPctStr(counts.succeeded),
+    failureRatePctString: getPctStr(counts.failed),
+    refusalRatePctString: getPctStr(counts.refused),
+    quarantineRatePctString: getPctStr(counts.quarantined)
+  };
+}
+

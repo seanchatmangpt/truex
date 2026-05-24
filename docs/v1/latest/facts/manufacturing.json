@@ -1,0 +1,149 @@
+{
+  "pillars": {
+    "jit": {
+      "active": true,
+      "name": "Just-In-Time (JIT)",
+      "description": "Pull-based signaling system (Kanban) that eliminates over-processing waste (Muda).",
+      "components": [
+        "KanbanSystem"
+      ],
+      "mechanism": "Hooks are only pulled for execution when a delta matching their signaling condition enters the line."
+    },
+    "jidoka": {
+      "active": true,
+      "name": "Jidoka (Autonomation)",
+      "description": "Quality at the source via error-proofing (Poka-yoke) and failure signaling (Andon).",
+      "components": [
+        "AndonSystem",
+        "PokaYoke"
+      ],
+      "mechanism": "Immediately stops the production line (Line Stop) when an abnormal condition or law violation is detected."
+    },
+    "heijunka": {
+      "active": true,
+      "name": "Heijunka (Leveling)",
+      "description": "Levels the production volume and mix to prevent overburden (Muri) and unevenness (Mura).",
+      "components": [
+        "ProductionScheduler"
+      ],
+      "mechanism": "Batches and intervals hook execution to maintain a steady flow and respect system capacity."
+    },
+    "kaizen": {
+      "active": true,
+      "name": "Kaizen (Continuous Improvement)",
+      "description": "The 'Refining Engine' that analyzes execution history to suggest optimizations.",
+      "components": [
+        "RefiningEngine",
+        "GembaInspector"
+      ],
+      "mechanism": "Analyzes receipts to identify redundant hooks and suggests tighter predicates for JIT efficiency."
+    }
+  },
+  "workStandards": {
+    "taktTime": "50ms",
+    "standardInProcessStock": 10,
+    "sequence": [
+      "Identity Verification",
+      "Trigger Specification",
+      "Effect Atomicity",
+      "Determinism Check"
+    ]
+  },
+  "repositoryLaws": [
+    {
+      "id": "law-no-null",
+      "name": "No Null Allowed",
+      "condition": {
+        "kind": "always",
+        "description": "Unconditional enforcement for all operations entering the production line."
+      },
+      "effects": [
+        {
+          "kind": "emit-event",
+          "type": "law-check-passed",
+          "description": "Emits a 'law-check-passed' event for downstream processing (e.g., receipt generation)."
+        }
+      ]
+    },
+    {
+      "id": "law-deterministic-entropy",
+      "name": "Deterministic Entropy Enforced",
+      "condition": {
+        "kind": "always",
+        "description": "Unconditional enforcement for all operations entering the production line."
+      },
+      "effects": [
+        {
+          "kind": "emit-event",
+          "type": "entropy-check-passed",
+          "description": "Emits a 'entropy-check-passed' event for downstream processing (e.g., receipt generation)."
+        }
+      ]
+    },
+    {
+      "id": "law-replay-convergence",
+      "name": "Replay Convergence Required",
+      "condition": {
+        "kind": "always",
+        "description": "Unconditional enforcement for all operations entering the production line."
+      },
+      "effects": [
+        {
+          "kind": "emit-event",
+          "type": "replay-check-passed",
+          "description": "Emits a 'replay-check-passed' event for downstream processing (e.g., receipt generation)."
+        }
+      ]
+    },
+    {
+      "id": "law-no-fossils",
+      "name": "No Fossil Record Allowed",
+      "condition": {
+        "kind": "delta-match",
+        "predicate": "agy:action",
+        "description": "Triggered when the GraphDelta contains quads matching the predicate: agy:action"
+      },
+      "effects": [
+        {
+          "kind": "emit-event",
+          "type": "fossil-check-passed",
+          "description": "Emits a 'fossil-check-passed' event for downstream processing (e.g., receipt generation)."
+        }
+      ]
+    }
+  ],
+  "otherComponents": {
+    "standardization": [
+      "WorkStandards"
+    ],
+    "gemba": [
+      "GembaMonitor"
+    ],
+    "collaboration": [
+      "PeerReview"
+    ],
+    "lean": [
+      "WasteDetector"
+    ],
+    "orchestration": [
+      "ProductionLine"
+    ]
+  },
+  "files": [
+    "packages/truex-core/src/manufacturing/jit.ts",
+    "packages/truex-core/src/manufacturing/jidoka.ts",
+    "packages/truex-core/src/manufacturing/heijunka.ts",
+    "packages/truex-core/src/manufacturing/kaizen.ts",
+    "packages/truex-core/src/manufacturing/standardization.ts",
+    "packages/truex-core/src/manufacturing/gemba.ts",
+    "packages/truex-core/src/manufacturing/collaboration.ts",
+    "packages/truex-core/src/manufacturing/lean.ts",
+    "packages/truex-core/src/manufacturing/line.ts",
+    "packages/truex-core/src/manufacturing/registry.ts"
+  ],
+  "_metadata": {
+    "emitter": "Manufacturing Facts Emitter",
+    "description": "Extracts architectural facts about the manufacturing pillars and repository laws",
+    "timestamp": "2026-05-24T03:09:33.217Z"
+  }
+}

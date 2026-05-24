@@ -47,10 +47,10 @@ describe('Performance utilities', () => {
           (traps, iterations) => {
             const results = compareTrapImplementations(traps, iterations)
             expect(results).toHaveLength(Object.keys(traps).length)
-            results.forEach(r => {
+            for (const r of results) {
               expect(r.name).toContain('Trap Implementation:')
               expect(r.duration).toBeGreaterThanOrEqual(0)
-            })
+            }
           }
         )
       )
@@ -76,9 +76,9 @@ describe('Performance utilities', () => {
             // So I should ensure names are unique OR adjust the expectation.
             const uniqueNames = new Set(interceptors.map(i => i.name))
             expect(Object.keys(results)).toHaveLength(uniqueNames.size)
-            Object.values(results).forEach(v => {
+            for (const v of Object.values(results)) {
               expect(typeof v).toBe('number')
-            })
+            }
           }
         )
       )
@@ -110,9 +110,9 @@ describe('Performance utilities', () => {
             expect(typeof output).toBe('string')
             expect(output).toContain('Performance Report')
             expect(output).toContain(report.timestamp)
-            report.results.forEach(r => {
+            for (const r of report.results) {
               expect(output).toContain(r.name)
-            })
+            }
           }
         )
       )
@@ -148,10 +148,10 @@ describe('Performance utilities', () => {
         fc.property(fc.array(fc.double({ min: 0, max: 1000, noNaN: true, noDefaultInfinity: true })), (durations) => {
           const tracker = new OperationTracker()
           let expectedTotal = 0
-          durations.forEach(d => {
+          for (const d of durations) {
             tracker.track(d)
             expectedTotal += d
-          })
+          }
           expect(tracker.total).toBeCloseTo(expectedTotal, 5)
           expect(tracker.operationCount).toBe(durations.length)
           if (durations.length > 0) {
@@ -165,7 +165,7 @@ describe('Performance utilities', () => {
 
     it('should throw error for negative durations', () => {
       fc.assert(
-        fc.property(fc.double({ max: -0.00001, noNaN: true }), (negativeDuration) => {
+        fc.property(fc.double({ max: -0.000_01, noNaN: true }), (negativeDuration) => {
           const tracker = new OperationTracker()
           expect(() => tracker.track(negativeDuration)).toThrow('Duration cannot be negative')
         })

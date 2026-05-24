@@ -23,7 +23,7 @@ describe('S3 Persistence Membrane Property Tests (Gall Law S3)', () => {
     async getSnapshot(hash: string) { return this.snapshots.get(hash) || null; }
     async putReceipt(r: Receipt) { this.receipts.set(r.receiptHash, r); }
     async getReceipt(hash: string) { return this.receipts.get(hash) || null; }
-    async listReceipts() { return Array.from(this.receipts.keys()); }
+    async listReceipts() { return [...this.receipts.keys()]; }
   }
 
   beforeEach(() => {

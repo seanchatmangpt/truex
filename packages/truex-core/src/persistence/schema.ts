@@ -92,6 +92,21 @@ export const migrations: Migration[] = [
       db.prepare(`CREATE INDEX IF NOT EXISTS idx_quads_delta ON quads(delta_id)`).run();
       db.prepare(`CREATE INDEX IF NOT EXISTS idx_wal_unapplied ON wal_deltas(applied) WHERE applied = 0`).run();
     }
+  },
+  {
+    id: 2,
+    name: 'ontology_schema',
+    up: (db: Database) => {
+      // Ontology graph registry
+      db.prepare(`
+        CREATE TABLE IF NOT EXISTS ontology (
+          id TEXT PRIMARY KEY,
+          type TEXT NOT NULL,
+          layer TEXT NOT NULL,
+          deps TEXT NOT NULL
+        )
+      `).run();
+    }
   }
 ];
 

@@ -1,0 +1,12 @@
+{
+  "primitive": "repository",
+  "passed": true,
+  "invariants": [
+    "all skills pass sandbox validation (no Math.random or clock dependencies)",
+    "task markdown files compile successfully to GraphDelta"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 0
+  }
+}

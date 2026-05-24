@@ -1,0 +1,88 @@
+{
+  "profile": "zoe.ocel2.v1",
+  "traceId": "trace_demo",
+  "spanId": "span_membrane",
+  "ocelBatchHash": "fe85faf5a8731105eeed3e921359f7d657aa47809e70608a0c803f6e95591ef8",
+  "previousReceiptHash": null,
+  "receiptHash": "dacdd36148ff9a063dc07b6173c9ea8feffac9f6209a4556e2d689115001cfe8",
+  "ocel": {
+    "eventTypes": {
+      "PublishSermon": {
+        "attributes": [
+          "actor",
+          "causationId",
+          "correlationId"
+        ]
+      },
+      "MoveServiceTime": {
+        "attributes": [
+          "actor",
+          "causationId",
+          "correlationId"
+        ]
+      }
+    },
+    "objectTypes": {
+      "undefined": {
+        "attributes": []
+      }
+    },
+    "events": [
+      {
+        "ocel:id": "evt_1779509451678_67ea3e23",
+        "ocel:type": "PublishSermon",
+        "ocel:timestamp": "2026-05-23T04:10:51.678Z",
+        "ocel:attributes": {
+          "actor": "person_pastor_001"
+        }
+      },
+      {
+        "ocel:id": "evt_1779509451687_dea69b6f",
+        "ocel:type": "MoveServiceTime",
+        "ocel:timestamp": "2026-05-23T04:10:51.687Z",
+        "ocel:attributes": {
+          "actor": "person_admin_001"
+        }
+      }
+    ],
+    "objects": [
+      {
+        "ocel:attributes": {
+          "id": "church_001",
+          "name": "Zoe Church",
+          "services": [],
+          "latestSermon": null
+        }
+      }
+    ],
+    "event-object": [
+      {
+        "ocel:event-id": "evt_1779509451678_67ea3e23",
+        "ocel:object-id": "sermon_123",
+        "ocel:qualifier": "published"
+      },
+      {
+        "ocel:event-id": "evt_1779509451678_67ea3e23",
+        "ocel:object-id": "church_001",
+        "ocel:qualifier": "context"
+      }
+    ],
+    "object-object": [],
+    "objectChanges": [
+      {
+        "ocel:time": "2026-05-23T04:10:51.679Z",
+        "ocel:field": "latestSermon",
+        "ocel:value": {
+          "id": "sermon_123",
+          "name": "The Good Shepherd",
+          "datePublished": "2026-05-23"
+        }
+      },
+      {
+        "ocel:time": "2026-05-23T04:10:51.687Z",
+        "ocel:field": "name",
+        "ocel:value": "Zoe Church (Updated)"
+      }
+    ]
+  }
+}

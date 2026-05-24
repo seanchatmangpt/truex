@@ -1,0 +1,38 @@
+{
+  "timestamp": "2026-05-23T23:48:45.742Z",
+  "tier": "T3",
+  "iterations": 1000000,
+  "evalOnly": true,
+  "options": {
+    "seed": 42,
+    "registeredHooks": 1000,
+    "processedDeltas": 1000,
+    "matchRatio": 0.5,
+    "evalOnly": true
+  },
+  "metadata": {
+    "nodeVersion": "v24.15.0",
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpuModel": "Apple M3 Max",
+    "memoryBeforeMb": 17.076675415039062,
+    "memoryAfterMb": 12.4188232421875
+  },
+  "metrics": {
+    "registeredHooks": 1000,
+    "processedDeltas": 1000,
+    "totalHookDeltaEvaluations": 1000000,
+    "hookDeltaEvaluationsPerSecond": 48904837.29971938,
+    "deltasPerSecond": 48904.83729971938,
+    "matchedHooksCount": 60975,
+    "matchRateObserved": 0.484,
+    "effectsCount": 60975,
+    "receiptsCount": 0,
+    "receiptBacked": false,
+    "evalOnly": true,
+    "totalDurationMs": 20.44787500000001,
+    "replayConvergenceCount": 0,
+    "refusedCount": 0,
+    "opsPerSecond": 48904837.29971938
+  }
+}

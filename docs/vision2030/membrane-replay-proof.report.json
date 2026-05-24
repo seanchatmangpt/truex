@@ -1,0 +1,16 @@
+{
+  "primitive": "membrane-replay",
+  "passed": true,
+  "invariants": [
+    "cascading hook transactions persist correctly to SQLite WAL",
+    "unmutated journal lineage replays and converges identically",
+    "any tampering of receipt hash in WAL causes integrity validation check to fail",
+    "corrupted payload in WAL is detected as corrupted and fails validation",
+    "interleaved schedule execution of independent branches converges to same normalized topology hash and VKG projection",
+    "crash recovery rollbacks active uncommitted transactions to pre-run snapshot state and appends recovery receipt"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 20
+  }
+}

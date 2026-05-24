@@ -42,7 +42,8 @@ describe('Persistence Schema', () => {
     initializeSchema(db);
 
     const migrations = db.prepare('SELECT id, name FROM migrations').all() as { id: number, name: string }[];
-    expect(migrations).toHaveLength(1);
+    expect(migrations).toHaveLength(2);
     expect(migrations[0].name).toBe('initial_schema');
+    expect(migrations[1].name).toBe('ontology_schema');
   });
 });

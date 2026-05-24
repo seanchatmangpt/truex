@@ -2,7 +2,10 @@ import Database from 'better-sqlite3';
 import { hash } from "../hash/mutations.js";
 import { createReceipt } from "../receipt/mutations.js";
 import { verifyReceipt } from "../receipt/invariant.js";
-import type { TruexContext } from "../../packages/truex-core/src/context.js";
+import {
+  createDeterministicContext,
+  type TruexContext,
+} from "../../packages/truex-core/src/context.js";
 import {
   parseGraphDelta,
   parseReceipt,
@@ -116,6 +119,15 @@ export class GallTruexPureEngine {
     const delta = parseGraphDelta(deltaInput);
     const inputHash = hash(delta);
 
+    const previousReceiptHash = this.receiptStore.latest()?.receiptHash ?? null;
+    const stepSeedHash = hash({
+      deltaInput: delta,
+      previousReceiptHash,
+      parentSeed: ctx.seed
+    });
+    const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+    const stepCtx = createDeterministicContext(stepSeed);
+
     const matchedHooks = this.hooks.filter((hook) =>
       conditionMatches(hook.condition, delta)
     );
@@ -127,7 +139,7 @@ export class GallTruexPureEngine {
       for (const effect of hook.effects) {
         if (effect.kind === "emit-event") {
           emittedEvents.push({
-            id: ctx.uuid(),
+            id: stepCtx.uuid(),
             hookId: hook.id,
             type: effect.type,
             deltaId: delta.id,
@@ -152,11 +164,10 @@ export class GallTruexPureEngine {
     };
 
     const outputHash = hash(output);
-    const previousReceiptHash = this.receiptStore.latest()?.receiptHash ?? null;
     const eventId = emittedEvents[0]?.id ?? `no-event:${delta.id}`;
 
     const receipt = createReceipt(
-      ctx,
+      stepCtx,
       eventId,
       delta.id,
       inputHash,
@@ -272,6 +283,15 @@ export class GallTruexSqliteEngine {
     const delta = parseGraphDelta(deltaInput);
     const inputHash = hash(delta);
 
+    const previousReceiptHash = this.receiptStore.latest()?.receiptHash ?? null;
+    const stepSeedHash = hash({
+      deltaInput: delta,
+      previousReceiptHash,
+      parentSeed: ctx.seed
+    });
+    const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+    const stepCtx = createDeterministicContext(stepSeed);
+
     const matchedHooks = this.hooks.filter((hook) =>
       conditionMatches(hook.condition, delta)
     );
@@ -283,7 +303,7 @@ export class GallTruexSqliteEngine {
       for (const effect of hook.effects) {
         if (effect.kind === "emit-event") {
           emittedEvents.push({
-            id: ctx.uuid(),
+            id: stepCtx.uuid(),
             hookId: hook.id,
             type: effect.type,
             deltaId: delta.id,
@@ -308,11 +328,10 @@ export class GallTruexSqliteEngine {
     };
 
     const outputHash = hash(output);
-    const previousReceiptHash = this.receiptStore.latest()?.receiptHash ?? null;
     const eventId = emittedEvents[0]?.id ?? `no-event:${delta.id}`;
 
     const receipt = createReceipt(
-      ctx,
+      stepCtx,
       eventId,
       delta.id,
       inputHash,
@@ -325,7 +344,7 @@ export class GallTruexSqliteEngine {
     const transaction = this.db.transaction(() => {
       const insertQuad = this.db.prepare('INSERT INTO gall_quads (id, subject, predicate, object, graph) VALUES (?, ?, ?, ?, ?)');
       for (const q of emittedQuads) {
-        insertQuad.run(ctx.uuid(), q.subject, q.predicate, q.object, q.graph ?? null);
+        insertQuad.run(stepCtx.uuid(), q.subject, q.predicate, q.object, q.graph ?? null);
       }
 
       const insertEvent = this.db.prepare('INSERT INTO gall_events (id, hookId, type, deltaId) VALUES (?, ?, ?, ?)');

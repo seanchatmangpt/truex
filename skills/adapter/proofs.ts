@@ -2,9 +2,10 @@ import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
+import { hash } from "../hash/mutations.js";
 import { GallTruexSqliteEngine } from "../replay/mutations.js";
 import { TruexAgentAdapter } from "./mutations.js";
-import type { HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
+import { parseGraphDelta, type HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
 import { verifyReceipt } from "../receipt/invariant.js";
 
 export type AdapterProofReport = {
@@ -119,16 +120,6 @@ export function proveAdapter(): AdapterProofReport {
       }
     }
 
-    // 4. Test Speculative/Execution Refusal
-    // We will trigger a UNIQUE constraint failure by pre-populating gall_events with a deterministic UUID
-    const ctxMock = createDeterministicContext(321);
-    const duplicateEventId = ctxMock.uuid();
-    db.prepare("INSERT INTO gall_events (id, hookId, type, deltaId) VALUES (?, ?, ?, ?)")
-      .run(duplicateEventId, "pre-existing", "old-type", "old-delta");
-
-    const ctxSpec = createDeterministicContext(321);
-    const adapterSpec = new TruexAgentAdapter(engine, ctxSpec, allowedAgentsACL);
-
     const speculativeProposal = {
       agentId: "GovernorAgent",
       proposalId: "prop-004",
@@ -139,8 +130,32 @@ export function proveAdapter(): AdapterProofReport {
       }
     };
 
+    // Calculate step seed to generate matching duplicateEventId under Causal Entropy Normalization
+    const stepSeedHash = hash({
+      deltaInput: parseGraphDelta(speculativeProposal.delta),
+      previousReceiptHash: res3.receipt.receiptHash,
+      parentSeed: 321
+    });
+    const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+    const stepCtx = createDeterministicContext(stepSeed);
+    const duplicateEventId = stepCtx.uuid();
+
+    db.prepare("INSERT INTO gall_events (id, hookId, type, deltaId) VALUES (?, ?, ?, ?)")
+      .run(duplicateEventId, "pre-existing", "old-type", "old-delta");
+
+    const ctxSpec = createDeterministicContext(321);
+    const adapterSpec = new TruexAgentAdapter(engine, ctxSpec, allowedAgentsACL);
+
     const res4 = adapterSpec.submit(speculativeProposal);
     if (res4.committed) {
+      console.log("DEBUG res4 speculative proposal admitted unexpectedly:");
+      console.log("- duplicateEventId:", duplicateEventId);
+      console.log("- res4 receipt eventId:", res4.receipt.eventId);
+      console.log("- res4 receipt status:", res4.receipt.status);
+      console.log("- res4 receipt prevHash:", res4.receipt.previousReceiptHash);
+      console.log("- res3 receipt hash:", res3.receipt.receiptHash);
+      console.log("- res4 receipt inputHash:", res4.receipt.inputHash);
+      console.log("- res4 receipt outputHash:", res4.receipt.outputHash);
       failures.push("Speculatively failing proposal was admitted unexpectedly");
     } else {
       if (res4.receipt.status !== "refused" || !res4.reason?.includes("UNIQUE constraint failed")) {

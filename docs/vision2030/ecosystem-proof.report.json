@@ -1,0 +1,15 @@
+{
+  "primitive": "ecosystem",
+  "passed": true,
+  "invariants": [
+    "All core primitives proven",
+    "Hookbench benchmark complete",
+    "Hook OTP equivalence proven",
+    "Non-mockable stress vitest run complete",
+    "Observatory generation complete"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 144365
+  }
+}

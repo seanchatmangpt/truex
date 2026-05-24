@@ -1,4 +1,5 @@
 import type { Quad, GraphDelta } from "../runtime-law.js";
+import type { TruexContext } from "../context.js";
 import { hash } from "../hash.js";
 
 /**
@@ -43,18 +44,18 @@ export function quadEquals(a: Quad, b: Quad): boolean {
  * StateManager handles the evolution of the quad-graph state.
  * It provides utilities for applying deltas and managing snapshots.
  */
-export class SnapshotManager {
+export const SnapshotManager = {
   /**
    * Creates a new snapshot from the current state and receipt hash.
    */
-  static create(quads: Quad[], receiptHash: string, metadata?: Record<string, any>): StateSnapshot {
+  create(quads: Quad[], receiptHash: string, metadata?: Record<string, any>, ctx?: TruexContext): StateSnapshot {
     return {
       receiptHash,
       quads: quads.map(q => ({ ...q })), // Deep copy quads
-      timestamp: Date.now(),
+      timestamp: ctx ? ctx.clock() : Date.now(),
       metadata,
     };
-  }
+  },
 
   /**
    * Applies a GraphDelta to a set of quads.
@@ -64,7 +65,7 @@ export class SnapshotManager {
    * @param emittedQuads Additional quads emitted by hooks during execution of the delta.
    * @returns A new set of quads representing the updated state.
    */
-  static applyDelta(
+  applyDelta(
     quads: Quad[],
     delta: GraphDelta,
     emittedQuads: Quad[] = []
@@ -93,13 +94,13 @@ export class SnapshotManager {
     }
 
     return nextState;
-  }
+  },
 
   /**
    * Computes a deterministic hash for a set of quads.
    * This can be used to verify state integrity.
    */
-  static hashState(quads: Quad[]): string {
+  hashState(quads: Quad[]): string {
     // Sort quads to ensure deterministic hashing
     const sortedQuads = [...quads].sort((a, b) => {
       const sa = `${a.subject}|${a.predicate}|${a.object}|${a.graph ?? ""}`;
@@ -107,7 +108,7 @@ export class SnapshotManager {
       return sa.localeCompare(sb);
     });
     return hash(sortedQuads);
-  }
+  },
 
   /**
    * Replays a series of deltas on top of an initial state (snapshot).
@@ -116,7 +117,7 @@ export class SnapshotManager {
    * @param history A sequence of deltas and their corresponding emitted quads.
    * @returns The final set of quads after replaying all deltas.
    */
-  static replay(
+  replay(
     baseSnapshot: StateSnapshot,
     history: { delta: GraphDelta; emittedQuads?: Quad[] }[]
   ): Quad[] {
@@ -127,5 +128,5 @@ export class SnapshotManager {
     }
 
     return currentState;
-  }
-}
+  },
+};

@@ -1,0 +1,66 @@
+{
+  "case": "membrane-journal-replay",
+  "status": "passed",
+  "passed": true,
+  "domains": {
+    "journalLineage": {
+      "attempted": 1,
+      "converged": 1,
+      "corrupted": 1,
+      "tampered": 1,
+      "truncated": 0,
+      "successRatePct": 100,
+      "successRatePctString": "100.000%"
+    },
+    "crashRecovery": {
+      "attempted": 1,
+      "recovered": 1,
+      "failed": 0,
+      "successRatePct": 100,
+      "successRatePctString": "100.000%"
+    },
+    "partialOrder": {
+      "attempted": 1,
+      "converged": 1,
+      "diverged": 0,
+      "successRatePct": 100,
+      "successRatePctString": "100.000%"
+    },
+    "vkgProjection": {
+      "attempted": 1,
+      "converged": 1,
+      "diverged": 0,
+      "successRatePct": 100,
+      "successRatePctString": "100.000%"
+    }
+  },
+  "proofs": {
+    "abcChainLineageVerified": true,
+    "walReconstructionSuccess": true,
+    "tamperingRefusalSuccess": true,
+    "corruptionRefusalSuccess": true,
+    "crashRecoveryRollbackSuccess": true,
+    "partialOrderNormalizedHashConvergence": true,
+    "vkgProjectionConsistencyVerified": true
+  },
+  "metrics": {
+    "totalJournalEntries": 9,
+    "reconstructedChains": 1,
+    "restoredHooksCount": 1,
+    "tamperedRejects": 1,
+    "corruptedRejects": 1,
+    "recoveredCrashes": 1,
+    "durationMs": 19,
+    "replayTopologyHash": "b4c5e2d53fa56a63ddf517f710fe0b13db4dd772f44070177454906366b87ab3",
+    "normalizedReplayTopologyHash": "b4c5e2d53fa56a63ddf517f710fe0b13db4dd772f44070177454906366b87ab3"
+  },
+  "invariants": [
+    "cascading hook transactions persist correctly to SQLite WAL",
+    "unmutated journal lineage replays and converges identically",
+    "any tampering of receipt hash in WAL causes integrity validation check to fail",
+    "corrupted payload in WAL is detected as corrupted and fails validation",
+    "interleaved schedule execution of independent branches converges to same normalized topology hash and VKG projection",
+    "crash recovery rollbacks active uncommitted transactions to pre-run snapshot state and appends recovery receipt"
+  ],
+  "failures": []
+}

@@ -1,0 +1,16 @@
+{
+  "primitive": "hook-otp",
+  "passed": true,
+  "invariants": [
+    "OTP FIFO Mailbox ordering verified",
+    "Supervisor restart on transient crash verified",
+    "Poison message quarantine verified",
+    "Sibling process crash containment verified",
+    "Receipt linkage chain verified",
+    "Replay convergence verified"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 31
+  }
+}

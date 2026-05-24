@@ -7,17 +7,28 @@ import { bytesToHex, utf8ToBytes } from "@noble/hashes/utils.js";
  * Objects have their keys sorted alphabetically.
  */
 export function stableJson(value: unknown): string {
+  if (value === null) return "null";
+  if (value === undefined) return "undefined";
+  
+  const type = typeof value;
+  
+  if (type === "boolean" || type === "number" || type === "string") {
+    return JSON.stringify(value);
+  }
+
   if (Array.isArray(value)) {
     return `[${value.map(stableJson).join(",")}]`;
   }
-  if (value && typeof value === "object") {
+
+  if (type === "object") {
     const object = value as Record<string, unknown>;
-    return `{${Object.keys(object)
-      .sort()
+    const sortedKeys = Object.keys(object).sort();
+    return `{${sortedKeys
       .map((key) => `${JSON.stringify(key)}:${stableJson(object[key])}`)
       .join(",")}}`;
   }
-  return JSON.stringify(value);
+  
+  return String(value);
 }
 
 /**

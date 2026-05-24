@@ -29,7 +29,7 @@ export function generateKeyPair(seed?: Uint8Array): KeyPair {
 export function signReceiptHash(receiptHash: string, secretKeyHex: string): string {
   const messageBytes = utf8ToBytes(receiptHash);
   const secretKeyBytes = hexToBytes(secretKeyHex);
-  const signatureBytes = ml_dsa65.sign(messageBytes, secretKeyBytes);
+  const signatureBytes = ml_dsa65.sign(messageBytes, secretKeyBytes, { extraEntropy: false });
   return bytesToHex(signatureBytes);
 }
 

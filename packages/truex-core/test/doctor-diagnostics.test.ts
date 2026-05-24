@@ -165,9 +165,22 @@ describe("Doctor Diagnostic Check - Core Validation Boundaries & Engine", () => 
       expect(receipts).toHaveLength(1);
 
       // Scenario B: Rollback verification on database constraint failure
-      // We run the engine again using the exact same deterministic context seed (10).
-      // This causes the engine to generate the same receipt ID as in Scenario A,
-      // triggering a UNIQUE constraint failure.
+      // Under causal entropy normalization, we compute the deterministic stepCtx seed for Scenario B:
+      const stepSeedHash = hash({
+        deltaInput: delta,
+        previousReceiptHash: res1.receipt.receiptHash,
+        parentSeed: 10
+      });
+      const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+      const stepCtx = createDeterministicContext(stepSeed);
+      stepCtx.uuid(); // 1. event ID
+      stepCtx.uuid(); // 2. quad ID
+      const duplicateReceiptId = stepCtx.uuid(); // 3. receipt ID
+
+      // Pre-insert receipt to cause UNIQUE constraint failed on gall_receipts.id
+      db.prepare("INSERT INTO gall_receipts (id, status, receiptHash, data) VALUES (?, ?, ?, ?)")
+        .run(duplicateReceiptId, "confirmed", "dummy-hash", "{}");
+
       const ctx3 = createDeterministicContext(10); 
       
       const quadsBefore = db.prepare("SELECT count(*) as count FROM gall_quads").get() as { count: number };

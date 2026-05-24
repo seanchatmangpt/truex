@@ -1,0 +1,108 @@
+{
+  "case": "cross-hook-causal-topology",
+  "status": "passed",
+  "passed": true,
+  "causalEntropyNormalized": true,
+  "domains": {
+    "topologyChain": {
+      "attempted": 3,
+      "converged": 1,
+      "refused": 1,
+      "rolledBack": 1,
+      "failed": 0,
+      "succeeded": 1,
+      "quarantined": 0,
+      "skipped": 0,
+      "successRatePct": 33.333,
+      "failureRatePct": 0,
+      "refusalRatePct": 33.333,
+      "quarantineRatePct": 0,
+      "successRatePctString": "33.333%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "33.333%",
+      "quarantineRatePctString": "0.000%"
+    },
+    "emittedDelta": {
+      "attempted": 5,
+      "admitted": 3,
+      "refused": 1,
+      "rolledBack": 1,
+      "skipped": 0,
+      "successRatePct": 60,
+      "failureRatePct": 20,
+      "refusalRatePct": 20,
+      "successRatePctString": "60.000%",
+      "failureRatePctString": "20.000%",
+      "refusalRatePctString": "20.000%"
+    },
+    "hookExecution": {
+      "attempted": 6,
+      "confirmed": 4,
+      "refused": 2,
+      "errored": 0,
+      "bypassed": 0,
+      "successRatePct": 66.667,
+      "failureRatePct": 0,
+      "refusalRatePct": 33.333,
+      "successRatePctString": "66.667%",
+      "failureRatePctString": "0.000%",
+      "refusalRatePctString": "33.333%"
+    },
+    "replay": {
+      "attempted": 3,
+      "converged": 3,
+      "diverged": 0,
+      "contextMismatch": 0,
+      "tampered": 0,
+      "notAttempted": 0,
+      "successRatePct": 100,
+      "failureRatePct": 0,
+      "successRatePctString": "100.000%",
+      "failureRatePctString": "0.000%"
+    },
+    "stormPrevention": {
+      "attempted": 3,
+      "allowed": 2,
+      "refusedCycle": 1,
+      "refusedDepth": 0,
+      "refusedDeltaLimit": 0,
+      "successRatePct": 66.667,
+      "failureRatePct": 33.333,
+      "successRatePctString": "66.667%",
+      "failureRatePctString": "33.333%"
+    }
+  },
+  "proofs": {
+    "abcChainConverged": true,
+    "parentReceiptLineageVerified": true,
+    "rollbackStopsDownstreamAuthority": true,
+    "rollbackReceiptVerified": true,
+    "stormCycleRefused": true,
+    "partialOrderNormalizedReplayVerified": true,
+    "vkgProjectionConsistencyVerified": true
+  },
+  "metrics": {
+    "chainsAttempted": 3,
+    "chainsConverged": 1,
+    "hooksExecuted": 6,
+    "emittedDeltas": 5,
+    "rollbackReceipts": 4,
+    "stormCandidates": 3,
+    "stormRefusals": 1,
+    "durationMs": 5,
+    "topologyHash": "3bc3db582ed1f6cf74f55a15a1e7f7ea756cd8e2c3ba0f6d0aea0ceb6e303ab1",
+    "totalActivations": 3,
+    "maxDepthReached": 2,
+    "depthCeilingEnforced": true,
+    "causalLineageVerified": true,
+    "determinismVerified": true,
+    "executionTimeMs": 5
+  },
+  "invariants": [
+    "single hook execution registered correctly as depth-0 activation",
+    "cascading hooks execute in order with correct receipt chain lineage",
+    "hook storm mitigated: cyclic loop detected and refused",
+    "seeded execution is completely deterministic and reproducible"
+  ],
+  "failures": []
+}

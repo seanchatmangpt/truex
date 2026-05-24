@@ -1,0 +1,41 @@
+flowchart TB
+    subgraph Hot ["Hot Tier: Zero-Loss Admission"]
+        direction LR
+        J[Delta Journal] --> WAL[(SQLite WAL)]
+        WAL --> Q[Quad Store]
+    end
+
+    subgraph Warm ["Warm Tier: Search & Indexing"]
+        direction TB
+        WAL --> IDX[Index Manager]
+        IDX --> FTS[Full Text Search]
+        IDX --> AGG[Aggregator]
+    end
+
+    subgraph Cold ["Cold Tier: Durable Archive"]
+        direction TB
+        WAL --> SNAP[Snapshotter]
+        SNAP --> S3[(Gall S3)]
+        S3 --> RB[Receipt Bundle]
+    end
+
+    %% Data Flow
+    Input([GraphDelta]) -->|Append| J
+    Q -->|Update| State([Current State])
+    S3 -.->|Recovery| J
+
+    %% Styling
+    classDef hot fill:#ffebee,stroke:#c62828,stroke-width:2px;
+    classDef warm fill:#e3f2fd,stroke:#1565c0,stroke-width:2px;
+    classDef cold fill:#f1f8e9,stroke:#2e7d32,stroke-width:2px;
+    classDef io fill:#f5f5f5,stroke:#333,stroke-dasharray: 5 5;
+
+    class J,WAL,Q hot;
+    class IDX,FTS,AGG warm;
+    class SNAP,S3,RB cold;
+    class Input,State io;
+
+    %% Interactions
+    click J href "https://github.com/truex/docs/journal" "Journal Specs"
+    click WAL href "https://github.com/truex/docs/persistence" "SQLite Durability"
+    click S3 href "https://github.com/truex/docs/s3-archive" "Cold Storage Archival"

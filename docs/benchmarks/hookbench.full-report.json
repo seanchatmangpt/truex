@@ -1,0 +1,410 @@
+{
+  "results": [
+    {
+      "tier": "T0",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 1,
+        "processedDeltas": 1,
+        "matchRatio": 1,
+        "evalOnly": false
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 60.92,
+        "memoryAfterMb": 61.121
+      },
+      "metrics": {
+        "registeredHooks": 1,
+        "processedDeltas": 1,
+        "totalHookDeltaEvaluations": 1,
+        "matchedHooks": 1,
+        "matches": 1,
+        "unmatchedEvaluations": 0,
+        "emittedEffects": 1,
+        "receipts": 1,
+        "refused": 0,
+        "refusals": 0,
+        "replayConverged": 1,
+        "replayDiverged": 0,
+        "stressAttempted": 19,
+        "stressSucceeded": 19,
+        "durationMs": 0.118,
+        "durationMsString": "0.118 ms",
+        "hookDeltaEvaluationsPerSecond": 8462.6,
+        "hookDeltaEvaluationsPerSecondString": "8462.600 evaluations/sec",
+        "deltasPerSecond": 8462.6,
+        "deltasPerSecondString": "8462.600 ops/sec",
+        "memoryBeforeMb": 60.92,
+        "memoryBeforeMbString": "60.920 MB",
+        "memoryAfterMb": 61.121,
+        "memoryAfterMbString": "61.121 MB",
+        "matchRate": "100.000%",
+        "evalOnly": false
+      },
+      "reportHash": "484f7921e558afb4157517183dfe0f407db0071481060c4ca4bb9242ef6a4f5b"
+    },
+    {
+      "tier": "T1",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 100,
+        "processedDeltas": 100,
+        "matchRatio": 0.5,
+        "evalOnly": false
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 61.224,
+        "memoryAfterMb": 73.505
+      },
+      "metrics": {
+        "registeredHooks": 100,
+        "processedDeltas": 100,
+        "totalHookDeltaEvaluations": 10000,
+        "matchedHooks": 52,
+        "matches": 52,
+        "unmatchedEvaluations": 9948,
+        "emittedEffects": 52,
+        "receipts": 52,
+        "refused": 0,
+        "refusals": 0,
+        "replayConverged": 1,
+        "replayDiverged": 51,
+        "stressAttempted": 19,
+        "stressSucceeded": 19,
+        "durationMs": 4.259,
+        "durationMsString": "4.259 ms",
+        "hookDeltaEvaluationsPerSecond": 2348106.839,
+        "hookDeltaEvaluationsPerSecondString": "2348106.839 evaluations/sec",
+        "deltasPerSecond": 23481.068,
+        "deltasPerSecondString": "23481.068 ops/sec",
+        "memoryBeforeMb": 61.224,
+        "memoryBeforeMbString": "61.224 MB",
+        "memoryAfterMb": 73.505,
+        "memoryAfterMbString": "73.505 MB",
+        "matchRate": "0.520%",
+        "evalOnly": false
+      },
+      "reportHash": "bf986435ef75ba5e374ceb3b6476a5afbfc55a7736e826126747a115d3d48a5b"
+    },
+    {
+      "tier": "T2",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "matchRatio": 0.5,
+        "evalOnly": false
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 74.204,
+        "memoryAfterMb": 101.454
+      },
+      "metrics": {
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "totalHookDeltaEvaluations": 1000000,
+        "matchedHooks": 493,
+        "matches": 493,
+        "unmatchedEvaluations": 999507,
+        "emittedEffects": 493,
+        "receipts": 493,
+        "refused": 0,
+        "refusals": 0,
+        "replayConverged": 1,
+        "replayDiverged": 492,
+        "stressAttempted": 19,
+        "stressSucceeded": 19,
+        "durationMs": 59.549,
+        "durationMsString": "59.549 ms",
+        "hookDeltaEvaluationsPerSecond": 16792881.686,
+        "hookDeltaEvaluationsPerSecondString": "16792881.686 evaluations/sec",
+        "deltasPerSecond": 16792.882,
+        "deltasPerSecondString": "16792.882 ops/sec",
+        "memoryBeforeMb": 74.204,
+        "memoryBeforeMbString": "74.204 MB",
+        "memoryAfterMb": 101.454,
+        "memoryAfterMbString": "101.454 MB",
+        "matchRate": "0.049%",
+        "evalOnly": false
+      },
+      "reportHash": "6ebfee5f2ddbc8998e9e56e54e39cbcc79ac191013efef437ec99fae55e23718"
+    },
+    {
+      "tier": "T3",
+      "options": {
+        "seed": 201,
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "matchRatio": 0.5,
+        "evalOnly": true
+      },
+      "metadata": {
+        "nodeVersion": "v24.15.0",
+        "platform": "darwin",
+        "arch": "arm64",
+        "cpuModel": "Apple M3 Max",
+        "memoryBeforeMb": 102.153,
+        "memoryAfterMb": 94.535
+      },
+      "metrics": {
+        "registeredHooks": 1000,
+        "processedDeltas": 1000,
+        "totalHookDeltaEvaluations": 1000000,
+        "matchedHooks": 493,
+        "matches": 493,
+        "unmatchedEvaluations": 999507,
+        "emittedEffects": 493,
+        "receipts": 0,
+        "refused": 0,
+        "refusals": 0,
+        "replayConverged": 0,
+        "replayDiverged": 0,
+        "stressAttempted": 19,
+        "stressSucceeded": 19,
+        "durationMs": 18.289,
+        "durationMsString": "18.289 ms",
+        "hookDeltaEvaluationsPerSecond": 54677549.54,
+        "hookDeltaEvaluationsPerSecondString": "54677549.540 evaluations/sec",
+        "deltasPerSecond": 54677.55,
+        "deltasPerSecondString": "54677.550 ops/sec",
+        "memoryBeforeMb": 102.153,
+        "memoryBeforeMbString": "102.153 MB",
+        "memoryAfterMb": 94.535,
+        "memoryAfterMbString": "94.535 MB",
+        "matchRate": "0.049%",
+        "evalOnly": true
+      },
+      "reportHash": "b3406bd131ee7ea2816bdca88603b5baab6c60fbc6a4cdddbb1b26efd29bdc7c"
+    }
+  ],
+  "stressResults": [
+    {
+      "id": "stress-01",
+      "name": "malformed input",
+      "category": "malformed input",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Successfully rejected malformed delta: GraphDelta.adds must be an array",
+      "evidence": {
+        "error": "GraphDelta.adds must be an array"
+      }
+    },
+    {
+      "id": "stress-02",
+      "name": "capacity breach / Muri",
+      "category": "capacity breach",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Successfully blocked capacity breach: Semantic Law Violation (Muri): Input delta size exceeds processing capacity.",
+      "evidence": {
+        "error": "Semantic Law Violation (Muri): Input delta size exceeds processing capacity."
+      }
+    },
+    {
+      "id": "stress-03",
+      "name": "nonmatching predicate / Muda",
+      "category": "nonmatching predicate",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Mismatched predicate correctly bypassed hook",
+      "evidence": {
+        "matched": false
+      }
+    },
+    {
+      "id": "stress-04",
+      "name": "forbidden predicate / policy refusal",
+      "category": "policy refusal",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Forbidden predicate correctly identified for refusal",
+      "evidence": {
+        "predicate": "schema:forbidden-pred"
+      }
+    },
+    {
+      "id": "stress-05",
+      "name": "receipt tamper",
+      "category": "receipt integrity",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Tampered receipt correctly rejected",
+      "evidence": {
+        "isValid": false
+      }
+    },
+    {
+      "id": "stress-06",
+      "name": "receipt chain reorder",
+      "category": "receipt linkage",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Replay successfully blocked reordered chain",
+      "evidence": {
+        "converged": false
+      }
+    },
+    {
+      "id": "stress-07",
+      "name": "replay input divergence",
+      "category": "replay inputs",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Replay successfully failed on input mutation",
+      "evidence": {
+        "converged": false
+      }
+    },
+    {
+      "id": "stress-08",
+      "name": "replay law divergence",
+      "category": "replay rules",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Replay successfully failed on law mutation",
+      "evidence": {
+        "converged": false
+      }
+    },
+    {
+      "id": "stress-09",
+      "name": "seed/context divergence",
+      "category": "deterministic entropy",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Replay successfully failed on seed mismatch",
+      "evidence": {
+        "converged": false
+      }
+    },
+    {
+      "id": "stress-10",
+      "name": "timing/memory nondeterminism in report hash",
+      "category": "report deterministic stability",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Stable hash generated across identical runs",
+      "evidence": {
+        "hashMatches": true,
+        "r1Hash": "a96cca88b364ea8c04fe58876d0bb62abdde7b5c5314d1780fb0a6704057bf7e",
+        "r2Hash": "a96cca88b364ea8c04fe58876d0bb62abdde7b5c5314d1780fb0a6704057bf7e"
+      }
+    },
+    {
+      "id": "stress-11",
+      "name": "eval-only misclassified as receipt-backed",
+      "category": "classification safety",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Eval-only correctly classified with zero receipts",
+      "evidence": {
+        "evalOnly": true,
+        "receiptsCount": 0
+      }
+    },
+    {
+      "id": "stress-12",
+      "name": "benchmark metric miscalculation",
+      "category": "telemetry accuracy",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Metric math is verified and correct",
+      "evidence": {
+        "totalEvals": 10000,
+        "computedEvals": 10000
+      }
+    },
+    {
+      "id": "stress-13",
+      "name": "WAL persistence mismatch",
+      "category": "SQLite journal integrity",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "WAL successfully writes and reads back identical deltas",
+      "evidence": {
+        "count": 1
+      }
+    },
+    {
+      "id": "stress-14",
+      "name": "rollback failure",
+      "category": "transaction isolation",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Transaction rollbacks successfully revert all delta mutations",
+      "evidence": {
+        "rolledBack": true
+      }
+    },
+    {
+      "id": "stress-15",
+      "name": "observatory stale report",
+      "category": "observatory freshness",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Observatory reports successfully exist and are active",
+      "evidence": {
+        "exists": true
+      }
+    },
+    {
+      "id": "stress-16",
+      "name": "Recursive Hook Storms",
+      "category": "topology failure frontier",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Successfully triggered 1000 recursive sub-deltas",
+      "evidence": {
+        "totalTriggered": 1000
+      }
+    },
+    {
+      "id": "stress-17",
+      "name": "Cyclical Hook Activation",
+      "category": "topology failure frontier",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Cycle detected and halted via safety limit",
+      "evidence": {
+        "triggeredCount": 100
+      }
+    },
+    {
+      "id": "stress-18",
+      "name": "Cascading Rollback Divergence",
+      "category": "topology failure frontier",
+      "passed": true,
+      "expectedFailure": false,
+      "observedBehavior": "Clean rollback achieved after partial cascade failure",
+      "evidence": {
+        "failureStep": 3,
+        "diverged": false
+      }
+    },
+    {
+      "id": "stress-19",
+      "name": "Interrupted Receipt Persistence",
+      "category": "topology failure frontier",
+      "passed": true,
+      "expectedFailure": true,
+      "observedBehavior": "Atomic rollback confirmed after interrupted 5-step cascade",
+      "evidence": {
+        "stepsCompleted": 5,
+        "persistedCount": 0
+      }
+    }
+  ],
+  "reportHash": "2a8f1398ceea53eb46dbd042d259cd45081325af4fd5a2eabe33b0e0fc470d41"
+}

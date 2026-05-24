@@ -28,7 +28,7 @@ export function generateKeyPair(seed?: Uint8Array): KeyPair {
 export function signReceiptHash(receiptHash: string, secretKeyHex: string): string {
   const messageBytes = utf8ToBytes(receiptHash);
   const secretKeyBytes = hexToBytes(secretKeyHex);
-  const signatureBytes = ml_dsa65.sign(messageBytes, secretKeyBytes);
+  const signatureBytes = ml_dsa65.sign(messageBytes, secretKeyBytes, { extraEntropy: false });
   return bytesToHex(signatureBytes);
 }
 
@@ -56,7 +56,9 @@ export function createReceipt(
   inputHash: string,
   outputHash: string,
   previousReceiptHash: string | null | undefined,
-  status: "confirmed" | "refused" = "confirmed"
+  status: "confirmed" | "refused" = "confirmed",
+  keys?: KeyPair,
+  extra?: { rollbackOf?: string; failedChildId?: string; reason?: string }
 ): Receipt {
   const normalizedPrevHash = (previousReceiptHash === undefined || previousReceiptHash === null) ? null : previousReceiptHash;
   const receiptWithoutHash = {
@@ -67,11 +69,23 @@ export function createReceipt(
     outputHash,
     previousReceiptHash: normalizedPrevHash,
     status,
+    ...extra,
   };
+
+  const receiptHash = hash(receiptWithoutHash);
+  let signature: string | undefined;
+  let publicKey: string | undefined;
+
+  if (keys) {
+    signature = signReceiptHash(receiptHash, keys.secretKey);
+    publicKey = keys.publicKey;
+  }
 
   const fullReceipt = {
     ...receiptWithoutHash,
-    receiptHash: hash(receiptWithoutHash),
+    receiptHash,
+    signature,
+    publicKey,
   };
 
   return parseReceipt(fullReceipt);

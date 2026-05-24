@@ -1,0 +1,40 @@
+{
+  "bridge": {
+    "name": "Truex Antigravity Bridge",
+    "file": "scripts/truex-agy-bridge.ts",
+    "purpose": "Converts Antigravity agent actions into Truex GraphDeltas and evaluates them against Repository Laws.",
+    "database": "gall_truex.db",
+    "enforcedLaws": [
+      "Fossil record detection (anti-static ontology)",
+      "Antigravity Production Line evaluation"
+    ]
+  },
+  "hooks": {
+    "truex-hook-loop": {
+      "event": "BeforeTool",
+      "matcher": "write_to_file|replace_file_content|run_command",
+      "script": "npx tsx scripts/truex-agy-bridge.ts {{tool}} '{{arguments}}'",
+      "description": "Intercepts agent actions and evaluates them against Truex Repository Laws.",
+      "enabled": true,
+      "outputToContext": true
+    },
+    "after-tool-actuation": {
+      "event": "AfterTool",
+      "matcher": "write_file|replace|write_to_file|replace_file_content|run_shell_command",
+      "script": "npx tsx scripts/after-tool-hook.ts",
+      "enabled": true,
+      "waitForCompletion": true,
+      "outputToContext": true
+    }
+  },
+  "integrationType": "Antigravity Hook Interceptor",
+  "logicPaths": [
+    "refineMutation",
+    "main"
+  ],
+  "_metadata": {
+    "emitter": "AGY Integration Facts",
+    "description": "Extracts facts about the Antigravity bridge and configured hooks",
+    "timestamp": "2026-05-24T03:09:33.217Z"
+  }
+}

@@ -2,6 +2,7 @@ import { KanbanSystem } from './jit.js';
 import { AndonSystem, PokaYoke } from './jidoka.js';
 import { ProductionScheduler, type ExecutionResult } from './heijunka.js';
 import { RefiningEngine, GembaInspector, type HookState, type OptimizationSuggestion } from './kaizen.js';
+import { RecursiveHookEngine, type HookTopology } from './topology.js';
 import type { TruexContext } from '../context.js';
 import type { GraphDelta, HookDefinition } from '../runtime-law.js';
 import { TruexHook } from '../hook.js';
@@ -23,17 +24,19 @@ export class ProductionLine {
   private readonly kaizen: RefiningEngine;
   private readonly gemba: GembaInspector;
   private readonly scheduler: ProductionScheduler;
+  private readonly recursiveEngine: RecursiveHookEngine;
 
   constructor(
     private readonly context: TruexContext,
     hooks: HookDefinition[],
-    options: { batchSize?: number; intervalMs?: number } = {}
+    options: { batchSize?: number; intervalMs?: number; maxDepth?: number } = {}
   ) {
     this.kanban = new KanbanSystem(hooks);
     this.andon = new AndonSystem();
     this.pokaYoke = new PokaYoke(this.andon);
     this.kaizen = new RefiningEngine();
     this.gemba = new GembaInspector();
+    this.recursiveEngine = new RecursiveHookEngine(context, { maxDepth: options.maxDepth });
     
     // We initialize the scheduler with the kanban system.
     // Note: The scheduler in heijunka.ts currently does direct execution.
@@ -48,7 +51,7 @@ export class ProductionLine {
    * Executes a single 'station' on the production line (a Hook).
    * Applies Jidoka (Poka-yoke) and records Kaizen/Gemba data.
    */
-  private executeStation(hook: TruexHook, delta: GraphDelta): ExecutionResult {
+  private executeStation(hook: TruexHook, delta: GraphDelta, previousReceiptHash?: string): ExecutionResult {
     const hookId = hook.definition.id;
     const hookName = hook.definition.id; // Or a more descriptive name if available
 
@@ -59,7 +62,7 @@ export class ProductionLine {
         hook,
         this.context,
         delta,
-        () => hook.execute(this.context, delta, delta.id),
+        () => hook.execute(this.context, delta, previousReceiptHash ?? delta.id),
         delta.id // Use delta ID as a transaction correlation ID for Andon
       );
 
@@ -89,6 +92,20 @@ export class ProductionLine {
   manufacture(delta: GraphDelta): ExecutionResult[] {
     const hooks = this.kanban.pull(delta);
     return hooks.map((hook) => this.executeStation(hook, delta));
+  }
+
+  /**
+   * Manufactures a single GraphDelta recursively, handling cascading deltas.
+   * 
+   * @param delta The delta to process.
+   * @returns A HookTopology representing the causal graph of executions.
+   */
+  async manufactureRecursive(delta: GraphDelta): Promise<HookTopology> {
+    return this.recursiveEngine.process(
+      delta,
+      (d) => this.kanban.pull(d),
+      (h, d, prev) => this.executeStation(h, d, prev)
+    );
   }
 
   /**

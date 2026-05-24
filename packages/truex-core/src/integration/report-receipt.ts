@@ -2,9 +2,9 @@ import { ml_dsa65 } from '@noble/post-quantum/ml-dsa.js';
 import { utf8ToBytes, bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
 import { blake3 } from '@noble/hashes/blake3.js';
 import { randomUUID } from 'node:crypto';
-import { createReceipt } from '../receipt.js';
+import { createReceipt, verifyReceipt } from '../receipt.js';
 import { stableJson } from '../hash.js';
-import type { TruexContext } from '../context.js';
+import { type TruexContext, createDeterministicContext } from '../context.js';
 import type { Receipt } from '../runtime-law.js';
 
 export interface SignedReceipt extends Receipt {
@@ -56,11 +56,7 @@ export async function envelopeReport(
   const signatureBytes = ml_dsa65.sign(messageBytes, privateKey, { extraEntropy: false });
   const signatureHex = bytesToHex(signatureBytes);
 
-  const activeCtx: TruexContext = ctx || {
-    seed: 0,
-    clock: () => Date.now(),
-    uuid: () => randomUUID(),
-  };
+  const activeCtx: TruexContext = ctx || createDeterministicContext(0);
 
   const eventId = `evt_${activeCtx.clock()}`;
   const deltaId = `delta_${activeCtx.uuid()}`;
@@ -85,8 +81,14 @@ export async function envelopeReport(
  */
 export function verifyReportReceipt(receipt: Receipt & { signature?: string }, publicKey: Uint8Array): boolean {
   try {
+    if (!verifyReceipt(receipt)) {
+      return false;
+    }
     const signatureHex = receipt.signature || receipt.outputHash;
     if (!signatureHex) {
+      return false;
+    }
+    if (receipt.signature && receipt.outputHash && receipt.signature !== receipt.outputHash) {
       return false;
     }
     const signatureBytes = hexToBytes(signatureHex);
