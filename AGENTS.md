@@ -353,6 +353,41 @@ Contributors must NOT:
 
 ---
 
+# SUBAGENT LAW
+
+To guarantee thorough verification across E2E pathing, concurrency, fuzzing, leak auditing, and integration CLI surfaces, the system must always launch the 5 specialized subagents first before consolidating implementation artifacts:
+1. **Reactive E2E Path Specialist** — verifies sequential happy-path lifecycles and accounting ledgers.
+2. **Reactive Concurrency Stress Specialist** — audits concurrency race conditions and SQLite transactional locks.
+3. **Reactive Fuzz & Refusal Specialist** — validates refusal boundaries under corrupt/malicious input formats.
+4. **Reactive Resource Leak Auditor** — audits heap consumption stability and profiler output.
+5. **Reactive CLI & Integration Specialist** — verifies the Doctor agent command routing and synthesis generation.
+
+No lifecycle proof is complete without parallel verification of these 5 agent fronts.
+
+---
+
+# SUBAGENT CONFIGURATION & MAXIMIZATION LAW
+
+To maximize the performance, throughput, and safety of spawned subagents:
+
+1. **Workspace Modes**: Prefer invoking subagents with explicit `Workspace` parameters:
+   - Use `Workspace: "share"` when parallel checkouts or branches are needed, leveraging Git worktrees to prevent redundant filesystem duplication.
+   - Use `Workspace: "branch"` to isolate speculative executions (e.g., fuzzing, performance runs) and protect the master directory.
+
+2. **Auto-Approval (YOLO / Sandbox)**: For automated execution loops, configure settings to skip manual prompts:
+   - Ensure the global settings config is set to `"general": { "approval_mode": "yolo" }` or invoke the CLI with `--dangerously-skip-permissions`.
+   - Prefer `"proceed-in-sandbox"` mode to auto-approve tool execution inside the sandbox container.
+
+3. **Tool Interceptions**: Local repository custom hooks in `.agents/hooks.json` must align with the CLI's tool naming conventions:
+   - Matcher patterns must explicitly intercept modern tool names (`write_file`, `replace`, `run_shell_command`).
+   - Hooks must evaluate against local SQLite journals (`gall_truex.db`) before permitting filesystem writes, establishing instant Jidoka line stops on law violation.
+
+4. **Specialized Subagent Mapping**: Instead of running a single bloated agent context:
+   - Spawning agents must register workspace-specific TS subagents under `.agents/` (e.g., `truex-doctor.ts`) and delegate execution tasks directly to them.
+   - Keep interactions bounded using subagent timeout constraints (default 60 seconds) to avoid parent context truncation.
+
+---
+
 # FINAL INVARIANT
 
 Complex operational trust may only emerge from:
@@ -360,3 +395,4 @@ Complex operational trust may only emerge from:
 Receipted composition of working lawful primitives.
 
 Civilization scales on receipted consequence.
+
