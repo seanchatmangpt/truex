@@ -1,8 +1,10 @@
-# Introduction to Proxyable
+# Introduction to Truex (Formerly Proxyable)
 
-## What is Proxyable?
+> **Important:** This library forms the foundational interception layer of the Truex Post-Gall Substrate. To understand the underlying philosophy, please read the [Truex Manifesto: The Post-Gall Operating Substrate for Receipted Consequence](./MANIFESTO.md).
 
-Proxyable is a library that simplifies creating JavaScript Proxies with **isolated context-based interception**. It provides a clean, type-safe API for dynamically intercepting and modifying object operations without the complexity of managing multiple proxy instances and context isolation manually.
+## What is Truex Interception?
+
+Truex provides the core JavaScript Proxy mechanism for creating **isolated context-based interception**. While it can be used generically (as Proxyable), its true purpose within the Truex ecosystem is to act as the boundary layer for **VKG Hooks**, enforcing that no operational motion occurs without deterministic admission, receipt generation, and accounting.
 
 ## Key Concepts
 

@@ -11,6 +11,14 @@ Dynamic JavaScript proxy creation with isolated context-based interception.
 
 Proxyable simplifies creating JavaScript Proxies by providing a clean, type-safe API for registering multiple interceptors per trap with built-in context isolation using [unctx](https://github.com/unjs/unctx).
 
+## Truex: The Post-Gall Substrate
+
+> **"NO HUMANS IN RUNTIME ACTUATION."**
+>
+> Truex is the operating substrate where autonomous work stops being claimed and starts being conserved. It replaces the old enterprise model of `intent → plan → tool call → claim` with a formal consequence cell: `attempt → hook → admission → mailbox → receipt → replay → accounting → promotion`.
+>
+> 📖 **Read the foundational philosophy:** [Truex: The Post-Gall Operating Substrate for Receipted Consequence](./docs/MANIFESTO.md)
+
 ## Features
 
 - **Multiple Interceptors** - Register multiple handlers for the same proxy trap
