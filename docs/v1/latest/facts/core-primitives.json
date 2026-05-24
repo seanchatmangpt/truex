@@ -53,10 +53,10 @@
     }
   },
   "stats": {
-    "totalFiles": 63,
-    "totalFunctions": 133,
+    "totalFiles": 67,
+    "totalFunctions": 157,
     "totalClasses": 37,
-    "totalExportedSymbols": 266
+    "totalExportedSymbols": 376
   },
   "files": [
     {
@@ -470,6 +470,132 @@
       "internalLogicPaths": []
     },
     {
+      "path": "packages/truex-core/src/ocel2-project-projection.gall.ts",
+      "functions": 6,
+      "classes": 0,
+      "symbols": [
+        "checkpointToOcelObject",
+        "receiptToOcelObject",
+        "wizardCommandToOcelEvent",
+        "proofCommandToOcelEvent",
+        "projectReportToOcel",
+        "mailboxReportToOcel",
+        "PROJECT_OBJECT_TYPES",
+        "PROJECT_EVENT_TYPES"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/ocel2-project-types.ts",
+      "functions": 9,
+      "classes": 0,
+      "symbols": [
+        "isOcelEventType",
+        "isOcelObjectType",
+        "isOcelEventObjectRelationship",
+        "isOcelObjectObjectRelationship",
+        "isOcelEventAttribute",
+        "isOcelObjectAttribute",
+        "isOcelEvent",
+        "isOcelObject",
+        "isOcelV2Log",
+        "createOcelId",
+        "createOcelTypeName",
+        "createQualifier",
+        "createISODateTime",
+        "Brand",
+        "ISODateTime",
+        "Hash256",
+        "ReceiptHash",
+        "ReplayHash",
+        "ProjectPath",
+        "OcelId",
+        "OcelTypeName",
+        "Qualifier",
+        "JsonPrimitive",
+        "JsonValue",
+        "OcelAttributeKind",
+        "OcelAttributeValue",
+        "OcelAttributeDefinition",
+        "OcelEventType",
+        "OcelObjectType",
+        "OcelEventAttribute",
+        "OcelObjectAttribute",
+        "OcelEventObjectRelationship",
+        "OcelObjectObjectRelationship",
+        "OcelEvent",
+        "OcelObject",
+        "OcelV2Log",
+        "OcelEventRow",
+        "OcelObjectRow",
+        "OcelEventObjectRow",
+        "OcelObjectObjectRow",
+        "OcelEventAttributeRow",
+        "OcelObjectAttributeRow",
+        "TruexProjectObjectType",
+        "TruexProjectEventType",
+        "TruexOcelProjection",
+        "OcpqVariableKind",
+        "OcpqVariable",
+        "OcpqComparisonOp",
+        "OcpqAttributePredicate",
+        "OcpqRelationshipPredicate",
+        "OcpqTemporalPredicate",
+        "OcpqPredicate",
+        "OcpqLogicalPredicate",
+        "OcpqNestedQuery",
+        "OcpqConstraint",
+        "ProcessFeatureKind",
+        "ProcessFeature",
+        "ProcessRuleKind",
+        "ProcessRule",
+        "ProcessKnowledgeBase",
+        "PowlNodeId",
+        "PowlActivity",
+        "PowlSilent",
+        "PowlPartialOrder",
+        "PowlChoiceGraph",
+        "PowlNode",
+        "PowlOrderEdge",
+        "PowlChoiceEdge",
+        "GallCheckpoint",
+        "WizardVerb",
+        "WizardCommandStatus",
+        "WizardCommandReceipt",
+        "MissionAgentId",
+        "WizardMission",
+        "ProjectCell",
+        "ProjectTopology",
+        "PersistentMailboxQueue",
+        "PersistentMailboxState",
+        "RetryPolicyKind",
+        "RetryPolicy",
+        "PersistentMailboxQueueConfig",
+        "PersistentMailboxMessage",
+        "PersistentMailboxTransition",
+        "PersistentMailboxMetrics",
+        "AccountingDomain",
+        "MailboxMessageAccounting",
+        "WizardCommandAccounting",
+        "GallCheckpointAccounting",
+        "WizardProjectReport"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/ocpq-project-constraints.gall.ts",
+      "functions": 2,
+      "classes": 0,
+      "symbols": [
+        "evaluatePredicate",
+        "evaluateProjectConstraint",
+        "SUPPORTED_PREDICATES",
+        "PROJECT_CONSTRAINTS",
+        "OcpqViolation"
+      ],
+      "internalLogicPaths": []
+    },
+    {
       "path": "packages/truex-core/src/persistence/audit-engine.ts",
       "functions": 0,
       "classes": 1,
@@ -625,6 +751,36 @@
         "OcelOtelWeaverPlugin"
       ],
       "internalLogicPaths": []
+    },
+    {
+      "path": "packages/truex-core/src/powl-project-workflow.gall.ts",
+      "functions": 7,
+      "classes": 0,
+      "symbols": [
+        "validatePartialOrder",
+        "validateChoiceGraph",
+        "validateGallCheckpointWorkflow",
+        "checkpointRegistryToPowl",
+        "generateWorkflowHash",
+        "createWizardWorkflow",
+        "getWizard8VerbWorkflow",
+        "PowlNodeId",
+        "PowlActivity",
+        "PowlSilent",
+        "PowlOrderEdge",
+        "PowlPartialOrder",
+        "PowlChoiceEdge",
+        "PowlChoiceGraph",
+        "PowlNode",
+        "GallCheckpoint",
+        "GallCheckpointEdge",
+        "GallCheckpointChoice",
+        "GallCheckpointWorkflow",
+        "GallCheckpointRegistry"
+      ],
+      "internalLogicPaths": [
+        "validatePowlNode"
+      ]
     },
     {
       "path": "packages/truex-core/src/project-wizard.gall.ts",
@@ -845,6 +1001,6 @@
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T07:45:51.485Z"
+    "timestamp": "2026-05-24T08:11:39.808Z"
   }
 }

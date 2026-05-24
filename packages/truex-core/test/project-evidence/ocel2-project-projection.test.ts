@@ -1,9 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { 
-  projectReportToOcel, 
-  mailboxReportToOcel 
+import crypto from 'crypto';
+import {
+  projectReportToOcel,
+  mailboxReportToOcel,
+  wizardCommandToOcelEvent,
+  receiptToOcelObject,
+  checkpointToOcelObject,
+  proofCommandToOcelEvent
 } from '../../src/ocel2-project-projection.gall.js';
-import { 
+import type { 
   WizardProjectReport, 
   PersistentMailboxMessage, 
   OcelId, 
@@ -12,118 +17,215 @@ import {
   Hash256
 } from '../../src/ocel2-project-types.js';
 
-describe('Truex Project Evidence Projection Domain (Agent 2)', () => {
-  it('should project a wizard report into a valid OCEL v2 log', () => {
-    const report: WizardProjectReport = {
-      case: 'truex-project-wizard',
-      status: 'passed',
-      projectCell: {
-        projectId: 'project_1' as OcelId,
-        root: '/Users/sac/truex' as ProjectPath,
-        truexDir: '/Users/sac/truex/.truex' as ProjectPath,
-        receiptsDir: '/Users/sac/truex/.truex/receipts' as ProjectPath,
-        reportsDir: '/Users/sac/truex/.truex/reports' as ProjectPath,
-        checkpointsDir: '/Users/sac/truex/.truex/checkpoints' as ProjectPath,
-        missionDir: '/Users/sac/truex/.truex/mission' as ProjectPath,
-        docsDir: '/Users/sac/truex/docs' as ProjectPath,
-        testsDir: '/Users/sac/truex/tests' as ProjectPath
-      },
-      mission: {
-        id: 'mission_1',
-        projectPath: '/Users/sac/truex' as ProjectPath,
-        durationHours: 12,
-        agents: ['agent-1-cli', 'agent-2-topology', 'agent-3-planner', 'agent-4-execution', 'agent-5-handoff'],
-        startedAt: '2026-05-24T00:00:00Z' as ISODateTime,
-        minimumElapsedAt: '2026-05-24T12:00:00Z' as ISODateTime,
-        checkpointMode: 'agent_proposed',
-        status: 'handoff_completed'
-      },
-      topology: {
-        projectId: 'project_1' as OcelId,
-        mappedAt: '2026-05-24T00:01:00Z' as ISODateTime,
-        sourceFiles: ['src/index.ts' as ProjectPath],
-        testFiles: ['test/index.test.ts' as ProjectPath],
-        docFiles: [],
-        configFiles: [],
-        orphanFiles: [],
-        dependencies: [],
-        topologyHash: 'topo_hash' as Hash256
-      },
-      checkpoints: [],
-      accounting: {
-        wizardCommand: {
-          id: 'acc1',
-          unit: 'wizard_command',
-          attempted: 8,
-          terminal: { succeeded: 8, refused: 0, failed: 0 },
-          invariant: 'terminal_equals_attempted',
-          conserved: true
-        },
-        gallCheckpoint: {
-          id: 'acc2',
-          unit: 'gall_checkpoint',
-          attempted: 5,
-          terminal: { proposed: 5, accepted: 5, refused: 0, executed: 5, failed: 0 },
-          invariant: 'terminal_equals_attempted',
-          conserved: true
-        }
-      },
-      proofs: {
-        initVerified: true,
-        mapVerified: true,
-        planVerified: true,
-        forgeVerified: true,
-        bindVerified: true,
-        proveVerified: true,
-        hardenVerified: true,
-        handoffVerified: true,
-        twelveHourGateVerified: true
-      },
-      metrics: {
-        commandsAttempted: 8,
-        checkpointsProposed: 5,
-        checkpointsAccepted: 5,
-        proofCommandsSucceeded: 5,
-        proofCommandsFailed: 0,
-        artifactsCreated: 10,
-        artifactsUpdated: 0,
-        reportHash: 'report_hash' as Hash256
+describe('OCEL2 Project Projection', () => {
+
+  const mockReport: WizardProjectReport = {
+    case: 'truex-project-wizard',
+    status: 'passed',
+    projectCell: {
+      projectId: 'proj_123' as any,
+      root: '/mock/root' as any,
+      truexDir: '/mock/truex' as any,
+      receiptsDir: '/mock/receipts' as any,
+      reportsDir: '/mock/reports' as any,
+      checkpointsDir: '/mock/checkpoints' as any,
+      missionDir: '/mock/mission' as any,
+      docsDir: '/mock/docs' as any,
+      testsDir: '/mock/tests' as any
+    },
+    mission: {
+      id: 'mission_1',
+      projectPath: '/mock/root' as any,
+      durationHours: 12,
+      agents: ['agent-1-cli', 'agent-2-topology'],
+      startedAt: '2024-01-01T00:00:00Z' as any,
+      minimumElapsedAt: '2024-01-01T12:00:00Z' as any,
+      checkpointMode: 'agent_proposed',
+      status: 'handoff_completed'
+    },
+    topology: {
+      projectId: 'proj_123' as any,
+      mappedAt: '2024-01-01T00:01:00Z' as any,
+      sourceFiles: ['src/a.ts' as any],
+      testFiles: [],
+      docFiles: [],
+      configFiles: [],
+      orphanFiles: [],
+      dependencies: [],
+      topologyHash: 'hash1' as any
+    },
+    checkpoints: [
+      {
+        id: 'cp_1',
+        name: 'CP 1',
+        purpose: 'Test CP',
+        proofCommand: 'npm test',
+        accountingDomainId: 'domain_1',
+        successMetric: 'all passed',
+        refusalCondition: 'any failed',
+        expectedArtifacts: [],
+        expectedReports: [],
+        workflow: { kind: 'silent', id: 'n1' as any }
       }
-    };
+    ],
+    accounting: {
+      wizardCommand: {
+        id: '1',
+        unit: 'wizard_command',
+        attempted: 1,
+        terminal: { succeeded: 1, refused: 0, failed: 0 },
+        invariant: 'terminal_equals_attempted',
+        conserved: true
+      },
+      gallCheckpoint: {
+        id: '2',
+        unit: 'gall_checkpoint',
+        attempted: 1,
+        terminal: { proposed: 0, accepted: 0, refused: 0, executed: 1, failed: 0 },
+        invariant: 'terminal_equals_attempted',
+        conserved: true
+      }
+    },
+    proofs: {
+      initVerified: true,
+      mapVerified: true,
+      planVerified: true,
+      forgeVerified: true,
+      bindVerified: true,
+      proveVerified: true,
+      hardenVerified: true,
+      handoffVerified: true,
+      twelveHourGateVerified: true
+    },
+    metrics: {
+      commandsAttempted: 1,
+      checkpointsProposed: 1,
+      checkpointsAccepted: 1,
+      proofCommandsSucceeded: 1,
+      proofCommandsFailed: 0,
+      artifactsCreated: 1,
+      artifactsUpdated: 0,
+      reportHash: 'rep_hash_1' as any
+    }
+  };
 
-    const log = projectReportToOcel(report);
-    expect(log.eventTypes.length).toBeGreaterThan(0);
-    expect(log.events.length).toBe(2); // init + map
+  it('1. Wizard report projects to valid OCEL log', () => {
+    const log = projectReportToOcel(mockReport);
+    expect(log).toBeDefined();
+    expect(log.events.length).toBeGreaterThan(0);
     expect(log.objects.length).toBeGreaterThan(0);
-
-    const projectObj = log.objects.find(o => o.type === 'project');
-    expect(projectObj).toBeDefined();
-    expect(projectObj?.attributes[0].value).toBe('/Users/sac/truex');
   });
 
-  it('should project mailbox messages into valid OCEL event relationships', () => {
-    const messages: PersistentMailboxMessage[] = [
-      {
-        id: 'msg_1' as OcelId,
-        queue: 'hook',
-        state: 'confirmed',
-        payloadHash: 'hash1' as Hash256,
-        payloadJson: {},
-        uniqueConsequenceKey: 'key1' as Hash256,
-        attempt: 1,
-        maxAttempts: 3,
-        priority: 1,
-        scheduledAt: '2026-05-24T00:00:00Z' as ISODateTime,
-        availableAt: '2026-05-24T00:00:00Z' as ISODateTime,
-        createdAt: '2026-05-24T00:00:00Z' as ISODateTime,
-        updatedAt: '2026-05-24T00:00:05Z' as ISODateTime,
-        completedAt: '2026-05-24T00:00:05Z' as ISODateTime
-      }
-    ];
+  it('2. Project object exists', () => {
+    const log = projectReportToOcel(mockReport);
+    const projObj = log.objects.find(o => o.type === 'project');
+    expect(projObj).toBeDefined();
+    expect(projObj?.id).toBe('proj_123');
+  });
 
-    const log = mailboxReportToOcel(messages);
-    expect(log.objects.length).toBe(1);
-    expect(log.events.length).toBe(2); // enqueued + confirmed
-    expect(log.events[1].type).toBe('mailbox_confirmed');
+  it('3. Agent objects exist', () => {
+    const log = projectReportToOcel(mockReport);
+    const agentObjs = log.objects.filter(o => o.type === 'agent');
+    expect(agentObjs.length).toBe(2);
+    expect(agentObjs.map(a => a.id)).toContain('agent-1-cli');
+  });
+
+  it('4. Checkpoint objects exist', () => {
+    const log = projectReportToOcel(mockReport);
+    const cpObj = log.objects.find(o => o.type === 'gall_checkpoint');
+    expect(cpObj).toBeDefined();
+    expect(cpObj?.id).toBe('checkpoint_cp_1');
+  });
+
+  it('5. Proof command events connect to proof command objects', () => {
+    const event = proofCommandToOcelEvent({
+      id: 'cmd_1',
+      checkpointId: 'cp_1',
+      exitCode: 0,
+      durationMs: 100
+    });
+    
+    expect(event.relationships.find(r => r.objectId === 'proof_cmd_cmd_1' && r.qualifier === 'proved_by')).toBeDefined();
+  });
+
+  it('6. Terminal events connect to receipt objects', () => {
+    const event = wizardCommandToOcelEvent({
+      id: 'cmd_2',
+      verb: 'forge',
+      status: 'succeeded',
+      receiptHash: 'rec_hash_1',
+      startedAt: '2024-01-01T00:00:00Z'
+    });
+    
+    expect(event.relationships.find(r => r.objectId === 'receipt_rec_hash_1' && r.qualifier === 'emitted')).toBeDefined();
+  });
+
+  it('7. Mailbox confirmed event connects message + receipt + queue', () => {
+    const mockMsg: PersistentMailboxMessage = {
+      id: 'msg_1' as any,
+      queue: 'hook',
+      state: 'confirmed',
+      payloadHash: 'phash' as any,
+      payloadJson: {},
+      uniqueConsequenceKey: 'uck' as any,
+      attempt: 1,
+      maxAttempts: 3,
+      priority: 5,
+      scheduledAt: '2024-01-01T00:00:00Z' as any,
+      availableAt: '2024-01-01T00:00:00Z' as any,
+      createdAt: '2024-01-01T00:00:00Z' as any,
+      updatedAt: '2024-01-01T00:00:00Z' as any,
+      receiptHash: 'rec_hash_1' as any
+    };
+    
+    const log = mailboxReportToOcel([mockMsg]);
+    const confEvent = log.events.find(e => e.type === 'mailbox_confirmed');
+    expect(confEvent).toBeDefined();
+    expect(confEvent?.relationships.find(r => r.objectId === 'msg_1' && r.qualifier === 'changed')).toBeDefined();
+    expect(confEvent?.relationships.find(r => r.objectId === 'queue_hook' && r.qualifier === 'depends_on')).toBeDefined();
+    expect(confEvent?.relationships.find(r => r.objectId === 'receipt_rec_hash_1' && r.qualifier === 'emitted')).toBeDefined();
+  });
+
+  it('8. Refused event connects failure + receipt', () => {
+    const mockMsg: PersistentMailboxMessage = {
+      id: 'msg_2' as any,
+      queue: 'hook',
+      state: 'refused',
+      payloadHash: 'phash' as any,
+      payloadJson: {},
+      uniqueConsequenceKey: 'uck' as any,
+      attempt: 1,
+      maxAttempts: 3,
+      priority: 5,
+      scheduledAt: '2024-01-01T00:00:00Z' as any,
+      availableAt: '2024-01-01T00:00:00Z' as any,
+      createdAt: '2024-01-01T00:00:00Z' as any,
+      updatedAt: '2024-01-01T00:00:00Z' as any,
+      receiptHash: 'rec_hash_2' as any,
+      errorHash: 'err_hash_1' as any
+    };
+    
+    const log = mailboxReportToOcel([mockMsg]);
+    const refEvent = log.events.find(e => e.type === 'mailbox_refused');
+    expect(refEvent).toBeDefined();
+    expect(refEvent?.relationships.find(r => r.objectId === 'failure_err_hash_1' && r.qualifier === 'blocked_by')).toBeDefined();
+    expect(refEvent?.relationships.find(r => r.objectId === 'receipt_rec_hash_2' && r.qualifier === 'emitted')).toBeDefined();
+  });
+
+  it('9. Handoff completed event connects final report', () => {
+    const log = projectReportToOcel(mockReport);
+    const handoffEvent = log.events.find(e => e.type === 'handoff_completed');
+    expect(handoffEvent).toBeDefined();
+    expect(handoffEvent?.relationships.find(r => r.objectId === 'report_rep_hash_1' && r.qualifier === 'reported_in')).toBeDefined();
+  });
+
+  it('10. Projection hash is stable across repeated runs', () => {
+    const log1 = projectReportToOcel(mockReport);
+    const log2 = projectReportToOcel(mockReport);
+    
+    const hash1 = crypto.createHash('sha256').update(JSON.stringify(log1)).digest('hex');
+    const hash2 = crypto.createHash('sha256').update(JSON.stringify(log2)).digest('hex');
+    
+    expect(hash1).toBe(hash2);
   });
 });

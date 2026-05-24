@@ -36,6 +36,7 @@ import { proveTelco } from "../../skills/telco/telco-proof.js";
 import { proveWizard } from "../../skills/wizard/wizard-proof.js";
 import { proveMailbox } from "../../skills/mailbox/proofs.js";
 import { proveFinalization } from "../../skills/finalization/proofs.js";
+import { proveProjectEvidenceTypes } from "../../skills/project-evidence/proofs.js";
 
 
 /**
@@ -1653,6 +1654,26 @@ Truex OTP Non-Mockable Stress State:
           result = {
             passed: false,
             failures: [e.message || "Unknown error during Finalization Release Gate"],
+            invariants: []
+          };
+        }
+        break;
+      }
+
+      case "project-evidence-types": {
+        console.log("🚀 Starting Object-Centric Project Evidence Type System (S12) verification...");
+        try {
+          const evidenceReport = proveProjectEvidenceTypes();
+          result = {
+            passed: evidenceReport.passed,
+            failures: evidenceReport.failures,
+            invariants: evidenceReport.invariants,
+            receiptHash: evidenceReport.metrics.reportHash
+          };
+        } catch (e: any) {
+          result = {
+            passed: false,
+            failures: [e.message || "Unknown error during Project Evidence Types verification"],
             invariants: []
           };
         }

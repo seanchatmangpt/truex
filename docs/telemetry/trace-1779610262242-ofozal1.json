@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779610262242-ofozal1",
+  "spanId": "span-unknown",
+  "startTime": 1779610262242,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779610264473,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "confirmed",
+        "executionTimeMs": 1658,
+        "invariantsCount": 8,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779610264473,
+  "durationMs": 2231
+}

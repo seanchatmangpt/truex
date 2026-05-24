@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { 
-  PROJECT_CONSTRAINTS, 
+import {
   evaluateProjectConstraint,
-  evaluatePredicate
+  evaluatePredicate,
+  PROJECT_CONSTRAINTS
 } from '../../src/ocpq-project-constraints.gall.js';
-import { OcelV2Log, OcelId, OcelTypeName, ISODateTime, OcpqPredicate } from '../../src/ocel2-project-types.js';
+import type { OcelV2Log, OcelId, OcelTypeName, ISODateTime, OcpqPredicate } from '../../src/ocel2-project-types.js';
 
-describe('OCPQ-Style Project Constraints Domain (Agent 3)', () => {
+describe('OCPQ Project Constraints', () => {
+
   it('should detect a missing proof violation when a source file has no proof command event', () => {
-    // Log with a source file but no proof event referencing it
     const log: OcelV2Log = {
       eventTypes: [],
       objectTypes: [],
@@ -32,7 +32,6 @@ describe('OCPQ-Style Project Constraints Domain (Agent 3)', () => {
   });
 
   it('should verify correct proof command relation resolves the violation', () => {
-    // Log with a source file and a proof command event that references it
     const log: OcelV2Log = {
       eventTypes: [],
       objectTypes: [],
@@ -91,6 +90,12 @@ describe('OCPQ-Style Project Constraints Domain (Agent 3)', () => {
       rightEventVariable: 'e2'
     };
 
-    expect(evaluatePredicate(unsupportedPredicate, { e1: { time: '2026-05-24T00:00:00Z' }, e2: { time: '2026-05-24T00:00:05Z' } }, log)).toBe(false);
+    expect(() => evaluatePredicate(unsupportedPredicate, { e1: { time: '2026-05-24T00:00:00Z' }, e2: { time: '2026-05-24T00:00:05Z' } }, log)).toThrow('Unsupported temporal operator: within');
+
+    const unsupportedKindPredicate: OcpqPredicate = {
+      kind: 'implies' as any,
+      predicates: []
+    };
+    expect(() => evaluatePredicate(unsupportedKindPredicate, {}, log)).toThrow('Unsupported predicate kind: implies');
   });
 });

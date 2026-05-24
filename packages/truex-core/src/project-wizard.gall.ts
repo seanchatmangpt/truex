@@ -352,7 +352,7 @@ export class ProjectMapper {
     const docFiles = relFiles.filter(f => f.startsWith('docs/') || f.endsWith('.md'));
     const configFiles = relFiles.filter(f => f.endsWith('config.ts') || f.endsWith('.json') || f.startsWith('.'));
     const scripts = relFiles.filter(f => f.startsWith('scripts/'));
-    const packageFiles = relFiles.filter(f => f === 'package.json' || f === 'pnpm-lock.yaml' || f === 'package-lock.json');
+    const packageFiles = relFiles.filter(f => f === 'package.json' || f === 'pnpm-lock.yaml' || f === 'package-lock.json') as string[];
     const orphans = relFiles.filter(f => {
       return !sourceFiles.includes(f) &&
              !testFiles.includes(f) &&

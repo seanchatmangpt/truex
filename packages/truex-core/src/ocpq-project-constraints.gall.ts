@@ -5,13 +5,25 @@
  * Purpose: Evaluates compliance constraints over projected OCEL logs.
  */
 
-import {
-  OcpqConstraint,
+import type {
   OcelV2Log,
+  OcelTypeName,
+  OcelAttributeValue,
+  Qualifier,
+  OcelId,
+  ISODateTime,
+  OcpqConstraint,
   OcpqPredicate,
+  OcpqRelationshipPredicate,
+  OcpqTemporalPredicate,
   OcpqNestedQuery,
-  Qualifier
+  OcpqVariable,
+  OcpqVariableKind,
+  OcpqComparisonOp,
+  OcpqAttributePredicate,
+  OcpqLogicalPredicate
 } from './ocel2-project-types.js';
+
 
 export interface OcpqViolation {
   readonly constraintId: string;
@@ -20,7 +32,14 @@ export interface OcpqViolation {
   readonly severity: 'info' | 'warning' | 'error' | 'critical';
 }
 
-export const SUPPORTED_PREDICATES = ['attribute', 'relationship', 'temporal', 'and', 'or', 'not'];
+export const SUPPORTED_PREDICATES = ['attribute', 'relationship', 'temporal'];
+export const UNSUPPORTED_PREDICATES = ['and', 'or', 'not', 'implies'];
+
+export const SUPPORTED_ATTRIBUTE_OPS = ['exists', 'eq', 'neq'];
+export const UNSUPPORTED_ATTRIBUTE_OPS = ['lt', 'lte', 'gt', 'gte', 'contains', 'startsWith', 'endsWith'];
+
+export const SUPPORTED_TEMPORAL_OPS = ['before', 'after', 'sameTime'];
+export const UNSUPPORTED_TEMPORAL_OPS = ['within'];
 
 /**
  * Standard project constraints library
@@ -36,8 +55,8 @@ export const PROJECT_CONSTRAINTS: OcpqConstraint[] = [
       label: 'Find unproven file changes',
       quantifier: 'exists',
       variables: [
-        { id: 'f', kind: 'object', type: 'source_file' },
-        { id: 'p', kind: 'event', type: 'proof_failed' }
+        { id: 'f', kind: 'object', type: 'source_file' as OcelTypeName },
+        { id: 'p', kind: 'event', type: 'proof_failed' as OcelTypeName }
       ],
       predicates: [],
       children: []
@@ -52,7 +71,7 @@ export const PROJECT_CONSTRAINTS: OcpqConstraint[] = [
       id: 'q2',
       label: 'Find checkpoints without accounting',
       quantifier: 'exists',
-      variables: [{ id: 'cp', kind: 'object', type: 'gall_checkpoint' }],
+      variables: [{ id: 'cp', kind: 'object', type: 'gall_checkpoint' as OcelTypeName }],
       predicates: [],
       children: []
     }
@@ -66,7 +85,7 @@ export const PROJECT_CONSTRAINTS: OcpqConstraint[] = [
       id: 'q3',
       label: 'Find premature handoffs',
       quantifier: 'exists',
-      variables: [{ id: 'e', kind: 'event', type: 'handoff_completed' }],
+      variables: [{ id: 'e', kind: 'event', type: 'handoff_completed' as OcelTypeName }],
       predicates: [],
       children: []
     }
@@ -80,7 +99,35 @@ export const PROJECT_CONSTRAINTS: OcpqConstraint[] = [
       id: 'q4',
       label: 'Find unreceipted terminal messages',
       quantifier: 'exists',
-      variables: [{ id: 'm', kind: 'object', type: 'mailbox_message' }],
+      variables: [{ id: 'm', kind: 'object', type: 'mailbox_message' as OcelTypeName }],
+      predicates: [],
+      children: []
+    }
+  },
+  {
+    id: 'c-stale-report',
+    name: 'No stale report allowed',
+    description: 'Every project report must have been updated recently and cannot be stale.',
+    severity: 'warning',
+    violationQuery: {
+      id: 'q5',
+      label: 'Find stale reports',
+      quantifier: 'exists',
+      variables: [{ id: 'r', kind: 'object', type: 'report' as OcelTypeName }],
+      predicates: [],
+      children: []
+    }
+  },
+  {
+    id: 'c-queue-starvation',
+    name: 'No queue starvation allowed',
+    description: 'Available messages in queue must not remain uncompleted or unclaimed for more than 10 minutes.',
+    severity: 'error',
+    violationQuery: {
+      id: 'q6',
+      label: 'Find starved queue messages',
+      quantifier: 'exists',
+      variables: [{ id: 'm', kind: 'object', type: 'mailbox_message' as OcelTypeName }],
       predicates: [],
       children: []
     }
@@ -88,42 +135,60 @@ export const PROJECT_CONSTRAINTS: OcpqConstraint[] = [
 ];
 
 export function evaluatePredicate(predicate: OcpqPredicate, binding: Record<string, any>, log: OcelV2Log): boolean {
-  if (!SUPPORTED_PREDICATES.includes(predicate.kind)) {
+  if (UNSUPPORTED_PREDICATES.includes(predicate.kind)) {
     throw new Error(`Unsupported predicate kind: ${predicate.kind}`);
+  }
+  if (!SUPPORTED_PREDICATES.includes(predicate.kind)) {
+    throw new Error(`Unknown predicate kind: ${predicate.kind}`);
   }
 
   switch (predicate.kind) {
     case 'attribute': {
-      const val = binding[predicate.variable]?.[predicate.attribute];
-      if (predicate.op === 'exists') return val !== undefined && val !== null;
-      if (predicate.op === 'eq') return val === predicate.value;
-      if (predicate.op === 'neq') return val !== predicate.value;
+      const pred = predicate as OcpqAttributePredicate;
+      if (UNSUPPORTED_ATTRIBUTE_OPS.includes(pred.op)) {
+        throw new Error(`Unsupported attribute comparison operator: ${pred.op}`);
+      }
+      if (!SUPPORTED_ATTRIBUTE_OPS.includes(pred.op)) {
+        throw new Error(`Unknown attribute comparison operator: ${pred.op}`);
+      }
+      const val = binding[pred.variable]?.[pred.attribute];
+      if (pred.op === 'exists') return val !== undefined && val !== null;
+      if (pred.op === 'eq') return val === pred.value;
+      if (pred.op === 'neq') return val !== pred.value;
       return false;
     }
     case 'relationship': {
-      const fromObj = binding[predicate.fromVariable];
-      const toObj = binding[predicate.toVariable];
+      const pred = predicate as OcpqRelationshipPredicate;
+      const fromObj = binding[pred.fromVariable];
+      const toObj = binding[pred.toVariable];
       if (!fromObj || !toObj) return false;
 
       // Check relationships array
       const rels = fromObj.relationships || [];
-      return rels.some((r: any) => r.objectId === toObj.id && (!predicate.qualifier || r.qualifier === predicate.qualifier));
+      return rels.some((r: any) => r.objectId === toObj.id && (!pred.qualifier || r.qualifier === pred.qualifier));
     }
     case 'temporal': {
-      const leftEvent = binding[predicate.leftEventVariable];
-      const rightEvent = binding[predicate.rightEventVariable];
+      const pred = predicate as OcpqTemporalPredicate;
+      if (UNSUPPORTED_TEMPORAL_OPS.includes(pred.op)) {
+        throw new Error(`Unsupported temporal operator: ${pred.op}`);
+      }
+      if (!SUPPORTED_TEMPORAL_OPS.includes(pred.op)) {
+        throw new Error(`Unknown temporal operator: ${pred.op}`);
+      }
+      const leftEvent = binding[pred.leftEventVariable];
+      const rightEvent = binding[pred.rightEventVariable];
       if (!leftEvent || !rightEvent) return false;
 
       const leftTime = new Date(leftEvent.time).getTime();
       const rightTime = new Date(rightEvent.time).getTime();
 
-      if (predicate.op === 'before') return leftTime < rightTime;
-      if (predicate.op === 'after') return leftTime > rightTime;
-      if (predicate.op === 'sameTime') return leftTime === rightTime;
+      if (pred.op === 'before') return leftTime < rightTime;
+      if (pred.op === 'after') return leftTime > rightTime;
+      if (pred.op === 'sameTime') return leftTime === rightTime;
       return false;
     }
     default:
-      return false;
+      throw new Error(`Unhandled predicate kind: ${predicate.kind}`);
   }
 }
 
@@ -133,7 +198,7 @@ export function evaluatePredicate(predicate: OcpqPredicate, binding: Record<stri
 export function evaluateProjectConstraint(constraint: OcpqConstraint, log: OcelV2Log): OcpqViolation[] {
   const violations: OcpqViolation[] = [];
 
-  // Implement simple check routines for the 4 core library constraints
+  // Implement simple check routines for core library constraints
   if (constraint.id === 'c-proof-command-missing') {
     // Check if there's a source file that does not have any successful proof command relationship
     for (const obj of log.objects) {
@@ -208,6 +273,66 @@ export function evaluateProjectConstraint(constraint: OcpqConstraint, log: OcelV
               variablesBound: { m: obj.id },
               severity: constraint.severity
             });
+          }
+        }
+      }
+    }
+  }
+
+  if (constraint.id === 'c-stale-report') {
+    const latestEvent = log.events.reduce((latest, evt) => {
+      const t = new Date(evt.time).getTime();
+      return t > latest ? t : latest;
+    }, 0);
+
+    for (const obj of log.objects) {
+      if (obj.type === 'report') {
+        const updatedAtAttr = obj.attributes.find(a => a.name === 'updatedAt');
+        if (updatedAtAttr && typeof updatedAtAttr.value === 'string') {
+          const reportTime = new Date(updatedAtAttr.value).getTime();
+          const diffMs = latestEvent - reportTime;
+          if (diffMs > 2 * 3600 * 1000) {
+            violations.push({
+              constraintId: constraint.id,
+              message: `Report "${obj.id}" is stale (updated ${(diffMs / 3600 / 1000).toFixed(2)} hours before latest event).`,
+              variablesBound: { r: obj.id },
+              severity: constraint.severity
+            });
+          }
+        } else {
+          violations.push({
+            constraintId: constraint.id,
+            message: `Report "${obj.id}" is missing "updatedAt" attribute.`,
+            variablesBound: { r: obj.id },
+            severity: constraint.severity
+          });
+        }
+      }
+    }
+  }
+
+  if (constraint.id === 'c-queue-starvation') {
+    const latestEvent = log.events.reduce((latest, evt) => {
+      const t = new Date(evt.time).getTime();
+      return t > latest ? t : latest;
+    }, 0);
+
+    for (const obj of log.objects) {
+      if (obj.type === 'mailbox_message') {
+        const stateAttr = obj.attributes.find(a => a.name === 'state');
+        if (stateAttr && stateAttr.value === 'available') {
+          const availableAtAttr = obj.attributes.find(a => a.name === 'availableAt');
+          if (availableAtAttr && typeof availableAtAttr.value === 'string') {
+            const availTime = new Date(availableAtAttr.value).getTime();
+            const diffMs = latestEvent - availTime;
+            if (diffMs > 10 * 60 * 1000) {
+              violations.push({
+                constraintId: constraint.id,
+                message: `Mailbox message "${obj.id}" is starved in available state for ${(diffMs / 60 / 1000).toFixed(2)} minutes.`,
+                variablesBound: { m: obj.id },
+                severity: constraint.severity
+              });
+            }
           }
         }
       }

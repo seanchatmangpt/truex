@@ -111,6 +111,8 @@ export interface OcelV2Log {
   readonly objectTypes: readonly OcelObjectType[];
   readonly events: readonly OcelEvent[];
   readonly objects: readonly OcelObject[];
+  readonly eventObjectRelationships?: readonly { readonly eventId: OcelId; readonly objectId: OcelId; readonly qualifier: Qualifier; }[];
+  readonly objectObjectRelationships?: readonly { readonly sourceObjectId: OcelId; readonly targetObjectId: OcelId; readonly qualifier: Qualifier; }[];
 }
 
 /* ============================================================================
@@ -678,3 +680,100 @@ export interface WizardProjectReport {
     readonly reportHash: Hash256;
   };
 }
+
+/* ============================================================================
+ * TYPE GUARDS AND CONVERTORS FOR TESTS
+ * ========================================================================== */
+
+export const createOcelId = (id: string): OcelId => id as OcelId;
+export const createOcelTypeName = (name: string): OcelTypeName => name as OcelTypeName;
+export const createQualifier = (q: string): Qualifier => q as Qualifier;
+export const createISODateTime = (dt: string): ISODateTime => dt as ISODateTime;
+
+export function isOcelEventType(type: any): type is OcelEventType {
+  return typeof type === 'object' && type !== null && typeof type.name === 'string';
+}
+
+export function isOcelObjectType(type: any): type is OcelObjectType {
+  return typeof type === 'object' && type !== null && typeof type.name === 'string';
+}
+
+export function isOcelEventObjectRelationship(rel: any): rel is OcelEventObjectRelationship {
+  return (
+    typeof rel === 'object' &&
+    rel !== null &&
+    typeof rel.objectId === 'string' &&
+    typeof rel.qualifier === 'string'
+  );
+}
+
+export function isOcelObjectObjectRelationship(rel: any): rel is OcelObjectObjectRelationship {
+  return (
+    typeof rel === 'object' &&
+    rel !== null &&
+    typeof rel.objectId === 'string' &&
+    typeof rel.qualifier === 'string'
+  );
+}
+
+export function isOcelEventAttribute(attr: any): attr is OcelEventAttribute {
+  return (
+    typeof attr === 'object' &&
+    attr !== null &&
+    typeof attr.name === 'string' &&
+    attr.value !== undefined
+  );
+}
+
+export function isOcelObjectAttribute(attr: any): attr is OcelObjectAttribute {
+  return (
+    typeof attr === 'object' &&
+    attr !== null &&
+    typeof attr.name === 'string' &&
+    attr.value !== undefined &&
+    typeof attr.time === 'string'
+  );
+}
+
+export function isOcelEvent(event: any): event is OcelEvent {
+  return (
+    typeof event === 'object' &&
+    event !== null &&
+    typeof event.id === 'string' &&
+    typeof event.type === 'string' &&
+    typeof event.time === 'string' &&
+    Array.isArray(event.attributes) &&
+    event.attributes.every(isOcelEventAttribute) &&
+    Array.isArray(event.relationships) &&
+    event.relationships.every(isOcelEventObjectRelationship)
+  );
+}
+
+export function isOcelObject(object: any): object is OcelObject {
+  return (
+    typeof object === 'object' &&
+    object !== null &&
+    typeof object.id === 'string' &&
+    typeof object.type === 'string' &&
+    Array.isArray(object.attributes) &&
+    object.attributes.every(isOcelObjectAttribute) &&
+    Array.isArray(object.relationships) &&
+    object.relationships.every(isOcelObjectObjectRelationship)
+  );
+}
+
+export function isOcelV2Log(log: any): log is OcelV2Log {
+  return (
+    typeof log === 'object' &&
+    log !== null &&
+    Array.isArray(log.events) &&
+    log.events.every(isOcelEvent) &&
+    Array.isArray(log.objects) &&
+    log.objects.every(isOcelObject) &&
+    Array.isArray(log.eventTypes) &&
+    log.eventTypes.every(isOcelEventType) &&
+    Array.isArray(log.objectTypes) &&
+    log.objectTypes.every(isOcelObjectType)
+  );
+}
+

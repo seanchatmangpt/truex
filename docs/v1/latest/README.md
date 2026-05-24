@@ -1,6 +1,6 @@
 # 🔭 Truex Observatory Dashboard
 
-*Last Updated: 2026-05-24T07:45:51.568Z*
+*Last Updated: 2026-05-24T08:11:39.879Z*
 
 ## 🏥 System Health
 
@@ -11,8 +11,8 @@
 ## 🧩 Core Facts
 
 - [Core Primitives](./facts/core-primitives.json)
-  - Total Files: 63
-  - Total Symbols: 266
+  - Total Files: 67
+  - Total Symbols: 376
 
 ## 🏗️ Manufacturing & Integration
 

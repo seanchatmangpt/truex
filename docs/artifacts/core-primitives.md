@@ -1,6 +1,6 @@
 # Antigravity Artifact: Core Primitives
 
-> **Generated:** 2026-05-24T07:45:51.485Z
+> **Generated:** 2026-05-24T08:11:39.808Z
 > **Version:** 1.0.0
 
 ## Core Primitives
@@ -25,10 +25,10 @@
 
 | Metric | Value |
 | :--- | :--- |
-| totalFiles | 63 |
-| totalFunctions | 133 |
+| totalFiles | 67 |
+| totalFunctions | 157 |
 | totalClasses | 37 |
-| totalExportedSymbols | 266 |
+| totalExportedSymbols | 376 |
 
 ## File Inventory
 
@@ -68,6 +68,9 @@
 | `packages/truex-core/src/manufacturing/visual.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/membrane-replay.gall.ts` | 13 | 0 | 22 |
 | `packages/truex-core/src/membrane.ts` | 0 | 0 | 0 |
+| `packages/truex-core/src/ocel2-project-projection.gall.ts` | 6 | 0 | 8 |
+| `packages/truex-core/src/ocel2-project-types.ts` | 9 | 0 | 89 |
+| `packages/truex-core/src/ocpq-project-constraints.gall.ts` | 2 | 0 | 5 |
 | `packages/truex-core/src/persistence/audit-engine.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/persistence/index.ts` | 0 | 1 | 2 |
 | `packages/truex-core/src/persistence/journal.ts` | 0 | 1 | 1 |
@@ -81,6 +84,7 @@
 | `packages/truex-core/src/persistence/transactions.ts` | 0 | 1 | 1 |
 | `packages/truex-core/src/persistent-mailbox.gall.ts` | 21 | 0 | 27 |
 | `packages/truex-core/src/plugins/otel-weaver.ts` | 0 | 0 | 1 |
+| `packages/truex-core/src/powl-project-workflow.gall.ts` | 7 | 0 | 20 |
 | `packages/truex-core/src/project-wizard.gall.ts` | 0 | 5 | 9 |
 | `packages/truex-core/src/receipt.ts` | 0 | 0 | 0 |
 | `packages/truex-core/src/replay.ts` | 0 | 0 | 0 |

@@ -19,19 +19,23 @@ export const OcelOtelWeaverPlugin = defineCittyPlugin({
     const traceId = `trace-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
     const startTime = Date.now();
     
+    // Resolve CommandMeta from Resolvable<CommandMeta>
+    const resolvedCmd = cmd && typeof (cmd as any).then === 'function' ? null : (cmd as any);
+    const cmdName = resolvedCmd?.name || 'unknown';
+    
     // Store in global or execution context so the runtime can attach to it
     (globalThis as any).__OTEL_TRACE__ = {
       traceId,
-      spanId: `span-${cmd?.meta?.name || 'unknown'}`,
+      spanId: `span-${cmdName}`,
       startTime,
       attributes: {
-        command: cmd?.meta?.name,
+        command: cmdName,
         args: JSON.stringify(args)
       },
       events: []
     };
     
-    process.stderr.write(`[OTel Weaver] Started trace ${traceId} for command: ${cmd?.meta?.name}\n`);
+    process.stderr.write(`[OTel Weaver] Started trace ${traceId} for command: ${cmdName}\n`);
   },
 
   cleanup({ args, subCommand }) {

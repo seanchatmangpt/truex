@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-24T07:45:51.496Z",
+  "timestamp": "2026-05-24T08:11:39.817Z",
   "health_check": {
     "status": "healthy",
     "checks": [
@@ -124,7 +124,7 @@
     "decomposition_drift": true,
     "muri": true,
     "details": {
-      "file_count": 63,
+      "file_count": 67,
       "unstable_layers": [
         "S3"
       ]
@@ -133,6 +133,6 @@
   "_metadata": {
     "emitter": "Diagnostics Emitter",
     "description": "Generates a diagnostic report for the Truex architecture",
-    "timestamp": "2026-05-24T07:45:51.521Z"
+    "timestamp": "2026-05-24T08:11:39.840Z"
   }
 }

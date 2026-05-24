@@ -1,12 +1,12 @@
 {
-  "timestamp": "2026-05-24T07:46:19.848Z",
+  "timestamp": "2026-05-24T08:14:18.412Z",
   "testCases": [
     {
       "name": "ACL Read/Write Stress",
       "category": "Performance",
       "attempted": true,
       "bypassed": false,
-      "details": "Executed 100000 proxy operations under capability context. Throughput: 2744284 ops/sec."
+      "details": "Executed 100000 proxy operations under capability context. Throughput: 2504490 ops/sec."
     },
     {
       "name": "Prototype Traversal (getPrototypeOf)",
@@ -46,10 +46,10 @@
   ],
   "benchmarks": {
     "operationsCount": 100000,
-    "totalLatencyMs": 36.439375,
-    "throughputOpsPerSec": 2744284,
+    "totalLatencyMs": 39.928291,
+    "throughputOpsPerSec": 2504490,
     "heapBeforeMb": 12.319,
-    "heapAfterMb": 17.743,
-    "heapPeakMb": 19.91
+    "heapAfterMb": 17.678,
+    "heapPeakMb": 19.95
   }
 }

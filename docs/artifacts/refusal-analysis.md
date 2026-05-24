@@ -1,6 +1,6 @@
 # Antigravity Artifact: Refusal Analysis
 
-> **Generated:** 2026-05-24T07:45:51.523Z
+> **Generated:** 2026-05-24T08:11:39.842Z
 
 ## Refusal Analysis & Correction
 
@@ -9,7 +9,7 @@
 ### Refusal Metadata
 - **Receipt ID:** `e2541aac-037f-4a3d-9648-b4157e29d9d7`
 - **Event ID:** `evt_refused_83be197c-ce99-4b45-9e29-61280bf8952b`
-- **Timestamp:** 2026-05-24 07:45:48
+- **Timestamp:** 2026-05-24 08:11:37
 
 ### Correction Proposals
 

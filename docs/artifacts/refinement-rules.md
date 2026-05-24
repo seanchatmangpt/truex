@@ -1,6 +1,6 @@
 # Antigravity Artifact: Refinement Rules
 
-> **Generated:** 2026-05-24T07:45:51.495Z
+> **Generated:** 2026-05-24T08:11:39.817Z
 > **Version:** 1.0.0
 
 ## Refinement Strategy
@@ -18,6 +18,7 @@ These rules help the bridge auto-correct agent tool calls to use internal, deter
 | `recordTransition` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for recordTransition. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
 | `saveReceipt` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for saveReceipt. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
 | `checkGracePeriod` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for checkGracePeriod. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
+| `validatePowlNode` | `packages/truex-core/src/powl-project-workflow.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for validatePowlNode. Prioritize internal path in packages/truex-core/src/powl-project-workflow.gall.ts. |
 | `matchesCondition` | `packages/truex-core/src/topology.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for matchesCondition. Prioritize internal path in packages/truex-core/src/topology.gall.ts. |
 
 ### Bridge Heuristics
@@ -30,8 +31,8 @@ These rules help the bridge auto-correct agent tool calls to use internal, deter
 
 ### Stats
 
-- **Internal Symbols:** 8
-- **Generated Rules:** 8
+- **Internal Symbols:** 9
+- **Generated Rules:** 9
 - **Heuristics:** 3
 
 ---

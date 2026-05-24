@@ -1,0 +1,16 @@
+{
+  "primitive": "project-evidence-types",
+  "passed": true,
+  "invariants": [
+    "[S12-A] Type Surface - Attempted: 10, Compiled: 10",
+    "[S12-B] Projection Fixtures - Attempted: 2, Projected: 2",
+    "[S12-C] Project Constraints - Attempted: 4, Passed: 4",
+    "[S12-D] Workflow Validation - Attempted: 2, Accepted: 2",
+    "[S12-E] Command Invocation - Attempted: 1, Succeeded: 1"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 4
+  },
+  "receiptHash": "9ab28bb511f4aeff169f7c944479a7894d10659eb69ace77a6d936e5fe972d78"
+}

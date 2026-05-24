@@ -23,8 +23,8 @@
         "walkthrough"
       ],
       "benchmark": {
-        "simulateOpsPerSecond": 4054.555388869628,
-        "reportHash": "10fd76b3052b79cd34d79290acd6237ab4092a29abff16f42ce16da335274f33",
+        "simulateOpsPerSecond": 4128.862492024998,
+        "reportHash": "3d77cbb8533394c94cf087c9712e7f03c4d54ebdf1953a2b76bfa691ce6418f5",
         "status": "passed"
       }
     }
@@ -32,6 +32,6 @@
   "_metadata": {
     "emitter": "S8 Facts Emitter",
     "description": "Extracts architectural facts and benchmark performance for S8 (Telco and Wizard)",
-    "timestamp": "2026-05-24T07:45:51.527Z"
+    "timestamp": "2026-05-24T08:11:39.846Z"
   }
 }

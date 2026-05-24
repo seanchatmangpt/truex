@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import * as fs from 'node:fs';
-import { ProjectCell, CheckpointPlanner, GallCheckpoint } from '../../src/project-wizard.gall.js';
+import { ProjectCell, CheckpointPlanner } from '../../src/project-wizard.gall.js';
+import type { GallCheckpoint } from '../../src/project-wizard.gall.js';
 
 describe('Gall Checkpoint Planner Domain (Agent 3)', () => {
   it('should plan checkpoints, output registry, and reject vague checkpoints', () => {
@@ -33,7 +34,8 @@ describe('Gall Checkpoint Planner Domain (Agent 3)', () => {
       accountingDomain: '', // Missing
       successMetric: '',
       refusalCondition: '',
-      filesExpected: []
+      filesExpected: [],
+      reportsExpected: []
     };
 
     expect(() => {

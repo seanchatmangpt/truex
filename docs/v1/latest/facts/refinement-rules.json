@@ -58,6 +58,14 @@
       "deterministic": true
     },
     {
+      "id": "refine_validatePowlNode",
+      "targetSymbol": "validatePowlNode",
+      "sourceFile": "packages/truex-core/src/powl-project-workflow.gall.ts",
+      "action": "REPLACE_AMBIENT",
+      "description": "Deterministic implementation found for validatePowlNode. Prioritize internal path in packages/truex-core/src/powl-project-workflow.gall.ts.",
+      "deterministic": true
+    },
+    {
       "id": "refine_matchesCondition",
       "targetSymbol": "matchesCondition",
       "sourceFile": "packages/truex-core/src/topology.gall.ts",
@@ -87,13 +95,13 @@
     }
   ],
   "stats": {
-    "internalSymbolsCount": 8,
-    "rulesGenerated": 8,
+    "internalSymbolsCount": 9,
+    "rulesGenerated": 9,
     "heuristicsCount": 3
   },
   "_metadata": {
     "emitter": "Refinement Rules Emitter",
     "description": "Generates refinement rules for the bridge based on internal logic paths",
-    "timestamp": "2026-05-24T07:45:51.495Z"
+    "timestamp": "2026-05-24T08:11:39.817Z"
   }
 }

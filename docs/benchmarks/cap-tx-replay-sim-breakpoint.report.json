@@ -2,22 +2,22 @@
   "nesting": [
     {
       "depth": 10,
-      "timeMs": 0.5477920000000154,
-      "memoryDeltaBytes": 193880,
+      "timeMs": 0.5451669999999922,
+      "memoryDeltaBytes": 412032,
       "stackOverflow": false,
       "status": "passed"
     },
     {
       "depth": 100,
-      "timeMs": 1.1051669999999945,
-      "memoryDeltaBytes": 3037024,
+      "timeMs": 1.227958000000001,
+      "memoryDeltaBytes": 3040648,
       "stackOverflow": false,
       "status": "passed"
     },
     {
       "depth": 1000,
-      "timeMs": 102.29529099999999,
-      "memoryDeltaBytes": 14052368,
+      "timeMs": 113.06020899999999,
+      "memoryDeltaBytes": 5789896,
       "stackOverflow": false,
       "status": "passed"
     }
@@ -35,5 +35,5 @@
     "dynamicDateReplayDiverged": true,
     "deterministicContextReplayConverged": true
   },
-  "timestamp": "2026-05-24T07:46:15.271Z"
+  "timestamp": "2026-05-24T08:14:14.866Z"
 }

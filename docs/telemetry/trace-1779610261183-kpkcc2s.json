@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779610261183-kpkcc2s",
+  "spanId": "span-unknown",
+  "startTime": 1779610261183,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"project-evidence-types\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779610261758,
+      "attributes": {
+        "primitive": "project-evidence-types",
+        "receiptHash": "9ab28bb511f4aeff169f7c944479a7894d10659eb69ace77a6d936e5fe972d78",
+        "status": "confirmed",
+        "executionTimeMs": 5,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779610261758,
+  "durationMs": 575
+}

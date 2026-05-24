@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779610417168-sgiyxvr",
+  "spanId": "span-unknown",
+  "startTime": 1779610417168,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"benchmark\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779610450722,
+      "attributes": {
+        "primitive": "benchmark",
+        "status": "confirmed",
+        "executionTimeMs": 32941,
+        "invariantsCount": 20,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779610450721,
+  "durationMs": 33553
+}

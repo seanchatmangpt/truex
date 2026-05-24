@@ -164,7 +164,7 @@ describe('Persistent Mailbox State Machine Transitions', () => {
     const retryRes1 = retryMessage(db, ctx, msgId, 'database timeout', config);
     expect(retryRes1.state).toBe('retryable');
 
-    let msg = db.prepare('SELECT state, attempt FROM truex_mailbox_messages WHERE id = ?').get(msgId) as { state: string; attempt: number };
+    let msg = db.prepare('SELECT state, attempt FROM truex_mailbox_messages WHERE id = ?').get(msgId) as { state: string; attempt: number; error_info?: string | null };
     expect(msg.state).toBe('retryable');
 
     // Promote retryable back to available

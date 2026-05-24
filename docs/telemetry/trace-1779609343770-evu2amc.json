@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779609343770-evu2amc",
+  "spanId": "span-unknown",
+  "startTime": 1779609343770,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779609344240,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 3,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779609344240,
+  "durationMs": 470
+}

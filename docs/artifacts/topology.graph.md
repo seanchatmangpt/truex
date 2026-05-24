@@ -1,6 +1,6 @@
 # Antigravity Artifact: Topology.graph
 
-> **Generated:** 2026-05-24T07:45:51.477Z
+> **Generated:** 2026-05-24T08:11:39.799Z
 > **Version:** 2.0.0
 
 ## Data Summary
@@ -8,7 +8,7 @@
 ```json
 {
   "version": "2.0.0",
-  "graphHash": "de0136ca312b10286759a186eec87c205d9d6278815071b803c4f8debe924533",
+  "graphHash": "f9b645833c3495126d49a24bb6b053bf2dab7e9ed6dfdaeac9e971f582b48d87",
   "nodes": [
     {
       "id": "agents/swarm-auditor.ts",
@@ -237,7 +237,8 @@
         "skills/telco/telco-proof.ts",
         "skills/wizard/wizard-proof.ts",
         "skills/mailbox/proofs.ts",
-        "skills/finalization/proofs.ts"
+        "skills/finalization/proofs.ts",
+        "skills/project-evidence/proofs.ts"
       ],
       "provedBy": [
         "agents/doctor/agent.ts"
@@ -534,6 +535,25 @@
       ],
       "provedBy": [
         "skills/membrane/proofs.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-core-facts.ts"
+      ]
+    },
+    {
+      "id": "skills/project-evidence/proofs.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/runtime-law.ts",
+        "packages/truex-core/src/ocel2-project-projection.gall.ts",
+        "packages/truex-core/src/ocpq-project-constraints.gall.ts",
+        "packages/truex-core/src/powl-project-workflow.gall.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "skills/project-evidence/proofs.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-core-facts.ts"
@@ -963,6 +983,7 @@
       "provedBy": [
         "skills/mailbox/proofs.ts",
         "skills/membrane/membrane-replay-proof.ts",
+        "skills/project-evidence/proofs.ts",
         "test/transactions/cap-tx-replay-sim-breakpoint.test.ts",
         "packages/truex-core/test/adapter.test.ts",
         "packages/truex-core/test/benchmark-entropy.test.ts",
@@ -976,6 +997,7 @@
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
+        "packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts"
       ],
@@ -1097,6 +1119,51 @@
       ]
     },
     {
+      "id": "packages/truex-core/src/ocel2-project-projection.gall.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "skills/project-evidence/proofs.ts",
+        "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/ocel2-project-types.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [
+        "skills/project-evidence/proofs.ts",
+        "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts",
+        "packages/truex-core/test/project-evidence/ocel2-project-types.test.ts",
+        "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/ocpq-project-constraints.gall.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "skills/project-evidence/proofs.ts",
+        "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/src/persistent-mailbox.gall.ts",
       "type": "Persistence",
       "layer": "S3",
@@ -1117,6 +1184,19 @@
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts",
         "packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/src/powl-project-workflow.gall.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [
+        "skills/project-evidence/proofs.ts",
+        "packages/truex-core/test/project-evidence/powl-project-workflow.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -1190,6 +1270,7 @@
         "skills/adapter/proofs.ts",
         "skills/hook/proofs.ts",
         "skills/mailbox/proofs.ts",
+        "skills/project-evidence/proofs.ts",
         "skills/replay/proofs.ts",
         "skills/topology/proofs.ts",
         "packages/truex-core/test/adapter.test.ts",
@@ -1208,6 +1289,7 @@
         "packages/truex-core/test/manufacturing/line.test.ts",
         "packages/truex-core/test/manufacturing/visual.test.ts",
         "packages/truex-core/test/persistence/journal.test.ts",
+        "packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts",
         "packages/truex-core/test/topology/topology-chain-replay.test.ts",
         "packages/truex-core/test/topology/topology-partial-order-vkg.test.ts",
         "packages/truex-core/test/topology/topology-rollback-storm.test.ts",
@@ -3302,6 +3384,80 @@
       ]
     },
     {
+      "id": "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-projection.gall.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/ocel2-project-types.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/ocel2-project-types.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/ocel2-project-types.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/ocpq-project-constraints.gall.ts",
+        "packages/truex-core/src/ocel2-project-types.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/powl-project-workflow.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/powl-project-workflow.gall.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/powl-project-workflow.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/truex-core/src/hash.ts",
+        "packages/truex-core/src/runtime-law.ts"
+      ],
+      "provedBy": [
+        "packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
       "id": "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts",
       "type": "Test",
       "layer": "Verification",
@@ -3320,6 +3476,7 @@
       "type": "Test",
       "layer": "Verification",
       "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts",
         "packages/truex-core/src/project-wizard.gall.ts"
       ],
       "provedBy": [
@@ -3362,6 +3519,7 @@
       "type": "Test",
       "layer": "Verification",
       "dependencies": [
+        "packages/truex-core/src/project-wizard.gall.ts",
         "packages/truex-core/src/project-wizard.gall.ts"
       ],
       "provedBy": [
@@ -3479,7 +3637,7 @@
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-24T07:45:51.477Z"
+    "timestamp": "2026-05-24T08:11:39.799Z"
   }
 }
 ```

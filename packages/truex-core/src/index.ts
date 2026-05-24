@@ -56,15 +56,122 @@ export * from "./benchmark/runner.js";
 export * from "./benchmark/million-hook-church.js";
 export * from "./topology.gall.js";
 export * from "./membrane-replay.gall.js";
-export * from "./persistent-mailbox.gall.js";
-export * from "./project-wizard.gall.js";
-export * from "./ocel2-project-types.js";
+export {
+  createPersistentMailbox,
+  deriveConsequenceKey,
+  enqueueMessage,
+  calculateBackoff,
+  claimNextMessage,
+  completeMessage,
+  refuseMessage,
+  retryMessage,
+  rollbackMessage,
+  quarantineMessage,
+  discardMessage,
+  cancelMessage,
+  verifyMailboxIntegrity,
+  replayMailboxLineage,
+  rescueExecutingMessages,
+  recordQueueMetrics,
+  pauseQueue,
+  stopQueue,
+  resumeQueue,
+  getHistoricQueueMetrics,
+  promoteScheduledMessages
+} from "./persistent-mailbox.gall.js";
+export type {
+  MailboxMessageState,
+  MailboxMessage,
+  MailboxTransition,
+  RetryPolicyType,
+  QueueConfig
+} from "./persistent-mailbox.gall.js";
+export {
+  ProjectCell,
+  ProjectMapper,
+  CheckpointPlanner,
+  ExecutionEngine,
+  MissionController
+} from "./project-wizard.gall.js";
+export type {
+  ProjectCellConfig,
+  CommandReceipt,
+  AccountingData
+} from "./project-wizard.gall.js";
 export * from "./ocel2-project-projection.gall.js";
 export * from "./ocpq-project-constraints.gall.js";
-export * from "./powl-project-workflow.gall.js";
+export {
+  validatePartialOrder,
+  validateChoiceGraph,
+  validateGallCheckpointWorkflow,
+  checkpointRegistryToPowl,
+  generateWorkflowHash,
+  createWizardWorkflow,
+  getWizard8VerbWorkflow
+} from "./powl-project-workflow.gall.js";
+
+// Explicit type-only exports for non-conflicting types in ocel2-project-types.ts
+export type {
+  OcelId,
+  OcelTypeName,
+  Qualifier,
+  ISODateTime,
+  Hash256,
+  ReceiptHash,
+  ReplayHash,
+  ProjectPath,
+  JsonPrimitive,
+  JsonValue,
+  OcelAttributeKind,
+  OcelAttributeValue,
+  OcelAttributeDefinition,
+  OcelEventType,
+  OcelObjectType,
+  OcelEventAttribute,
+  OcelObjectAttribute,
+  OcelEventObjectRelationship,
+  OcelObjectObjectRelationship,
+  OcelEvent,
+  OcelObject,
+  OcelV2Log,
+  OcelEventRow,
+  OcelObjectRow,
+  OcelEventObjectRow,
+  OcelObjectObjectRow,
+  OcelEventAttributeRow,
+  OcelObjectAttributeRow,
+  TruexProjectObjectType,
+  TruexProjectEventType,
+  TruexOcelProjection,
+  ProcessFeatureKind,
+  ProcessFeature,
+  ProcessRuleKind,
+  ProcessRule,
+  ProcessKnowledgeBase,
+  WizardVerb,
+  WizardCommandStatus,
+  WizardCommandReceipt,
+  MissionAgentId,
+  WizardMission,
+  ProjectTopology,
+  PersistentMailboxQueue,
+  PersistentMailboxState,
+  RetryPolicyKind,
+  PersistentMailboxQueueConfig,
+  PersistentMailboxMessage,
+  PersistentMailboxTransition,
+  PersistentMailboxMetrics,
+  AccountingDomain,
+  MailboxMessageAccounting,
+  WizardCommandAccounting,
+  GallCheckpointAccounting,
+  WizardProjectReport
+} from "./ocel2-project-types.js";
 
 export { SQLiteReceiptStore } from "./persistence/receipt-store.js";
 export { isPlainObject } from "./utils/object.js";
 export type { BenchmarkOptions } from "./benchmark/runner.js";
 export type { BenchmarkResult } from "./benchmark/million-hook-church.js";
 export type { TopologyNode, TopologyEdge } from "./topology.gall.js";
+
+

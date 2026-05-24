@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779610266029-ql0c2pn",
+  "spanId": "span-unknown",
+  "startTime": 1779610266029,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"ecosystem\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779610450772,
+      "attributes": {
+        "primitive": "ecosystem",
+        "status": "confirmed",
+        "executionTimeMs": 184195,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779610450772,
+  "durationMs": 184743
+}

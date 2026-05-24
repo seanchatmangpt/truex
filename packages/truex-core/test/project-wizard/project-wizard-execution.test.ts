@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import * as fs from 'node:fs';
-import { ProjectCell, CheckpointPlanner, ExecutionEngine, AccountingData } from '../../src/project-wizard.gall.js';
+import { ProjectCell, CheckpointPlanner, ExecutionEngine } from '../../src/project-wizard.gall.js';
+import type { AccountingData } from '../../src/project-wizard.gall.js';
 
 describe('Forge / Bind / Prove / Harden Domain (Agent 4)', () => {
   it('should forge placeholder files, bind maps, run proof, and harden envelope', () => {
