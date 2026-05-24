@@ -11,7 +11,7 @@ const initializedDbs = new WeakSet<Database>();
 // Database monkeypatch to automatically initialize the schema when needed.
 const originalPrepare = DatabaseClass.prototype.prepare;
 let initializing = false;
-DatabaseClass.prototype.prepare = function (sql: string) {
+(DatabaseClass.prototype as any).prepare = function (sql: string) {
   if (!initializing && (sql.includes("topology_journal") || sql.includes("topology_snapshots") || sql.includes("rollback_snapshots"))) {
     initializing = true;
     try {

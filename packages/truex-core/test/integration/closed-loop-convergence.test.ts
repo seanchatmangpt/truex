@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import fc from 'fast-check';
-import { createDeterministicContext } from '../../src/context.js';
+import { createDeterministicContext, type TruexContext } from '../../src/context.js';
 import { hash } from '../../src/hash.js';
 import { createReceipt, verifyReceipt } from '../../src/receipt.js';
 import { TruexHook } from '../../src/hook.js';
@@ -559,7 +559,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
           const reassignmentHook = new TaskReassignmentHook('hook-reassign', () => governor.getState());
           governor.registerHook(reassignmentHook);
 
-          const result = governor.process(violation.delta);
+          const result = governor.process(violation.delta as unknown as GraphDelta);
 
           expect(result.status).toBe('halted');
           expect(governor.andon.isStopped()).toBe(true);
@@ -646,7 +646,7 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
           const replayReassignmentHook = new TaskReassignmentHook('hook-reassign', () => replayGovernor.getState());
           replayGovernor.registerHook(replayReassignmentHook);
           
-          const replaySucceeded = replayGovernor.replay(initial.quads, delta, receipt);
+          const replaySucceeded = replayGovernor.replay(initial.quads as Quad[], delta, receipt);
           expect(replaySucceeded).toBe(true);
 
           // Verify tampering with receipt status causes replay to fail
@@ -656,11 +656,10 @@ describe('Closed-Loop Governor Convergence & Jidoka', () => {
 
           // Verify tampering with receipt hash causes replay to fail
           const tamperedReceipt2: Receipt = { ...receipt, receiptHash: receipt.receiptHash + '_tampered' };
-          const replayTampered2 = replayGovernor.replay(initial.quads, delta, tamperedReceipt2);
+          const replayTampered2 = replayGovernor.replay(initial.quads as unknown as Quad[], delta, tamperedReceipt2);
           expect(replayTampered2).toBe(false);
         }
       )
     );
   });
-});
 });

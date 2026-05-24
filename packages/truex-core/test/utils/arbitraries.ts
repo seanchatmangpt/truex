@@ -1,5 +1,5 @@
 import fc from 'fast-check';
-import { HookDefinition, GraphDelta, Quad, HookCondition, HookEffect } from '../../src/runtime-law.js';
+import type { HookDefinition, GraphDelta, Quad, HookCondition, HookEffect } from '../../src/runtime-law.js';
 
 export const quadArbitrary = fc.record({
   subject: fc.string({ minLength: 1 }),

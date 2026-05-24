@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { ManufacturingDashboard } from "../../src/manufacturing/visual.js";
-import { Receipt } from "../../src/runtime-law.js";
+import type { Receipt } from "../../src/runtime-law.js";
 
 describe("ManufacturingDashboard", () => {
   it("should record operations and calculate throughput", () => {

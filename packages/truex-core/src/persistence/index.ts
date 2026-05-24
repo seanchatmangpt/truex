@@ -2,6 +2,7 @@ import type { Database } from 'better-sqlite3';
 import { DeltaJournal } from './journal.js';
 import { SQLiteReceiptStore } from './receipt-store.js';
 import { SnapshotManager, type StateSnapshot } from './snapshot.js';
+export type { StateSnapshot };
 import { ProductionLine } from '../manufacturing/line.js';
 import type { GraphDelta, Receipt, Quad } from '../runtime-law.js';
 import type { TruexContext } from '../context.js';

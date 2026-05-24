@@ -12,7 +12,7 @@ import { proveAdapter } from "../../skills/adapter/proofs.js";
 import { proveHook } from "../../skills/hook/proofs.js";
 import { proveRepository, proveOntology } from "../../skills/repository-proof.js";
 import { runBenchmark, persistReport } from "../../packages/truex-core/src/benchmark/runner.js";
-import type { BenchmarkReport } from "../../packages/truex-core/src/benchmark/runner.js";
+import type { HookBenchReporter } from "../../packages/truex-core/src/benchmark/hookbench.gall.js";
 import { runStressTests } from "../../packages/truex-core/src/benchmark/stress-tests.js";
 import { runHookOtpProof } from "../../packages/truex-core/src/hook-otp.gall.js";
 import { computeAccounting } from "../../packages/truex-core/src/runtime-law.js";
@@ -32,14 +32,14 @@ export type TruexProofReport = {
   failures: string[];
   timings: Record<string, number>;
   receiptHash?: string;
-  benchmark?: BenchmarkReport;
+  benchmark?: HookBenchReporter;
 };
 
 export class DoctorAgent {
   async prove(primitive: string, options?: any): Promise<TruexProofReport> {
     console.log(`\n🩺 Doctor running proof for primitive: "${primitive}"...`);
     const start = Date.now();
-    let result: { passed: boolean; failures: string[]; invariants: string[]; receiptHash?: string; benchmark?: BenchmarkReport } = {
+    let result: { passed: boolean; failures: string[]; invariants: string[]; receiptHash?: string; benchmark?: HookBenchReporter } = {
       passed: true,
       failures: [],
       invariants: []
@@ -576,12 +576,12 @@ export class DoctorAgent {
         });
 
         const stressCaseCounts = computeAccounting({
-          attempted: stressCasesList.reduce((acc, s) => acc + s.attempted, 0),
-          succeeded: stressCasesList.reduce((acc, s) => acc + s.succeeded, 0),
-          failed: stressCasesList.reduce((acc, s) => acc + s.failed, 0),
-          refused: stressCasesList.reduce((acc, s) => acc + s.refused, 0),
-          quarantined: stressCasesList.reduce((acc, s) => acc + s.quarantined, 0),
-          skipped: stressCasesList.reduce((acc, s) => acc + s.skipped, 0)
+          attempted: stressCasesList.reduce((acc: number, s: any) => acc + s.attempted, 0),
+          succeeded: stressCasesList.reduce((acc: number, s: any) => acc + s.succeeded, 0),
+          failed: stressCasesList.reduce((acc: number, s: any) => acc + s.failed, 0),
+          refused: stressCasesList.reduce((acc: number, s: any) => acc + s.refused, 0),
+          quarantined: stressCasesList.reduce((acc: number, s: any) => acc + s.quarantined, 0),
+          skipped: stressCasesList.reduce((acc: number, s: any) => acc + s.skipped, 0)
         });
 
         const commandCounts = computeAccounting({
@@ -1179,7 +1179,7 @@ Truex OTP Non-Mockable Stress State:
     console.log(`📄 Full report written to ${mdPath}`);
   }
 
-  private generateStressReportMd(stressResults: HookBenchStressCase[]): void {
+  private generateStressReportMd(stressResults: any[]): void {
     const mdPath = path.resolve(process.cwd(), 'docs', 'benchmarks', 'hookbench.80-20-stress.md');
     const dir = path.dirname(mdPath);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -1203,12 +1203,12 @@ ${stressResults.map(s => `| ${s.id} | ${s.name} | ${s.category} | ${s.passed ? '
     console.log(`📄 Stress report written to ${mdPath}`);
   }
 
-  private generateRuntimeValidationSynthesis(reporter: HookBenchReporter): void {
+  private generateRuntimeValidationSynthesis(reporter: any): void {
     const mdPath = path.resolve(process.cwd(), 'docs', 'reports', 'HOOKBENCH-RUNTIME-VALIDATION.md');
     const dir = path.dirname(mdPath);
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 
-    const t3 = reporter.results.find(r => r.tier === 'T3')!;
+    const t3 = reporter.results.find((r: any) => r.tier === 'T3')!;
     
     const content = `
 # HOOKBENCH RUNTIME VALIDATION (Gall S4)

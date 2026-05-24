@@ -1,5 +1,5 @@
 import { Faker, en } from '@faker-js/faker';
-import type { GraphDelta, Quad } from '../packages/truex-core/src/runtime-law.js';
+import type { GraphDelta, Quad } from '../../packages/truex-core/src/runtime-law.js';
 
 export interface Member {
   id: string;

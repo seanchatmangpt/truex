@@ -165,7 +165,7 @@ describe("TruexAgentAdapter - Decoupled Consequence Authority", () => {
     // Verify that the table state did not change (it only contains the pre-existing event)
     const eventRows = db.prepare("SELECT * FROM gall_events").all();
     expect(eventRows).toHaveLength(1);
-    expect(eventRows[0].hookId).toBe("pre-existing");
+    expect((eventRows[0] as any).hookId).toBe("pre-existing");
 
     db.close();
   });

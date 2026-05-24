@@ -52,3 +52,9 @@ export * from "./benchmark/runner.js";
 export * from "./benchmark/million-hook-church.js";
 export * from "./topology.gall.js";
 export * from "./membrane-replay.gall.js";
+
+export { SQLiteReceiptStore } from "./persistence/receipt-store.js";
+export { isPlainObject } from "./utils/object.js";
+export type { BenchmarkOptions } from "./benchmark/runner.js";
+export type { BenchmarkResult } from "./benchmark/million-hook-church.js";
+export type { TopologyNode, TopologyEdge } from "./topology.gall.js";

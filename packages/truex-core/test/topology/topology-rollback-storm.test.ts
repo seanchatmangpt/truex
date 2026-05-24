@@ -191,7 +191,7 @@ describe('Topology Rollback and Storm Protection Tests', () => {
       expect(topology).toBeDefined();
       
       const activations = topology.activations;
-      const rollbackActivation = activations.find(a => a.receipt.eventId.startsWith('evt_rollback_'));
+      const rollbackActivation = activations.find((a: any) => a.receipt.eventId.startsWith('evt_rollback_'));
       expect(rollbackActivation).toBeDefined();
       expect(rollbackActivation!.receipt.status).toBe('refused');
       expect(rollbackActivation!.receipt.receiptHash).toBeDefined();
@@ -450,7 +450,7 @@ describe('Topology Rollback and Storm Protection Tests', () => {
       const activations = topology.activations;
       
       // We expect the breach activation to be delta-breach-refusal
-      const breachActivation = activations.find(a => a.hookId === 'delta-breach-refusal');
+      const breachActivation = activations.find((a: any) => a.hookId === 'delta-breach-refusal');
       expect(breachActivation).toBeDefined();
       expect(breachActivation!.receipt.status).toBe('refused');
       expect(breachActivation!.receipt.reason).toContain('Max emitted-delta count breach');

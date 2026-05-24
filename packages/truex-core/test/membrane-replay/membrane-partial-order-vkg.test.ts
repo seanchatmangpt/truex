@@ -19,7 +19,7 @@ const parentSeed = 42;
 
 // Helper to create a replay-compatible journal entry
 function appendReplayCompatibleJournalEntry(
-  db: Database,
+  db: Database.Database,
   entry: {
     chainId: string;
     deltaId: string;

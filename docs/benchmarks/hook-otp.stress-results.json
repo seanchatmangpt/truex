@@ -9,7 +9,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 69
+    "durationMs": 74
   },
   {
     "name": "Sibling Crash Containment",
@@ -93,7 +93,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 57
+    "durationMs": 59
   },
   {
     "name": "Observable Artifact Integrity",
@@ -105,7 +105,7 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 20
+    "durationMs": 19
   },
   {
     "name": "AGY Bridge Visibility",
@@ -117,6 +117,6 @@
     "replayConverged": 1,
     "receiptVerified": 1,
     "reported": 1,
-    "durationMs": 3033
+    "durationMs": 3465
   }
 ]

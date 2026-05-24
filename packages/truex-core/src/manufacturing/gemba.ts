@@ -1,5 +1,5 @@
 import { TruexHook } from "../hook.js";
-import { TruexContext } from "../context.js";
+import type { TruexContext } from "../context.js";
 import type { GraphDelta, Receipt, HookEvent, HookEffect } from "../runtime-law.js";
 // @ts-ignore - Importing from root src which is outside of the package's local TS scope
 import { OcelCollector } from "../../../../src/ocel2/index.js";

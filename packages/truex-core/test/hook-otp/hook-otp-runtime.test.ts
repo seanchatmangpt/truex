@@ -3,7 +3,6 @@ import {
   createHookOtpRuntime, 
   createHookProcess, 
   dispatchMessage, 
-  generateHookOtpReport, 
   runHookOtpProof 
 } from '../../src/hook-otp.gall.js';
 

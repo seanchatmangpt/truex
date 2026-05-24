@@ -3,13 +3,14 @@ import fc from 'fast-check';
 import { ProductionScheduler } from '../src/manufacturing/heijunka.js';
 import { KanbanSystem } from '../src/manufacturing/jit.js';
 import { hookDefinitionArbitrary, graphDeltaArbitrary } from './utils/arbitraries.js';
-import { TruexContext } from '../src/context.js';
+import type { TruexContext } from '../src/context.js';
 
 describe('ProductionScheduler (Heijunka) - Property Tests', () => {
   let uuidCounter = 0;
   const mockContext: TruexContext = {
+    seed: 42,
+    clock: () => 1716595200000,
     uuid: () => `mock-uuid-${++uuidCounter}`,
-    now: () => 1716595200000,
   };
 
   it('should group deltas by hooks and execute them regardless of delta complexity', async () => {

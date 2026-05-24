@@ -65,7 +65,7 @@ export class EntropyAgent {
   }
 
   private formatMarkdownReport(results: any): string {
-    const inputHash = hash(results.data.map(d => d.delta));
+    const inputHash = hash(results.data.map((d: any) => d.delta));
     
     let md = `# Entropy Agent Benchmark Report\n\n`;
     md += `## Configuration\n`;

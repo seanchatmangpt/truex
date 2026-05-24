@@ -424,7 +424,7 @@ export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> 
 
     // Replay-compatible helper definition inside proof
     const appendReplayCompatible = (
-      db: Database,
+      db: Database.Database,
       entry: {
         chainId: string;
         deltaId: string;

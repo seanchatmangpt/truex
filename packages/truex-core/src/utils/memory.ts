@@ -121,8 +121,8 @@ export class MemoryMonitor {
       };
     }
 
-    const first = this.snapshots[0];
-    const last = this.snapshots.at(-1);
+    const first = this.snapshots[0]!;
+    const last = this.snapshots.at(-1)!;
     
     const timeDiffSec = (last.timestamp - first.timestamp) / 1000;
     const heapDiff = last.memory.heapUsed - first.memory.heapUsed;

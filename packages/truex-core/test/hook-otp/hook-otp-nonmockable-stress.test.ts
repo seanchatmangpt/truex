@@ -5,7 +5,6 @@ import {
   createHookSupervisor, 
   dispatchMessage, 
   replayMessage,
-  generateHookOtpReport,
   runHookOtpProof
 } from '../../src/hook-otp.gall.js';
 import { verifyReceipt, hash } from '../../src/index.js';

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { RefiningEngine, GembaInspector } from "../src/manufacturing/kaizen.js";
-import { HookDefinition, GraphDelta, Receipt } from "../src/runtime-law.js";
+import type { HookDefinition, GraphDelta, Receipt } from "../src/runtime-law.js";
 
 describe("Kaizen Manufacturing (Continuous Improvement)", () => {
   it("RefiningEngine suggests tightening predicates for 'always' hooks when a pattern is detected", () => {

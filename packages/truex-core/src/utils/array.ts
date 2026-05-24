@@ -9,7 +9,7 @@ export type RecursiveArray<T> = Array<T | RecursiveArray<T>>;
  * @param arr - The deeply nested array to flatten.
  * @returns A new flattened array.
  */
-export function flatten<T>(arr: RecursiveArray<T>): T[] {
+export function flatten<T>(arr: any[]): T[] {
   return arr.flat(Infinity) as T[];
 }
 

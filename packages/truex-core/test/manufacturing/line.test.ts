@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { truexManufacture, ProductionLine } from '../../src/manufacturing/line.js';
 import { createDeterministicContext } from '../../src/context.js';
-import { HookDefinition, GraphDelta } from '../../src/runtime-law.js';
+import type { HookDefinition, GraphDelta } from '../../src/runtime-law.js';
 import { TruexHook } from '../../src/hook.js';
 
 describe('ProductionLine (Integration)', () => {
