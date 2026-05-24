@@ -48,7 +48,7 @@ export async function run() {
     delta: createStringDelta("delta-2", "Hello, from actor A!")
   });
 
-  console.log(`PointToPointChannel: completed.`);
+  console.log(`PointToPointChannel: conserved.`);
   const ref = runtime.processes.get("actor-b");
   console.log(`[Actor B] Final state:`, ref?.state);
 }

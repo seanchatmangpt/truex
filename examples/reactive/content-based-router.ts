@@ -62,7 +62,7 @@ export async function run() {
     delta: createOrderDelta("delta-2", "TypeXYZ", "Order Items for X")
   });
 
-  console.log("ContentBasedRouter: is completed.");
+  console.log("ContentBasedRouter: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

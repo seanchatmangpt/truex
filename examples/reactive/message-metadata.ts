@@ -8,7 +8,7 @@ export async function run() {
   const ctx = createDeterministicContext(42);
 
   const auditorBehavior = (state: any, msg: any) => {
-    console.log("Audit log - msg metadata:", msg.metadata);
+    console.log("Audit receipt - msg metadata:", msg.metadata);
     return { effects: [], nextState: state };
   };
 
@@ -26,7 +26,7 @@ export async function run() {
 
   const message = {
     id: "msg-meta-1",
-    targetProcessId: "processor", // Main target
+    targetProcessId: "processor", // Main substrate
     metadata: {
         traceId: "trace-9876",
         sourceSystem: "CRM",

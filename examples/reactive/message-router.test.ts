@@ -22,7 +22,7 @@ describe('Reactive Pattern: Message Router', () => {
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[AlternatingRouter] routing "Message #4" to proc-2'));
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[Processor 2] received: Message #4'));
 
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('MessageRouter: is completed.'));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('MessageRouter: is conserved.'));
 
     logSpy.mockRestore();
   });

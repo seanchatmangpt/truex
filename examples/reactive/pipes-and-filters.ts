@@ -83,7 +83,7 @@ export async function run() {
   dispatchMessage(runtime, { id: "msg-start-1", targetProcessId: "filter-1", delta: payload });
   dispatchMessage(runtime, { id: "msg-start-2", targetProcessId: "filter-1", delta: payload });
 
-  console.log("PipesAndFilters: completed.");
+  console.log("PipesAndFilters: conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

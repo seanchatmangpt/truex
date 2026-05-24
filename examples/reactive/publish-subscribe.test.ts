@@ -20,7 +20,7 @@ describe('Reactive Pattern: Publish/Subscribe', () => {
     // NKY Quote
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[AllMarketsSubscriber] received: 6701:JP @ 237'));
 
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('SubClassification: is completed.'));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('SubClassification: is conserved.'));
 
     logSpy.mockRestore();
   });

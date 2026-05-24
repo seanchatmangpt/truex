@@ -19,7 +19,7 @@ describe('Reactive Pattern: Process Manager', () => {
       '[LoanBroker] Started loan process for 111-11-1111. Requesting credit check.',
       '[CreditBureau] Checking credit for 111-11-1111',
       '[LoanBroker] Received credit score: 650. Requesting quotes from banks.',
-      'ProcessManager: is completed.'
+      'ProcessManager: is conserved.'
     ]);
   });
 });

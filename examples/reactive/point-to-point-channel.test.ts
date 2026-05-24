@@ -11,7 +11,7 @@ describe('Reactive Pattern: Point-to-Point Channel', () => {
     // Verify the exact dispatch and processing order
     expect(logSpy).toHaveBeenCalledWith('[Actor B] Received: Goodbye, from actor C!');
     expect(logSpy).toHaveBeenCalledWith('[Actor B] Received: Hello, from actor A!');
-    expect(logSpy).toHaveBeenCalledWith('PointToPointChannel: completed.');
+    expect(logSpy).toHaveBeenCalledWith('PointToPointChannel: conserved.');
     
     // Verify the final internal state of the OTP Hook
     // We expect 1 hello and 1 goodbye based on the payload parsing logic

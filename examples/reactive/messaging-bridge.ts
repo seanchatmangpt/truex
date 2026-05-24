@@ -10,7 +10,7 @@ export async function run() {
   const bridgeBehavior = (state: any, msg: any) => {
     console.log(`[MessagingBridge] Received message from Domain A: ${msg.id}`);
     console.log(`[MessagingBridge] Translating message format for Domain B...`);
-    console.log(`[MessagingBridge] Forwarding translated message to target: ${state.targetId}`);
+    console.log(`[MessagingBridge] Forwarding translated message to substrate: ${state.targetId}`);
     return { effects: [], nextState: state };
   };
 

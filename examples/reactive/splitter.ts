@@ -71,7 +71,7 @@ export async function run() {
     delta: orderDelta
   });
 
-  console.log("Splitter: is completed.");
+  console.log("Splitter: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

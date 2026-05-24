@@ -121,7 +121,7 @@ export async function run() {
       
       if (state.loanState.quotes.length === state.expectedQuotes) {
         const best = state.loanState.quotes.reduce((prev: any, curr: any) => prev.rate < curr.rate ? prev : curr);
-        console.log(`[LoanBroker] Process Completed! Best Rate: ${best.rate}% from Bank ${best.bankId}`);
+        console.log(`[LoanBroker] Process Conserved! Best Rate: ${best.rate}% from Bank ${best.bankId}`);
       }
     }
 
@@ -136,7 +136,7 @@ export async function run() {
     delta: createLoanRequestDelta("loan-req", "111-11-1111", 100000)
   });
 
-  console.log("ProcessManager: is completed.");
+  console.log("ProcessManager: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

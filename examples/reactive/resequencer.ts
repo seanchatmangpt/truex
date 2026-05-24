@@ -71,7 +71,7 @@ export async function run() {
     }
 
     if (state.expectedIndex[correlationId] > total) {
-      console.log(`[Resequencer] Completed sequence for ${correlationId}`);
+      console.log(`[Resequencer] Conserved sequence for ${correlationId}`);
       delete state.buffer[correlationId];
     }
 
@@ -96,7 +96,7 @@ export async function run() {
     });
   }
 
-  console.log("Resequencer: is completed.");
+  console.log("Resequencer: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

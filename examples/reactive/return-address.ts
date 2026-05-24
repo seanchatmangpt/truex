@@ -29,7 +29,7 @@ export async function run() {
 
   const workerBehavior = (state: any, msg: any) => {
     const what = msg.delta?.adds?.[0]?.object || 'unknown';
-    console.log(`[Worker] received complex request: ${what}`);
+    console.log(`[Worker] received complex attempt: ${what}`);
     
     // Reply directly to the original sender (Return Address)
     if (msg.senderId && msg.senderId !== 'system') {
@@ -46,7 +46,7 @@ export async function run() {
 
   const serverBehavior = (state: any, msg: any) => {
     const what = msg.delta?.adds?.[0]?.object || 'unknown';
-    console.log(`[Server] received complex request, forwarding to worker...`);
+    console.log(`[Server] received complex attempt, forwarding to worker...`);
     
     // Forward to worker, PRESERVING the original senderId (the return address)
     dispatchMessage(runtime, {
@@ -64,7 +64,7 @@ export async function run() {
     const isReply = msg.delta?.adds?.[0]?.subject === "reply";
     
     if (!isReply) {
-      console.log(`[Client] starting... sending complex request`);
+      console.log(`[Client] starting... sending complex attempt`);
       dispatchMessage(runtime, {
         id: `req-${ctx.uuid()}`,
         senderId: msg.targetProcessId,
@@ -85,7 +85,7 @@ export async function run() {
     delta: { id: "start", adds: [], deletes: [] }
   });
 
-  console.log("ReturnAddress: is completed.");
+  console.log("ReturnAddress: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

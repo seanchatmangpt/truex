@@ -37,7 +37,7 @@ describe('Reactive Pattern: Scatter-Gather', () => {
         { quoter: 'HighSierra', price: 98 },
         { quoter: 'HighSierra', price: 98 }
       ]],
-      ['ScatterGather: is completed.']
+      ['ScatterGather: is conserved.']
     ]);
   });
 });

@@ -9,10 +9,10 @@ export async function run() {
 
   const proxyBehavior = (state: any, msg: any) => {
     const nextCount = state.messagesIntercepted + 1;
-    console.log(`[SmartProxy] Intercepted message: ${msg.id}. Total handled: ${nextCount}`);
+    console.log(`[SmartProxy] Hooked message: ${msg.id}. Total handled: ${nextCount}`);
     
     // Potential cross-cutting concerns like logging, auth, metric tracking
-    console.log(`[SmartProxy] Metrics updated. Delegating to target process: ${state.targetId}`);
+    console.log(`[SmartProxy] Metrics updated. Delegating to substrate process: ${state.targetId}`);
     
     return { effects: [], nextState: { ...state, messagesIntercepted: nextCount } };
   };
@@ -23,14 +23,14 @@ export async function run() {
   };
 
   runtime.processes.set("actual-service", createHookProcess("actual-service", actualServiceBehavior, {}));
-  runtime.processes.set("smart-proxy", createHookProcess("smart-proxy", proxyBehavior, { 
+  runtime.processes.set("smart-membrane", createHookProcess("smart-membrane", proxyBehavior, { 
     targetId: "actual-service", 
     messagesIntercepted: 0 
   }));
 
   dispatchMessage(runtime, { 
-    id: "msg-proxy-1", 
-    targetProcessId: "smart-proxy", 
+    id: "msg-membrane-1", 
+    targetProcessId: "smart-membrane", 
     delta: { id: "d1", adds: [], deletes: [] } 
   });
 }

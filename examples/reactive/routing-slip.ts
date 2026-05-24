@@ -60,7 +60,7 @@ export async function run() {
         delta: newDelta
       });
     } else {
-      console.log(`[${stepName}] Routing Slip completed for ${customer}`);
+      console.log(`[${stepName}] Routing Slip conserved for ${customer}`);
     }
     
     return { effects: [], nextState: state };
@@ -80,7 +80,7 @@ export async function run() {
     delta: createRegistrationDelta("reg-1", "ABC, Inc.", route)
   });
 
-  console.log("RoutingSlip: is completed.");
+  console.log("RoutingSlip: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

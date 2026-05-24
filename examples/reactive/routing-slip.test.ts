@@ -15,8 +15,8 @@ describe('Reactive Messaging Pattern: Routing Slip', () => {
       '[select_service_plan] Processing registration for ABC, Inc.',
       '[select_service_plan] Forwarding to next step: check_credit',
       '[check_credit] Processing registration for ABC, Inc.',
-      '[check_credit] Routing Slip completed for ABC, Inc.',
-      'RoutingSlip: is completed.'
+      '[check_credit] Routing Slip conserved for ABC, Inc.',
+      'RoutingSlip: is conserved.'
     ];
 
     expect(logSpy).toHaveBeenCalledTimes(expectedOutputs.length);

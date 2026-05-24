@@ -73,7 +73,7 @@ export async function run() {
     });
   }
 
-  console.log("SubClassification: is completed.");
+  console.log("SubClassification: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

@@ -16,11 +16,11 @@ describe('Reactive Pattern: Return Address', () => {
 
     const logs = vi.mocked(console.log).mock.calls.map(c => c[0]);
     expect(logs).toEqual([
-      '[Client] starting... sending complex request',
-      '[Server] received complex request, forwarding to worker...',
-      '[Worker] received complex request: REQ-20',
+      '[Client] starting... sending complex attempt',
+      '[Server] received complex attempt, forwarding to worker...',
+      '[Worker] received complex attempt: REQ-20',
       '[Client] received reply: RESP-COMPLEX for REQ-20',
-      'ReturnAddress: is completed.'
+      'ReturnAddress: is conserved.'
     ]);
   });
 });

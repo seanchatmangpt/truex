@@ -65,7 +65,7 @@ export async function run() {
     });
   }
 
-  console.log("CompetingConsumer: is completed.");
+  console.log("CompetingConsumer: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

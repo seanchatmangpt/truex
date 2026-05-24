@@ -61,7 +61,7 @@ export async function run() {
     });
   }
 
-  console.log("MessageRouter: is completed.");
+  console.log("MessageRouter: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { run } from '../../examples/reactive/message-filter.js';
 
 describe('Reactive Messaging Pattern: Message Filter', () => {
-  it('should pass valid messages and drop invalid messages', async () => {
+  it('should admit valid messages and drop invalid messages', async () => {
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
 
     await run();

@@ -16,7 +16,7 @@ describe('Reactive Pattern: Pipes and Filters', () => {
     // Second message (duplicate) processing
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[Deduplicator] Found duplicate order: 123"));
 
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("PipesAndFilters: completed."));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("PipesAndFilters: conserved."));
 
     logSpy.mockRestore();
   });

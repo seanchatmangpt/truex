@@ -16,7 +16,7 @@ export async function run() {
         console.log('Aggregator: All parts received, assembling:', newParts);
         return { 
           effects: [{ type: 'send', targetProcessId: state.replyTo, delta: { id: 'agg-done', adds: [], deletes: [] }, messageId: 'agg-1', payload: newParts }], 
-          nextState: { ...state, parts: [], complete: true } 
+          nextState: { ...state, parts: [], conserve: true } 
         };
       }
       return { effects: [], nextState: { ...state, parts: newParts } };

@@ -18,8 +18,8 @@ describe('Reactive Messaging Pattern: Resequencer', () => {
       '[SequencedConsumer] Received perfectly ordered message: ABC #4',
       '[Resequencer] Received out-of-order message: ABC #5',
       '[SequencedConsumer] Received perfectly ordered message: ABC #5',
-      '[Resequencer] Completed sequence for ABC',
-      'Resequencer: is completed.'
+      '[Resequencer] Conserved sequence for ABC',
+      'Resequencer: is conserved.'
     ];
 
     expect(logSpy).toHaveBeenCalledTimes(expectedOutputs.length);

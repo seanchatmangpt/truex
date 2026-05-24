@@ -27,7 +27,7 @@ export async function run() {
   runtime.processes.set("order-processor", createHookProcess("order-processor", orderProcessorBehavior, {}));
 
   const messageLoggerBehavior = (state: any, msg: any) => {
-    console.log(`[LOG] WireTap intercepted message: ${msg.id} carrying delta: ${msg.delta?.id}`);
+    console.log(`[LOG] WireTap hooked message: ${msg.id} carrying delta: ${msg.delta?.id}`);
     dispatchMessage(runtime, {
       ...msg,
       id: `msg-fwd-${ctx.uuid()}`,
@@ -43,7 +43,7 @@ export async function run() {
     delta: createOrderDelta("delta-1", "123")
   });
 
-  console.log("WireTap: is completed.");
+  console.log("WireTap: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

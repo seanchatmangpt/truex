@@ -24,9 +24,9 @@ export async function run() {
     return { effects: [], nextState: state };
   };
 
-  runtime.processes.set("enriched-target", createHookProcess("enriched-target", targetBehavior, {}));
+  runtime.processes.set("enriched-substrate", createHookProcess("enriched-substrate", targetBehavior, {}));
   runtime.processes.set("content-enricher", createHookProcess("content-enricher", enricherBehavior, { 
-    targetId: "enriched-target", 
+    targetId: "enriched-substrate", 
     enrichmentData: "DATABASE_USER_RECORD" 
   }));
 

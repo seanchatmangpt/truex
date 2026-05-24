@@ -25,13 +25,13 @@ export async function run() {
 
   const routerBehavior = (state: any, msg: any) => {
     if (msg.delta.payload) {
-      const target = routingRules(msg);
-      console.log(`[Router] Routing message ${msg.id} to ${target}`);
+      const substrate = routingRules(msg);
+      console.log(`[Router] Routing message ${msg.id} to ${substrate}`);
       
-      // Route message dynamically to the chosen target
+      // Route message dynamically to the chosen substrate
       dispatchMessage(runtime, { 
         id: `routed-${msg.id}`, 
-        targetProcessId: target, 
+        targetProcessId: substrate, 
         delta: msg.delta 
       });
     }

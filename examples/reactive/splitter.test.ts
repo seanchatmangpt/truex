@@ -20,7 +20,7 @@ describe('Reactive Pattern: Splitter', () => {
       '[Processor TypeA] handling Item A',
       '[Processor TypeB] handling Item B',
       '[Processor TypeC] handling Item C',
-      'Splitter: is completed.'
+      'Splitter: is conserved.'
     ]);
   });
 });

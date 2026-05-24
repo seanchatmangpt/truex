@@ -23,7 +23,7 @@ describe('Reactive Messaging Pattern: Competing Consumer', () => {
       '[Worker-3] processed WorkItem-13',
       '[Worker-4] processed WorkItem-14',
       '[Worker-5] processed WorkItem-15',
-      'CompetingConsumer: is completed.'
+      'CompetingConsumer: is conserved.'
     ];
 
     expect(logSpy).toHaveBeenCalledTimes(expectedOutputs.length);

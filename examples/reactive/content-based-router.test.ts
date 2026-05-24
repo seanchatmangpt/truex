@@ -14,7 +14,7 @@ describe('Reactive Pattern: Content-Based Router', () => {
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[OrderRouter] routing to X'));
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('[InventorySystemX] handling Order Items for X'));
 
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('ContentBasedRouter: is completed.'));
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('ContentBasedRouter: is conserved.'));
 
     logSpy.mockRestore();
   });

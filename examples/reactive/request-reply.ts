@@ -10,7 +10,7 @@ import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
 function createRequestDelta(id: string, what: string): GraphDelta {
   return {
     id,
-    adds: [{ subject: "request", predicate: "what", object: what, graph: null }],
+    adds: [{ subject: "attempt", predicate: "what", object: what, graph: null }],
     deletes: []
   };
 }
@@ -29,7 +29,7 @@ export async function run() {
 
   const serverBehavior = (state: any, msg: any) => {
     const what = msg.delta?.adds?.[0]?.object || 'unknown';
-    console.log(`[Server] received request: ${what}`);
+    console.log(`[Server] received attempt: ${what}`);
     
     if (msg.senderId && msg.senderId !== 'system') {
       dispatchMessage(runtime, {
@@ -47,7 +47,7 @@ export async function run() {
     const isReply = msg.delta?.adds?.[0]?.subject === "reply";
     
     if (!isReply) {
-      console.log(`[Client] starting... sending request`);
+      console.log(`[Client] starting... sending attempt`);
       const targetServerId = msg.delta?.adds?.[0]?.object as string;
       dispatchMessage(runtime, {
         id: `req-${ctx.uuid()}`,
@@ -73,7 +73,7 @@ export async function run() {
     }
   });
 
-  console.log("RequestReply: is completed.");
+  console.log("RequestReply: is conserved.");
 }
 
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);
