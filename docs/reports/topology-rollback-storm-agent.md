@@ -2,7 +2,7 @@
 
 This report documents the verification, implementation, and testing of cascading rollback boundaries, hook storm cycles, maximum depth limits, and emitted-delta count breaches within the TrueX Core recursive hook engine.
 
-All tests are implemented in the test suite: [topology-rollback-storm.test.ts](file:///Users/sac/truex/packages/truex-core/test/topology/topology-rollback-storm.test.ts).
+All tests are implemented in the test suite: [topology-rollback-storm.test.ts](file:///Users/sac/truex/packages/membrane/test/topology/topology-rollback-storm.test.ts).
 
 ---
 
@@ -47,11 +47,11 @@ All tests are implemented in the test suite: [topology-rollback-storm.test.ts](f
 ```bash
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/topology/topology-rollback-storm.test.ts (8 tests) 16ms
- ✓ packages/truex-core/test/topology/topology-partial-order-vkg.test.ts (6 tests) 16ms
- ✓ packages/truex-core/test/topology/topology.gall.test.ts (6 tests) 10ms
- ✓ packages/truex-core/test/topology/topology-chain-replay.test.ts (8 tests) 10ms
- ✓ packages/truex-core/test/topology/topology.test.ts (3 tests) 5ms
+ ✓ packages/membrane/test/topology/topology-rollback-storm.test.ts (8 tests) 16ms
+ ✓ packages/membrane/test/topology/topology-partial-order-vkg.test.ts (6 tests) 16ms
+ ✓ packages/membrane/test/topology/topology.gall.test.ts (6 tests) 10ms
+ ✓ packages/membrane/test/topology/topology-chain-replay.test.ts (8 tests) 10ms
+ ✓ packages/membrane/test/topology/topology.test.ts (3 tests) 5ms
 
  Test Files  5 passed (5)
       Tests  31 passed (31)
@@ -64,5 +64,5 @@ All tests are implemented in the test suite: [topology-rollback-storm.test.ts](f
 ## 3. Structural Hardening & Invariant Fixes
 
 During the initial test runs, some existing tests in the codebase failed due to receipt hash verification errors.
-- **Root Cause:** In our modifications to the `Receipt` type in [runtime-law.ts](file:///Users/sac/truex/packages/truex-core/src/runtime-law.ts), we introduced optional fields (`rollbackOf`, `failedChildId`, `reason`). However, their inclusion in the parsed receipt object as `undefined` properties polluted the object keys and changed the output of `stableJson` in `hash(receiptWithoutHash)` during verification in `verifyReceipt`.
+- **Root Cause:** In our modifications to the `Receipt` type in [runtime-law.ts](file:///Users/sac/truex/packages/membrane/src/runtime-law.ts), we introduced optional fields (`rollbackOf`, `failedChildId`, `reason`). However, their inclusion in the parsed receipt object as `undefined` properties polluted the object keys and changed the output of `stableJson` in `hash(receiptWithoutHash)` during verification in `verifyReceipt`.
 - **Fix:** Hardened `parseReceipt` to only append these optional properties to the return object if they are defined (i.e. of type `'string'`). This preserves the precise key mapping and hashes of all standard receipts while correctly supporting the new metadata properties for rollback receipts, keeping 100% of the test suite green.

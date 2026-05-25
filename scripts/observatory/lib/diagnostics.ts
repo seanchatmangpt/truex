@@ -65,10 +65,10 @@ const GALL_LAYERS = [
  * Detects the current Gall Layer based on the presence and stability of primitives.
  */
 function detectGallLayer(rootDir: string) {
-  const coreIndex = path.join(rootDir, 'packages/truex-core/src/index.ts');
-  const coreSrcDir = path.join(rootDir, 'packages/truex-core/src');
+  const coreIndex = path.join(rootDir, 'packages/membrane/src/index.ts');
+  const coreSrcDir = path.join(rootDir, 'packages/membrane/src');
   const skillsDir = path.join(rootDir, 'skills');
-  const testDir = path.join(rootDir, 'packages/truex-core/test');
+  const testDir = path.join(rootDir, 'packages/membrane/test');
   
   let currentLayer = 'None';
   const layerDetails = [];
@@ -238,7 +238,7 @@ export class DiagnosticsEmitter extends FactEmitter {
     }
 
     // 3. Waste Metrics (Muri, Muda, Mura)
-    const coreSrcDir = path.join(ROOT_DIR, 'packages/truex-core/src');
+    const coreSrcDir = path.join(ROOT_DIR, 'packages/membrane/src');
     if (fs.existsSync(coreSrcDir)) {
       const srcFiles = fs.readdirSync(coreSrcDir, { recursive: true })
         .filter(f => typeof f === 'string' && (f.endsWith('.ts') || f.endsWith('.js')));

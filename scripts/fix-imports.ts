@@ -8,7 +8,7 @@ const files = fs.readdirSync(examplesDir).filter(f => f.endsWith('.ts') && !f.en
 
 for (const file of files) {
   const filePath = path.join(examplesDir, file);
-  let content = fs.readFileSync(filePath, 'utf-8');
+  let content = fs.readFileSync(filePath, 'utf8');
 
   // Ensure import is at the top
   if (!content.includes("import { fileURLToPath } from 'node:url';")) {

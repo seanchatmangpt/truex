@@ -23,7 +23,7 @@ npm install @truex/observatory
 To send telemetry data to the Observatory, you must attach the `ObservatoryExporter` to your core Gall Sequencer.
 
 ```typescript
-import { GallSequencer } from '@truex/core';
+import { GallSequencer } from '@truex/membrane';
 import { ObservatoryExporter } from '@truex/observatory';
 
 const sequencer = new GallSequencer();

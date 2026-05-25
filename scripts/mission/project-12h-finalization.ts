@@ -13,8 +13,8 @@ function runCmd(cmd: string): { success: boolean; output: string } {
   try {
     const out = execSync(cmd, { stdio: 'pipe', env: { ...process.env, TSX_DISABLE_CACHE: '1' } }).toString();
     return { success: true, output: out };
-  } catch (e: any) {
-    const out = e.stdout?.toString() || e.stderr?.toString() || e.message;
+  } catch (error_: any) {
+    const out = error_.stdout?.toString() || error_.stderr?.toString() || error_.message;
     return { success: false, output: out };
   }
 }
@@ -50,7 +50,7 @@ async function main() {
   console.log(`🎉 12H Finalization verified successfully in ${((Date.now() - start) / 1000).toFixed(2)} seconds!`);
 }
 
-main().catch(e => {
-  console.error(e);
+main().catch(error_ => {
+  console.error(error_);
   process.exit(1);
 });

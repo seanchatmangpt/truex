@@ -7,7 +7,7 @@ This guide explains how to generate, store, and verify OCEL 2.0 compliant receip
 ## Prerequisites
 
 - Node.js 18+
-- `truex-core` installed
+- `membrane` installed
 - `@truex/receipts` installed
 
 ## Step 1: Configure the OCEL Receipt Generator
@@ -16,7 +16,7 @@ First, we need to initialize the receipt generator with a cryptographic key. In 
 
 ```typescript
 import { ReceiptGenerator } from '@truex/receipts';
-import { OCELLogger } from 'truex-core/ocel2';
+import { OCELLogger } from 'membrane/ocel2';
 
 const generator = new ReceiptGenerator({
   algorithm: 'sha256',
@@ -31,7 +31,7 @@ const ocel = new OCELLogger({ target: 'file', path: './audit-trail.jsonl' });
 We will create a Proxyable capability that automatically generates a receipt after a function successfully executes, and then logs that receipt as an OCEL event.
 
 ```typescript
-import { createCapability, applyCapability } from 'truex-core';
+import { createCapability, applyCapability } from 'membrane';
 
 export const OcelReceiptCapability = createCapability({
   name: 'OcelReceipt',

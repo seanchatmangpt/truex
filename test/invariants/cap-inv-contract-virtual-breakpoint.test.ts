@@ -99,8 +99,8 @@ describe("Invariant, Contract & Virtual Value Stress Tests", () => {
         invCtx.call(() => {
           proxy.age = 20;
         });
-      } catch (err) {
-        thrownError = err;
+      } catch (error_) {
+        thrownError = error_;
       }
 
       const duration = Date.now() - start;
@@ -160,8 +160,8 @@ describe("Invariant, Contract & Virtual Value Stress Tests", () => {
         invCtx.call(() => {
           proxy.age = 20;
         });
-      } catch (err) {
-        thrownError = err;
+      } catch (error_) {
+        thrownError = error_;
       }
 
       const duration = Date.now() - start;
@@ -331,8 +331,8 @@ describe("Invariant, Contract & Virtual Value Stress Tests", () => {
         virtualCtx.call(() => {
           const val = proxy.vA;
         });
-      } catch (err) {
-        thrownError = err;
+      } catch (error_) {
+        thrownError = error_;
       }
 
       expect(thrownError).toBeInstanceOf(RangeError);
@@ -387,9 +387,9 @@ describe("Invariant, Contract & Virtual Value Stress Tests", () => {
             console.log("DEBUG: BEFORE CALLING updateValue");
             const res = proxy.updateValue(50);
             console.log("DEBUG: AFTER CALLING updateValue, RESULT:", res);
-          } catch (err: any) {
-            console.log("DEBUG: ERROR THROWN:", err);
-            if (err.message.includes("Contract violation: updateValue must return string")) {
+          } catch (error_: any) {
+            console.log("DEBUG: ERROR THROWN:", error_);
+            if (error_.message.includes("Contract violation: updateValue must return string")) {
               contractErrorThrown = true;
             }
             txCtx.rollback(); // Rollback transaction on contract violation
@@ -447,8 +447,8 @@ describe("Invariant, Contract & Virtual Value Stress Tests", () => {
         contractCtx.call(() => {
           try {
             proxy.updateValue(50);
-          } catch (err: any) {
-            if (err.message.includes("Arguments validation failed on purpose")) {
+          } catch (error_: any) {
+            if (error_.message.includes("Arguments validation failed on purpose")) {
               contractErrorThrown = true;
             }
             simCtx.abort(); // Abort simulation, dropping speculative state changes
@@ -501,8 +501,8 @@ describe("Invariant, Contract & Virtual Value Stress Tests", () => {
         contractCtx.call(() => {
           try {
             proxy.mutateInternal(500);
-          } catch (err: any) {
-            if (err.message.includes("is marked as pure but caused side effects")) {
+          } catch (error_: any) {
+            if (error_.message.includes("is marked as pure but caused side effects")) {
               purityViolationThrown = true;
             }
             txCtx.rollback(); // Rollback mutation

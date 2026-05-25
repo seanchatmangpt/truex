@@ -1,0 +1,7 @@
+{
+  "git": {
+    "sha1": "397b69e752824530363fcac02bf38e53527509c2",
+    "dirty": true
+  },
+  "path_in_vcs": "crates/wasm4pm-types"
+}

@@ -1,0 +1,24 @@
+[package]
+name = "tps-metrics"
+version.workspace = true
+edition = "2021"
+description = "Toyota Production System metrics collection and analysis"
+authors = ["Sean Chatman <info@chatmangpt.com>"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/seanchatmangpt/truex-kernel"
+documentation = "https://docs.rs/tps-metrics"
+readme = "README.md"
+
+[dependencies]
+git2 = "0.18"
+chrono = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+clap = { version = "4.5", features = ["derive"] }
+anyhow = "1.0"
+regex = "1.10"
+colored = "2.1"
+
+[[bin]]
+name = "tps-metrics"
+path = "src/main.rs"

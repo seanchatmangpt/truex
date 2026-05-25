@@ -37,5 +37,5 @@ The Replay engine will refuse execution (via `Error`) if:
 To prove the deterministic recording and sequence parity limits:
 
 ```bash
-npx vitest run packages/truex-core/test/membrane-replay/
+npx vitest run packages/membrane/test/membrane-replay/
 ```

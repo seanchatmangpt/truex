@@ -31,7 +31,7 @@ The consolidated ecosystem telemetry compiles the statistics across all runtime 
 | **Observatory** | `15` | `15` | `0` | `0` | `0` | `0` | `100.000%` | `0.000%` | `0.000%` | `0.000%` |
 
 > [!NOTE]
-> Rates are computed via `computeAccounting` from `packages/truex-core/src/runtime-law.ts`. The success rate for Ecosystem Overall is mathematically `99.99975%`, which rounds to `100.000%` under the `.xxx` format. The refusal rate rounds to `0.001%` and the quarantine rate to `0.000%`, confirming exact representation.
+> Rates are computed via `computeAccounting` from `packages/membrane/src/runtime-law.ts`. The success rate for Ecosystem Overall is mathematically `99.99975%`, which rounds to `100.000%` under the `.xxx` format. The refusal rate rounds to `0.001%` and the quarantine rate to `0.000%`, confirming exact representation.
 
 ---
 
@@ -116,7 +116,7 @@ During the OTP non-mockable stress testing (specifically the **Replay Under Sche
 
 To prevent future telemetry drift, the following architectural fixes were successfully deployed:
 
-1.  **Unified Precision Helper**: All performance metrics, execution speeds, and duration rates are computed through a single, non-mockable implementation of `computeAccounting` located in `packages/truex-core/src/runtime-law.ts`.
+1.  **Unified Precision Helper**: All performance metrics, execution speeds, and duration rates are computed through a single, non-mockable implementation of `computeAccounting` located in `packages/membrane/src/runtime-law.ts`.
 2.  **Double-Representation Schema**: JSON schemas provide raw numeric outputs for programmatic verification, alongside rounded string formats (e.g. `rawHookOpsPerSecondString: "17910233.908 ops/sec"` and `overheadRatioString: "479.239x"`), preventing truncation disparities.
 3.  **Command Invocation Hardening**: Fixed the `cmdStress` reference error inside `agents/doctor/agent.ts` by embedding a robust child-process runner (`runAndMeasure`) that captures high-resolution durations and exit codes, ensuring all 7 command attempts are fully verified.
 4.  **No Mocked Success Paths**: Standardized all tests to assert against a live SQLite WAL database (`gall_truex.db`) and native ML-DSA cryptographic verification.

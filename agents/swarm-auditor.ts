@@ -11,7 +11,7 @@ import { hash } from "../skills/hash/mutations.js";
 import { verifyReceipt, verifyChain } from "../skills/receipt/invariant.js";
 import { createProxy } from "../skills/membrane/mutations.js";
 import { createCapabilityContext, registerCapabilityInterceptors } from "../skills/membrane/invariant.js";
-import { parseQuad, parseGraphDelta } from "../packages/truex-core/src/runtime-law.js";
+import { parseQuad, parseGraphDelta } from "../packages/membrane/src/runtime-law.js";
 import { proveReceipt } from "../skills/receipt/proofs.js";
 import { proveMembrane } from "../skills/membrane/proofs.js";
 

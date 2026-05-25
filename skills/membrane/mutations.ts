@@ -10,7 +10,7 @@ import { createContext as unctxCreateContext } from 'unctx';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { hash, stableJson } from "../hash/mutations.js";
 import { createHash, randomUUID } from 'node:crypto';
-import { type TruexContext, createDeterministicContext } from "../../packages/truex-core/src/context.js";
+import { type TruexContext, createDeterministicContext } from "../../packages/membrane/src/context.js";
 
 const defaultMembraneContext = createDeterministicContext(99_999);
 

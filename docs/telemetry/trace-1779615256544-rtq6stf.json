@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779615256544-rtq6stf",
+  "spanId": "span-unknown",
+  "startTime": 1779615256544,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-contracts\"]}"
+  },
+  "events": [],
+  "endTime": 1779615256544,
+  "durationMs": 0
+}

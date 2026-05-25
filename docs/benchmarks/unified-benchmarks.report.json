@@ -1,0 +1,27 @@
+{
+  "case": "unified-benchmarks-telco-wizard-doctor",
+  "status": "passed",
+  "timestamp": "2026-05-25T18:56:31.695Z",
+  "metrics": {
+    "numPeers": 20,
+    "iterations": 50,
+    "timings": {
+      "concurrencySetupMs": 76.72737500000005,
+      "pipelineExecutionMs": 6.297874999999976,
+      "fuzzingMs": 0.11483399999997346,
+      "memoryCheckMs": 12.324707999999987
+    },
+    "heapBeforeMb": 85.589,
+    "heapAfterMb": 79.848,
+    "heapDeltaMb": -5.741,
+    "totalDurationMs": 95.57008300000001
+  },
+  "invariants": [
+    "Unified flow initialized 20 isolated peer cells concurrently",
+    "Unified pipeline executed successfully across all 20 concurrent cells",
+    "Unified flow gracefully refused fuzzed payloads, out-of-bounds metrics, and pollution attempts without crashing",
+    "Resource usage heap footprint delta is stable: -5.741 MB across 50 iterations"
+  ],
+  "failures": [],
+  "reportHash": "8efc83d67c5a22d147808f3541c94dae8949e6b3a9bf9bce44af3d177cccd5ef"
+}

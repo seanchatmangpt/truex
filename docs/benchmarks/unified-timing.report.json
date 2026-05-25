@@ -1,0 +1,17 @@
+{
+  "timestamp": "2026-05-25T18:56:05.493Z",
+  "metrics": {
+    "inMemoryDurationMs": 21.667125,
+    "cliDurationMs": 805.635041,
+    "concurrencyLevel": 20,
+    "concurrentDurationMs": 327.82216700000004,
+    "averageConcurrentDurationMs": 16.391108350000003,
+    "repetitionsRun": 50,
+    "heapDiffMb": -21.238548278808594
+  },
+  "system": {
+    "nodeVersion": "v24.15.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  }
+}

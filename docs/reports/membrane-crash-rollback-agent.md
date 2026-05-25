@@ -1,7 +1,7 @@
 # Membrane Crash Recovery & Rollback Verification Report
 
 ## Executive Summary
-This report documents the verification of the persistent rollback and crash recovery capabilities within the TRUEX core persistence membrane. The test suite implemented in [`membrane-crash-rollback.test.ts`](file:///Users/sac/truex/packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts) proves that TRUEX successfully guarantees deterministic state recovery and lineage convergence in the presence of arbitrary runtime failures.
+This report documents the verification of the persistent rollback and crash recovery capabilities within the TRUEX core persistence membrane. The test suite implemented in [`membrane-crash-rollback.test.ts`](file:///Users/sac/truex/packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts) proves that TRUEX successfully guarantees deterministic state recovery and lineage convergence in the presence of arbitrary runtime failures.
 
 All **8 required test scenarios** have been fully implemented and verified as passing without using mocks, satisfying the repository's strict operational laws.
 
@@ -54,14 +54,14 @@ All **8 required test scenarios** have been fully implemented and verified as pa
 ## Test Execution Results
 
 ```bash
-npx vitest run packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts
+npx vitest run packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts
 ```
 
 Output:
 ```
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts (8 tests) 14ms
+ ✓ packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts (8 tests) 14ms
 
  Test Files  1 passed (1)
       Tests  8 passed (8)

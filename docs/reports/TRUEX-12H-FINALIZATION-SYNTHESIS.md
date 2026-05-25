@@ -22,18 +22,20 @@ All unit, integration, and stress tests pass:
 - **Unit and Stress Test Run Output:**
 ```text
 
-[1m[30m[46m RUN [49m[39m[22m [36mv4.1.7 [39m[90m/Users/sac/truex[39m
+ RUN  v4.1.7 /Users/sac/truex
 
- [32m✓[39m packages/truex-core/test/benchmark/hookbench.gall.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 29092[2mms[22m[39m
-     [33m[2m✓[22m[39m should run T0 successfully [33m 28467[2mms[22m[39m
-[90mstdout[2m | packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts
-[22m[39m📄 Mailbox breakpoint reports written successfully.
+Truex lifecycle iteration 10/50 completed.
+Truex lifecycle iteration 20/50 completed.
+Truex lifecycle iteration 30/50 completed.
+Truex lifecycle iteration 40/50 completed.
+Truex lifecycle iteration 50/50 completed.
 
- [32m✓[39m packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 19500[2mms[22m[39m
-     [33m[2m✓[22m[39m runs the multi-producer interleaving and mailbox size stress tests [33m 19489[2mms[22m[39m
- [32m✓[39m packages/truex-core/test/project-wizard/project-wizard-cli.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 4501[2mms[22m[39m
-     [33m[2m✓[22m[39m should run all 8 CLI subcommands in sequence and emit receipts [33m 1362[2mms[22m[39m
-     [33m[2m✓[22m[39m...
+ Test Files  226 passed (226)
+      Tests  1346 passed (1346)
+   Start at  11:54:17
+   Duration  81.93s (transform 1.71s, setup 0ms, import 23.95s, tests 38.43s, environment 13ms)
+
+...
 ```
 
 ## 5. Report Evidence

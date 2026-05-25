@@ -1,11 +1,11 @@
 import { fileURLToPath } from 'node:url';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
 import { 
   createHookOtpRuntime, 
   dispatchMessage, 
   createHookProcess
-} from '../../packages/truex-core/src/hook-otp.gall.js';
-import type { GraphDelta, Quad } from '../../packages/truex-core/src/runtime-law.js';
+} from '../../packages/membrane/src/hook-otp.gall.js';
+import type { GraphDelta, Quad } from '../../packages/membrane/src/runtime-law.js';
 
 function createCompositeOrderDelta(id: string, items: Array<{type: string, desc: string}>): GraphDelta {
   const adds: Quad[] = items.map((item, index) => ({

@@ -1,13 +1,13 @@
 import { fileURLToPath } from 'node:url';
-import { createDeterministicContext, type TruexContext } from '../../packages/truex-core/src/context.js';
+import { createDeterministicContext, type TruexContext } from '../../packages/membrane/src/context.js';
 import { 
   createHookOtpRuntime, 
   dispatchMessage, 
   createHookProcess,
   type HookMessage,
   type HookOtpRuntime
-} from '../../packages/truex-core/src/hook-otp.gall.js';
-import type { GraphDelta } from '../../packages/truex-core/src/runtime-law.js';
+} from '../../packages/membrane/src/hook-otp.gall.js';
+import type { GraphDelta } from '../../packages/membrane/src/runtime-law.js';
 
 function createQuoteDelta(id: string, market: string, symbol: string, price: string): GraphDelta {
   return {

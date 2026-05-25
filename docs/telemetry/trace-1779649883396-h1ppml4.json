@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779649883396-h1ppml4",
+  "spanId": "span-unknown",
+  "startTime": 1779649883396,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779649883842,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779649883842,
+  "durationMs": 446
+}

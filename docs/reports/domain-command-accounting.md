@@ -12,8 +12,8 @@ This report presents the accounting metrics for the command executions recorded 
 
 | # | Command | Attempted | Succeeded (Exit 0) | Failed (Exit != 0) | Duration (Actual) | Notes / Context |
 |---|:---|:---:|:---:|:---:|:---:|:---|
-| 1 | `npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts` | 1 | 1 | 0 | 4,233.000 ms | OTP non-mockable stress vitest run complete |
-| 2 | `npx vitest run packages/truex-core/test/hook-otp` | 1 | 1 | 0 | 4,606.000 ms | OTP standard unit test run complete |
+| 1 | `npx vitest run packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts` | 1 | 1 | 0 | 4,233.000 ms | OTP non-mockable stress vitest run complete |
+| 2 | `npx vitest run packages/membrane/test/hook-otp` | 1 | 1 | 0 | 4,606.000 ms | OTP standard unit test run complete |
 | 3 | `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove hook-otp` | 1 | 1 | 0 | 1,562.000 ms | Doctor prove hook-otp validation complete |
 | 4 | `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove benchmark` | 1 | 1 | 0 | 30,601.000 ms | Doctor prove benchmark validation complete |
 | 5 | `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove ecosystem` | 1 | 1 | 0 | 105,535.000 ms | Self-invocation doctor ecosystem proof wrapper |
@@ -70,14 +70,14 @@ Below is the raw JSON schema compiled from the source report for programmatic in
   },
   "commands": [
     {
-      "command": "npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
+      "command": "npx vitest run packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
       "exitCode": 0,
       "durationMs": 4233,
       "durationMsString": "4233.000 ms",
       "status": "Succeeded"
     },
     {
-      "command": "npx vitest run packages/truex-core/test/hook-otp",
+      "command": "npx vitest run packages/membrane/test/hook-otp",
       "exitCode": 0,
       "durationMs": 4606,
       "durationMsString": "4606.000 ms",

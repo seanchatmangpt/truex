@@ -8,7 +8,7 @@ import { randomUUID } from 'node:crypto';
 import { createReceipt, verifyReceipt, verifyChain } from '../../src/lib/gall-truex/receipt-proof.js';
 import { generateKeyPair } from '../../src/lib/gall-truex/signature-proof.js';
 import { GallTruexSqliteEngine, assertValidDelta } from '../../src/lib/gall-truex/sqlite-proof.js';
-import { validateSkillMarkdown } from '../../packages/truex-core/src/integration/skill-sandbox.js';
+import { validateSkillMarkdown } from '../../packages/membrane/src/integration/skill-sandbox.js';
 import { createProxy } from '../../src/proxy/create-proxy.js';
 
 describe('Truex Hardening and Adversarial Validation', () => {
@@ -333,7 +333,7 @@ describe('Truex Hardening and Adversarial Validation', () => {
       //   graph TEXT
       // );
       //
-      // Oh! In packages/truex-core/src/persistence/schema.ts, the quads table does have a CHECK constraint:
+      // Oh! In packages/membrane/src/persistence/schema.ts, the quads table does have a CHECK constraint:
       // CREATE TABLE IF NOT EXISTS quads (
       //   id INTEGER PRIMARY KEY AUTOINCREMENT,
       //   subject TEXT NOT NULL,

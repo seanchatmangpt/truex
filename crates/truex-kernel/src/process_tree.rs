@@ -1,0 +1,211 @@
+use crate::models::EventLog;
+use serde_json::json;
+/// Priority 9 — Process tree types and basic discovery.
+///
+/// A process tree is a hierarchical representation of a process model.
+/// Operator nodes have children; leaf nodes are activities or silent steps (τ).
+///
+/// Supported operators (following PM4Py conventions):
+/// - `SEQ`  — sequential execution (children in order)
+/// - `XOR`  — exclusive choice (exactly one child)
+/// - `AND`  — parallel execution (all children, any order)
+/// - `OR`   — inclusive choice (one or more children)
+/// - `LOOP` — loop (first child = body, second child = redo branch)
+use wasm_bindgen::prelude::*;
+
+/// Recursively convert a `ProcessTreeNode` to a JSON `serde_json::Value`.
+#[allow(dead_code)]
+fn node_to_json(node: &ProcessTreeNode) -> serde_json::Value {
+    let children: Vec<serde_json::Value> = node.children.iter().map(node_to_json).collect();
+    match &node.kind {
+        NodeKind::Operator(op) => json!({
+            "type": "operator",
+            "operator": op,
+            "children": children,
+        }),
+        NodeKind::Activity(label) => json!({
+            "type": "activity",
+            "label": label,
+        }),
+        NodeKind::Silent => json!({
+            "type": "silent",
+        }),
+    }
+}
+
+#[derive(Debug, Clone)]
+pub enum NodeKind {
+    Operator(String), // SEQ, XOR, AND, OR, LOOP
+    Activity(String), // leaf — named activity
+    Silent,           // leaf — τ (tau)
+}
+
+#[derive(Debug, Clone)]
+pub struct ProcessTreeNode {
+    pub kind: NodeKind,
+    pub children: Vec<ProcessTreeNode>,
+}
+
+impl ProcessTreeNode {
+    #[must_use]
+    pub fn operator(op: impl Into<String>) -> Self {
+        ProcessTreeNode {
+            kind: NodeKind::Operator(op.into()),
+            children: vec![],
+        }
+    }
+    #[must_use]
+    pub fn activity(label: impl Into<String>) -> Self {
+        ProcessTreeNode {
+            kind: NodeKind::Activity(label.into()),
+            children: vec![],
+        }
+    }
+    #[must_use]
+    pub fn silent() -> Self {
+        ProcessTreeNode {
+            kind: NodeKind::Silent,
+            children: vec![],
+        }
+    }
+    #[must_use]
+    pub fn add_child(mut self, child: ProcessTreeNode) -> Self {
+        self.children.push(child);
+        self
+    }
+}
+
+/// Convert a process tree JSON into a simplified flat representation
+/// (for JS consumption — the full tree as a JSON string).
+///
+/// Input JSON follows the same schema as `node_to_json` output.
+/// Validates the structure and returns it back as a pretty-printed JSON string.
+///
+/// ```javascript
+/// const treeJson = JSON.stringify({
+///   type: "operator", operator: "SEQ",
+///   children: [
+///     { type: "activity", label: "A" },
+///     { type: "activity", label: "B" }
+///   ]
+/// });
+/// const result = pm.validate_process_tree(treeJson);
+/// ```
+#[wasm_bindgen]
+pub fn validate_process_tree(tree_json: &str) -> Result<JsValue, JsValue> {
+    let v: serde_json::Value = serde_json::from_str(tree_json)
+        .map_err(|e| crate::error::js_val(&format!("Invalid JSON: {}", e)))?;
+
+    fn validate(node: &serde_json::Value, depth: usize) -> Result<serde_json::Value, String> {
+        if depth > 50 {
+            return Err("Tree depth exceeds maximum (50)".to_string());
+        }
+        let node_type = node["type"].as_str().ok_or("Node missing 'type' field")?;
+        match node_type {
+            "operator" => {
+                let op = node["operator"]
+                    .as_str()
+                    .ok_or("Operator node missing 'operator' field")?;
+                if !["SEQ", "XOR", "AND", "OR", "LOOP"].contains(&op) {
+                    return Err(format!(
+                        "Unknown operator '{}'. Must be SEQ, XOR, AND, OR, or LOOP",
+                        op
+                    ));
+                }
+                let children = node["children"]
+                    .as_array()
+                    .ok_or("Operator node missing 'children' array")?;
+                if children.is_empty() {
+                    return Err(format!("Operator '{}' must have at least one child", op));
+                }
+                let validated_children: Result<Vec<serde_json::Value>, String> =
+                    children.iter().map(|c| validate(c, depth + 1)).collect();
+                Ok(json!({
+                    "type": "operator",
+                    "operator": op,
+                    "children": validated_children?,
+                }))
+            }
+            "activity" => {
+                let label = node["label"]
+                    .as_str()
+                    .ok_or("Activity node missing 'label' field")?;
+                Ok(json!({"type": "activity", "label": label}))
+            }
+            "silent" => Ok(json!({"type": "silent"})),
+            other => Err(format!(
+                "Unknown node type '{}'. Must be operator, activity, or silent",
+                other
+            )),
+        }
+    }
+
+    let validated = validate(&v, 0).map_err(|e| crate::error::js_val(&e))?;
+    let out =
+        serde_json::to_string(&validated).map_err(|e| crate::error::js_val(&e.to_string()))?;
+    Ok(crate::error::js_val(&out))
+}
+
+/// Pure-Rust process tree discovery without wasm-bindgen. Used by integration tests.
+#[must_use]
+pub fn discover_simple_process_tree_from_log(log: &EventLog, activity_key: &str) -> String {
+    let mut freq: std::collections::HashMap<String, usize> = std::collections::HashMap::new();
+
+    for trace in &log.traces {
+        let acts: Vec<String> = trace
+            .events
+            .iter()
+            .filter_map(|e| {
+                e.attributes
+                    .get(activity_key)
+                    .and_then(|v| v.as_string())
+                    .map(str::to_owned)
+            })
+            .collect();
+        for a in &acts {
+            *freq.entry(a.clone()).or_insert(0) += 1;
+        }
+    }
+
+    let mut sorted_acts: Vec<(String, usize)> = freq.into_iter().collect();
+    sorted_acts.sort_by_key(|b| std::cmp::Reverse(b.1));
+
+    let children: Vec<serde_json::Value> = sorted_acts
+        .iter()
+        .map(|(label, _)| json!({"type": "activity", "label": label}))
+        .collect();
+
+    let tree = if children.len() == 1 {
+        children
+            .into_iter()
+            .next()
+            .expect("children.len() == 1 guarantees one element")
+    } else {
+        json!({
+            "type": "operator",
+            "operator": "SEQ",
+            "children": children,
+        })
+    };
+
+    serde_json::to_string(&tree)
+        .unwrap_or_else(|_| r#"{"type":"operator","operator":"SEQ","children":[]}"#.to_string())
+}
+
+/// Discover a simple process tree from an event log using frequency-based heuristics.
+///
+/// Returns a JSON string representing the process tree.
+#[wasm_bindgen]
+pub fn discover_simple_process_tree(
+    log_handle: &str,
+    activity_key: &str,
+) -> Result<JsValue, JsValue> {
+    use crate::state::{get_or_init_state, StoredObject};
+
+    let log = get_or_init_state().with_object(log_handle, |obj| match obj {
+        Some(StoredObject::EventLog(log)) => Ok(log.clone()),
+        Some(_) => Err(crate::error::js_val("Handle is not an EventLog")),
+        None => Err(crate::error::js_val("EventLog handle not found")),
+    })?;
+    Ok(crate::error::js_val(&discover_simple_process_tree_from_log(&log, activity_key)))
+}

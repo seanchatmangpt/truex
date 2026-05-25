@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779652509311-ihgpfz6",
+  "spanId": "span-unknown",
+  "startTime": 1779652509311,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779652509780,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779652509780,
+  "durationMs": 469
+}

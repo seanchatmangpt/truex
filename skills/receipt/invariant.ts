@@ -6,8 +6,8 @@
  * Ensures hashes correctly map to payloads and recursively validates receipt chains.
  */
 
-import { parseReceipt } from "../../packages/truex-core/src/runtime-law.js";
-import type { Receipt } from "../../packages/truex-core/src/runtime-law.js";
+import { parseReceipt } from "../../packages/membrane/src/runtime-law.js";
+import type { Receipt } from "../../packages/membrane/src/runtime-law.js";
 import { hash } from "../hash/mutations.js";
 import { verifySignature } from "./mutations.js";
 

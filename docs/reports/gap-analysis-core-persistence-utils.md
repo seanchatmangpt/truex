@@ -1,17 +1,17 @@
 # Gap Analysis Report: Core Persistence, Utils, Integration, and Benchmark
 
 **Date:** 2026-05-23
-**Scope:** Chunk 2 (`packages/truex-core/src/persistence`, `packages/truex-core/src/utils`, `packages/truex-core/src/integration`, `packages/truex-core/src/benchmark`)
+**Scope:** Chunk 2 (`packages/membrane/src/persistence`, `packages/membrane/src/utils`, `packages/membrane/src/integration`, `packages/membrane/src/benchmark`)
 
 ## Executive Summary
 
-An exhaustive audit of the `truex-core` persistence, utilities, integration, and benchmark chunks was performed to ensure strict alignment with the laws governing the Truex repository (as defined in `AGENTS.md`). The primary focus was on establishing Gall Law compliance, enforcing exhaustive completeness, ensuring no deferred work existed (no TODOs/stubs), and providing consistent module and function-level documentation.
+An exhaustive audit of the `membrane` persistence, utilities, integration, and benchmark chunks was performed to ensure strict alignment with the laws governing the Truex repository (as defined in `AGENTS.md`). The primary focus was on establishing Gall Law compliance, enforcing exhaustive completeness, ensuring no deferred work existed (no TODOs/stubs), and providing consistent module and function-level documentation.
 
 All architectural and documentation gaps have been successfully addressed. 
 
 ## Audit Findings by Directory
 
-### 1. `packages/truex-core/src/persistence/`
+### 1. `packages/membrane/src/persistence/`
 **Gall Classification:** Primarily S3 (SQLite membrane primitives) and S0 (Receipt primitives) / S1 (Replay primitives).
 
 * **Gaps Addressed:** 
@@ -21,7 +21,7 @@ All architectural and documentation gaps have been successfully addressed.
 * **Deferred Work Resolved:** 
   * The persistence membrane implements strict SQLite boundaries (`better-sqlite3`). No stubs or deferred "TODO" persistence abstractions were found; the implementation strictly relies on operational proof-of-work (Write-Ahead Log `wal_deltas` and receipt hashing).
 
-### 2. `packages/truex-core/src/utils/`
+### 2. `packages/membrane/src/utils/`
 **Gall Classification:** Primarily S-2 (Test Utils / Benchmarking primitives).
 
 * **Gaps Addressed:**
@@ -31,7 +31,7 @@ All architectural and documentation gaps have been successfully addressed.
 * **Deferred Work Resolved:**
   * Zero stubs or placeholders. Defensive utility implementations handling edge states correctly without `FIXME` fallbacks.
 
-### 3. `packages/truex-core/src/integration/`
+### 3. `packages/membrane/src/integration/`
 **Gall Classification:** Primarily S2 (Engine Primitives) / S3 (SQLite Membrane).
 
 * **Gaps Addressed:**
@@ -41,7 +41,7 @@ All architectural and documentation gaps have been successfully addressed.
 * **Deferred Work Resolved:**
   * The autonomic governor correctly leverages Jidoka line stops and receipted effects. No simulated "healthy" mocks were found.
 
-### 4. `packages/truex-core/src/benchmark/`
+### 4. `packages/membrane/src/benchmark/`
 **Gall Classification:** S-2 (Benchmark primitives / Property-based load proofs).
 
 * **Gaps Addressed:**

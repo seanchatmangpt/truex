@@ -8,10 +8,10 @@
  * Adheres strictly to Gall Law by preventing non-converging or tampered executions.
  */
 
-import { createTopologyRuntime, registerTopologyHook, emitTopologyDelta, runTopologyChain, replayTopologyChain, generateTopologyReport } from "../../packages/truex-core/src/topology.gall.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
-import { hash } from "../../packages/truex-core/src/index.js";
-import type { HookEffect } from "../../packages/truex-core/src/runtime-law.js";
+import { createTopologyRuntime, registerTopologyHook, emitTopologyDelta, runTopologyChain, replayTopologyChain, generateTopologyReport } from "../../packages/membrane/src/topology.gall.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
+import { hash } from "../../packages/membrane/src/index.js";
+import type { HookEffect } from "../../packages/membrane/src/runtime-law.js";
 
 /**
  * Report structure for Topology proofs.
@@ -305,7 +305,7 @@ export async function proveTopology(): Promise<TopologyProofReport> {
   const durationMs = Date.now() - start;
 
   // Compile detailed Decoupled Domain split reports
-  const getPct = (val: number, attempted: number) => (attempted === 0 ? 0 : parseFloat(((val / attempted) * 100).toFixed(3)));
+  const getPct = (val: number, attempted: number) => (attempted === 0 ? 0 : Number.parseFloat(((val / attempted) * 100).toFixed(3)));
   const getPctStr = (val: number, attempted: number) => `${getPct(val, attempted).toFixed(3)}%`;
 
   // Domain T1

@@ -1,5 +1,5 @@
 import { canonicalStringify } from "../skills/membrane/mutations.js";
-import { hash } from "../packages/truex-core/src/index.js";
+import { hash } from "../packages/membrane/src/index.js";
 import * as fs from 'node:fs';
 
 const env = JSON.parse(fs.readFileSync('scratch/valid_env.json', 'utf8'));

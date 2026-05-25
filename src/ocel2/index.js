@@ -57,7 +57,7 @@ export class OcelCollector {
     this.activeBranch = undefined
     this.activeEventCtx = createContext()
     this.registeredObjects = new Map()
-    this.proxyInterfaces = []
+    this.proxyInterfaces = [] // Stores { proxyInterfaceRef: WeakRef, targetRef: WeakRef }
   }
 
   createEmptyState() {
@@ -77,7 +77,15 @@ export class OcelCollector {
   }
 
   registerProxyInterface(proxyInterface, target) {
-    this.proxyInterfaces.push({ proxyInterface, target })
+    this.proxyInterfaces.push({
+      proxyInterfaceRef: new WeakRef(proxyInterface),
+      targetRef: new WeakRef(target)
+    })
+    
+    // Periodically clean up dead refs
+    if (this.proxyInterfaces.length > 100 && Math.random() < 0.1) {
+      this.proxyInterfaces = this.proxyInterfaces.filter(r => r.proxyInterfaceRef.deref())
+    }
   }
 
   registerObject(ref, target) {
@@ -149,11 +157,19 @@ export class OcelCollector {
     const activeSims = []
     
     // Setup simulation context for ALL registered proxies
-    for (const { proxyInterface, target } of this.proxyInterfaces) {
-      const simCtx = createSimulationContext(target)
-      registerSimulationInterceptors(proxyInterface, simCtx)
-      activeSims.push(simCtx)
+    const aliveInterfaces = []
+    for (const ref of this.proxyInterfaces) {
+      const proxyInterface = ref.proxyInterfaceRef.deref()
+      const target = ref.targetRef.deref()
+      
+      if (proxyInterface && target) {
+        const simCtx = createSimulationContext(target)
+        registerSimulationInterceptors(proxyInterface, simCtx)
+        activeSims.push(simCtx)
+        aliveInterfaces.push(ref)
+      }
     }
+    this.proxyInterfaces = aliveInterfaces
 
     // Branch the OCEL state
     const previousBranch = this.activeBranch

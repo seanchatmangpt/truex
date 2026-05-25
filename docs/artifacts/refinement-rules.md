@@ -1,6 +1,6 @@
 # Antigravity Artifact: Refinement Rules
 
-> **Generated:** 2026-05-24T10:01:57.954Z
+> **Generated:** 2026-05-25T18:57:23.666Z
 > **Version:** 1.0.0
 
 ## Refinement Strategy
@@ -11,22 +11,22 @@ These rules help the bridge auto-correct agent tool calls to use internal, deter
 
 | Target Symbol | Source File | Action | Description |
 | :--- | :--- | :--- | :--- |
-| `bytesToHex` | `packages/truex-core/src/context.ts` | REPLACE_AMBIENT | Deterministic implementation found for bytesToHex. Prioritize internal path in packages/truex-core/src/context.ts. |
-| `setNestedProperty` | `packages/truex-core/src/integration/trajectory-replay.ts` | REPLACE_AMBIENT | Deterministic implementation found for setNestedProperty. Prioritize internal path in packages/truex-core/src/integration/trajectory-replay.ts. |
-| `deleteNestedProperty` | `packages/truex-core/src/integration/trajectory-replay.ts` | REPLACE_AMBIENT | Deterministic implementation found for deleteNestedProperty. Prioritize internal path in packages/truex-core/src/integration/trajectory-replay.ts. |
-| `mapDbRowToReceipt` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for mapDbRowToReceipt. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
-| `recordTransition` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for recordTransition. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
-| `saveReceipt` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for saveReceipt. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
-| `checkGracePeriod` | `packages/truex-core/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for checkGracePeriod. Prioritize internal path in packages/truex-core/src/persistent-mailbox.gall.ts. |
-| `validatePowlNode` | `packages/truex-core/src/powl-project-workflow.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for validatePowlNode. Prioritize internal path in packages/truex-core/src/powl-project-workflow.gall.ts. |
-| `isBinary` | `packages/truex-core/src/project-wizard.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for isBinary. Prioritize internal path in packages/truex-core/src/project-wizard.gall.ts. |
-| `matchesCondition` | `packages/truex-core/src/topology.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for matchesCondition. Prioritize internal path in packages/truex-core/src/topology.gall.ts. |
+| `bytesToHex` | `packages/membrane/src/context.ts` | REPLACE_AMBIENT | Deterministic implementation found for bytesToHex. Prioritize internal path in packages/membrane/src/context.ts. |
+| `setNestedProperty` | `packages/membrane/src/integration/trajectory-replay.ts` | REPLACE_AMBIENT | Deterministic implementation found for setNestedProperty. Prioritize internal path in packages/membrane/src/integration/trajectory-replay.ts. |
+| `deleteNestedProperty` | `packages/membrane/src/integration/trajectory-replay.ts` | REPLACE_AMBIENT | Deterministic implementation found for deleteNestedProperty. Prioritize internal path in packages/membrane/src/integration/trajectory-replay.ts. |
+| `mapDbRowToReceipt` | `packages/membrane/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for mapDbRowToReceipt. Prioritize internal path in packages/membrane/src/persistent-mailbox.gall.ts. |
+| `recordTransition` | `packages/membrane/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for recordTransition. Prioritize internal path in packages/membrane/src/persistent-mailbox.gall.ts. |
+| `saveReceipt` | `packages/membrane/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for saveReceipt. Prioritize internal path in packages/membrane/src/persistent-mailbox.gall.ts. |
+| `checkGracePeriod` | `packages/membrane/src/persistent-mailbox.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for checkGracePeriod. Prioritize internal path in packages/membrane/src/persistent-mailbox.gall.ts. |
+| `isBinary` | `packages/membrane/src/project-wizard.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for isBinary. Prioritize internal path in packages/membrane/src/project-wizard.gall.ts. |
+| `T1_established_and_refused` | `packages/membrane/src/telco.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for T1_established_and_refused. Prioritize internal path in packages/membrane/src/telco.gall.ts. |
+| `matchesCondition` | `packages/membrane/src/topology.gall.ts` | REPLACE_AMBIENT | Deterministic implementation found for matchesCondition. Prioritize internal path in packages/membrane/src/topology.gall.ts. |
 
 ### Bridge Heuristics
 
 | Ambient Tool | Pattern | Correction | Severity |
 | :--- | :--- | :--- | :--- |
-| `run_shell_command` | `hash|sha256|md5` | use internal hash() from truex-core | blocking |
+| `run_shell_command` | `hash|sha256|md5` | use internal hash() from membrane | blocking |
 | `write_file` | `.*` | evaluate against ProductionLine laws in bridge | enforced |
 | `read_file` | `.*` | bind to TruexContext for replayability | warning |
 

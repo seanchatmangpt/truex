@@ -6,7 +6,7 @@ This guide details how to set up, configure, and verify the AGY Bridge.
 
 ## Prerequisites
 
-- `truex-core` and `@truex/agy-bridge` installed.
+- `membrane` and `@truex/agy-bridge` installed.
 - Network access between your microservices or isolated contexts.
 - Node.js environment.
 
@@ -16,7 +16,7 @@ The bridge requires configuration for both the sending (client) and receiving (s
 
 ```typescript
 import { AGYBridge, BridgeConfig } from '@truex/agy-bridge';
-import { OCELLogger } from 'truex-core/ocel2';
+import { OCELLogger } from 'membrane/ocel2';
 
 const config: BridgeConfig = {
   endpoint: 'tcp://127.0.0.1:9090',
@@ -37,7 +37,7 @@ const bridge = new AGYBridge(config);
 You expose local functions across the bridge by wrapping them in Proxyable capabilities. This ensures that incoming requests are validated before execution.
 
 ```typescript
-import { createCapability, applyCapability } from 'truex-core';
+import { createCapability, applyCapability } from 'membrane';
 
 // Define a capability that logs receipts
 const ReceiptCapability = createCapability({

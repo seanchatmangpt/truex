@@ -1,0 +1,13 @@
+{
+  "id": "cp_run_2026-05-24T20-56-44-414Z_i776_1",
+  "runId": "run_2026-05-24T20-56-44-414Z_i776",
+  "timestamp": "2026-05-24T20:56:44.428Z",
+  "sequenceNumber": 1,
+  "state": "ready",
+  "progress": 1,
+  "metadata": {
+    "shutdownTime": "2026-05-24T20:56:44.428Z",
+    "type": "graceful_shutdown"
+  },
+  "savedAt": "2026-05-24T20:56:44.428Z"
+}

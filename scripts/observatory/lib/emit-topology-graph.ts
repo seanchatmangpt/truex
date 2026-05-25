@@ -74,7 +74,7 @@ function classifyFile(sourceFile: SourceFile, relativePath: string): { type: str
   }
 
   // 7. Primitives (Catch-all for core/utils/skills if not caught above)
-  if (relativePath.includes('hook.ts') || relativePath.includes('runtime-law') || relativePath.includes('context.ts') || relativePath.includes('hash') || relativePath.includes('signature.ts') || relativePath.includes('receipt') || relativePath.includes('replay') || relativePath.includes('utils/') || relativePath.includes('packages/truex-core/src/index.ts') || relativePath.includes('skills/')) {
+  if (relativePath.includes('hook.ts') || relativePath.includes('runtime-law') || relativePath.includes('context.ts') || relativePath.includes('hash') || relativePath.includes('signature.ts') || relativePath.includes('receipt') || relativePath.includes('replay') || relativePath.includes('utils/') || relativePath.includes('packages/membrane/src/index.ts') || relativePath.includes('skills/')) {
     return { type: 'Primitive', layer: 'S0-S1' };
   }
 
@@ -101,8 +101,8 @@ export function emitTopologyGraph() {
   });
 
   project.addSourceFilesAtPaths([
-    path.join(BASE_DIR, 'packages/truex-core/src/**/*.ts'),
-    path.join(BASE_DIR, 'packages/truex-core/test/**/*.ts'),
+    path.join(BASE_DIR, 'packages/membrane/src/**/*.ts'),
+    path.join(BASE_DIR, 'packages/membrane/test/**/*.ts'),
     path.join(BASE_DIR, 'test/**/*.ts'),
     path.join(BASE_DIR, 'scripts/**/*.ts'),
     path.join(BASE_DIR, 'skills/**/*.ts'),
@@ -204,9 +204,7 @@ export function emitTopologyGraph() {
     }
     
     // Safety check for Genesis defect bypass: if it's still missing provedBy, give it a synthetic proof via its own presence if it's meta/agent
-    if (node.type === 'Governance' || node.type === 'CLI' || node.type === 'Test' || node.type === 'Agent') {
-       if (node.provedBy.length === 0) node.provedBy.push(id); // Self-proven
-    }
+    if ((node.type === 'Governance' || node.type === 'CLI' || node.type === 'Test' || node.type === 'Agent') && node.provedBy.length === 0) node.provedBy.push(id); // Self-proven
   }
 
   const graphHash = calculateHash(combinedContent);
@@ -214,7 +212,7 @@ export function emitTopologyGraph() {
   const output = {
     version: "2.0.0", 
     graphHash,
-    nodes: Array.from(nodesMap.values()),
+    nodes: [...nodesMap.values()],
     _metadata: {
       emitter: "Topology Graph Emitter",
       description: "Live AST-grounded graph of the Truex operational ontology",

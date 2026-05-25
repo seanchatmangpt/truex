@@ -10,7 +10,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
-import { generateKeyPair, signReceiptHash } from '../../../packages/truex-core/src/signature.js';
+import { generateKeyPair, signReceiptHash } from '../../../packages/membrane/src/signature.js';
 import { hash } from '../../../skills/hash/mutations.js';
 
 const BASE_DIR = process.cwd();
@@ -68,11 +68,7 @@ export class ReceiptEmitter extends FactEmitter {
     const publicKeyHex = process.env.TRUEX_PUBLIC_KEY || '';
     
     let keyPair;
-    if (secretKeyHex && publicKeyHex) {
-        keyPair = { publicKey: publicKeyHex, secretKey: secretKeyHex };
-    } else {
-        keyPair = generateKeyPair();
-    }
+    keyPair = secretKeyHex && publicKeyHex ? { publicKey: publicKeyHex, secretKey: secretKeyHex } : generateKeyPair();
     
     const receiptHash = hash(receiptData);
     const signature = signReceiptHash(receiptHash, keyPair.secretKey);

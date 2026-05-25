@@ -2,10 +2,10 @@
 
 ## 1. Executive Summary
 
-This report documents the verification of Sprint 12 (S12) exported type definitions, namespace hygiene, branded types, and boundary laws within the `truex-core` codebase. 
+This report documents the verification of Sprint 12 (S12) exported type definitions, namespace hygiene, branded types, and boundary laws within the `membrane` codebase. 
 
 The primary objectives were:
-1. Auditing all S12 exported identifiers in `packages/truex-core/src/index.ts` and `packages/truex-core/src/ocel2-project-types.ts`.
+1. Auditing all S12 exported identifiers in `packages/membrane/src/index.ts` and `packages/membrane/src/ocel2-project-types.ts`.
 2. Resolving duplicate, overlapping, or conflicting type definitions.
 3. Ensuring compliance with strict compile-time flags (`verbatimModuleSyntax` and ESM module resolution).
 4. Verifying branded types and runtime validation boundaries.
@@ -18,7 +18,7 @@ All checks compiled successfully under strict settings, and all 60 tests within 
 ## 2. Type Surface Audit & Namespace Hygiene
 
 ### Exported Identifiers Analysis
-`packages/truex-core/src/index.ts` acts as the aggregate entry point. We verified that type-only exports are explicitly declared using `export type { ... }` syntax. This isolates type imports from concrete runtime imports, preventing runtime module bloat and ensuring clean builds.
+`packages/membrane/src/index.ts` acts as the aggregate entry point. We verified that type-only exports are explicitly declared using `export type { ... }` syntax. This isolates type imports from concrete runtime imports, preventing runtime module bloat and ensuring clean builds.
 
 - **Branded & Primitive Base Types**: `OcelId`, `OcelTypeName`, `Qualifier`, `ISODateTime`, `Hash256`, `ReceiptHash`, `ReplayHash`, `ProjectPath`, `JsonPrimitive`, `JsonValue`.
 - **OCEL 2.0 Core Structure Types**: `OcelAttributeKind`, `OcelAttributeValue`, `OcelAttributeDefinition`, `OcelEventType`, `OcelObjectType`, `OcelEventAttribute`, `OcelObjectAttribute`, `OcelEventObjectRelationship`, `OcelObjectObjectRelationship`, `OcelEvent`, `OcelObject`, `OcelV2Log`.
@@ -79,7 +79,7 @@ We audited and corrected the type guard functions in `ocel2-project-types.ts`:
 
 ## 6. Test Suite & Evidence of Correctness
 
-We implemented a new, comprehensive test suite `packages/truex-core/test/project-evidence/ocel2-type-boundary-gap.test.ts`. This suite proves both:
+We implemented a new, comprehensive test suite `packages/membrane/test/project-evidence/ocel2-type-boundary-gap.test.ts`. This suite proves both:
 1. **Compile-time boundaries** using `@ts-expect-error` checking to guarantee that invalid assignments fail compilation.
 2. **Runtime type guards** ensuring invalid shapes or attributes are successfully refused.
 3. **Conservation laws** ensuring all components of the accounting domains match conservation expectations.
@@ -94,18 +94,18 @@ npx tsc --noEmit --skipLibCheck
 
 #### 2. Vitest Execution
 ```bash
-npx vitest run packages/truex-core/test/project-evidence/
+npx vitest run packages/membrane/test/project-evidence/
 ```
 *Result*: **All 60 tests passed**.
 ```text
- ✓ packages/truex-core/test/project-evidence/powl-project-workflow.test.ts (10 tests)
- ✓ packages/truex-core/test/project-evidence/ocel2-projection-gap.test.ts (5 tests)
- ✓ packages/truex-core/test/project-evidence/ocel2-project-projection.test.ts (10 tests)
- ✓ packages/truex-core/test/project-evidence/ocpq-constraint-gap.test.ts (10 tests)
- ✓ packages/truex-core/test/project-evidence/ocel2-type-boundary-gap.test.ts (6 tests)
- ✓ packages/truex-core/test/project-evidence/ocel2-project-types.test.ts (10 tests)
- ✓ packages/truex-core/test/project-evidence/ocpq-project-constraints.test.ts (3 tests)
- ✓ packages/truex-core/test/project-evidence/project-evidence-types.integration.test.ts (6 tests)
+ ✓ packages/membrane/test/project-evidence/powl-project-workflow.test.ts (10 tests)
+ ✓ packages/membrane/test/project-evidence/ocel2-projection-gap.test.ts (5 tests)
+ ✓ packages/membrane/test/project-evidence/ocel2-project-projection.test.ts (10 tests)
+ ✓ packages/membrane/test/project-evidence/ocpq-constraint-gap.test.ts (10 tests)
+ ✓ packages/membrane/test/project-evidence/ocel2-type-boundary-gap.test.ts (6 tests)
+ ✓ packages/membrane/test/project-evidence/ocel2-project-types.test.ts (10 tests)
+ ✓ packages/membrane/test/project-evidence/ocpq-project-constraints.test.ts (3 tests)
+ ✓ packages/membrane/test/project-evidence/project-evidence-types.integration.test.ts (6 tests)
 
  Test Files  8 passed (8)
       Tests  60 passed (60)

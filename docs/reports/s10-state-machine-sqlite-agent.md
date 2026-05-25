@@ -13,9 +13,9 @@ This report documents the implementation and verification of the Persistent Oper
 The S10 milestone establishes a reliable SQLite persistence membrane for transactional enqueuing, deterministic backoff scheduling, crash recovery (rescue operations), and strict cryptographic deduplication logic (unique consequence identity). 
 
 All implementations are fully complete, integrated, and verified using vitest across the strategic test suites:
-- State Machine Transitions: `packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts`
-- Transactional Enqueue: `packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts`
-- Unique Consequence Identity: `packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts`
+- State Machine Transitions: `packages/membrane/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts`
+- Transactional Enqueue: `packages/membrane/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts`
+- Unique Consequence Identity: `packages/membrane/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts`
 
 ---
 
@@ -136,15 +136,15 @@ All 10 test suites in the `persistent-mailbox` directory are passing. The 3 stra
 ```bash
  RUN  v4.1.7 /Users/sac/truex
 
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts (9 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts (4 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts (6 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts (3 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts (5 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts (5 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts (8 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts (4 tests)
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts (4 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-state-machine.test.ts (9 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-transactional-enqueue.test.ts (4 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-unique-consequence.test.ts (6 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-observatory.test.ts (3 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts (5 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts (5 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts (8 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts (4 tests)
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-tamper.test.ts (4 tests)
 
  Test Files  10 passed
       Tests  53 passed

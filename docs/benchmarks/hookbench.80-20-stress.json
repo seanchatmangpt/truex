@@ -131,8 +131,8 @@
     "expectedFailure": false,
     "observedBehavior": "Metric math is verified and correct",
     "evidence": {
-      "totalEvals": 10000,
-      "computedEvals": 10000
+      "totalEvals": 100,
+      "computedEvals": 100
     }
   },
   {
@@ -174,9 +174,9 @@
     "category": "topology failure frontier",
     "passed": true,
     "expectedFailure": false,
-    "observedBehavior": "Successfully triggered 1000 recursive sub-deltas",
+    "observedBehavior": "Successfully triggered 20 recursive sub-deltas",
     "evidence": {
-      "totalTriggered": 1000
+      "totalTriggered": 20
     }
   },
   {
@@ -187,7 +187,7 @@
     "expectedFailure": true,
     "observedBehavior": "Cycle detected and halted via safety limit",
     "evidence": {
-      "triggeredCount": 100
+      "triggeredCount": 10
     }
   },
   {

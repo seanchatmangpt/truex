@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779638960393-99vz699",
+  "spanId": "span-unknown",
+  "startTime": 1779638960393,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"benchmark\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779638990151,
+      "attributes": {
+        "primitive": "benchmark",
+        "status": "confirmed",
+        "executionTimeMs": 29188,
+        "invariantsCount": 20,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779638990151,
+  "durationMs": 29758
+}

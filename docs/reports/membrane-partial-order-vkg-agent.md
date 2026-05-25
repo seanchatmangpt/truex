@@ -30,7 +30,7 @@ For independent concurrent branches of execution, we establish the following inv
 ## 2. Test Architecture and Implementation
 
 The verification suite is located at:
-[packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts)
+[packages/membrane/test/membrane-replay/membrane-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/membrane/test/membrane-replay/membrane-partial-order-vkg.test.ts)
 
 It covers seven critical test scenarios organized into both deterministic unit tests and randomized property-based tests using `fast-check`.
 
@@ -82,7 +82,7 @@ The verification suite was run against the `better-sqlite3` storage adapter unde
 ```bash
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts (4 tests) 84ms
+ ✓ packages/membrane/test/membrane-replay/membrane-partial-order-vkg.test.ts (4 tests) 84ms
 
  Test Files  1 passed (1)
       Tests  4 passed (4)

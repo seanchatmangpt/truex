@@ -10,7 +10,7 @@
 import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createDeterministicContext } from "../packages/truex-core/src/context.js";
+import { createDeterministicContext } from "../packages/membrane/src/context.js";
 import { GallTruexSqliteEngine } from "../skills/replay/mutations.js";
 import { verifyChain } from "../skills/receipt/invariant.js";
 import {
@@ -20,7 +20,7 @@ import {
   DoctorAgent,
   AuditorAgent
 } from "../agents/swarm-auditor.js";
-import type { HookDefinition, Receipt } from "../packages/truex-core/src/runtime-law.js";
+import type { HookDefinition, Receipt } from "../packages/membrane/src/runtime-law.js";
 
 /**
  * Main entrypoint for the receipted swarm audit.

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779642937594-8eismqc",
+  "spanId": "span-unknown",
+  "startTime": 1779642937594,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779642938133,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779642938133,
+  "durationMs": 539
+}

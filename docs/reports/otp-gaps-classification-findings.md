@@ -6,7 +6,7 @@ This report evaluates the Erlang-like OTP (Open Telecom Platform) equivalence mo
 
 ## 1. Context & Architectural Overview
 
-In TRUEX, Hook OTP equivalence (`packages/truex-core/src/hook-otp.gall.ts`) provides concurrency and fault-tolerance semantics for GraphDelta hooks. Rather than operating on a BEAM virtual machine or compiling to Erlang, the runtime implements isolated logical processes in TypeScript.
+In TRUEX, Hook OTP equivalence (`packages/membrane/src/hook-otp.gall.ts`) provides concurrency and fault-tolerance semantics for GraphDelta hooks. Rather than operating on a BEAM virtual machine or compiling to Erlang, the runtime implements isolated logical processes in TypeScript.
 
 The runtime guarantees:
 1. **Actor Identity & Isolation:** Each process is identified by a `HookProcessId` and has a deeply copied, isolated state to prevent cross-process mutation.
@@ -62,7 +62,7 @@ The Hook OTP runtime and the agent tool-execution lifecycle are loosely integrat
 
 ## 4. Source Coverage Analysis
 
-Targeted coverage verification of `packages/truex-core/src/hook-otp.gall.ts` yields:
+Targeted coverage verification of `packages/membrane/src/hook-otp.gall.ts` yields:
 
 - **Statement Coverage:** `96.01%`
 - **Branch Coverage:** `80.95%`

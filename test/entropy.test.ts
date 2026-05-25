@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { EntropyGenerator } from "../src/lib/entropy.js";
 import { EntropyAgent } from "../agents/entropy/agent.js";
-import { hash } from "../packages/truex-core/src/index.js";
+import { hash } from "../packages/membrane/src/index.js";
 
 describe("Entropy Agent - Determinism and Variability", () => {
   it("produces identical output for the same seed", () => {
-    const generator1 = new EntropyGenerator(12345);
-    const generator2 = new EntropyGenerator(12345);
+    const generator1 = new EntropyGenerator(12_345);
+    const generator2 = new EntropyGenerator(12_345);
 
     const member1 = generator1.generateMember();
     const member2 = generator2.generateMember();
@@ -20,8 +20,8 @@ describe("Entropy Agent - Determinism and Variability", () => {
   });
 
   it("produces different output for different seeds", () => {
-    const generator1 = new EntropyGenerator(12345);
-    const generator2 = new EntropyGenerator(67890);
+    const generator1 = new EntropyGenerator(12_345);
+    const generator2 = new EntropyGenerator(67_890);
 
     const member1 = generator1.generateMember();
     const member2 = generator2.generateMember();

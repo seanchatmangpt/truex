@@ -1,20 +1,20 @@
 [
   {
     "testType": "programmatic_concurrency",
-    "concurrency": 12,
-    "durationMs": 653,
+    "concurrency": 3,
+    "durationMs": 194,
     "status": "passed"
   },
   {
     "testType": "cli_concurrency",
-    "concurrency": 4,
-    "durationMs": 2555,
+    "concurrency": 1,
+    "durationMs": 1334,
     "status": "passed"
   },
   {
     "testType": "db_locks_mailbox_queues_wizard_concurrency",
-    "concurrency": 14,
-    "durationMs": 389,
+    "concurrency": 5,
+    "durationMs": 135,
     "status": "passed"
   }
 ]

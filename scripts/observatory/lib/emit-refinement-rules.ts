@@ -78,7 +78,7 @@ export class RefinementRulesEmitter extends FactEmitter {
       {
         ambientTool: 'run_shell_command',
         pattern: 'hash|sha256|md5',
-        correction: 'use internal hash() from truex-core',
+        correction: 'use internal hash() from membrane',
         severity: 'blocking'
       },
       {

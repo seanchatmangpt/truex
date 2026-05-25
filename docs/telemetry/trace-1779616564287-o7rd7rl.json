@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779616564287-o7rd7rl",
+  "spanId": "span-unknown",
+  "startTime": 1779616564287,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"project-wizard-complete\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779616570524,
+      "attributes": {
+        "primitive": "project-wizard-complete",
+        "receiptHash": "7aa1ec56eba8273e15d08c9699c2b2aefc410dc2cc8962d35591454fc1dc854a",
+        "status": "confirmed",
+        "executionTimeMs": 5769,
+        "invariantsCount": 19,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779616570524,
+  "durationMs": 6237
+}

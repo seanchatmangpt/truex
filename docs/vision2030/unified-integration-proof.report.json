@@ -1,0 +1,28 @@
+{
+  "primitive": "unified-integration",
+  "passed": true,
+  "invariants": [
+    "failed Telco transmissions trigger rollback in Wizard",
+    "failed Wizard proofs prevent Telco transmission",
+    "W1 (Command Conservation) conserved",
+    "W2 (Artifact Conservation) conserved",
+    "W3 (Checkpoint Conservation) conserved",
+    "W4 (Proof Conservation) conserved",
+    "W5 (Mission Conservation) conserved",
+    "T1 (Session Bound) conserved",
+    "T2 (Packet Projection) conserved",
+    "T3 (Route Admission) conserved",
+    "T4 (Transmission Terminality) conserved",
+    "T5 (Verification Closure) conserved",
+    "T6 (Settlement Closure) conserved",
+    "T-I1 (No Unhandshaken Transmissions) verified",
+    "T-I2 (Protocol Honesty) verified",
+    "T-I3 (No External Authority Smuggling) verified",
+    "T-I4 (Durable Replay) verified",
+    "T-I5 (Accounting Handoff) verified"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 49
+  }
+}

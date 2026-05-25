@@ -10,7 +10,7 @@ This report documents the verification, upgrades, and precision corrections appl
 2. **Double Representation (JSON)**: Updated JSON serialization schemas to provide both raw float values and fully-formatted string equivalents (e.g. `rawHookOpsPerSecondString: "1750798.364 ops/sec"` and `overheadRatioString: "71.556x"`).
 3. **Execution Bug Fix**: Defined a localized `runAndMeasure` child process runner inside case `"ecosystem"` to capture exit codes and milliseconds durations for the 7 primary commands, correcting the `cmdStress` reference error.
 4. **Dynamic Output Parsing**: Integrated a Vitest test count parsing engine and a JSON summary parser for the observatory index run to ensure attempted, succeeded, failed, refused, and quarantined counts are computed dynamically from actual runtime stdout/JSON objects.
-5. **Hook OTP Benchmarks**: Updated `runHookOtpProof()` inside `packages/truex-core/src/hook-otp.gall.ts` to utilize high-resolution `performance.now()` measurements and format `rawHookOpsPerSecond`, `otpMessageOpsPerSecond`, `receiptBackedOtpOpsPerSecond`, and `overheadRatio` values directly.
+5. **Hook OTP Benchmarks**: Updated `runHookOtpProof()` inside `packages/membrane/src/hook-otp.gall.ts` to utilize high-resolution `performance.now()` measurements and format `rawHookOpsPerSecond`, `otpMessageOpsPerSecond`, `receiptBackedOtpOpsPerSecond`, and `overheadRatio` values directly.
 
 ---
 

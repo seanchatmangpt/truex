@@ -75,7 +75,7 @@ We have successfully implemented and executed round-trip verification tests prov
 All projection, constraint, and round-trip verification tests have been executed and pass successfully.
 
 ```bash
-npx vitest run packages/truex-core/test/project-evidence/
+npx vitest run packages/membrane/test/project-evidence/
 ```
 
 ### Execution Output:

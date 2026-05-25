@@ -62,7 +62,8 @@ This is the brainstorming phase. It occurs prior to formal admission.
 ---
 
 ## 10. MISSING INVARIANTS
-*   **CRITICAL FLAW:** Swarm dialogue is unreceipted. A2A must be upgraded so that every agent communication is wrapped in an OCEL event, proving exactly how the swarm reached its conclusion.
+*   **GAP CLOSED:** Swarm dialogue is now receipted via the `SwarmReceipt` mechanism. Every `invoke_agent` equivalent actuation through the `SwarmActuator` generates a cryptographically hash-linked receipt, proving causality and accountability.
+*   **Implementation:** `packages/membrane/src/manufacturing/swarm-receipt.ts`
 
 ---
 

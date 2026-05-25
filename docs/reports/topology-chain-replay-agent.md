@@ -2,7 +2,7 @@
 
 This report documents the verification of causal chain execution, cryptographic receipt chaining, and deterministic replay convergence across multi-step cascades.
 
-All tests are implemented in the test suite: [topology-chain-replay.test.ts](file:///Users/sac/truex/packages/truex-core/test/topology/topology-chain-replay.test.ts).
+All tests are implemented in the test suite: [topology-chain-replay.test.ts](file:///Users/sac/truex/packages/membrane/test/topology/topology-chain-replay.test.ts).
 
 ---
 
@@ -58,7 +58,7 @@ All tests are implemented in the test suite: [topology-chain-replay.test.ts](fil
 ```bash
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/topology/topology-chain-replay.test.ts (8 tests) 11ms
+ ✓ packages/membrane/test/topology/topology-chain-replay.test.ts (8 tests) 11ms
 
  Test Files  1 passed (1)
       Tests  8 passed (8)

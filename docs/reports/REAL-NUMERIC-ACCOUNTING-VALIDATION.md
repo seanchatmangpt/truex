@@ -65,7 +65,7 @@ All 10 non-mockable stress scenarios passed successfully:
 
 ## Section Five: Verification Invariants and Schema Check
 
-1. **Central Helper Usage**: All percentage calculations are verified to run via `computeAccounting` from `packages/truex-core/src/runtime-law.ts`. No string format mocks or hardcoded rates exist.
+1. **Central Helper Usage**: All percentage calculations are verified to run via `computeAccounting` from `packages/membrane/src/runtime-law.ts`. No string format mocks or hardcoded rates exist.
 2. **Numeric Types**: JSON output fields (`attempted`, `succeeded`, `failed`, `refused`, `quarantined`, `skipped`) are verified to be numeric integers, not string variables.
 3. **Guard Invariant**: Zero attempts gracefully produce `0.000%` rates and default bounds without NaN/undefined crash failures.
 4. **Rounding Consistency**: Floating numbers are rounded using `toFixed(3)` ensuring consistent conversion across all generated markdown files.

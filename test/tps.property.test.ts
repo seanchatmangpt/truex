@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import fc from "fast-check";
-import { TruexHook, createDeterministicContext, hash } from "../packages/truex-core/src/index.js";
-import type { HookDefinition, GraphDelta, Quad } from "../packages/truex-core/src/runtime-law.js";
+import { TruexHook, createDeterministicContext, hash } from "../packages/membrane/src/index.js";
+import type { HookDefinition, GraphDelta, Quad } from "../packages/membrane/src/runtime-law.js";
 
 describe("Truex Property Standard (TPS) - Hook Counter-Examples", () => {
   const quadArb = fc.record({

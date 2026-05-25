@@ -7,7 +7,7 @@ Agent 3 owns the S10 persistent mailbox consequence replay system, focusing on:
 - Cryptographic tamper detection ensuring payload conservation, parent-receipt matching, and lineage chain validity.
 
 ## Implementation Details
-The persistent mailbox implementation is stored in [persistent-mailbox.gall.ts](file:///Users/sac/truex/packages/truex-core/src/persistent-mailbox.gall.ts) and uses SQLite backing with the following highlights:
+The persistent mailbox implementation is stored in [persistent-mailbox.gall.ts](file:///Users/sac/truex/packages/membrane/src/persistent-mailbox.gall.ts) and uses SQLite backing with the following highlights:
 1. **Receipt Preservation**: Every state transition to terminal or refused status (`confirmed`, `refused`, `rolledBack`, `quarantined`, `discarded`, and `retryable` failures) generates a cryptographically authenticated receipt via `createReceipt` and inserts it into the `receipts` table.
 2. **Backoff and Jitter**: Computes deterministic retry backoffs based on the deterministic context.
 3. **Explicit Discard**: Added `discardMessage` to transition terminal refuse candidates directly, ensuring they cannot later be confirmed or executed.
@@ -16,8 +16,8 @@ The persistent mailbox implementation is stored in [persistent-mailbox.gall.ts](
 
 ## Test Strategy & Verifications
 Two comprehensive test files were written to ensure S10 correctness:
-- [persistent-mailbox-replay-lineage.test.ts](file:///Users/sac/truex/packages/truex-core/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts)
-- [persistent-mailbox-tamper.test.ts](file:///Users/sac/truex/packages/truex-core/test/persistent-mailbox/persistent-mailbox-tamper.test.ts)
+- [persistent-mailbox-replay-lineage.test.ts](file:///Users/sac/truex/packages/membrane/test/persistent-mailbox/persistent-mailbox-replay-lineage.test.ts)
+- [persistent-mailbox-tamper.test.ts](file:///Users/sac/truex/packages/membrane/test/persistent-mailbox/persistent-mailbox-tamper.test.ts)
 
 ### Lineage Tests Verified:
 - Executing becomes confirmed with verified receipt.

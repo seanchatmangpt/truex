@@ -34,14 +34,14 @@ We extended the Truex Observatory by adding:
 ## 4. Execution Evidence & Verification
 
 ### A. Membrane Replay Vitest Suite
-Executed: `npx vitest run packages/truex-core/test/membrane-replay`
+Executed: `npx vitest run packages/membrane/test/membrane-replay`
 *   **Status:** ✅ Passed
 *   **Passed Tests:** 16 / 16
 *   **Evidence:**
     ```text
-     ✓ packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts (4 tests) 87ms
-     ✓ packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts (8 tests) 13ms
-     ✓ packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts (4 tests) 8ms
+     ✓ packages/membrane/test/membrane-replay/membrane-partial-order-vkg.test.ts (4 tests) 87ms
+     ✓ packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts (8 tests) 13ms
+     ✓ packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts (4 tests) 8ms
     ```
 
 ### B. Doctor prove CLI command

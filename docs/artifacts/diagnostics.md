@@ -1,6 +1,6 @@
 # Antigravity Artifact: Diagnostics
 
-> **Generated:** 2026-05-24T10:01:57.954Z
+> **Generated:** 2026-05-25T18:57:23.667Z
 
 ## Health Check
 
@@ -9,7 +9,7 @@
 ### core_symbols
 - **Description:** Verifies presence of at least 5 core Truex primitives
 - **Status:** pass
-- **Symbols:** createInvariantContext, createAuditContext, createContractContext, createSimulationContext, OcelCollector, createProxy, useContext
+- **Symbols:** createInvariantContext, createAuditContext, createContractContext, createSimulationContext, OcelCollector, createProxy
 
 ## Coverage
 

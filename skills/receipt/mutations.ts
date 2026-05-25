@@ -9,9 +9,9 @@
 /* eslint-disable unicorn/no-null */
 import { ml_dsa65 } from '@noble/post-quantum/ml-dsa.js';
 import { utf8ToBytes, bytesToHex, hexToBytes } from '@noble/hashes/utils.js';
-import type { TruexContext } from "../../packages/truex-core/src/context.js";
-import { parseReceipt } from "../../packages/truex-core/src/runtime-law.js";
-import type { Receipt } from "../../packages/truex-core/src/runtime-law.js";
+import type { TruexContext } from "../../packages/membrane/src/context.js";
+import { parseReceipt } from "../../packages/membrane/src/runtime-law.js";
+import type { Receipt } from "../../packages/membrane/src/runtime-law.js";
 import { hash } from "../hash/mutations.js";
 
 /**

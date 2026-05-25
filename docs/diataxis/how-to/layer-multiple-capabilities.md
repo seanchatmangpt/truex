@@ -7,7 +7,7 @@ This guide demonstrates how to stack multiple capabilities onto a single target 
 ## Prerequisites
 
 - Node.js 18+
-- `truex-core` installed
+- `membrane` installed
 - Basic understanding of Proxyable Membranes
 
 ## Step 1: Define the Capabilities
@@ -18,7 +18,7 @@ Let's define three distinct capabilities that mirror TPS and OCEL principles:
 3.  **JidokaCapability:** Halts execution if performance degrades severely (TPS).
 
 ```typescript
-import { createCapability, JidokaError } from 'truex-core';
+import { createCapability, JidokaError } from 'membrane';
 
 export const AuditCapability = createCapability({
   name: 'Audit',
@@ -73,7 +73,7 @@ async function updateDatabase(data: any, user: any) {
 Use the `applyCapabilities` (plural) function to wrap the target. Order matters! Capabilities are executed "outside-in" during `onBefore` and "inside-out" during `onAfter`.
 
 ```typescript
-import { applyCapabilities } from 'truex-core';
+import { applyCapabilities } from 'membrane';
 
 // Execution Order:
 // onBefore: Audit -> Auth -> Jidoka -> Target

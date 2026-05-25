@@ -20,7 +20,7 @@ function getTargetId(obj) {
 function safeCompute(fieldName, virtualDef, target, state) {
   if (!state.visited) state.visited = new Set()
   if (state.depth === undefined) state.depth = 0
-  if (state.fuel === undefined) state.fuel = 100000
+  if (state.fuel === undefined) state.fuel = 100_000
 
   const evaluationKey = `${getTargetId(target)}:${fieldName}`
   
@@ -28,7 +28,7 @@ function safeCompute(fieldName, virtualDef, target, state) {
     throw new CircularDependencyError(`Circular virtual dependency detected: field "${fieldName}" already being computed on stack`)
   }
 
-  const limit = state.maxDepth !== undefined ? state.maxDepth : 2000
+  const limit = state.maxDepth === undefined ? 2000 : state.maxDepth
   if (state.depth >= limit) {
     throw new RecursionRefusalError(`Maximum recursion depth of ${limit} exceeded`)
   }
@@ -91,8 +91,8 @@ export function createVirtualContext(target, virtualSpec = {}, options = {}) {
       target,
       visited: parentState ? parentState.visited : new Set(),
       depth: parentState ? parentState.depth : 0,
-      fuel: parentState ? parentState.fuel : (options.fuel !== undefined ? options.fuel : 100000),
-      maxDepth: parentState ? parentState.maxDepth : (options.maxDepth !== undefined ? options.maxDepth : 2000),
+      fuel: parentState ? parentState.fuel : (options.fuel === undefined ? 100_000 : options.fuel),
+      maxDepth: parentState ? parentState.maxDepth : (options.maxDepth === undefined ? 2000 : options.maxDepth),
     }
 
     // Define virtual fields as accessors on target to make them fully functional
@@ -362,7 +362,7 @@ export function createVirtualGetInterceptor(virtualCtx) {
     // Initialize visited, depth, fuel on state if not present (defensive)
     if (!state.visited) state.visited = new Set()
     if (state.depth === undefined) state.depth = 0
-    if (state.fuel === undefined) state.fuel = 100000
+    if (state.fuel === undefined) state.fuel = 100_000
 
     // Consume fuel for the lookup/evaluation
     if (state.fuel <= 0) {

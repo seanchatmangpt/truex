@@ -139,17 +139,17 @@ We ran all tests for the consequence-actuator, swarm-controller, env-actuator, a
 ```
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/integration/consequence-actuator.test.ts (21 tests) 13ms
- ✓ packages/truex-core/test/integration/swarm-controller.test.ts (14 tests) 15ms
+ ✓ packages/membrane/test/integration/consequence-actuator.test.ts (21 tests) 13ms
+ ✓ packages/membrane/test/integration/swarm-controller.test.ts (14 tests) 15ms
  
 🌀 AutonomicGallLoop: [Step 1/10] Intercepting tool action 'write_file'
 🌀 AutonomicGallLoop: [Step 2/10] Validating proposed action against registered laws/invariants
 🌀 AutonomicGallLoop: [Step 3/10] Appending proposed GraphDelta to delta WAL (wal_deltas)
 ...
 🌀 AutonomicGallLoop: [Step 10/10] S0-S3 Stabilization sequence completed successfully
- ✓ packages/truex-core/test/integration/autonomic-loop.test.ts (5 tests) 24ms
- ✓ packages/truex-core/test/manufacturing/swarm-actuator.test.ts (3 tests) 4ms
- ✓ packages/truex-core/test/integration/env-actuator.test.ts (11 tests) 14ms
+ ✓ packages/membrane/test/integration/autonomic-loop.test.ts (5 tests) 24ms
+ ✓ packages/membrane/test/manufacturing/swarm-actuator.test.ts (3 tests) 4ms
+ ✓ packages/membrane/test/integration/env-actuator.test.ts (11 tests) 14ms
 
  Test Files  5 passed (5)
       Tests  54 passed (54)

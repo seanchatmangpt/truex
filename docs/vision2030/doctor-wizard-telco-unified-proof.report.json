@@ -1,0 +1,20 @@
+{
+  "primitive": "doctor-wizard-telco-unified",
+  "passed": true,
+  "invariants": [
+    "Wizard project cell successfully initialized",
+    "Inbound and outbound channels set up and peer dialed",
+    "Telco session established with valid capabilities via handshake",
+    "Wizard plan registry generated and checkpoint files forged",
+    "Checkpoint plan and report encoded into TelcoPacket, routed, and transmitted",
+    "Transmission verified using remote response hash",
+    "All T1-T6 accounting domains successfully conserved upon session settlement",
+    "Failed Telco transmission successfully triggered rollback in Wizard",
+    "Failed Wizard proof successfully prevented Telco routing and transmission"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 15
+  },
+  "receiptHash": "55cec826cb3fbbbae4fc557a0d4f32957f866b99d4cac9fc9ef7e21a02bf897f"
+}

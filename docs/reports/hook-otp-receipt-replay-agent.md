@@ -9,6 +9,6 @@
 
 ## Verification Evidence
 
-Unit tests in [hook-otp-receipt-replay.test.ts](file:///Users/sac/truex/packages/truex-core/test/hook-otp/hook-otp-receipt-replay.test.ts) verify:
+Unit tests in [hook-otp-receipt-replay.test.ts](file:///Users/sac/truex/packages/membrane/test/hook-otp/hook-otp-receipt-replay.test.ts) verify:
 *   Receipt hashes link correctly across sequential message dispatches.
 *   Replay converges for valid receipts and diverges when delta inputs are mutated.

@@ -8,8 +8,8 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { validateSkillMarkdown } from "../packages/truex-core/src/integration/skill-sandbox.js";
-import { compileTaskToDelta } from "../packages/truex-core/src/integration/task-delta.js";
+import { validateSkillMarkdown } from "../packages/membrane/src/integration/skill-sandbox.js";
+import { compileTaskToDelta } from "../packages/membrane/src/integration/task-delta.js";
 
 /**
  * Report structure for Repository proofs.
@@ -75,9 +75,9 @@ export function proveRepository(): RepositoryProofReport {
 }
 
 import Database from 'better-sqlite3';
-import { OntologyRegistry } from '../packages/truex-core/src/persistence/ontology.js';
+import { OntologyRegistry } from '../packages/membrane/src/persistence/ontology.js';
 import { emitTopologyGraph } from '../scripts/observatory/lib/emit-topology-graph.js';
-import { initializeSchema } from '../packages/truex-core/src/index.js';
+import { initializeSchema } from '../packages/membrane/src/index.js';
 
 /**
  * Proves that the live ontology correctly syncs with the graph without orphans or unmapped files.

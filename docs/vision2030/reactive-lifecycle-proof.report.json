@@ -1,0 +1,15 @@
+{
+  "primitive": "reactive-lifecycle",
+  "passed": true,
+  "invariants": [
+    "All 34 Vernon-based reactive patterns execute sequentially and converge under E2E verification",
+    "All 34 reactive patterns resolve concurrently without namespace or context collisions",
+    "Core HookOtpRuntime supervisor restarts processes within policy bounds under fuzzed inputs",
+    "Poison messages are quarantined, and duplicate message IDs are refused to avoid double processing",
+    "No memory leaks or unbound heap growths occur across E2E and concurrent lifecycles"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 82
+  }
+}

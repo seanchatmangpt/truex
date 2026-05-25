@@ -3,10 +3,10 @@ import {
   mapHookInterference, 
   detectRaceConditions, 
   verifyPartialOrderConvergence 
-} from "../packages/truex-core/src/concurrency.js";
-import { HookDefinition, GraphDelta } from "../packages/truex-core/src/runtime-law.js";
-import { TruexHook } from "../packages/truex-core/src/hook.js";
-import { createDeterministicContext } from "../packages/truex-core/src/index.js";
+} from "../packages/membrane/src/concurrency.js";
+import { HookDefinition, GraphDelta } from "../packages/membrane/src/runtime-law.js";
+import { TruexHook } from "../packages/membrane/src/hook.js";
+import { createDeterministicContext } from "../packages/membrane/src/index.js";
 
 describe("Truex Concurrency - Partial-Order Convergence", () => {
   const hookA: HookDefinition = {

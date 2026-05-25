@@ -4,7 +4,7 @@
 - **Case:** telco-ingest-validate-chain
 - **Status:** ✅ Passed
 - **Layer:** S8
-- **Report Hash:** c6ca683e2a9e3f6ceaea6d3795d6d17d6fa287814963777808c460acb0c7521a
+- **Report Hash:** 61f340a167798d4168103618ae72c044c2905ff4800a4d94dbc8fe416d281a44
 
 ## Operational Metrics
 | Metric | Value |
@@ -12,10 +12,10 @@
 | Transitions Ingested | 1000.000 |
 | Valid Envelopes Signed | 1000.000 |
 | Invalid Envelopes Rejected | 3.000 |
-| Ingest Duration (ms) | 148.887 |
-| Validation Duration (ms) | 31.255 |
-| Ingestion Throughput (ops/sec) | 6716.507 |
-| Validation Throughput (ops/sec) | 31994.582 |
+| Ingest Duration (ms) | 131.897 |
+| Validation Duration (ms) | 30.680 |
+| Ingestion Throughput (ops/sec) | 7581.681 |
+| Validation Throughput (ops/sec) | 32594.568 |
 
 ## Validated Invariants
 *   **Invariant:** valid ingested transition creates conforming signed envelope

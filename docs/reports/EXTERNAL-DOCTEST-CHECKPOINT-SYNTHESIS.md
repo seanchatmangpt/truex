@@ -89,5 +89,5 @@ External Doctest Checkpoint:
 - Ecosystem Regression: [passed]
 - Strongest New Proof Surface: [Dynamic path rewriting in external doctest runner with multi-domain invariants check]
 - Weakest Remaining Boundary: [JSDoc parsing is fully supported but has 0 blocks in the codebase]
-- Next Lawful Patch: [Add inline JSDoc doctest blocks in packages/truex-core/src/index.ts to prove JSDoc parsing path]
+- Next Lawful Patch: [Add inline JSDoc doctest blocks in packages/membrane/src/index.ts to prove JSDoc parsing path]
 ```

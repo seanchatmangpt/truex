@@ -1,6 +1,6 @@
 # Hook OTP Test Evidence Audit Findings
 
-This report documents the verification audit of the hook OTP system tests within the `@unjs/proxyable` (TRUEX) codebase. The audit mapped individual test cases across all test suites under `packages/truex-core/test/hook-otp/` to the 13 core system invariants.
+This report documents the verification audit of the hook OTP system tests within the `@unjs/proxyable` (TRUEX) codebase. The audit mapped individual test cases across all test suites under `packages/membrane/test/hook-otp/` to the 13 core system invariants.
 
 ## Summary of Verification
 - **Total Test Files Audited**: 5
@@ -44,7 +44,7 @@ This report documents the verification audit of the hook OTP system tests within
 ## Detailed Test Mapping Breakdown
 
 ### 1. `hook-otp-mailbox.test.ts`
-- **Path**: `packages/truex-core/test/hook-otp/hook-otp-mailbox.test.ts`
+- **Path**: `packages/membrane/test/hook-otp/hook-otp-mailbox.test.ts`
 - **Block**: `Hook OTP Mailbox & Actor Runtime`
 - **Tests**:
   1. **FIFO ordering**:
@@ -82,7 +82,7 @@ This report documents the verification audit of the hook OTP system tests within
      - **Status**: PASS
 
 ### 2. `hook-otp-runtime.test.ts`
-- **Path**: `packages/truex-core/test/hook-otp/hook-otp-runtime.test.ts`
+- **Path**: `packages/membrane/test/hook-otp/hook-otp-runtime.test.ts`
 - **Block**: `Hook OTP Runtime & Reporting`
 - **Tests**:
   1. **capacity breach refusal**:
@@ -112,7 +112,7 @@ This report documents the verification audit of the hook OTP system tests within
      - **Status**: PASS
 
 ### 3. `hook-otp-supervisor.test.ts`
-- **Path**: `packages/truex-core/test/hook-otp/hook-otp-supervisor.test.ts`
+- **Path**: `packages/membrane/test/hook-otp/hook-otp-supervisor.test.ts`
 - **Block**: `Hook OTP Supervisor & Quarantine`
 - **Tests**:
   1. **transient crash restart & poison quarantine**:
@@ -143,7 +143,7 @@ This report documents the verification audit of the hook OTP system tests within
      - **Status**: PASS
 
 ### 4. `hook-otp-receipt-replay.test.ts`
-- **Path**: `packages/truex-core/test/hook-otp/hook-otp-receipt-replay.test.ts`
+- **Path**: `packages/membrane/test/hook-otp/hook-otp-receipt-replay.test.ts`
 - **Block**: `Hook OTP Receipts & Replay`
 - **Tests**:
   1. **confirmed receipt verifies & replay convergence**:
@@ -172,7 +172,7 @@ This report documents the verification audit of the hook OTP system tests within
      - **Status**: PASS
 
 ### 5. `hook-otp-nonmockable-stress.test.ts`
-- **Path**: `packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts`
+- **Path**: `packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts`
 - **Block**: `Hook OTP Non-Mockable Stress Tests`
 - **Tests**:
   1. **FIFO ordering & replay convergence**:

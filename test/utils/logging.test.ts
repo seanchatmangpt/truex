@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import fc from 'fast-check'
 import { faker } from '@faker-js/faker'
-import { createLoggingProxy } from '../../packages/truex-core/src/utils/proxy-log.ts'
-import { LogLevel, setLogLevel, formatLog, log } from '../../packages/truex-core/src/utils/log-format.ts'
-import { logError, sanitize, DEFAULT_REDACTED_KEYS } from '../../packages/truex-core/src/utils/error-log.ts'
-import { measureTime } from '../../packages/truex-core/src/utils/timing.ts'
+import { createLoggingProxy } from '../../packages/membrane/src/utils/proxy-log.ts'
+import { LogLevel, setLogLevel, formatLog, log } from '../../packages/membrane/src/utils/log-format.ts'
+import { logError, sanitize, DEFAULT_REDACTED_KEYS } from '../../packages/membrane/src/utils/error-log.ts'
+import { measureTime } from '../../packages/membrane/src/utils/timing.ts'
 
 describe('Logging utilities property tests', () => {
   let originalConsole: any

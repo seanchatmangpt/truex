@@ -12,7 +12,7 @@ To align with the universal implementation standards of Truex, all rates, percen
 
 ## Section Two: TypeScript Definitions
 
-The core schemas are defined in the runtime law substrate (`packages/truex-core/src/runtime-law.ts`). They decompose into two primary structural types:
+The core schemas are defined in the runtime law substrate (`packages/membrane/src/runtime-law.ts`). They decompose into two primary structural types:
 
 ### One: `AccountingInput`
 This type represents the raw integer counts collected directly from the execution boundary:

@@ -2,7 +2,7 @@
  * @module emit-core-facts
  * @description
  * Gall Classification: Core Observatory Emitter
- * Purpose: Extracts core primitives and exported symbols from truex-core to ensure
+ * Purpose: Extracts core primitives and exported symbols from membrane to ensure
  * all structural dependencies and definitions are accounted for.
  */
 import fs from 'node:fs';
@@ -11,17 +11,17 @@ import { fileURLToPath } from 'node:url';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const BASE_DIR = process.cwd();
-const SRC_DIR = path.join(BASE_DIR, 'packages/truex-core/src');
+const SRC_DIR = path.join(BASE_DIR, 'packages/membrane/src');
 const OUTPUT_FILE = 'docs/v1/latest/facts/core-primitives.json';
 
 /**
- * Emitter for mapping the internal and exported symbol landscape of the truex-core packages.
+ * Emitter for mapping the internal and exported symbol landscape of the membrane packages.
  */
 export class CoreFactsEmitter extends FactEmitter {
   getMetadata(): EmitterMetadata {
     return {
       name: 'Core Facts Emitter',
-      description: 'Extracts core primitives and exported symbols from truex-core',
+      description: 'Extracts core primitives and exported symbols from membrane',
       outputPath: OUTPUT_FILE
     };
   }
@@ -31,10 +31,10 @@ export class CoreFactsEmitter extends FactEmitter {
     const fileFacts = allFiles.map(f => this.parseFile(f));
 
     const primitives: Record<string, { files: string[], resolvedSymbols: string[] }> = {
-      hash: { files: ['packages/truex-core/src/hash.ts'], resolvedSymbols: [] },
-      signature: { files: ['packages/truex-core/src/signature.ts'], resolvedSymbols: [] },
-      receipt: { files: ['packages/truex-core/src/receipt.ts'], resolvedSymbols: [] },
-      replay: { files: ['packages/truex-core/src/replay.ts'], resolvedSymbols: [] }
+      hash: { files: ['packages/membrane/src/hash.ts'], resolvedSymbols: [] },
+      signature: { files: ['packages/membrane/src/signature.ts'], resolvedSymbols: [] },
+      receipt: { files: ['packages/membrane/src/receipt.ts'], resolvedSymbols: [] },
+      replay: { files: ['packages/membrane/src/replay.ts'], resolvedSymbols: [] }
     };
 
     for (const key in primitives) {

@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
-import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
+import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/membrane/src/hook-otp.gall.js';
 
 // Message Metadata Pattern: Attaching context separate from payload
 export async function run() {

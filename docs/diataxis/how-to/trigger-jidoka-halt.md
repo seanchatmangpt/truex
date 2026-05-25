@@ -7,15 +7,15 @@ This guide will show you how to implement and trigger a Jidoka Halt within your 
 ## Prerequisites
 
 - Node.js 18+
-- `truex-core` installed in your project
+- `membrane` installed in your project
 - Basic understanding of Proxyable Capabilities
 
 ## Step 1: Define a Haltable Capability
 
-First, create a capability that monitors for anomalous conditions. We'll use the `createCapability` primitive from `truex-core` and implement an invariant check.
+First, create a capability that monitors for anomalous conditions. We'll use the `createCapability` primitive from `membrane` and implement an invariant check.
 
 ```typescript
-import { createCapability, JidokaError } from 'truex-core';
+import { createCapability, JidokaError } from 'membrane';
 
 export const QualityControlCapability = createCapability({
   name: 'QualityControl',
@@ -40,7 +40,7 @@ export const QualityControlCapability = createCapability({
 When a Jidoka Halt occurs, you need an "Andon Cord" handler to catch the error, alert the team, and safely shut down or isolate the affected process.
 
 ```typescript
-import { applyCapability } from 'truex-core';
+import { applyCapability } from 'membrane';
 import { QualityControlCapability } from './quality-control';
 
 async function processBatch(batchData) {
@@ -90,7 +90,7 @@ Halting further production...
 To ensure we can audit *why* the halt occurred, we should integrate OCEL 2.0 (Object-Centric Event Logging). 
 
 ```typescript
-import { OCELLogger } from 'truex-core/ocel2';
+import { OCELLogger } from 'membrane/ocel2';
 
 function triggerAndonCord(error) {
   OCELLogger.logEvent({

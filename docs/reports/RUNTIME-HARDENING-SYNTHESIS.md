@@ -47,7 +47,7 @@
 
 ## 10. Minimal Patch Plan
 
-1.  **Unify Hashing:** Force all modules to import `hash` from `packages/truex-core/src/hash.ts` (BLAKE3).
+1.  **Unify Hashing:** Force all modules to import `hash` from `packages/membrane/src/hash.ts` (BLAKE3).
 2.  **Align Transactions:** Move `DeltaJournal.append` inside the SQLite `BEGIN` block in `AutonomicGallLoop`.
 3.  **Determinize Seeds:** Refactor the AGY bridge to accept a seed from the environment or derive it from the `previousReceiptHash`.
 4.  **Schema Consolidation:** Migrate proof helpers to use the production `PersistenceOrchestrator` schema.

@@ -16,7 +16,7 @@ All checkpoints within the S11 Project Wizard have been successfully executed, p
 - **Status:** Verified, Resolved & Released
 - **Class:** Gall S11 (Project Manufacturing Wizard)
 - **Domain:** Enforcement and Handoff Domain
-- **Verification Command:** `npx vitest run packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts`
+- **Verification Command:** `npx vitest run packages/membrane/test/project-wizard/project-wizard-handoff.test.ts`
 - **Strongest New Primitive:** Monotonic 12-Hour Release Gate
 - **Weakest Remaining Boundary:** Static AST Dependency Analysis
 
@@ -28,7 +28,7 @@ The Monotonic Elapsed Gate ensures that no project cell can be finalized and han
 
 ### 2.1 The Validation Mechanism
 
-The elapsed check is implemented in the `MissionController` class of [project-wizard.gall.ts](file:///Users/sac/truex/packages/truex-core/src/project-wizard.gall.ts):
+The elapsed check is implemented in the `MissionController` class of [project-wizard.gall.ts](file:///Users/sac/truex/packages/membrane/src/project-wizard.gall.ts):
 1. **Ticket Inspection:** On handoff verification, the controller loads the start ticket `.truex/mission/start.json` containing the original `startTime` timestamp.
 2. **Elapsed Calculation:** The controller computes the duration between the current system time and the start time.
 3. **Monotonic Guard:** The `startTime` within `start.json` is protected against overwriting during subsequent cell initializations. The `init` method reads the existing config to preserve the original `initializedAt` value rather than writing a fresh start time.
@@ -39,7 +39,7 @@ The elapsed check is implemented in the `MissionController` class of [project-wi
 
 ### 2.2 Gate Hardening Evidence
 
-The gate was validated using property and unit tests in [project-wizard-handoff.test.ts](file:///Users/sac/truex/packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts):
+The gate was validated using property and unit tests in [project-wizard-handoff.test.ts](file:///Users/sac/truex/packages/membrane/test/project-wizard/project-wizard-handoff.test.ts):
 - **Premature Refusal Test:** Verifies that attempting a handoff immediately after initialization throws the refusal exception.
 - **Elapsed Simulation Test:** Verifies that manually setting the `startTime` to 13 hours in the past satisfies the gate constraint.
 - **Reporting Gate:** Verifies that the handoff correctly checks for all agent reports before proceeding.
@@ -128,7 +128,7 @@ The S11 Project Wizard pipeline consists of 5 checkpoints corresponding to the 5
 | `cp-cli-contract` | Agent 1 (CLI & Routing) | Verified | [12h-agent-1-wizard-cli.md](file:///Users/sac/truex/docs/reports/12h-agent-1-wizard-cli.md) |
 | `cp-project-cell` | Agent 2 (Cell Layout) | Verified | [12h-agent-2-project-cell-topology.md](file:///Users/sac/truex/docs/reports/12h-agent-2-project-cell-topology.md) |
 | `cp-checkpoint-plan` | Agent 3 (Planner) | Verified | [12h-agent-3-gall-checkpoint-planner.md](file:///Users/sac/truex/docs/reports/12h-agent-3-gall-checkpoint-planner.md) |
-| `cp-execution-proof` | Agent 4 (Execution) | Verified | [project-wizard-execution.test.ts](file:///Users/sac/truex/packages/truex-core/test/project-wizard/project-wizard-execution.test.ts) |
+| `cp-execution-proof` | Agent 4 (Execution) | Verified | [project-wizard-execution.test.ts](file:///Users/sac/truex/packages/membrane/test/project-wizard/project-wizard-execution.test.ts) |
 | `cp-mission-handoff` | Agent 5 (Handoff) | Verified | [12h-agent-5-mission-handoff.md](file:///Users/sac/truex/docs/reports/12h-agent-5-mission-handoff.md) |
 
 ---

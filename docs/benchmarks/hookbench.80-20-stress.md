@@ -19,7 +19,7 @@
 | stress-13 | WAL persistence mismatch | SQLite journal integrity | ✅ | false | WAL successfully writes and reads back identical deltas |
 | stress-14 | rollback failure | transaction isolation | ✅ | false | Transaction rollbacks successfully revert all delta mutations |
 | stress-15 | observatory stale report | observatory freshness | ✅ | false | Observatory reports successfully exist and are active |
-| stress-16 | Recursive Hook Storms | topology failure frontier | ✅ | false | Successfully triggered 1000 recursive sub-deltas |
+| stress-16 | Recursive Hook Storms | topology failure frontier | ✅ | false | Successfully triggered 20 recursive sub-deltas |
 | stress-17 | Cyclical Hook Activation | topology failure frontier | ✅ | true | Cycle detected and halted via safety limit |
 | stress-18 | Cascading Rollback Divergence | topology failure frontier | ✅ | false | Clean rollback achieved after partial cascade failure |
 | stress-19 | Interrupted Receipt Persistence | topology failure frontier | ✅ | true | Atomic rollback confirmed after interrupted 5-step cascade |

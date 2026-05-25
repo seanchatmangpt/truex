@@ -31,9 +31,11 @@ export class TrackableWeakMap extends WeakMap {
     super.set(key, value);
     let exists = false;
     for (const ref of this._keys) {
-      if (ref.deref() === key) {
+      const k = ref.deref();
+      if (k === key) {
         exists = true;
-        break;
+      } else if (k === undefined) {
+        this._keys.delete(ref);
       }
     }
     if (!exists) {

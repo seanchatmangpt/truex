@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779615276365-5g0ecmv",
+  "spanId": "span-unknown",
+  "startTime": 1779615276365,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-contracts\"]}"
+  },
+  "events": [],
+  "endTime": 1779615276365,
+  "durationMs": 0
+}

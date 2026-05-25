@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779639920047-znmyceb",
+  "spanId": "span-unknown",
+  "startTime": 1779639920047,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"telco-validate\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779639920512,
+      "attributes": {
+        "primitive": "telco-validate",
+        "status": "confirmed",
+        "executionTimeMs": 3,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779639920512,
+  "durationMs": 465
+}

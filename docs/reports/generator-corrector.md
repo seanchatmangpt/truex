@@ -4,7 +4,7 @@ This report documents the updates made to the Hook OTP and Hookbench generators 
 
 ## 1. Hook OTP Generator Updates
 
-The Hook OTP equivalence proof runtime in `packages/truex-core/src/hook-otp.gall.ts` has been updated to output the following metrics under `runtime` in the report:
+The Hook OTP equivalence proof runtime in `packages/membrane/src/hook-otp.gall.ts` has been updated to output the following metrics under `runtime` in the report:
 - `processesStarted`: The total number of processes started during the simulation.
 - `processesAlive`: The number of processes currently active and not halted.
 - `processesQuarantined`: The number of processes that had messages quarantined.
@@ -31,7 +31,7 @@ The Hook OTP equivalence proof runtime in `packages/truex-core/src/hook-otp.gall
 
 ## 2. Hookbench Generator Updates
 
-The Hookbench suite in `packages/truex-core/src/benchmark/hookbench.gall.ts` has been updated to output:
+The Hookbench suite in `packages/membrane/src/benchmark/hookbench.gall.ts` has been updated to output:
 - `matches`: The number of matched hooks.
 - `unmatchedEvaluations`: Evaluations that did not match any hook condition.
 - `refusals`: The number of evaluations refused due to policy/structural failures.

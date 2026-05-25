@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const BASE_DIR = process.cwd();
-const SOURCE_FILE = path.join(BASE_DIR, 'packages/truex-core/src/membrane-replay.gall.ts');
+const SOURCE_FILE = path.join(BASE_DIR, 'packages/membrane/src/membrane-replay.gall.ts');
 const OUTPUT_FILE = 'docs/v1/latest/facts/membrane-replay.json';
 const DB_PATH = path.join(BASE_DIR, 'gall_truex.db');
 

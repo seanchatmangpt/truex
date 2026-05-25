@@ -11,7 +11,7 @@ import Database from 'better-sqlite3';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 const BASE_DIR = process.cwd();
-const PERSISTENCE_DIR = path.join(BASE_DIR, 'packages/truex-core/src/persistence');
+const PERSISTENCE_DIR = path.join(BASE_DIR, 'packages/membrane/src/persistence');
 const OUTPUT_FILE = 'docs/v1/latest/facts/persistence.json';
 const DB_PATH = path.join(BASE_DIR, 'gall_truex.db');
 

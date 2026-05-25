@@ -1,10 +1,10 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const filesToUpdate = [
-  'packages/truex-core/src/index.ts',
-  'packages/truex-core/test/project-evidence/ocel2-type-boundary-gap.test.ts',
-  'packages/truex-core/test/project-evidence/ocel2-projection-gap.test.ts',
+  'packages/membrane/src/index.ts',
+  'packages/membrane/test/project-evidence/ocel2-type-boundary-gap.test.ts',
+  'packages/membrane/test/project-evidence/ocel2-projection-gap.test.ts',
 ];
 
 const replacements = [

@@ -1,0 +1,98 @@
+{
+  "case": "reactive-lifecycle-leak-audit",
+  "status": "passed",
+  "timestamp": "2026-05-25T18:56:11.274Z",
+  "iterations": 50,
+  "memory": {
+    "start": {
+      "rssMb": 127.578125,
+      "heapTotalMb": 65.8125,
+      "heapUsedMb": 37.486358642578125
+    },
+    "end": {
+      "rssMb": 135.53125,
+      "heapTotalMb": 67.5625,
+      "heapUsedMb": 42.967185974121094
+    },
+    "peakHeapUsedMb": 50.19666290283203,
+    "deltaHeapUsedMb": 5.480827331542969,
+    "deltaRssMb": 7.953125,
+    "growthReport": {
+      "warmupHeapUsedMb": 43.20305633544922,
+      "finalHeapUsedMb": 42.9656982421875,
+      "stableDeltaMb": -0.23735809326171875
+    }
+  },
+  "timings": {
+    "verbs": {
+      "init": {
+        "totalMs": 224.7313349999996,
+        "averageMs": 4.494626699999992,
+        "minMs": 1.4205839999999625,
+        "maxMs": 141.0899589999999
+      },
+      "map": {
+        "totalMs": 69.91158200000024,
+        "averageMs": 1.3982316400000048,
+        "minMs": 1.103917000000024,
+        "maxMs": 2.9547079999999823
+      },
+      "plan": {
+        "totalMs": 99.78762799999862,
+        "averageMs": 1.9957525599999724,
+        "minMs": 1.282457999999906,
+        "maxMs": 21.99558300000001
+      },
+      "forge": {
+        "totalMs": 74.65683000000075,
+        "averageMs": 1.493136600000015,
+        "minMs": 0.9105420000000777,
+        "maxMs": 21.557250000000067
+      },
+      "bind": {
+        "totalMs": 99.34033100000039,
+        "averageMs": 1.9868066200000079,
+        "minMs": 1.6790419999999813,
+        "maxMs": 2.524499999999989
+      },
+      "prove": {
+        "totalMs": 292.0483780000003,
+        "averageMs": 5.840967560000006,
+        "minMs": 4.588333000000034,
+        "maxMs": 25.651916999999912
+      },
+      "harden": {
+        "totalMs": 44.57945200000137,
+        "averageMs": 0.8915890400000274,
+        "minMs": 0.37341700000001765,
+        "maxMs": 21.24350000000004
+      },
+      "handoff": {
+        "totalMs": 53.49732999999969,
+        "averageMs": 1.0699465999999938,
+        "minMs": 0.8443750000000136,
+        "maxMs": 1.4872499999999036
+      }
+    },
+    "examples": {
+      "totalMs": 338.9070409999989,
+      "averageMs": 6.778140819999979
+    },
+    "overall": {
+      "totalMs": 1631.7915419999993,
+      "averageMsPerLifecycle": 32.63583083999998
+    }
+  },
+  "invariants": [
+    "Execute 50 consecutive full E2E project lifecycles containing all 34 examples/reactive pattern steps",
+    "Monitor Node.js RSS/heap memory delta using process.memoryUsage()",
+    "Verify that the heap delta is stable (proving no memory leaks in proxy wrappers/interceptors)",
+    "Profile timings of all verbs and output the raw benchmark JSON report"
+  ],
+  "metadata": {
+    "nodeVersion": "v24.15.0",
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "reportHash": "594b2e2f7c9a72951dbcf0e7558bf26f16f40d2b9d54d67d49ad7788102c283b"
+}

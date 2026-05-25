@@ -8,16 +8,16 @@ import {
   registerTransactionInterceptors,
   createSimulationContext,
   registerSimulationInterceptors,
-} from "../../packages/truex-core/src/membrane.js";
+} from "../../packages/membrane/src/membrane.js";
 import {
   appendJournalEntry,
   loadJournal,
   replayJournalLineage,
   initializeMembraneReplaySchema,
-} from "../../packages/truex-core/src/membrane-replay.gall.js";
-import { hash } from "../../packages/truex-core/src/hash.js";
-import { createReceipt } from "../../packages/truex-core/src/index.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
+} from "../../packages/membrane/src/membrane-replay.gall.js";
+import { hash } from "../../packages/membrane/src/hash.js";
+import { createReceipt } from "../../packages/membrane/src/index.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
 
 // Benchmark data collector
 const benchmarkResults = {
@@ -269,7 +269,7 @@ describe("Transaction, Replay & Simulation Breakpoint Stress Tests", () => {
     ) {
       const hook = registeredHooks.get(nodeId)!;
       const stepHash = hash({ nodeId, delta, previousReceiptHash, parentSeed });
-      const stepSeed = parseInt(stepHash.substring(0, 8), 16) >>> 0;
+      const stepSeed = Number.parseInt(stepHash.slice(0, 8), 16) >>> 0;
       const stepCtx = createDeterministicContext(stepSeed);
 
       const { nextState, effects } = hook.behavior(stateBefore, delta, stepCtx);

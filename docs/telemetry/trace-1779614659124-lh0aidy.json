@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779614659124-lh0aidy",
+  "spanId": "span-unknown",
+  "startTime": 1779614659124,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779614661604,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "refused",
+        "executionTimeMs": 1887,
+        "invariantsCount": 5,
+        "failuresCount": 7
+      }
+    }
+  ],
+  "endTime": 1779614661604,
+  "durationMs": 2480
+}

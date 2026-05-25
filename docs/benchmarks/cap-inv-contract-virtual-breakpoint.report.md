@@ -1,7 +1,7 @@
 # Invariant, Contract & Virtual Value Stress Test Report
 
 ## Metadata
-- **Timestamp:** 2026-05-24T10:01:22.561Z
+- **Timestamp:** 2026-05-25T18:56:41.024Z
 - **Target OS:** mac
 - **Test Runner:** Vitest
 
@@ -14,14 +14,14 @@
 ## 2. Deep Virtual Computations (Depth & Memoization Benchmark)
 | Depth | Memoized | Duration (ms) | Result Value | Caching Efficiency |
 |-------|----------|---------------|--------------|-------------------|
-| 10 | Yes 🚀 | 0ms | 20 | Speedup: N/A |
-| 10 | No 🐢 | 1ms | 20 | Speedup: N/A |
+| 10 | Yes 🚀 | 1ms | 20 | Speedup: 0.00x |
+| 10 | No 🐢 | 0ms | 20 | Speedup: 0.00x |
 | 100 | Yes 🚀 | 0ms | 110 | Speedup: N/A |
 | 100 | No 🐢 | 0ms | 110 | Speedup: N/A |
-| 500 | Yes 🚀 | 1ms | 510 | Speedup: 1.00x |
-| 500 | No 🐢 | 1ms | 510 | Speedup: 1.00x |
-| 1000 | Yes 🚀 | 2ms | 1010 | Speedup: 0.50x |
-| 1000 | No 🐢 | 1ms | 1010 | Speedup: 0.50x |
+| 500 | Yes 🚀 | 1ms | 510 | Speedup: 0.00x |
+| 500 | No 🐢 | 0ms | 510 | Speedup: 0.00x |
+| 1000 | Yes 🚀 | 1ms | 1010 | Speedup: 1.00x |
+| 1000 | No 🐢 | 1ms | 1010 | Speedup: 1.00x |
 
 - **Circular Virtual Fields (vA -> vB -> vA):** ✅ Safely terminated via V8 RangeError (Maximum call stack size exceeded).
 

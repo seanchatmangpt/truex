@@ -4,7 +4,7 @@
 
 This report documents the S10 implementation of **graceful shutdown transitions**, **startup/timeout crash recovery (rescue)**, and a **queue metrics observatory** inside the Truex persistent mailbox causation engine. 
 
-All core logic was implemented in `packages/truex-core/src/persistent-mailbox.gall.ts` using standard SQLite persistent structures to maintain 100% lawful state convergence (Gall Calculus). Cryptographic integrity is verified via causal lineage and receipt verification.
+All core logic was implemented in `packages/membrane/src/persistent-mailbox.gall.ts` using standard SQLite persistent structures to maintain 100% lawful state convergence (Gall Calculus). Cryptographic integrity is verified via causal lineage and receipt verification.
 
 ---
 
@@ -88,11 +88,11 @@ Queue metrics are persisted to `truex_mailbox_metrics` and queried chronological
 ## 4. Source Files Modified & Created
 
 ### Modified Source File
-*   [persistent-mailbox.gall.ts](file:///Users/sac/truex/packages/truex-core/src/persistent-mailbox.gall.ts): Added tables, query helpers, graceful shutdown API, and detailed metrics tracking.
+*   [persistent-mailbox.gall.ts](file:///Users/sac/truex/packages/membrane/src/persistent-mailbox.gall.ts): Added tables, query helpers, graceful shutdown API, and detailed metrics tracking.
 
 ### Created Test Files
-*   [persistent-mailbox-graceful-shutdown-rescue.test.ts](file:///Users/sac/truex/packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts): Validates pause/stop transitions, grace period enforcement, and rescue candidates recovery lineage.
-*   [persistent-mailbox-observatory.test.ts](file:///Users/sac/truex/packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts): Tests queue metrics persistence (depth, age, averages), history retention, and starvation count increments.
+*   [persistent-mailbox-graceful-shutdown-rescue.test.ts](file:///Users/sac/truex/packages/membrane/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts): Validates pause/stop transitions, grace period enforcement, and rescue candidates recovery lineage.
+*   [persistent-mailbox-observatory.test.ts](file:///Users/sac/truex/packages/membrane/test/persistent-mailbox/persistent-mailbox-observatory.test.ts): Tests queue metrics persistence (depth, age, averages), history retention, and starvation count increments.
 
 ---
 
@@ -101,15 +101,15 @@ Queue metrics are persisted to `truex_mailbox_metrics` and queried chronological
 All tests execute successfully and converge onto clean database lineages:
 
 ```bash
-npx vitest run packages/truex-core/test/persistent-mailbox/
+npx vitest run packages/membrane/test/persistent-mailbox/
 ```
 
 Output:
 ```text
  RUN  v4.1.7 /Users/sac/truex
 
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts (5 tests) 14ms
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-observatory.test.ts (3 tests) 10ms
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-graceful-shutdown-rescue.test.ts (5 tests) 14ms
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-observatory.test.ts (3 tests) 10ms
 
  Test Files  2 passed (2)
       Tests  8 passed (8)

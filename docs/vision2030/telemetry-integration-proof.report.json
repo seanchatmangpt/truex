@@ -1,0 +1,17 @@
+{
+  "primitive": "telemetry-integration",
+  "passed": true,
+  "invariants": [
+    "Wizard CommandReceipt for verb \"init\" has valid self-integrity",
+    "TelcoReceipt for verb \"transmit\" has valid self-integrity",
+    "TelcoReceipt for verb \"transmit\" has valid self-integrity",
+    "Receipt link verified: a9cdedb0ce68e96fc2bc660cb6e5b93c1670c7d0d379aa153ff6669e832ee48e -> 105130b97b504e660ff51eeba81f4dbc328201070ebcf8036f7ae462617d2001",
+    "Receipt link verified: 821fcc9eebc061747e0664e0790184cd69c131ca23c18b661e8a7bbd24715d37 -> a9cdedb0ce68e96fc2bc660cb6e5b93c1670c7d0d379aa153ff6669e832ee48e",
+    "Operation \"init_receipt\" (type: init) verified by TelcoReceipt",
+    "Operation \"accounting_stats\" (type: stats) verified by TelcoReceipt"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 0
+  }
+}

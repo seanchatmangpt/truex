@@ -1,0 +1,13 @@
+{
+  "primitive": "lifecycle-benchmarks",
+  "passed": true,
+  "invariants": [
+    "All 8 Wizard E2E project manufacturing verbs successfully execute and conserve ledger metrics W1-W5",
+    "All 8 Telco E2E interop lifecycle verbs successfully execute under stress and conserve ledger metrics T1-T6",
+    "Cryptographic receipt signatures and state transitions converge deterministically across the unified system"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 4892
+  }
+}

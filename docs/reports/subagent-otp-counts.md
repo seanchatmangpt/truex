@@ -59,7 +59,7 @@ The stress test suite executes 10 test case blocks. Below is the high-level acco
 
 ## 4. Fine-Grained Message & Process Accounting for Stress Cases
 
-By analyzing the underlying code implementation of the 10 stress tests in `packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts`, we extract the exact internal message-level and process-level metrics active during the execution of each test:
+By analyzing the underlying code implementation of the 10 stress tests in `packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts`, we extract the exact internal message-level and process-level metrics active during the execution of each test:
 
 | Stress Case Name | Messages Dispatched | Messages Processed | Messages Confirmed | Messages Refused | Messages Quarantined | Processes Started | Processes Alive | Processes Quarantined |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |

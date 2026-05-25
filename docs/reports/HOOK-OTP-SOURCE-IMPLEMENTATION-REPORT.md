@@ -23,21 +23,21 @@ The following matrix maps traditional Erlang/OTP concepts to their implementatio
 
 | OTP Concept | Truex Equivalent | Source File | Evidence (Symbol & Snippet) |
 |---|---|---|---|
-| **Actor/process identity** | `HookProcessId` (type)<br>`HookProcess` (interface) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L6-L42) | `export type HookProcessId = string;`<br>`export interface HookProcess { id: string; state: any; mailbox: HookMailbox; restartCount: number; isHalted: boolean; ... }` |
-| **Mailbox** | `HookMailbox` (interface)<br>`createHookMailbox` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L14-L31) | `export interface HookMailbox { queue: HookMessage[]; push(msg: HookMessage): void; pop(): HookMessage; ... }` |
-| **FIFO ordering** | Dequeue via `.shift()` | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L26-L27) | `push: (msg) => queue.push(msg),`<br>`pop: () => queue.shift(),` |
-| **Message dispatch** | `dispatchMessage` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L118-L301) | `export function dispatchMessage(runtime: HookOtpRuntime, msg: HookMessage): { allowed: boolean; ... }` |
-| **Isolated process state** | Deep cloning on init and step | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L52) | `state: JSON.parse(JSON.stringify(initialState))` (L52) and `const stateBefore = JSON.parse(JSON.stringify(proc.state))` (L207) |
-| **Supervisor** | `HookSupervisor` (interface) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L60-L79) | `export interface HookSupervisor { id: string; policy: { maxRestarts: number; withinMs: number }; ... }` |
-| **Restart policy** | `policy` limits | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L62) | `policy: { maxRestarts: number; withinMs: number }` (L62) |
-| **Restart budget** | Sliding-window check | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L251-L255) | `const recent = history.filter(t => now - t <= supervisor.policy.withinMs);`<br>`if (recent.length >= supervisor.policy.maxRestarts) { ... }` |
-| **Poison message quarantine** | `HookQuarantineRecord` | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L81-L86) | `export interface HookQuarantineRecord { processId: HookProcessId; message: HookMessage; error: string; ... }` |
-| **Crash containment** | Local `try-catch` | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L205-L299) | Behavior execution and state mutations are wrapped in a local `try { ... } catch (error: any) { ... }` block (L205-L299) |
-| **Receipt per message** | Cryptographic `Receipt` | [receipt.ts](file:///Users/sac/truex/packages/truex-core/src/receipt.ts#L1-L2)<br>[mutations.ts](file:///Users/sac/truex/skills/receipt/mutations.ts#L52-L90) | Confirmed: `createReceipt(ctx, ..., inputHash, outputHash, ..., 'confirmed')`<br>Refused: `createReceipt(ctx, ..., inputHash, outputHash, ..., 'refused')` |
-| **Replay per message** | `replayMessage` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L303-L326) | `export function replayMessage(stateBefore: any, msg: HookMessage, receipt: Receipt, behavior: ...): boolean` |
-| **Deterministic context** | Mulberry32 PRNG | [context.ts](file:///Users/sac/truex/packages/truex-core/src/context.ts#L11-L56) | `export function createDeterministicContext(seed: number): TruexContext` (instantiates stable timers and seed-derived UUIDs) |
-| **Backpressure/capacity refusal** | Quad size limit check | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L176-L192) | `if (addsCount + deletesCount > 100) { ... return { allowed: false, reason: "Capacity breach: too many changes", ... } }` |
-| **Lifecycle report** | `runHookOtpProof` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L442-L491) | Compiles process states, message confirmation, refusal counters, and execution benchmarks into a stable, hashed JSON structure. |
+| **Actor/process identity** | `HookProcessId` (type)<br>`HookProcess` (interface) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L6-L42) | `export type HookProcessId = string;`<br>`export interface HookProcess { id: string; state: any; mailbox: HookMailbox; restartCount: number; isHalted: boolean; ... }` |
+| **Mailbox** | `HookMailbox` (interface)<br>`createHookMailbox` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L14-L31) | `export interface HookMailbox { queue: HookMessage[]; push(msg: HookMessage): void; pop(): HookMessage; ... }` |
+| **FIFO ordering** | Dequeue via `.shift()` | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L26-L27) | `push: (msg) => queue.push(msg),`<br>`pop: () => queue.shift(),` |
+| **Message dispatch** | `dispatchMessage` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L118-L301) | `export function dispatchMessage(runtime: HookOtpRuntime, msg: HookMessage): { allowed: boolean; ... }` |
+| **Isolated process state** | Deep cloning on init and step | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L52) | `state: JSON.parse(JSON.stringify(initialState))` (L52) and `const stateBefore = JSON.parse(JSON.stringify(proc.state))` (L207) |
+| **Supervisor** | `HookSupervisor` (interface) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L60-L79) | `export interface HookSupervisor { id: string; policy: { maxRestarts: number; withinMs: number }; ... }` |
+| **Restart policy** | `policy` limits | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L62) | `policy: { maxRestarts: number; withinMs: number }` (L62) |
+| **Restart budget** | Sliding-window check | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L251-L255) | `const recent = history.filter(t => now - t <= supervisor.policy.withinMs);`<br>`if (recent.length >= supervisor.policy.maxRestarts) { ... }` |
+| **Poison message quarantine** | `HookQuarantineRecord` | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L81-L86) | `export interface HookQuarantineRecord { processId: HookProcessId; message: HookMessage; error: string; ... }` |
+| **Crash containment** | Local `try-catch` | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L205-L299) | Behavior execution and state mutations are wrapped in a local `try { ... } catch (error: any) { ... }` block (L205-L299) |
+| **Receipt per message** | Cryptographic `Receipt` | [receipt.ts](file:///Users/sac/truex/packages/membrane/src/receipt.ts#L1-L2)<br>[mutations.ts](file:///Users/sac/truex/skills/receipt/mutations.ts#L52-L90) | Confirmed: `createReceipt(ctx, ..., inputHash, outputHash, ..., 'confirmed')`<br>Refused: `createReceipt(ctx, ..., inputHash, outputHash, ..., 'refused')` |
+| **Replay per message** | `replayMessage` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L303-L326) | `export function replayMessage(stateBefore: any, msg: HookMessage, receipt: Receipt, behavior: ...): boolean` |
+| **Deterministic context** | Mulberry32 PRNG | [context.ts](file:///Users/sac/truex/packages/membrane/src/context.ts#L11-L56) | `export function createDeterministicContext(seed: number): TruexContext` (instantiates stable timers and seed-derived UUIDs) |
+| **Backpressure/capacity refusal** | Quad size limit check | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L176-L192) | `if (addsCount + deletesCount > 100) { ... return { allowed: false, reason: "Capacity breach: too many changes", ... } }` |
+| **Lifecycle report** | `runHookOtpProof` (fn) | [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L442-L491) | Compiles process states, message confirmation, refusal counters, and execution benchmarks into a stable, hashed JSON structure. |
 
 ---
 
@@ -120,7 +120,7 @@ dispatchMessage
 
 ## 4. Test Evidence
 
-The following matrix maps audited test scenarios located in [packages/truex-core/test/hook-otp/](file:///Users/sac/truex/packages/truex-core/test/hook-otp/) to system invariants:
+The following matrix maps audited test scenarios located in [packages/membrane/test/hook-otp/](file:///Users/sac/truex/packages/membrane/test/hook-otp/) to system invariants:
 
 | Invariant | Test File | Test Block | Test Name | Assertion Snippet | Status |
 |---|---|---|---|---|---|
@@ -211,7 +211,7 @@ Under the **Conservation of States**, TRUEX enforces a decoupled telemetry topol
 
 ## 7. Gaps and Risks
 
-Source-code analysis of `packages/truex-core/src/hook-otp.gall.ts` highlights the following gaps:
+Source-code analysis of `packages/membrane/src/hook-otp.gall.ts` highlights the following gaps:
 
 1.  **Distributed Clustering:** No coordination protocol exists. Actor mailboxes and processes are strictly synchronous JavaScript map lookups.
 2.  **Remote Actor Networking:** There is no serialization or networking membrane (e.g., WebSockets, gRPC) to route message payloads to processes running on other nodes.
@@ -241,7 +241,7 @@ Hook OTP Source Implementation Report:
 ## 9. Verification Commands & Exit Codes
 
 ```bash
-$ npx vitest run packages/truex-core/test/hook-otp
+$ npx vitest run packages/membrane/test/hook-otp
 # Result: 23 passed, 0 failed.
 # Exit Code: 0
 

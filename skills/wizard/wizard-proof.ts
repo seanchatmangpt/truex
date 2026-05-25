@@ -9,7 +9,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { WizardAgent } from "../../agents/wizard/agent.js";
-import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from "../../packages/truex-core/src/project-wizard.gall.js";
+import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from "../../packages/membrane/src/project-wizard.gall.js";
 
 /**
  * Report structure for Wizard proofs.

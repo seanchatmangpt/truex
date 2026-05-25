@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "savedAt": "2026-05-18T06:23:57.404Z",
+  "task": "discover-dfg",
+  "input": "/tmp/tiny-log.xes",
+  "activityKey": "concept:name",
+  "result": {
+    "status": "success",
+    "algorithm": "dfg",
+    "activityKey": "concept:name",
+    "input": "/tmp/tiny-log.xes",
+    "elapsedMs": 1.5,
+    "model": {
+      "nodes": [
+        {
+          "id": "A",
+          "label": "A",
+          "frequency": 2
+        },
+        {
+          "id": "B",
+          "label": "B",
+          "frequency": 1
+        }
+      ],
+      "edges": [
+        {
+          "from": "B",
+          "to": "A",
+          "frequency": 1,
+          "count": 1
+        },
+        {
+          "from": "A",
+          "to": "B",
+          "frequency": 1,
+          "count": 1
+        }
+      ],
+      "start_activities": {
+        "A": 1
+      },
+      "end_activities": {
+        "A": 1
+      }
+    },
+    "logStats": {
+      "total_cases": 1,
+      "total_events": 3
+    }
+  },
+  "output_hash": "c2de85670d299eead9be98bb778a2cefb74c7fb295d69b9ef1a783bf282f0186"
+}

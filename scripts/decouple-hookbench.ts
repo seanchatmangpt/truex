@@ -163,17 +163,17 @@ function runDecoupling() {
   // Group stress results by domain
   // Execution Domain: malformed input, capacity breach, nonmatching predicate, forbidden predicate, timing/memory nondeterminism, eval-only classification safety, benchmark metric calculation, WAL persistence mismatch, rollback failure, observatory stale report, Recursive Hook Storms, Cyclical Hook Activation, Cascading Rollback Divergence, Interrupted Receipt Persistence.
   // Replay Domain: receipt tamper, receipt chain reorder, replay input divergence, replay law divergence, seed/context divergence.
-  const executionStressIds = [
+  const executionStressIds = new Set([
     'stress-01', 'stress-02', 'stress-03', 'stress-04', 'stress-10', 
     'stress-11', 'stress-12', 'stress-13', 'stress-14', 'stress-15', 
     'stress-16', 'stress-17', 'stress-18', 'stress-19'
-  ];
-  const replayStressIds = [
+  ]);
+  const replayStressIds = new Set([
     'stress-05', 'stress-06', 'stress-07', 'stress-08', 'stress-09'
-  ];
+  ]);
 
-  const executionStressCases = rawData.stressResults.filter(s => executionStressIds.includes(s.id));
-  const replayStressCases = rawData.stressResults.filter(s => replayStressIds.includes(s.id));
+  const executionStressCases = rawData.stressResults.filter(s => executionStressIds.has(s.id));
+  const replayStressCases = rawData.stressResults.filter(s => replayStressIds.has(s.id));
 
   // Construct raw JSON payload
   const jsonPayload = {
@@ -348,7 +348,7 @@ ${JSON.stringify(jsonPayload, null, 2)}
 
 try {
   runDecoupling();
-} catch (e: any) {
-  console.error("❌ Decoupling failed:", e.message);
+} catch (error_: any) {
+  console.error("❌ Decoupling failed:", error_.message);
   process.exit(1);
 }

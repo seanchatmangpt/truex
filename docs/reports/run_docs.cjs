@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const files = [
   'src/context/context.js',
@@ -50,16 +50,16 @@ function processFile(filePath) {
     
     // insert after imports or at top
     if (content.startsWith('import ')) {
-      const lines = content.split('\\n');
+      const lines = content.split(String.raw`\n`);
       let insertIndex = 0;
-      for (let i = 0; i < lines.length; i++) {
-        if (!lines[i].startsWith('import ') && lines[i].trim() !== '') {
+      for (const [i, line] of lines.entries()) {
+        if (!line.startsWith('import ') && line.trim() !== '') {
           insertIndex = i;
           break;
         }
       }
       lines.splice(insertIndex, 0, header.trim());
-      content = lines.join('\\n');
+      content = lines.join(String.raw`\n`);
     } else {
       content = header + content;
     }
@@ -73,15 +73,11 @@ function processFile(filePath) {
   while ((match = exportRegex.exec(content)) !== null) {
     const fnName = match[1];
     const beforeStr = content.substring(lastIndex, match.index);
-    if (!beforeStr.trim().endsWith('*/')) {
-      newContent += beforeStr + `\\n/**\\n * ${fnName}\\n * @remarks Complies with Gall Law by executing exhaustive logic.\\n */\\n`;
-    } else {
-      newContent += beforeStr;
-    }
+    newContent += beforeStr.trim().endsWith('*/') ? beforeStr : beforeStr + `\\n/**\\n * ${fnName}\\n * @remarks Complies with Gall Law by executing exhaustive logic.\\n */\\n`;
     newContent += match[0];
     lastIndex = exportRegex.lastIndex;
   }
-  newContent += content.substring(lastIndex);
+  newContent += content.slice(Math.max(0, lastIndex));
   
   const constExportRegex = /^(?:export\s+)(?:const|let|var)\s+([a-zA-Z0-9_]+)\s*=/gm;
   let matchConst;
@@ -90,15 +86,11 @@ function processFile(filePath) {
   while ((matchConst = constExportRegex.exec(newContent)) !== null) {
     const fnName = matchConst[1];
     const beforeStr = newContent.substring(lastIndex, matchConst.index);
-    if (!beforeStr.trim().endsWith('*/')) {
-      newContent2 += beforeStr + `\\n/**\\n * ${fnName}\\n * @remarks Complies with Gall Law by executing exhaustive logic.\\n */\\n`;
-    } else {
-      newContent2 += beforeStr;
-    }
+    newContent2 += beforeStr.trim().endsWith('*/') ? beforeStr : beforeStr + `\\n/**\\n * ${fnName}\\n * @remarks Complies with Gall Law by executing exhaustive logic.\\n */\\n`;
     newContent2 += matchConst[0];
     lastIndex = constExportRegex.lastIndex;
   }
-  newContent2 += newContent.substring(lastIndex);
+  newContent2 += newContent.slice(Math.max(0, lastIndex));
   
   // Fix contract gap
   if (filePath.includes('contract-context.js')) {

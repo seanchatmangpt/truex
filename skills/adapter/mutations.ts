@@ -11,10 +11,10 @@ import { hash } from "../hash/mutations.js";
 import { createReceipt } from "../receipt/mutations.js";
 import { validateProposal } from "./invariant.js";
 import type { AgentProposal } from "./invariant.js";
-import type { TruexContext } from "../../packages/truex-core/src/context.js";
+import type { TruexContext } from "../../packages/membrane/src/context.js";
 import type { GallTruexSqliteEngine } from "../replay/mutations.js";
-import type { Receipt } from "../../packages/truex-core/src/runtime-law.js";
-import { parseGraphDelta } from "../../packages/truex-core/src/runtime-law.js";
+import type { Receipt } from "../../packages/membrane/src/runtime-law.js";
+import { parseGraphDelta } from "../../packages/membrane/src/runtime-law.js";
 
 /**
  * The primary interface for external agents to submit proposals.

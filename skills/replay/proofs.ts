@@ -10,9 +10,9 @@ import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { hash } from "../hash/mutations.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
 import { verifyConvergence, MemoryReceiptStore, GallTruexPureEngine, GallTruexSqliteEngine } from "./mutations.js";
-import type { HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
+import type { HookDefinition } from "../../packages/membrane/src/runtime-law.js";
 
 /**
  * Report structure for Replay proofs.

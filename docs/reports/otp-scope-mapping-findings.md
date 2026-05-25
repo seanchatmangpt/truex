@@ -1,15 +1,15 @@
 # OTP Scope Mapping Findings
 
-This document traces the implementation of the 15 OTP concepts across the `truex-core` codebase:
-- [context.ts](file:///Users/sac/truex/packages/truex-core/src/context.ts)
-- [hook.ts](file:///Users/sac/truex/packages/truex-core/src/hook.ts)
-- [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts)
+This document traces the implementation of the 15 OTP concepts across the `membrane` codebase:
+- [context.ts](file:///Users/sac/truex/packages/membrane/src/context.ts)
+- [hook.ts](file:///Users/sac/truex/packages/membrane/src/hook.ts)
+- [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts)
 
 ---
 
 ## 1. Actor/Process Identity
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L6-L58)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L6-L58)
 *   **Class/Function/Type Name:** `HookProcessId` (type), `HookProcess` (interface), `createHookProcess` (function)
 *   **Line Range:** L6, L33-42, L44-58
 *   **Source Quote / Implementation:**
@@ -50,7 +50,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 2. Mailbox
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L14-L31)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L14-L31)
 *   **Class/Function/Type Name:** `HookMailbox` (interface), `createHookMailbox` (function)
 *   **Line Range:** L14-20, L22-31
 *   **Source Quote / Implementation:**
@@ -79,7 +79,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 3. FIFO Ordering
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L26-L27)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L26-L27)
 *   **Class/Function/Type Name:** `createHookMailbox` (function)
 *   **Line Range:** L26-27 (within `createHookMailbox`), L194-201 (within `dispatchMessage`)
 *   **Source Quote / Implementation:**
@@ -93,7 +93,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 4. Message Dispatch
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L118-L301)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L118-L301)
 *   **Class/Function/Type Name:** `dispatchMessage` (function)
 *   **Line Range:** L118-301
 *   **Source Quote / Implementation:**
@@ -109,7 +109,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 5. Isolated Process State
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L51-L52)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L51-L52)
 *   **Class/Function/Type Name:** `createHookProcess` and `dispatchMessage` (functions)
 *   **Line Range:** L51-52 (during process creation), L207-213 (during message execution)
 *   **Source Quote / Implementation:**
@@ -134,7 +134,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 6. Supervisor
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L60-L79)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L60-L79)
 *   **Class/Function/Type Name:** `HookSupervisor` (interface), `createHookSupervisor` (function), supervision logic block in `dispatchMessage`
 *   **Line Range:** L60-79 (interface and creation), L248-287 (supervision block in `dispatchMessage`)
 *   **Source Quote / Implementation:**
@@ -168,7 +168,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 7. Restart Policy
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L62)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L62)
 *   **Class/Function/Type Name:** `HookSupervisor` (interface), `dispatchMessage` (function)
 *   **Line Range:** L62 (policy type), L251-255 (policy check)
 *   **Source Quote / Implementation:**
@@ -192,7 +192,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 8. Restart Budget
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L255-L287)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L255-L287)
 *   **Class/Function/Type Name:** `dispatchMessage` (function)
 *   **Line Range:** L255-287
 *   **Source Quote / Implementation:**
@@ -226,7 +226,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 9. Poison Message Quarantine
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L81-L86)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L81-L86)
 *   **Class/Function/Type Name:** `HookQuarantineRecord` (interface), `dispatchMessage` (function)
 *   **Line Range:** L81-86, L258-264, L278-284, L291-296
 *   **Source Quote / Implementation:**
@@ -244,7 +244,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 10. Crash Containment
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L205-L300)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L205-L300)
 *   **Class/Function/Type Name:** `dispatchMessage` (function)
 *   **Line Range:** L205-300
 *   **Source Quote / Implementation:**
@@ -269,7 +269,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 11. Receipt per Message
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L218-L226) (OTP runtime); [hook.ts](file:///Users/sac/truex/packages/truex-core/src/hook.ts#L61-L69) (Primitive hook)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L218-L226) (OTP runtime); [hook.ts](file:///Users/sac/truex/packages/membrane/src/hook.ts#L61-L69) (Primitive hook)
 *   **Class/Function/Type Name:** `dispatchMessage` (function), `TruexHook.execute` (method)
 *   **Line Range:** L218-226 and L237-245 (in `hook-otp.gall.ts`), L61-69 (in `hook.ts`)
 *   **Source Quote / Implementation:**
@@ -302,7 +302,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 12. Replay per Message
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L303-L326) (OTP runtime); [hook.ts](file:///Users/sac/truex/packages/truex-core/src/hook.ts#L77-L91) (Primitive hook)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L303-L326) (OTP runtime); [hook.ts](file:///Users/sac/truex/packages/membrane/src/hook.ts#L77-L91) (Primitive hook)
 *   **Class/Function/Type Name:** `replayMessage` (function), `TruexHook.replay` (method)
 *   **Line Range:** L303-326 (in `hook-otp.gall.ts`), L77-91 (in `hook.ts`)
 *   **Source Quote / Implementation:**
@@ -337,7 +337,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 13. Deterministic Context
 
-*   **File Path:** [context.ts](file:///Users/sac/truex/packages/truex-core/src/context.ts#L11-L56)
+*   **File Path:** [context.ts](file:///Users/sac/truex/packages/membrane/src/context.ts#L11-L56)
 *   **Class/Function/Type Name:** `createDeterministicContext` (function)
 *   **Line Range:** L11-56
 *   **Source Quote / Implementation:**
@@ -354,7 +354,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 14. Backpressure/Capacity Refusal
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L176-L192)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L176-L192)
 *   **Class/Function/Type Name:** `dispatchMessage` (function)
 *   **Line Range:** L176-192
 *   **Source Quote / Implementation:**
@@ -382,7 +382,7 @@ This document traces the implementation of the 15 OTP concepts across the `truex
 
 ## 15. Lifecycle Report
 
-*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/truex-core/src/hook-otp.gall.ts#L442-L491)
+*   **File Path:** [hook-otp.gall.ts](file:///Users/sac/truex/packages/membrane/src/hook-otp.gall.ts#L442-L491)
 *   **Class/Function/Type Name:** `runHookOtpProof` (function)
 *   **Line Range:** L442-491
 *   **Source Quote / Implementation:**

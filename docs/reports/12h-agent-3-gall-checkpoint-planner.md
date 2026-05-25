@@ -22,16 +22,16 @@ graph TD
 
 | ID | Agent Role | Domain | Proof Command | Success Metric | Refusal Condition |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `cp-cli-contract` | **Agent 1** (CLI/Routing) | CLI & Routing | `npx vitest run packages/truex-core/test/project-wizard/project-wizard-cli.test.ts` | All CLI commands exit 0 and emit command receipts. | Missing project-path or invalid sub-verb routes. |
-| `cp-project-cell` | **Agent 2** (Layout/Mapping) | Cell & Topology | `npx vitest run packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts` | Init creates exact folder hierarchy, map parses all repo inventory. | Attempting to write outside project boundaries or read traversals. |
-| `cp-checkpoint-plan` | **Agent 3** (Checkpoint Planner) | Planner & Registry | `npx vitest run packages/truex-core/test/project-wizard/project-wizard-plan.test.ts` | Correct schema registry with stable verification hashes. | Vague descriptions, missing proof command, or missing accounting details. |
-| `cp-execution-proof` | **Agent 4** (Execution/Hardening) | Execution & Proof | `npx vitest run packages/truex-core/test/project-wizard/project-wizard-execution.test.ts` | Capture exit codes, duration metrics, run stress, update execution ledgers. | Failed tests mark successes, or unreceipted delta changes execute. |
-| `cp-mission-handoff` | **Agent 5** (Handoff/Gates) | Enforcement & Handoff | `npx vitest run packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts` | Reject handoffs before 12h elapsed, check doctor proof wizard validations. | Allowing premature finalizations, or missing agent synthesis files. |
+| `cp-cli-contract` | **Agent 1** (CLI/Routing) | CLI & Routing | `npx vitest run packages/membrane/test/project-wizard/project-wizard-cli.test.ts` | All CLI commands exit 0 and emit command receipts. | Missing project-path or invalid sub-verb routes. |
+| `cp-project-cell` | **Agent 2** (Layout/Mapping) | Cell & Topology | `npx vitest run packages/membrane/test/project-wizard/project-wizard-init-map.test.ts` | Init creates exact folder hierarchy, map parses all repo inventory. | Attempting to write outside project boundaries or read traversals. |
+| `cp-checkpoint-plan` | **Agent 3** (Checkpoint Planner) | Planner & Registry | `npx vitest run packages/membrane/test/project-wizard/project-wizard-plan.test.ts` | Correct schema registry with stable verification hashes. | Vague descriptions, missing proof command, or missing accounting details. |
+| `cp-execution-proof` | **Agent 4** (Execution/Hardening) | Execution & Proof | `npx vitest run packages/membrane/test/project-wizard/project-wizard-execution.test.ts` | Capture exit codes, duration metrics, run stress, update execution ledgers. | Failed tests mark successes, or unreceipted delta changes execute. |
+| `cp-mission-handoff` | **Agent 5** (Handoff/Gates) | Enforcement & Handoff | `npx vitest run packages/membrane/test/project-wizard/project-wizard-handoff.test.ts` | Reject handoffs before 12h elapsed, check doctor proof wizard validations. | Allowing premature finalizations, or missing agent synthesis files. |
 
 ---
 
 ## 3. Detailed Review of `project-wizard.gall.ts`
-The code implementation in `packages/truex-core/src/project-wizard.gall.ts` handles checkpoint planning, validation, and registry output.
+The code implementation in `packages/membrane/src/project-wizard.gall.ts` handles checkpoint planning, validation, and registry output.
 
 ### A. Proposing & Registering Checkpoints
 The planning phase is initiated by invoking the `plan` method on `CheckpointPlanner`.
@@ -55,7 +55,7 @@ The schema checking in `validateCheckpoint` blocks incomplete or vague inputs:
 ---
 
 ## 4. Detailed Review of `project-wizard-plan.test.ts`
-The test file `packages/truex-core/test/project-wizard/project-wizard-plan.test.ts` verifies:
+The test file `packages/membrane/test/project-wizard/project-wizard-plan.test.ts` verifies:
 1. **Successful Execution**:
    - Initializes a temporary directory.
    - Instantiates a `ProjectCell` and calls `init`.
@@ -86,7 +86,7 @@ Through a detailed review of the implementation files, several critical gaps and
 * **Violation**: Directly violates the **Universal Implementation Standards** ("Never write placeholders, stubs, or mocks in any codebase").
 
 ### Gap 4: Testing Law & Entropy Law Gaps in Test Suite
-* **Location**: `packages/truex-core/test/project-wizard/project-wizard-plan.test.ts`
+* **Location**: `packages/membrane/test/project-wizard/project-wizard-plan.test.ts`
 * **Drift Description**:
   - The tests do not verify tamper detection (e.g. modifying a checkpoint file and ensuring validation fails).
   - The tests do not check replay correctness or rollback capabilities.
@@ -120,12 +120,12 @@ All test files within the project-wizard domain pass successfully:
 ```
  RUN  v4.1.7 /Users/sac/truex
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-cli.test.ts (3 tests) 753ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-cli.test.ts (3 tests) 753ms
      ✓ should run all 8 CLI subcommands in sequence and emit receipts  745ms
- ✓ packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts (2 tests) 14ms
- ✓ packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts (1 test) 12ms
- ✓ packages/truex-core/test/project-wizard/project-wizard-execution.test.ts (1 test) 12ms
- ✓ packages/truex-core/test/project-wizard/project-wizard-plan.test.ts (1 test) 9ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-init-map.test.ts (2 tests) 14ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-handoff.test.ts (1 test) 12ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-execution.test.ts (1 test) 12ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-plan.test.ts (1 test) 9ms
 
  Test Files  5 passed (5)
       Tests  8 passed (8)

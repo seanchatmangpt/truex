@@ -2,7 +2,7 @@
 
 This report documents the verification and testing of deterministic replay capabilities across independent hook branches, receipt chain convergence under varying scheduling orders, global normalized topology hashing, and Virtual Knowledge Graph (VKG) projection divergence.
 
-All tests are implemented in the test suite: [topology-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/truex-core/test/topology/topology-partial-order-vkg.test.ts).
+All tests are implemented in the test suite: [topology-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/membrane/test/topology/topology-partial-order-vkg.test.ts).
 
 ---
 
@@ -51,7 +51,7 @@ All tests are implemented in the test suite: [topology-partial-order-vkg.test.ts
 ```bash
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/topology/topology-partial-order-vkg.test.ts (6 tests) 16ms
+ ✓ packages/membrane/test/topology/topology-partial-order-vkg.test.ts (6 tests) 16ms
 
  Test Files  1 passed (1)
       Tests  6 passed (6)
@@ -64,5 +64,5 @@ All tests are implemented in the test suite: [topology-partial-order-vkg.test.ts
 ## 3. Structural Hardening & Invariant Fixes
 
 During the implementation of this verification layer, a subtle hash mismatch was identified in `verifyReceipt`:
-- **Issue:** The parser function `parseReceipt` in [runtime-law.ts](file:///Users/sac/truex/packages/truex-core/src/runtime-law.ts) assigns `undefined` values to optional fields (`rollbackOf`, `failedChildId`, `reason`). However, when receipts are initially hashed during creation inside `createReceipt` in [mutations.ts](file:///Users/sac/truex/skills/receipt/mutations.ts), those keys are not present in the object literal. Due to key ordering/existence rules in `stableJson`, the hash verification failed.
+- **Issue:** The parser function `parseReceipt` in [runtime-law.ts](file:///Users/sac/truex/packages/membrane/src/runtime-law.ts) assigns `undefined` values to optional fields (`rollbackOf`, `failedChildId`, `reason`). However, when receipts are initially hashed during creation inside `createReceipt` in [mutations.ts](file:///Users/sac/truex/skills/receipt/mutations.ts), those keys are not present in the object literal. Due to key ordering/existence rules in `stableJson`, the hash verification failed.
 - **Fix:** Hardened [invariant.ts](file:///Users/sac/truex/skills/receipt/invariant.ts#L16-L23) to clone and delete properties with `undefined` values from the object prior to hashing, ensuring consistency and restoring 100% test success across all core primitives.

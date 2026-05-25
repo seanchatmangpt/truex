@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779613044677-2u6k6ci",
+  "spanId": "span-unknown",
+  "startTime": 1779613044677,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"project-evidence-gapclose\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779613045234,
+      "attributes": {
+        "primitive": "project-evidence-gapclose",
+        "receiptHash": "a01e2c498fb19dbaee32b95809755d374830548cd40dd50d49bbbc22419106c2",
+        "status": "confirmed",
+        "executionTimeMs": 4,
+        "invariantsCount": 12,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779613045234,
+  "durationMs": 557
+}

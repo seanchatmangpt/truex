@@ -152,7 +152,7 @@ Below is the verified metrics compilation from `docs/benchmarks/persistent-mailb
 
 ## 5. Invariant State Space Matrix
 
-We ran the complete suite of **48 tests** across 9 persistent mailbox test suites in `packages/truex-core/test/persistent-mailbox/`:
+We ran the complete suite of **48 tests** across 9 persistent mailbox test suites in `packages/membrane/test/persistent-mailbox/`:
 
 ```text
  ✓ State Machine Transitions (9 tests)

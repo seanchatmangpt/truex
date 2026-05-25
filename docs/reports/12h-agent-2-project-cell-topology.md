@@ -177,22 +177,22 @@ The verification suite runs vitest to execute S11 integration tests.
 ```bash
  RUN  v4.1.7 /Users/sac/truex
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-cli.test.ts (3 tests) 790ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-cli.test.ts (3 tests) 790ms
      ✓ should resolve paths within the project boundary and refuse path traversal (Passed)
      ✓ should emit correct command receipt on init (Passed)
      ✓ should run all 8 CLI subcommands in sequence and emit receipts (Passed)
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts (2 tests) 15ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-init-map.test.ts (2 tests) 15ms
      ✓ should initialize folders and project files idempotently (Passed)
      ✓ should build project topology facts and generate C4 maps (Passed)
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-execution.test.ts (1 test) 13ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-execution.test.ts (1 test) 13ms
      ✓ should execute forge, bind, prove, and harden (Passed)
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-handoff.test.ts (1 test) 13ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-handoff.test.ts (1 test) 13ms
      ✓ should verify handoff gates based on agent reports and accounting (Passed)
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-plan.test.ts (1 test) 10ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-plan.test.ts (1 test) 10ms
      ✓ should propose and plan checkpoints from topology (Passed)
 
  Test Files  5 passed (5)

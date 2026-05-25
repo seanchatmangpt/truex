@@ -46,32 +46,32 @@ export function proveTelco(): TelcoProofReport {
 
     // 2. Tamper the envelope ocel payload
     const tamperedOcelEnvelope = JSON.parse(JSON.stringify(envelope));
-    tamperedOcelEnvelope.ocel.objects[0]['ocel:attributes'].balance = 999999; // modify balance unlawfully
+    tamperedOcelEnvelope.ocel.objects[0]['ocel:attributes'].balance = 999_999; // modify balance unlawfully
     
-    if (!OcelCollector.verifyEnvelope(tamperedOcelEnvelope)) {
-      invariants.push("tampered ocel payload fails validation (tamper resistance proof)");
-    } else {
+    if (OcelCollector.verifyEnvelope(tamperedOcelEnvelope)) {
       failures.push("failed to reject tampered ocel payload");
+    } else {
+      invariants.push("tampered ocel payload fails validation (tamper resistance proof)");
     }
 
     // 3. Tamper the batch hash
     const tamperedHashEnvelope = JSON.parse(JSON.stringify(envelope));
     tamperedHashEnvelope.ocelBatchHash = "corrupted_hash";
     
-    if (!OcelCollector.verifyEnvelope(tamperedHashEnvelope)) {
-      invariants.push("tampered ocelBatchHash fails validation (tamper resistance proof)");
-    } else {
+    if (OcelCollector.verifyEnvelope(tamperedHashEnvelope)) {
       failures.push("failed to reject tampered ocelBatchHash");
+    } else {
+      invariants.push("tampered ocelBatchHash fails validation (tamper resistance proof)");
     }
 
     // 4. Tamper the receipt hash
     const tamperedReceiptEnvelope = JSON.parse(JSON.stringify(envelope));
     tamperedReceiptEnvelope.receiptHash = "corrupted_receipt_hash";
     
-    if (!OcelCollector.verifyEnvelope(tamperedReceiptEnvelope)) {
-      invariants.push("tampered receiptHash fails validation (tamper resistance proof)");
-    } else {
+    if (OcelCollector.verifyEnvelope(tamperedReceiptEnvelope)) {
       failures.push("failed to reject tampered receiptHash");
+    } else {
+      invariants.push("tampered receiptHash fails validation (tamper resistance proof)");
     }
 
   } catch (error: any) {

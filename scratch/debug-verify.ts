@@ -1,6 +1,6 @@
 import { OcelCollector, canonicalStringify } from "../skills/membrane/mutations.js";
 import { TelcoAgent } from "../agents/telco/agent.js";
-import { hash } from "../packages/truex-core/src/index.js";
+import { hash } from "../packages/membrane/src/index.js";
 
 const agent = new TelcoAgent();
 const sample = agent.ingestTransition(

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779615288213-wtxn3y5",
+  "spanId": "span-unknown",
+  "startTime": 1779615288213,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-contracts\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779615288719,
+      "attributes": {
+        "primitive": "wizard-contracts",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779615288719,
+  "durationMs": 506
+}

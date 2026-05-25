@@ -63,7 +63,7 @@ Duration and status for the seven CLI commands executed during ecosystem validat
 | Verification Command | Exit Code | Passed | Failed | Duration (ms) | Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `vitest run hook-otp-nonmockable-stress.test` | `0.000` | `true` | `false` | `4200.000` | OTP non-mockable stress vitest run complete |
-| `vitest run packages/truex-core/test/hook-otp` | `0.000` | `true` | `false` | `3990.000` | OTP standard unit test run complete |
+| `vitest run packages/membrane/test/hook-otp` | `0.000` | `true` | `false` | `3990.000` | OTP standard unit test run complete |
 | `truex doctor prove hook-otp` | `0.000` | `true` | `false` | `1500.000` | Doctor prove hook-otp validation complete |
 | `truex doctor prove benchmark` | `0.000` | `true` | `false` | `1823.000` | Doctor prove benchmark validation complete |
 | `truex doctor prove ecosystem` | `0.000` | `true` | `false` | `21618.000` | Self-invocation doctor ecosystem proof wrapper |

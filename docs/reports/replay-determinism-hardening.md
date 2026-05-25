@@ -17,7 +17,7 @@ By transitioning from $A = \mu(O^*, \epsilon_t)$ to $A = \mu(O^*)$, we can elimi
 
 ## 2. Seed-Sequence Drift & Entropy Scheduler Dependency
 
-### 2.1 Analysis of `packages/truex-core/src/benchmark/hookbench.gall.ts`
+### 2.1 Analysis of `packages/membrane/src/benchmark/hookbench.gall.ts`
 
 In `hookbench.gall.ts`, the benchmark execution uses a shared execution context `ctx` initialized with a single seed:
 ```typescript

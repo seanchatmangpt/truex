@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779651052722-rnih7tx",
+  "spanId": "span-unknown",
+  "startTime": 1779651052723,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779651053295,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779651053295,
+  "durationMs": 572
+}

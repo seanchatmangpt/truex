@@ -1,6 +1,6 @@
 # Antigravity Artifact: Persistence
 
-> **Generated:** 2026-05-24T10:01:57.953Z
+> **Generated:** 2026-05-25T18:57:23.665Z
 > **Version:** 1.0.0
 
 ## Persistence Layer

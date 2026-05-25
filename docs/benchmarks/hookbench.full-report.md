@@ -1,15 +1,15 @@
 # Hookbench Full Report
 
-**Timestamp:** 2026-05-24T10:01:54.752Z
-**Report Hash:** 415f7945865e80da79e2192fb8e9ba24955de0bb05002c10652819d11ceee135
+**Timestamp:** 2026-05-25T18:57:19.640Z
+**Report Hash:** bf74ecce9022faa59fe1b53a393606fbc86f822654b6c4249ccfd068789386ac
 
 ## Execution Summary
 
 | Metric | T0 | T1 | T2 | T3 |
 |--------|----|----|----|----|
-| Evaluations | 1 | 10,000 | 1,000,000 | 1,000,000 |
-| Ops/sec | 571.211 | 2335130.450 | 17075433.477 | 51277667.699 |
-| Receipts | 1 | 48 | 495 | 0 |
+| Evaluations | 1 | 100 | 400 | 400 |
+| Ops/sec | 533.618 | 244125.725 | 521767.487 | 34284734.723 |
+| Receipts | 1 | 5 | 10 | 0 |
 
 ## Tier T3 Details (Evaluation-Only: true)
 
@@ -19,23 +19,23 @@
 | Platform | darwin |
 | Architecture | arm64 |
 | CPU Model | Apple M3 Max |
-| Memory Before (MB) | 144.471 |
-| Memory After (MB) | 146.914 |
+| Memory Before (MB) | 122.287 |
+| Memory After (MB) | 122.367 |
 
 ## Metrics Breakdown
 
 | Metric | Value |
 |--------|-------|
-| Registered Hooks | 1,000 |
-| Processed Deltas | 1,000 |
-| Total Evaluations | 1,000,000 |
-| Matched Hooks Count | 495 |
-| Match Rate Observed | 0.050% |
-| Effects Produced | 495 |
+| Registered Hooks | 20 |
+| Processed Deltas | 20 |
+| Total Evaluations | 400 |
+| Matched Hooks Count | 10 |
+| Match Rate Observed | 2.500% |
+| Effects Produced | 10 |
 | Receipts Generated | 0 |
 | Replay Converged | 0 |
 | Refused Count | 0 |
-| Runtime (ms) | 19.502 |
+| Runtime (ms) | 0.012 |
 
 ## Determinism
 - **Seed:** 42

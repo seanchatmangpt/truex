@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779639916583-8jatga6",
+  "spanId": "span-unknown",
+  "startTime": 1779639916583,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"telco\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779639917221,
+      "attributes": {
+        "primitive": "telco",
+        "status": "confirmed",
+        "executionTimeMs": 183,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779639917221,
+  "durationMs": 638
+}

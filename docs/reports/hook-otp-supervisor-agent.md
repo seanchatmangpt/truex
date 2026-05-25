@@ -9,7 +9,7 @@
 
 ## Verification Evidence
 
-Unit tests in [hook-otp-supervisor.test.ts](file:///Users/sac/truex/packages/truex-core/test/hook-otp/hook-otp-supervisor.test.ts) verify:
+Unit tests in [hook-otp-supervisor.test.ts](file:///Users/sac/truex/packages/membrane/test/hook-otp/hook-otp-supervisor.test.ts) verify:
 *   Transient crashes successfully trigger supervisor restarts.
 *   Budget exhaustion halts the target process cleanly.
 *   Halting process A does not interrupt message evaluation in process B.

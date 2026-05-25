@@ -4,97 +4,97 @@
     "arch": "arm64",
     "cpu": "Apple M3 Max",
     "nodeVersion": "v24.15.0",
-    "timestamp": "2026-05-24T10:01:04.066Z"
+    "timestamp": "2026-05-25T18:56:02.911Z"
   },
   "tenantMetrics": {
-    "creationLatencyP50": 0.1698749999999336,
-    "creationLatencyP95": 0.3262080000001788,
-    "creationLatencyP99": 0.36170799999990777,
-    "opLatencyP50": 0.0012910000000374566,
-    "opLatencyP95": 0.003041000000052918,
-    "opLatencyP99": 0.011000000000080945,
-    "heapBeforeMb": 13.87,
-    "heapAfterMb": 40.9,
-    "heapPostGcMb": 43.94,
+    "creationLatencyP50": 0.17358300000000781,
+    "creationLatencyP95": 0.3451249999998254,
+    "creationLatencyP99": 0.38304200000015953,
+    "opLatencyP50": 0.001249999999913598,
+    "opLatencyP95": 0.003249999999979991,
+    "opLatencyP99": 0.009584000000018023,
+    "heapBeforeMb": 14.11,
+    "heapAfterMb": 40.91,
+    "heapPostGcMb": 43.89,
     "stateBleedDetected": false
   },
   "auditMetrics": {
-    "initialHeapMb": 44,
-    "finalHeapMb": 118.1,
-    "peakHeapMb": 118.1,
-    "initialRssMb": 108.72,
+    "initialHeapMb": 43.95,
+    "finalHeapMb": 118.05,
+    "peakHeapMb": 118.05,
+    "initialRssMb": 109.22,
     "finalRssMb": 214.47,
     "peakRssMb": 214.47,
     "steps": [
       {
         "entriesCount": 10000,
-        "heapUsedMb": 44.07,
-        "rssMb": 137.64,
-        "durationMs": 32.5,
-        "opsPerSec": 307719.93
+        "heapUsedMb": 44.04,
+        "rssMb": 138.06,
+        "durationMs": 29.65,
+        "opsPerSec": 337225.96
       },
       {
         "entriesCount": 20000,
-        "heapUsedMb": 57.35,
-        "rssMb": 149.52,
-        "durationMs": 22.5,
-        "opsPerSec": 444438.68
+        "heapUsedMb": 57.31,
+        "rssMb": 149.63,
+        "durationMs": 21.36,
+        "opsPerSec": 468271.67
       },
       {
         "entriesCount": 30000,
-        "heapUsedMb": 51.85,
-        "rssMb": 169.72,
-        "durationMs": 25.45,
-        "opsPerSec": 392918.94
+        "heapUsedMb": 51.78,
+        "rssMb": 169.75,
+        "durationMs": 23.48,
+        "opsPerSec": 425960.9
       },
       {
         "entriesCount": 40000,
-        "heapUsedMb": 65.31,
-        "rssMb": 172.13,
-        "durationMs": 21.1,
-        "opsPerSec": 473851.32
+        "heapUsedMb": 65.24,
+        "rssMb": 172.19,
+        "durationMs": 20.06,
+        "opsPerSec": 498506.57
       },
       {
         "entriesCount": 50000,
-        "heapUsedMb": 77.9,
-        "rssMb": 173.72,
-        "durationMs": 20.92,
-        "opsPerSec": 477947.71
+        "heapUsedMb": 77.83,
+        "rssMb": 173.75,
+        "durationMs": 19.8,
+        "opsPerSec": 504944.24
       },
       {
         "entriesCount": 60000,
-        "heapUsedMb": 65.77,
-        "rssMb": 184.41,
-        "durationMs": 24.87,
-        "opsPerSec": 402152.87
+        "heapUsedMb": 65.71,
+        "rssMb": 184.44,
+        "durationMs": 23.25,
+        "opsPerSec": 430055.12
       },
       {
         "entriesCount": 70000,
-        "heapUsedMb": 78.36,
-        "rssMb": 185.98,
-        "durationMs": 20.82,
-        "opsPerSec": 480224.75
+        "heapUsedMb": 78.31,
+        "rssMb": 186.02,
+        "durationMs": 19.55,
+        "opsPerSec": 511621.27
       },
       {
         "entriesCount": 80000,
-        "heapUsedMb": 90.95,
-        "rssMb": 188.61,
-        "durationMs": 21.09,
-        "opsPerSec": 474253.94
+        "heapUsedMb": 90.9,
+        "rssMb": 188.63,
+        "durationMs": 19.73,
+        "opsPerSec": 506919.45
       },
       {
         "entriesCount": 90000,
-        "heapUsedMb": 105.51,
-        "rssMb": 202.52,
-        "durationMs": 22.44,
-        "opsPerSec": 445588.93
+        "heapUsedMb": 105.46,
+        "rssMb": 202.53,
+        "durationMs": 20.97,
+        "opsPerSec": 476956.06
       },
       {
         "entriesCount": 100000,
-        "heapUsedMb": 118.1,
+        "heapUsedMb": 118.05,
         "rssMb": 214.47,
-        "durationMs": 22.11,
-        "opsPerSec": 452325.79
+        "durationMs": 20.6,
+        "opsPerSec": 485533.15
       }
     ],
     "totalWrites": 100000,

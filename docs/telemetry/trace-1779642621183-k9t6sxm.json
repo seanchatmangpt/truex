@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779642621183-k9t6sxm",
+  "spanId": "span-unknown",
+  "startTime": 1779642621183,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"unified-integration\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779642621495,
+      "attributes": {
+        "primitive": "unified-integration",
+        "status": "confirmed",
+        "executionTimeMs": 36,
+        "invariantsCount": 18,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779642621495,
+  "durationMs": 312
+}

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779616298233-e62iodl",
+  "spanId": "span-unknown",
+  "startTime": 1779616298233,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779616299080,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 5,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779616299079,
+  "durationMs": 846
+}

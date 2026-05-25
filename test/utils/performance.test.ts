@@ -7,9 +7,9 @@ import {
   identifyBottlenecks,
   runBenchmarks,
   generateReport
-} from '../../packages/truex-core/src/utils/proxy-overhead.ts'
-import { measureTime, measureTimeAsync, OperationTracker } from '../../packages/truex-core/src/utils/timing.ts'
-import { estimateMemoryUsage, MemoryLeakDetector, MemoryMonitor } from '../../packages/truex-core/src/utils/memory.ts'
+} from '../../packages/membrane/src/utils/proxy-overhead.ts'
+import { measureTime, measureTimeAsync, OperationTracker } from '../../packages/membrane/src/utils/timing.ts'
+import { estimateMemoryUsage, MemoryLeakDetector, MemoryMonitor } from '../../packages/membrane/src/utils/memory.ts'
 
 describe('Performance utilities', () => {
   describe('Proxy performance', () => {

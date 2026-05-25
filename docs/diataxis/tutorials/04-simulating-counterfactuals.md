@@ -15,7 +15,7 @@ To understand how counterfactuals work, we look back to our three core pillars:
 Counterfactuals require a baseline to compare against. Let's load a standard execution receipt that represents a "normal" historical run.
 
 ```typescript
-import { SimulatorEngine } from '@truex/core/simulation';
+import { SimulatorEngine } from '@truex/membrane/simulation';
 import fs from 'fs';
 
 // Load a historical receipt from disk or database

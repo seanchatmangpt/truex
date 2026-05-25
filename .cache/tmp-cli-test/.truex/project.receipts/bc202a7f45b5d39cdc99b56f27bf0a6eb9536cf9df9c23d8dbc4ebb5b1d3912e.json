@@ -1,0 +1,16 @@
+{
+  "receipt_id": "receipt-map-1716480000004",
+  "verb": "map",
+  "project_cell_id": "9972daab-2c86-459f-9d78-3fe1be4e3280",
+  "attempt_id": "484b13a8-aeb1-4d16-b16e-f1231c045c7b",
+  "decision_id": "decision-9ce613b8-ef47-442d-85d2-1efe90ea6f94",
+  "parent_receipt_hash": "b23dba72266fe210fd7cd4cdb47074c1b780a4df74685a1ad7f5af31306fc99e",
+  "input_hash": "613894f75b50d609ab16dfd8a4efd19f1145ed6d7a11db8ea878fe04d86775a0",
+  "output_hash": "b517b5dbe772f2dd8f2d5b8dcaf968c5f9ed0a29adc5c55dfaba29e46722ffa5",
+  "project_root_hash_before": "820c9b7d5b3ed3d50b4c980bcc26bda62fd6858749e1f7bff3ca8483f13f00a8",
+  "project_root_hash_after": "820c9b7d5b3ed3d50b4c980bcc26bda62fd6858749e1f7bff3ca8483f13f00a8",
+  "mailbox_transition_id": null,
+  "replay_fixture_id": null,
+  "accounting_entry_id": null,
+  "created_at_monotonic": 1716480000005
+}

@@ -37,6 +37,7 @@ export function createCapabilityContext(target, capabilities = {}) {
     canDelete: normalizeCapability(capabilities.canDelete, new Set()),
     canConstruct: normalizeCapability(capabilities.canConstruct, false),
     canApply: normalizeCapability(capabilities.canApply, false),
+    logicEngine: capabilities.logicEngine || null,
   }
 
   // Return context with capabilities stored for use with call()
@@ -132,6 +133,12 @@ export function createSetInterceptor(capabilityContext) {
     }
 
     if (!hasPropertyCapability(capabilities.canWrite, prop)) {
+      if (capabilities.logicEngine) {
+        if (!capabilities.logicEngine.query({ predicate: 'admissible', args: [prop] })) {
+          return false
+        }
+        return undefined
+      }
       return false
     }
 

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779616557287-bsd5u3z",
+  "spanId": "span-unknown",
+  "startTime": 1779616557287,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779616563833,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "confirmed",
+        "executionTimeMs": 6085,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779616563833,
+  "durationMs": 6546
+}

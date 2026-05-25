@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779649810877-lppvoca",
+  "spanId": "span-unknown",
+  "startTime": 1779649810877,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"lifecycle-benchmarks\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779649816221,
+      "attributes": {
+        "primitive": "lifecycle-benchmarks",
+        "status": "refused",
+        "executionTimeMs": 4889,
+        "invariantsCount": 3,
+        "failuresCount": 1
+      }
+    }
+  ],
+  "endTime": 1779649816221,
+  "durationMs": 5344
+}

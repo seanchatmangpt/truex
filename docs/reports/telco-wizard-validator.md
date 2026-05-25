@@ -19,11 +19,11 @@ This report documents the verification and validation outcomes of the Telco and 
 
 The following integration test suites were created and verified:
 
-- [telco-integration.test.ts](file:///Users/sac/truex/packages/truex-core/test/integration/telco-integration.test.ts)
+- [telco-integration.test.ts](file:///Users/sac/truex/packages/membrane/test/integration/telco-integration.test.ts)
   - Validates programmatic ingestion and verification of OCEL 2.0 receipt envelopes.
   - Tests tamper resistance by asserting validation failure on mutated envelopes.
   - Verifies the `telco ingest` and `telco validate` CLI commands (including file-path envelope input).
-- [wizard-integration.test.ts](file:///Users/sac/truex/packages/truex-core/test/integration/wizard-integration.test.ts)
+- [wizard-integration.test.ts](file:///Users/sac/truex/packages/membrane/test/integration/wizard-integration.test.ts)
   - Validates transaction lifecycle commits and Jidoka-driven rollbacks.
   - Tests multi-step transaction walkthroughs propagating state changes.
   - Verifies `wizard simulate` and `wizard walkthrough` CLI commands, asserting correct execution and refusal pathways.
@@ -127,8 +127,8 @@ Runs a series of sequential transactions, propagating state updates for committe
 ```text
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/integration/wizard-integration.test.ts (6 tests)
- ✓ packages/truex-core/test/integration/telco-integration.test.ts (5 tests)
+ ✓ packages/membrane/test/integration/wizard-integration.test.ts (6 tests)
+ ✓ packages/membrane/test/integration/telco-integration.test.ts (5 tests)
 
  Test Files  2 passed (2)
       Tests  11 passed (11)

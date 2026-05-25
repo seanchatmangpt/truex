@@ -14,12 +14,12 @@ import { verifyReceipt } from "../receipt/invariant.js";
 import {
   createDeterministicContext,
   type TruexContext,
-} from "../../packages/truex-core/src/context.js";
+} from "../../packages/membrane/src/context.js";
 import {
   parseGraphDelta,
   parseReceipt,
   parseHookDefinition,
-} from "../../packages/truex-core/src/runtime-law.js";
+} from "../../packages/membrane/src/runtime-law.js";
 import type {
   GraphDelta,
   HookCondition,
@@ -28,7 +28,7 @@ import type {
   HookEvent,
   Receipt,
   Quad,
-} from "../../packages/truex-core/src/runtime-law.js";
+} from "../../packages/membrane/src/runtime-law.js";
 
 /**
  * Represents the result of an engine evaluation.
@@ -157,7 +157,7 @@ export class GallTruexPureEngine {
       previousReceiptHash,
       parentSeed: ctx.seed
     });
-    const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+    const stepSeed = Number.parseInt(stepSeedHash.slice(0, 8), 16) >>> 0;
     const stepCtx = createDeterministicContext(stepSeed);
 
     const matchedHooks = this.hooks.filter((hook) =>
@@ -324,7 +324,7 @@ export class GallTruexSqliteEngine {
       previousReceiptHash,
       parentSeed: ctx.seed
     });
-    const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+    const stepSeed = Number.parseInt(stepSeedHash.slice(0, 8), 16) >>> 0;
     const stepCtx = createDeterministicContext(stepSeed);
 
     const matchedHooks = this.hooks.filter((hook) =>

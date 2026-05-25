@@ -1,5 +1,5 @@
-import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
+import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/membrane/src/hook-otp.gall.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
 const runtime = createHookOtpRuntime();
 const idempotentBehavior = (state, msg) => { 
   if (state.processedMessageIds.has(msg.id)) {

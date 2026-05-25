@@ -40,7 +40,7 @@ export class SeededPRNG {
 
 ## Verifications & Proofs
 
-The generator is covered by tests in [generator.test.ts](file:///Users/sac/truex/packages/truex-core/test/benchmark/generator.test.ts), which verify:
+The generator is covered by tests in [generator.test.ts](file:///Users/sac/truex/packages/membrane/test/benchmark/generator.test.ts), which verify:
 *   **Determinism:** Two generators initialized with the same seed produce identical lists of hooks and deltas.
 *   **Entropy:** Changing the seed creates entirely different delta contents, resulting in unique cryptographic hashes.
 *   **Match Ratio Control:** `generateChurchDeltas` uses the PRNG state to control whether a generated delta's predicate matches the pool of registered hook predicates. The observed match rate closely approximates the configured `matchRatio` within statistical tolerance (e.g. $\pm 0.2$).

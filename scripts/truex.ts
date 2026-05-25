@@ -7,7 +7,35 @@
  * to assert deterministic consequence, receipts, and replay convergence.
  */
 
-import { defineCommand, runMain } from 'citty';
+import { defineCommand as _defineCommand, runMain } from 'citty';
+
+function defineCommand(def: any): any {
+  if (def.plugins && Array.isArray(def.plugins)) {
+    const originalSetup = def.setup;
+    const originalCleanup = def.cleanup;
+    def.setup = async (ctx: any) => {
+      for (const plugin of def.plugins) {
+        if (plugin.setup) {
+          await plugin.setup(ctx);
+        }
+      }
+      if (originalSetup) {
+        return originalSetup(ctx);
+      }
+    };
+    def.cleanup = async (ctx: any) => {
+      if (originalCleanup) {
+        await originalCleanup(ctx);
+      }
+      for (const plugin of def.plugins) {
+        if (plugin.cleanup) {
+          await plugin.cleanup(ctx);
+        }
+      }
+    };
+  }
+  return _defineCommand(def);
+}
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 let _doctorAgent: any = null;
@@ -36,9 +64,9 @@ async function getWizardAgent() {
   }
   return _wizardAgent;
 }
-import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from '../packages/truex-core/src/project-wizard.gall.js';
+import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from '../packages/membrane/src/project-wizard.gall.js';
 import { OcelCollector } from '../skills/membrane/mutations.js';
-import { OcelOtelWeaverPlugin } from '../packages/truex-core/src/plugins/otel-weaver.js';
+import { OcelOtelWeaverPlugin } from '../packages/membrane/src/plugins/otel-weaver.js';
 
 
 
@@ -1185,6 +1213,42 @@ const projectWizardCompleteCommand = defineCommand({
   }
 });
 
+const unifiedIntegrationCommand = defineCommand({
+  meta: {
+    name: 'unified-integration',
+    description: 'Prove the complete Doctor-Wizard-Telco unified integration lifecycle.'
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("unified-integration");
+    if (!report.passed) throw new Error("Unified integration proof failed");
+  }
+});
+
+const wasmProveCommand = defineCommand({
+  meta: {
+    name: 'wasm',
+    description: 'Prove that the WebAssembly process mining module is reachable and operational.',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("wasm");
+    if (!report.passed) throw new Error("WASM proof failed");
+  }
+});
+
+const ledgerProveCommand = defineCommand({
+  meta: {
+    name: 'ledger',
+    description: 'Prove that concurrent WASM writes commit to the SQLite ledger without starvation or locks.',
+  },
+  async run() {
+    const doctor = await getDoctorAgent();
+    const report = await doctor.prove("ledger");
+    if (!report.passed) throw new Error("Ledger proof failed");
+  }
+});
+
 const proveCommand = defineCommand({
   meta: {
     name: 'prove',
@@ -1192,6 +1256,8 @@ const proveCommand = defineCommand({
   },
   subCommands: {
     doctest: doctestProveCommand,
+    wasm: wasmProveCommand,
+    ledger: ledgerProveCommand,
     mailbox: mailboxCommand,
     finalization: finalizationCommand,
     hash: hashCommand,
@@ -1221,7 +1287,8 @@ const proveCommand = defineCommand({
     "wizard-walkthrough": wizardWalkthroughProveCommand,
     "project-evidence-types": projectEvidenceTypesCommand,
     "project-evidence-gapclose": projectEvidenceGapcloseCommand,
-    "project-wizard-complete": projectWizardCompleteCommand
+    "project-wizard-complete": projectWizardCompleteCommand,
+    "unified-integration": unifiedIntegrationCommand
   }
 });
 
@@ -1237,6 +1304,80 @@ const doctorCommand = defineCommand({
   }
 });
 
+const pmDiscoverCommand = defineCommand({
+  meta: {
+    name: 'discover',
+    description: 'Discover a Directly-Follows Graph (DFG) from an event log.',
+  },
+  args: {
+    log: {
+      type: 'positional',
+      description: 'Path to XES or JSON event log file',
+      required: true,
+    },
+    activityKey: {
+      type: 'string',
+      description: 'Attribute key for activities',
+      default: 'concept:name',
+    }
+  },
+  async run({ args }) {
+    const logContent = fs.readFileSync(args.log, 'utf8');
+    const wasm = await import('../packages/kernel-wasm/pkg/wasm4pm.js');
+    let logHandle: string;
+    if (args.log.endsWith('.json')) {
+      logHandle = wasm.load_eventlog_from_json(logContent);
+    } else {
+      logHandle = wasm.load_eventlog_from_xes(logContent);
+    }
+
+    try {
+      const dfg = wasm.discover_dfg(logHandle, args.activityKey);
+      console.log(JSON.stringify(dfg, null, 2));
+    } finally {
+      wasm.delete_object(logHandle);
+    }
+  }
+});
+
+const pmConformCommand = defineCommand({
+  meta: {
+    name: 'conform',
+    description: 'Measure token replay fitness for a process model against an event log.',
+  },
+  args: {
+    log: {
+      type: 'positional',
+      description: 'Path to JSON event log file',
+      required: true,
+    },
+    model: {
+      type: 'positional',
+      description: 'Path to JSON POWL model file',
+      required: true,
+    }
+  },
+  async run({ args }) {
+    const logContent = fs.readFileSync(args.log, 'utf8');
+    const modelContent = fs.readFileSync(args.model, 'utf8');
+    const wasm = await import('../packages/kernel-wasm/pkg/wasm4pm.js');
+
+    const result = wasm.token_replay_fitness(modelContent, logContent);
+    console.log(JSON.stringify(JSON.parse(result), null, 2));
+  }
+});
+
+const pmCommand = defineCommand({
+  meta: {
+    name: 'pm',
+    description: 'Process Mining commands (discover, conform)',
+  },
+  subCommands: {
+    discover: pmDiscoverCommand,
+    conform: pmConformCommand
+  }
+});
+
 const mainCommand = defineCommand({
   meta: {
     name: 'truex',
@@ -1245,7 +1386,8 @@ const mainCommand = defineCommand({
   subCommands: {
     doctor: doctorCommand,
     telco: telcoCommand,
-    wizard: wizardCommand
+    wizard: wizardCommand,
+    pm: pmCommand
   }
 });
 

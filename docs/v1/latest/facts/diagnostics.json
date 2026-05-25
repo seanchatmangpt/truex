@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-24T10:01:57.954Z",
+  "timestamp": "2026-05-25T18:57:23.667Z",
   "health_check": {
     "status": "healthy",
     "checks": [
@@ -7,15 +7,14 @@
         "name": "core_symbols",
         "description": "Verifies presence of at least 5 core Truex primitives",
         "expected_min": 5,
-        "actual": 7,
+        "actual": 6,
         "symbols": [
           "createInvariantContext",
           "createAuditContext",
           "createContractContext",
           "createSimulationContext",
           "OcelCollector",
-          "createProxy",
-          "useContext"
+          "createProxy"
         ],
         "status": "pass"
       }
@@ -81,7 +80,7 @@
       {
         "id": "S3",
         "name": "Persistent State",
-        "status": "unstable",
+        "status": "stable",
         "found": [
           "S3PersistenceMembrane",
           "SQLiteReceiptStore",
@@ -89,6 +88,7 @@
         ],
         "stable": [
           "S3PersistenceMembrane",
+          "SQLiteReceiptStore",
           "GallTruexSqliteEngine"
         ],
         "expected": [
@@ -122,17 +122,15 @@
   },
   "waste_metrics": {
     "decomposition_drift": true,
-    "muri": true,
+    "muri": false,
     "details": {
-      "file_count": 74,
-      "unstable_layers": [
-        "S3"
-      ]
+      "file_count": 86,
+      "unstable_layers": []
     }
   },
   "_metadata": {
     "emitter": "Diagnostics Emitter",
     "description": "Generates a diagnostic report for the Truex architecture",
-    "timestamp": "2026-05-24T10:01:57.982Z"
+    "timestamp": "2026-05-25T18:57:23.709Z"
   }
 }

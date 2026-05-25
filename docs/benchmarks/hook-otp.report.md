@@ -32,7 +32,7 @@
 *   **Tamper Divergence:** ✅ Verified
 
 ## Benchmarking Operations
-*   **Raw Hook Execution:** 1409940.078 ops/sec
-*   **OTP Mailbox Dispatch (Eval-Only):** 6030126.512 ops/sec
-*   **Receipt-Backed OTP Dispatch (Full Loop):** 17586.644 ops/sec
-*   **Overhead Ratio:** 80.171x
+*   **Raw Hook Execution:** 1330965.988 ops/sec
+*   **OTP Mailbox Dispatch (Eval-Only):** 5086935.732 ops/sec
+*   **Receipt-Backed OTP Dispatch (Full Loop):** 18377.595 ops/sec
+*   **Overhead Ratio:** 72.423x

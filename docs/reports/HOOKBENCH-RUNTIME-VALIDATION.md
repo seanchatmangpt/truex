@@ -1,14 +1,14 @@
 # HOOKBENCH RUNTIME VALIDATION (Gall S4)
 
 **Status:** Verified Operational Field
-**Timestamp:** 2026-05-24T10:01:54.766Z
+**Timestamp:** 2026-05-25T18:57:19.654Z
 
 ## 1. Runtime Truth Status
 Truex successfully passed the tiered Hookbench suite, demonstrating performance and stability under pressure.
 
-- **Evaluations Count:** 1,000,000
-- **Peak Throughput:** 51277667.699 evals/sec
-- **Memory Stability:** 146.914 MB
+- **Evaluations Count:** 400
+- **Peak Throughput:** 34284734.723 evals/sec
+- **Memory Stability:** 122.367 MB
 
 ## 2. 80/20 Failure Coverage
 The system's "Motor Cortex" was stressed against 15 critical failure categories.

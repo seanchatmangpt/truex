@@ -1,0 +1,6 @@
+/Users/sac/wasm4pm/crates/wasm4pm-cli/target/agent3/debug/deps/fastrand-5410565d52e78365.d: /Users/sac/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fastrand-2.4.1/src/lib.rs /Users/sac/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fastrand-2.4.1/src/global_rng.rs
+
+/Users/sac/wasm4pm/crates/wasm4pm-cli/target/agent3/debug/deps/libfastrand-5410565d52e78365.rmeta: /Users/sac/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fastrand-2.4.1/src/lib.rs /Users/sac/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fastrand-2.4.1/src/global_rng.rs
+
+/Users/sac/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fastrand-2.4.1/src/lib.rs:
+/Users/sac/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/fastrand-2.4.1/src/global_rng.rs:

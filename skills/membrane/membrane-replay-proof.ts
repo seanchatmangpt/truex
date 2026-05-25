@@ -8,9 +8,9 @@
  */
 
 import Database from "better-sqlite3";
-import { hash } from "../../packages/truex-core/src/hash.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
-import { createReceipt } from "../../packages/truex-core/src/receipt.js";
+import { hash } from "../../packages/membrane/src/hash.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
+import { createReceipt } from "../../packages/membrane/src/receipt.js";
 import {
   appendJournalEntry,
   loadJournal,
@@ -23,7 +23,7 @@ import {
   saveRollbackSnapshot,
   recoverFromCrash,
   type JournalEntry
-} from "../../packages/truex-core/src/membrane-replay.gall.js";
+} from "../../packages/membrane/src/membrane-replay.gall.js";
 
 /**
  * Report structure for Membrane Replay proofs.
@@ -125,7 +125,7 @@ export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> 
   let lineageConverged = 0;
   let lineageCorrupted = 0;
   let lineageTampered = 0;
-  let lineageTruncated = 0;
+  const lineageTruncated = 0;
 
   let crashAttempted = 0;
   let crashRecovered = 0;
@@ -348,8 +348,8 @@ export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> 
       failures.push("Corruption was not detected by integrity validation");
     }
 
-  } catch (err: any) {
-    failures.push(`Reconstruction / Replay proof block threw: ${err.message}`);
+  } catch (error_: any) {
+    failures.push(`Reconstruction / Replay proof block threw: ${error_.message}`);
   }
 
   // 3. Crash Recovery Proof
@@ -421,8 +421,8 @@ export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> 
       crashFailed++;
     }
 
-  } catch (err: any) {
-    failures.push(`Crash recovery proof threw: ${err.message}`);
+  } catch (error_: any) {
+    failures.push(`Crash recovery proof threw: ${error_.message}`);
     crashFailed++;
   }
 
@@ -460,7 +460,7 @@ export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> 
         previousReceiptHash: entry.previousReceiptHash,
         parentSeed: 42,
       });
-      const stepSeed = parseInt(stepHash.substring(0, 8), 16) >>> 0;
+      const stepSeed = Number.parseInt(stepHash.slice(0, 8), 16) >>> 0;
       const stepCtx = createDeterministicContext(stepSeed);
       const eventId = `evt_${stepCtx.uuid()}`;
       const inputHash = hash({ delta: entry.delta, stateBefore: entry.stateBefore });
@@ -585,15 +585,15 @@ export async function proveMembraneReplay(): Promise<MembraneReplayProofReport> 
       vkgDiverged++;
     }
 
-  } catch (err: any) {
-    failures.push(`Partial order and VKG consistency checks threw: ${err.message}`);
+  } catch (error_: any) {
+    failures.push(`Partial order and VKG consistency checks threw: ${error_.message}`);
     partialDiverged++;
     vkgDiverged++;
   }
 
   const durationMs = Date.now() - start;
 
-  const getPct = (val: number, attempted: number) => (attempted === 0 ? 0 : parseFloat(((val / attempted) * 100).toFixed(3)));
+  const getPct = (val: number, attempted: number) => (attempted === 0 ? 0 : Number.parseFloat(((val / attempted) * 100).toFixed(3)));
   const getPctStr = (val: number, attempted: number) => `${getPct(val, attempted).toFixed(3)}%`;
 
   return {

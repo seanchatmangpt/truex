@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const proofsFile = 'skills/project-evidence/proofs.ts';
 let code = fs.readFileSync(proofsFile, 'utf8');

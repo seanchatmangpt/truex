@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779684142611-hv66q6s",
+  "spanId": "span-unknown",
+  "startTime": 1779684142611,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"ledger\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779684143536,
+      "attributes": {
+        "primitive": "ledger",
+        "status": "confirmed",
+        "executionTimeMs": 103,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779684143536,
+  "durationMs": 925
+}

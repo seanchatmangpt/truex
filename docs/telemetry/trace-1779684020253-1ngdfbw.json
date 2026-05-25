@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779684020253-1ngdfbw",
+  "spanId": "span-unknown",
+  "startTime": 1779684020253,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wasm\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779684020841,
+      "attributes": {
+        "primitive": "wasm",
+        "status": "confirmed",
+        "executionTimeMs": 2,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779684020841,
+  "durationMs": 588
+}

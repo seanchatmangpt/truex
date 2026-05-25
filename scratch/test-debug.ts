@@ -1,4 +1,4 @@
-import { evaluateProjectConstraint, PROJECT_CONSTRAINTS } from '../packages/truex-core/src/ocpq-project-constraints.gall.js';
+import { evaluateProjectConstraint, PROJECT_CONSTRAINTS } from '../packages/membrane/src/ocpq-project-constraints.gall.js';
 
 const log = {
   eventTypes: [],

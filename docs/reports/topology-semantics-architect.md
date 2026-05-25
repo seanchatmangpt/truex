@@ -1,6 +1,6 @@
 # Causal Topology Semantics Architect Report
 
-This document outlines the architectural specification and implementation of the cross-hook causal topology model in the Truex Core substrate (`packages/truex-core/src/topology.gall.ts`).
+This document outlines the architectural specification and implementation of the cross-hook causal topology model in the Truex Core substrate (`packages/membrane/src/topology.gall.ts`).
 
 ## 1. Core Paradigm: Cross-Hook Causal Topology
 

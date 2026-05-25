@@ -12,7 +12,7 @@
   "hooks": {
     "truex-hook-loop": {
       "event": "BeforeTool",
-      "matcher": "write_to_file|replace_file_content|run_command",
+      "matcher": "write_file|replace|run_shell_command|write_to_file|replace_file_content|run_command",
       "script": "npx tsx scripts/truex-agy-bridge.ts {{tool}} '{{arguments}}'",
       "description": "Intercepts agent actions and evaluates them against Truex Repository Laws.",
       "enabled": true,
@@ -20,7 +20,7 @@
     },
     "after-tool-actuation": {
       "event": "AfterTool",
-      "matcher": "write_file|replace|write_to_file|replace_file_content|run_shell_command",
+      "matcher": "write_file|replace|run_shell_command|write_to_file|replace_file_content|run_command",
       "script": "npx tsx scripts/after-tool-hook.ts",
       "enabled": true,
       "waitForCompletion": true,
@@ -35,6 +35,6 @@
   "_metadata": {
     "emitter": "AGY Integration Facts",
     "description": "Extracts facts about the Antigravity bridge and configured hooks",
-    "timestamp": "2026-05-24T10:01:57.947Z"
+    "timestamp": "2026-05-25T18:57:23.657Z"
   }
 }

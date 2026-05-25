@@ -83,8 +83,8 @@ export function createInvariantContext(target, invariants = {}, options = {}) {
     target,
     visited: new Set(),
     depth: 0,
-    fuel: options.fuel !== undefined ? options.fuel : 100000,
-    maxDepth: options.maxDepth !== undefined ? options.maxDepth : 2000,
+    fuel: options.fuel === undefined ? 100_000 : options.fuel,
+    maxDepth: options.maxDepth === undefined ? 2000 : options.maxDepth,
   }
 
   /**
@@ -148,7 +148,7 @@ export function createInvariantContext(target, invariants = {}, options = {}) {
       }
 
       // Check depth limit
-      const limit = state.maxDepth !== undefined ? state.maxDepth : 50
+      const limit = state.maxDepth === undefined ? 50 : state.maxDepth
       if (state.depth >= limit) {
         throw new RecursionRefusalError(`Maximum recursion depth of ${limit} exceeded`)
       }
@@ -208,8 +208,8 @@ export function createInvariantContext(target, invariants = {}, options = {}) {
     } else {
       contextState.visited = new Set()
       contextState.depth = 0
-      contextState.fuel = options.fuel !== undefined ? options.fuel : 100000
-      contextState.maxDepth = options.maxDepth !== undefined ? options.maxDepth : 2000
+      contextState.fuel = options.fuel === undefined ? 100_000 : options.fuel
+      contextState.maxDepth = options.maxDepth === undefined ? 2000 : options.maxDepth
     }
     return invariantContext.call(contextState, fn)
   }

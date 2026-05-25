@@ -5,7 +5,7 @@ This file contains doctest examples to verify the Truex doctest runner.
 ## TypeScript Doctest
 
 ```typescript doctest name="hash-assertion"
-import { hash } from "packages/truex-core/src/index.js";
+import { hash } from "packages/membrane/src/index.js";
 
 const val = { x: 42, y: "hello" };
 const h = hash(val);

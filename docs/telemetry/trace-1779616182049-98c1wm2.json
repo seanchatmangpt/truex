@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779616182049-98c1wm2",
+  "spanId": "span-unknown",
+  "startTime": 1779616182049,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-walkthrough\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779616182494,
+      "attributes": {
+        "primitive": "wizard-walkthrough",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779616182494,
+  "durationMs": 445
+}

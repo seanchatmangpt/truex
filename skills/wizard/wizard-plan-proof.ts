@@ -7,11 +7,11 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
-import { InitVerb } from '../../packages/truex-core/src/wizard/verbs/init.js';
-import { MapVerb } from '../../packages/truex-core/src/wizard/verbs/map.js';
-import { PlanVerb } from '../../packages/truex-core/src/wizard/verbs/plan.js';
-import type { ProjectConsequenceCell } from '../../packages/truex-core/src/wizard/project-cell.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
+import { InitVerb } from '../../packages/membrane/src/wizard/verbs/init.js';
+import { MapVerb } from '../../packages/membrane/src/wizard/verbs/map.js';
+import { PlanVerb } from '../../packages/membrane/src/wizard/verbs/plan.js';
+import type { ProjectConsequenceCell } from '../../packages/membrane/src/wizard/project-cell.js';
 
 export async function proveWizardPlan() {
   const invariants: string[] = [];
@@ -62,7 +62,7 @@ export async function proveWizardPlan() {
       
       const planFile = path.join(testDir, '.truex', 'project.evidence', 'plan.json');
       if (fs.existsSync(planFile)) {
-         const route = JSON.parse(fs.readFileSync(planFile, 'utf-8'));
+         const route = JSON.parse(fs.readFileSync(planFile, 'utf8'));
          
          const checkpoints = Object.keys(route.checkpoints);
          if (checkpoints.length > 0) {

@@ -1,0 +1,56 @@
+[workspace]
+resolver = "2"
+
+members = [
+  "crates/truex-kernel",
+  "crates/tps-metrics",
+  "crates/truex-kernel-types",
+  "crates/truex-kernel-algos",
+  "crates/truex-kernel-cli",
+  "crates/truex-kernel-utils",
+  "crates/miniml-core",
+  "crates/truex-kernel-cognition",
+  "crates/prolog8",
+  "crates/truex-kernel-macros"
+]
+
+[workspace.package]
+version = "26.5.21"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["Sean Chatman <info@chatmangpt.com>"]
+repository = "https://github.com/seanchatmangpt/truex"
+
+[workspace.dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = { version = "1.0", features = ["preserve_order"] }
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.16", features = ["v4", "serde", "js"] }
+hashbrown = { version = "0.17", features = ["inline-more"] }
+smallvec = { version = "1.13", features = ["serde"] }
+itertools = "0.14.0"
+rustc-hash = "2"
+blake3 = "1.5"
+sha2 = "0.10.8"
+bcinr = { version = "26.4.22" }
+truex-kernel-types = { version = "26.5.21", path = "crates/truex-kernel-types" }
+truex-kernel-algos = { version = "26.5.21", path = "crates/truex-kernel-algos" }
+truex-kernel-utils = { version = "26.5.21", path = "crates/truex-kernel-utils" }
+truex-kernel-cognition = { version = "26.5.21", path = "crates/truex-kernel-cognition" }
+truex-kernel-macros = { version = "26.5.21", path = "crates/truex-kernel-macros" }
+prolog8 = { version = "26.5.21", path = "crates/prolog8" }
+miniml = { version = "26.5.21", path = "crates/miniml-core" }
+fake = "2.9"
+proptest = "1.4"
+tempfile = "3.8"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = "debuginfo"
+
+[profile.bench]
+opt-level = 3
+lto = false

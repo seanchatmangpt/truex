@@ -6,10 +6,10 @@
  * deterministic effect execution, tamper refusal, and replay convergence.
  */
 
-import { TruexHook } from "../../packages/truex-core/src/hook.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
-import { hash } from "../../packages/truex-core/src/index.js";
-import type { GraphDelta, HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
+import { TruexHook } from "../../packages/membrane/src/hook.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
+import { hash } from "../../packages/membrane/src/index.js";
+import type { GraphDelta, HookDefinition } from "../../packages/membrane/src/runtime-law.js";
 
 /**
  * Executes tests to prove Hook primitives.

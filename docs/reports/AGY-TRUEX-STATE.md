@@ -7,12 +7,12 @@ This report provides the current operational status of the `truex` repository. A
 ## 1. Repository Inventory
 
 *   **Package Manager**: `pnpm@9.14.2`
-*   **Workspace Layout**: Single workspace root with package modules located in `packages/truex-core` and runtime wrappers in `src/`.
+*   **Workspace Layout**: Single workspace root with package modules located in `packages/membrane` and runtime wrappers in `src/`.
 *   **Packages**:
-    *   `packages/truex-core` (Core Truex engine and primitives).
+    *   `packages/membrane` (Core Truex engine and primitives).
 *   **Public Exports**:
     *   **Root index (`src/index.js`)**: Exports invariant, audit, contract, simulation, and OCEL 2.0 proxy capabilities.
-    *   **Core index (`packages/truex-core/src/index.ts`)**: Exports runtime-law parsers, context-injected seeded seed/clock/uuid providers, BLAKE3 hash primitives, ML-DSA signatures, receipt verification, replay, and SQLite persistence.
+    *   **Core index (`packages/membrane/src/index.ts`)**: Exports runtime-law parsers, context-injected seeded seed/clock/uuid providers, BLAKE3 hash primitives, ML-DSA signatures, receipt verification, replay, and SQLite persistence.
 *   **CLI Entrypoints**:
     *   `scripts/truex.ts` (executable via `npx tsx scripts/truex.ts`).
 *   **Scripts in `package.json`**:
@@ -41,20 +41,20 @@ This report provides the current operational status of the `truex` repository. A
 
 | Layer | Files | Tests | Commands | Status | Evidence |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Deterministic Entropy** | `packages/truex-core/src/context.ts` | `test/context/context.test.js` | None | **Implemented & Proven** | Seeded clock/PRNG increment verified in tests |
-| **Canonicalization** | `packages/truex-core/src/hash.ts` | `src/lib/gall-truex/__tests__/hash-proof.test.ts` | `doctor prove hash` | **Implemented & Proven** | Keys are sorted alphabetically before hash |
-| **Hash** | `packages/truex-core/src/hash.ts`, `skills/hash/mutations.ts` | `src/lib/gall-truex/__tests__/hash-proof.test.ts` | `doctor prove hash` | **Implemented & Proven** | BLAKE3 generates deterministic 64-char hashes |
-| **Signature** | `packages/truex-core/src/signature.ts` | `src/lib/gall-truex/__tests__/signature-proof.test.ts` | `doctor prove signature` | **Implemented & Proven** | ML-DSA verification succeeds on valid signatures |
-| **Receipt** | `packages/truex-core/src/receipt.ts`, `skills/receipt/mutations.ts` | `src/lib/gall-truex/__tests__/receipt-proof.test.ts` | `doctor prove receipt` | **Implemented & Proven** | Chained receipts cryptographically verify hashes |
-| **Replay** | `packages/truex-core/src/replay.ts`, `skills/replay/mutations.ts` | `src/lib/gall-truex/__tests__/replay-proof.test.ts` | `doctor prove replay` | **Implemented & Proven** | Replay diverges immediately on mutation |
-| **Hook** | `packages/truex-core/src/hook.ts`, `packages/truex-core/src/runtime-law.ts` | `packages/truex-core/test/primitives.test.ts` | `doctor prove hook` | **Implemented & Proven** | Hooks parse condition predicates and execute |
-| **Engine** | `packages/truex-core/src/replay.ts` (`PureEngine`) | `src/lib/gall-truex/__tests__/engine-proof.test.ts` | `doctor prove engine` | **Implemented & Proven** | Engine handles delta, generates receipt & replays |
-| **SQLite Membrane** | `packages/truex-core/src/replay.ts` (`SqliteEngine`) | `src/lib/gall-truex/__tests__/sqlite-proof.test.ts` | `doctor prove sqlite` | **Implemented & Proven** | Rollback correctness and readback validated |
-| **Doctor CLI** | `scripts/truex.ts`, `agents/doctor/agent.ts` | `packages/truex-core/test/doctor-diagnostics.test.ts` | `truex doctor prove` | **Implemented & Tested** | CLI executes all proofs; fails on Node 24 ESM |
+| **Deterministic Entropy** | `packages/membrane/src/context.ts` | `test/context/context.test.js` | None | **Implemented & Proven** | Seeded clock/PRNG increment verified in tests |
+| **Canonicalization** | `packages/membrane/src/hash.ts` | `src/lib/gall-truex/__tests__/hash-proof.test.ts` | `doctor prove hash` | **Implemented & Proven** | Keys are sorted alphabetically before hash |
+| **Hash** | `packages/membrane/src/hash.ts`, `skills/hash/mutations.ts` | `src/lib/gall-truex/__tests__/hash-proof.test.ts` | `doctor prove hash` | **Implemented & Proven** | BLAKE3 generates deterministic 64-char hashes |
+| **Signature** | `packages/membrane/src/signature.ts` | `src/lib/gall-truex/__tests__/signature-proof.test.ts` | `doctor prove signature` | **Implemented & Proven** | ML-DSA verification succeeds on valid signatures |
+| **Receipt** | `packages/membrane/src/receipt.ts`, `skills/receipt/mutations.ts` | `src/lib/gall-truex/__tests__/receipt-proof.test.ts` | `doctor prove receipt` | **Implemented & Proven** | Chained receipts cryptographically verify hashes |
+| **Replay** | `packages/membrane/src/replay.ts`, `skills/replay/mutations.ts` | `src/lib/gall-truex/__tests__/replay-proof.test.ts` | `doctor prove replay` | **Implemented & Proven** | Replay diverges immediately on mutation |
+| **Hook** | `packages/membrane/src/hook.ts`, `packages/membrane/src/runtime-law.ts` | `packages/membrane/test/primitives.test.ts` | `doctor prove hook` | **Implemented & Proven** | Hooks parse condition predicates and execute |
+| **Engine** | `packages/membrane/src/replay.ts` (`PureEngine`) | `src/lib/gall-truex/__tests__/engine-proof.test.ts` | `doctor prove engine` | **Implemented & Proven** | Engine handles delta, generates receipt & replays |
+| **SQLite Membrane** | `packages/membrane/src/replay.ts` (`SqliteEngine`) | `src/lib/gall-truex/__tests__/sqlite-proof.test.ts` | `doctor prove sqlite` | **Implemented & Proven** | Rollback correctness and readback validated |
+| **Doctor CLI** | `scripts/truex.ts`, `agents/doctor/agent.ts` | `packages/membrane/test/doctor-diagnostics.test.ts` | `truex doctor prove` | **Implemented & Tested** | CLI executes all proofs; fails on Node 24 ESM |
 | **Wizard CLI** | None | None | None | **Missing** | No wizard subcommands exist |
 | **Telco CLI** | None | None | None | **Missing** | No telco subcommands exist |
 | **AGENTS.md** | `AGENTS.md`, `agents/doctor/AGENTS.md` | None | None | **Implemented** | Formalized rules exist in the repository root |
-| **Skills** | `skills/hash/`, `skills/receipt/`, `skills/replay/`, `skills/membrane/` | `packages/truex-core/test/` | None | **Implemented** | Morphisms encapsulated inside `skills/` directory |
+| **Skills** | `skills/hash/`, `skills/receipt/`, `skills/replay/`, `skills/membrane/` | `packages/membrane/test/` | None | **Implemented** | Morphisms encapsulated inside `skills/` directory |
 | **AGY Integration** | None | None | None | **Missing** | Autonomic Hook Gall Loop integration is missing |
 
 ---
@@ -80,13 +80,13 @@ This report provides the current operational status of the `truex` repository. A
 *   **Exit Code**: `1`
 *   **Stdout/Stderr Summary**:
     ```text
-    /Users/sac/truex/packages/truex-core/src/persistence/receipt-store.ts:2
+    /Users/sac/truex/packages/membrane/src/persistence/receipt-store.ts:2
     import { Receipt } from '../runtime-law.js';
              ^
     SyntaxError: The requested module '../runtime-law.js' does not provide an export named 'Receipt'
     ```
 *   **Suspected Cause**: `tsx` executes under Node v24.15.0 on this host. Under native Node.js ESM execution, type-only exports must be imported with `import type` to avoid runtime resolution errors.
-*   **Smallest Next Fix**: Modify `packages/truex-core/src/persistence/receipt-store.ts` line 2 to:
+*   **Smallest Next Fix**: Modify `packages/membrane/src/persistence/receipt-store.ts` line 2 to:
     ```typescript
     import type { Receipt } from '../runtime-law.js';
     ```
@@ -101,7 +101,7 @@ This report provides the current operational status of the `truex` repository. A
 *   **replay divergence fails**: Enforced. `replay-proof.ts` asserts that changed inputs or mutated law algorithms fail convergence check.
 *   **rollback succeeds**: Enforced. Membrane tests assert that memory-level transactions fully rollback property states.
 *   **admissible entropy survives**: Enforced. `test/tps.property.test.ts` utilizes seeded randomness for continuous validation.
-*   **faker is seeded / fast-check is used**: Partially Enforced. `fast-check` properties are executed, but some property tests in `packages/truex-core/test/` do not explicitly pass a seed configuration, relying on default random runs.
+*   **faker is seeded / fast-check is used**: Partially Enforced. `fast-check` properties are executed, but some property tests in `packages/membrane/test/` do not explicitly pass a seed configuration, relying on default random runs.
 *   **hardcoded fossils remain**:
     *   **Yes**. In `all-capabilities.test.js` and `audit-logger.test.js`, multiple hardcoded variables exist (e.g. `balance: 100`, `age: 30`).
     *   *Remediation*: Replace static test payloads with seeded `faker` or `fast-check` generators.
@@ -132,7 +132,7 @@ This report provides the current operational status of the `truex` repository. A
 
 ## 7. AGENTS.md / Skill State
 
-*   **Gall sequencing**: Strict. Abstractions are isolated within `packages/truex-core/src/index.ts` and correspond directly to stack layers.
+*   **Gall sequencing**: Strict. Abstractions are isolated within `packages/membrane/src/index.ts` and correspond directly to stack layers.
 *   **Decomposition constraints**: Handled. Primitives are proven in independent skills (`skills/hash`, `skills/receipt`, etc.) before being re-exported in the core package.
 *   **No mocks for proof paths**: Clean. Primitives execute actual cryptographic operations and write to physical SQLite databases during verification.
 *   **Entropy / Replay / Receipt law**: Implemented directly into the skills codebase to shape agent behavior.
@@ -168,13 +168,13 @@ Truex can integrate directly with the Antigravity (AGY) runtime to enforce proce
 ## 10. Architecture Drift Findings
 
 1.  **Premature Abstractions**: Under `src/`, directories for `contracts`, `multitenancy`, `virtualization`, and `simulation` represent complex layers that were introduced before the S1/S2 kernel foundations stabilized.
-2.  **Syntax Errors in ESM**: In `packages/truex-core/src/persistence/receipt-store.ts`, a type is imported as a value, triggering a SyntaxError under Node 24 ESM, breaking the doctor CLI execution.
+2.  **Syntax Errors in ESM**: In `packages/membrane/src/persistence/receipt-store.ts`, a type is imported as a value, triggering a SyntaxError under Node 24 ESM, breaking the doctor CLI execution.
 
 ---
 
 ## 11. Minimal Next Patch Plan
 
-1.  **Fix ESM Type Import**: Edit `packages/truex-core/src/persistence/receipt-store.ts:L2` to use `import type { Receipt }`.
+1.  **Fix ESM Type Import**: Edit `packages/membrane/src/persistence/receipt-store.ts:L2` to use `import type { Receipt }`.
 2.  **Fidelity Property Seeds**: Pass explicit seed configurations to `fc.assert` inside property tests to guarantee reproducible test results.
 3.  **De-fossilize Payloads**: Replace hardcoded values in `all-capabilities.test.js` with seeded faker generators.
 4.  **Complete Prototype Sandboxing**: Enhance `skills/membrane/invariant.ts` to trap and block `setPrototypeOf` and `defineProperty` prototype breakouts.

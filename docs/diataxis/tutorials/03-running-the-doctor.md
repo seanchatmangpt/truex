@@ -15,7 +15,7 @@ The Doctor relies on the core pillars of the Truex framework to perform its anal
 Let's deliberately create a failing hook to give the Doctor something to analyze. We'll introduce a classic divide-by-zero error.
 
 ```typescript
-import { Truex, GallSequencer } from '@truex/core';
+import { Truex, GallSequencer } from '@truex/membrane';
 
 const divisionHook = Truex.createHook({
   name: 'DivisionCapability',
@@ -54,7 +54,7 @@ async function runFailing() {
 Once you have a failure receipt, you can pass it directly to the Doctor agent for analysis.
 
 ```typescript
-import { DoctorAgent } from '@truex/core/agents';
+import { DoctorAgent } from '@truex/membrane/agents';
 
 async function diagnose() {
   const failingReceipt = await runFailing();

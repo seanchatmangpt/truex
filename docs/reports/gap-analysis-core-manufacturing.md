@@ -4,7 +4,7 @@
 Audit and document Chunk 1: Core Manufacturing & Primitives. Ensure alignment with the Truex Gall Calculus, Gall Law, and rules around exhaustive completeness (no stubs, placeholders).
 
 ## Scope
-Files processed directly under `packages/truex-core/src/` and `packages/truex-core/src/manufacturing/`:
+Files processed directly under `packages/membrane/src/` and `packages/membrane/src/manufacturing/`:
 - `signature.ts`, `membrane-replay.gall.ts`, `receipt.ts`, `context.ts`, `hook-otp.gall.ts`, `replay.ts`, `hash.ts`, `hook.ts`, `concurrency.ts`, `runtime-law.ts`, `index.ts`, `membrane.ts`, `topology.gall.ts`
 - `heijunka.ts`, `lean.ts`, `jidoka.ts`, `topology.ts`, `visual.ts`, `collaboration.ts`, `kaizen.ts`, `line.ts`, `standardization.ts`, `registry.ts`, `swarm-actuator.ts`, `jit.ts`, `gemba.ts`
 

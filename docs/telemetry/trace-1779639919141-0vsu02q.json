@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779639919141-0vsu02q",
+  "spanId": "span-unknown",
+  "startTime": 1779639919141,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"telco-ingest\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779639919611,
+      "attributes": {
+        "primitive": "telco-ingest",
+        "status": "confirmed",
+        "executionTimeMs": 3,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779639919611,
+  "durationMs": 470
+}

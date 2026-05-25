@@ -1,14 +1,14 @@
 # Antigravity Artifact: Quarantine Growth
 
-> **Generated:** 2026-05-24T10:01:57.987Z
+> **Generated:** 2026-05-25T18:57:23.717Z
 
 ## Data Summary
 
 ```json
 {
   "growthMetrics": {
-    "totalItemsQuarantined": 1112,
-    "totalProcessesHalted": 120,
+    "totalItemsQuarantined": 97,
+    "totalProcessesHalted": 25,
     "isolationVerified": true,
     "quarantineLimitConfigured": 2,
     "refusalVerified": true
@@ -16,7 +16,7 @@
   "_metadata": {
     "emitter": "Quarantine Growth Facts Emitter",
     "description": "Extracts quarantine statistics, process isolation, and budget exhaustion metrics",
-    "timestamp": "2026-05-24T10:01:57.987Z"
+    "timestamp": "2026-05-25T18:57:23.717Z"
   }
 }
 ```

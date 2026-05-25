@@ -14,8 +14,8 @@ let error = null;
 sandboxCtx.call(() => {
   try {
     proto = Object.getPrototypeOf(proxyInterface.proxy);
-  } catch (e) {
-    error = e;
+  } catch (error_) {
+    error = error_;
   }
 });
 

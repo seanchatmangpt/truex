@@ -342,6 +342,7 @@ export function createSimulationContext(target, options = {}) {
     simulationState.isActive = false
     simulationState.speculativeState = undefined
     simulationState.mutations = []
+    simulationState.checkpoints.clear()
     simulationContext.unset()
 
     return true
@@ -366,6 +367,7 @@ export function createSimulationContext(target, options = {}) {
     simulationState.isActive = false
     simulationState.speculativeState = undefined
     simulationState.mutations = []
+    simulationState.checkpoints.clear()
     simulationContext.unset()
   }
 

@@ -37,7 +37,7 @@ npx tsx scripts/truex-agy-bridge.ts write_file '{"file_path":"src/unmapped_ghost
 
 **Case B: Mapped Artifact Mutation (Admission)**
 ```bash
-npx tsx scripts/truex-agy-bridge.ts write_file '{"file_path":"packages/truex-core/src/hook.ts","content":"// mapped file"}'
+npx tsx scripts/truex-agy-bridge.ts write_file '{"file_path":"packages/membrane/src/hook.ts","content":"// mapped file"}'
 ```
 *Result:* `✅ Truex Admission: Operation matches Repository Law.` (Followed by receipt generation).
 

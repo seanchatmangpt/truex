@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779615420483-5i5gy39",
+  "spanId": "span-unknown",
+  "startTime": 1779615420483,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-map\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779615421104,
+      "attributes": {
+        "primitive": "wizard-map",
+        "status": "confirmed",
+        "executionTimeMs": 4,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779615421104,
+  "durationMs": 621
+}

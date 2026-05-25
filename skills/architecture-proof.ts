@@ -15,7 +15,7 @@ export function proveArchitecture() {
     }
     invariants.push('C4 diagrams generated');
 
-    const content = fs.readFileSync(c4Path, 'utf-8');
+    const content = fs.readFileSync(c4Path, 'utf8');
 
     // Verify sections
     const requiredSections = [
@@ -49,7 +49,7 @@ export function proveArchitecture() {
 
     // Verify AST topology coverage
     if (fs.existsSync(topoPath)) {
-      const topo = JSON.parse(fs.readFileSync(topoPath, 'utf-8'));
+      const topo = JSON.parse(fs.readFileSync(topoPath, 'utf8'));
       const unmapped = topo.nodes.filter((n: any) => n.layer === 'Unmapped');
       if (unmapped.length === 0) {
         invariants.push('AST coverage complete');

@@ -8,7 +8,7 @@
 
 ## Verification Evidence
 
-Unit tests in [hook-otp-mailbox.test.ts](file:///Users/sac/truex/packages/truex-core/test/hook-otp/hook-otp-mailbox.test.ts) assert:
+Unit tests in [hook-otp-mailbox.test.ts](file:///Users/sac/truex/packages/membrane/test/hook-otp/hook-otp-mailbox.test.ts) assert:
 *   Mailbox FIFO processing matches dispatch order.
 *   Two processes initialized with separate states remain completely isolated.
 *   Messages addressed to `unknown-process` trigger immediate refusal receipts.

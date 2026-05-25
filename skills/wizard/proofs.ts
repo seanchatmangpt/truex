@@ -9,10 +9,10 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
-import { hash } from "../../packages/truex-core/src/hash.js";
+import { hash } from "../../packages/membrane/src/hash.js";
 import { WizardAgent } from "../../agents/wizard/agent.js";
-import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from "../../packages/truex-core/src/project-wizard.gall.js";
-import type { AccountingData, GallCheckpoint } from "../../packages/truex-core/src/project-wizard.gall.js";
+import { ProjectCell, ProjectMapper, CheckpointPlanner, ExecutionEngine, MissionController } from "../../packages/membrane/src/project-wizard.gall.js";
+import type { AccountingData, GallCheckpoint } from "../../packages/membrane/src/project-wizard.gall.js";
 
 /**
  * Report structure for Wizard proofs.
@@ -177,8 +177,8 @@ export function proveWizard(): WizardProofReport {
         try {
           const parsed = JSON.parse(fs.readFileSync(full, 'utf8'));
           validator(parsed);
-        } catch (e: any) {
-          failures.push(`File ${relPath} failed validation/parsing: ${e.message}`);
+        } catch (error_: any) {
+          failures.push(`File ${relPath} failed validation/parsing: ${error_.message}`);
         }
       }
     };
@@ -244,7 +244,7 @@ export function proveWizard(): WizardProofReport {
           if (!conn.forgedArtifacts.includes('scripts/truex.ts')) {
             failures.push(`cp-cli-contract entry in integration-map.json missing forged scripts/truex.ts`);
           }
-          if (!conn.tests.includes('packages/truex-core/test/project-wizard/project-wizard-cli.test.ts')) {
+          if (!conn.tests.includes('packages/membrane/test/project-wizard/project-wizard-cli.test.ts')) {
             failures.push(`cp-cli-contract entry in integration-map.json missing test suite`);
           }
           if (!conn.doctorTargets.includes('wizard-contracts')) {
@@ -252,10 +252,10 @@ export function proveWizard(): WizardProofReport {
           }
         }
         if (id === 'cp-project-cell') {
-          if (!conn.forgedArtifacts.includes('packages/truex-core/src/project-wizard.gall.ts')) {
+          if (!conn.forgedArtifacts.includes('packages/membrane/src/project-wizard.gall.ts')) {
             failures.push(`cp-project-cell entry in integration-map.json missing forged implementation file`);
           }
-          if (!conn.tests.includes('packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts')) {
+          if (!conn.tests.includes('packages/membrane/test/project-wizard/project-wizard-init-map.test.ts')) {
             failures.push(`cp-project-cell entry in integration-map.json missing test suite`);
           }
           if (!conn.docs.includes('docs/project-c4-context.mmd')) {
@@ -269,7 +269,7 @@ export function proveWizard(): WizardProofReport {
           if (!conn.forgedArtifacts.includes('skills/wizard/proofs.ts')) {
             failures.push(`cp-execution-proof entry in integration-map.json missing forged proofs.ts`);
           }
-          if (!conn.tests.includes('packages/truex-core/test/project-wizard/project-wizard-execution.test.ts')) {
+          if (!conn.tests.includes('packages/membrane/test/project-wizard/project-wizard-execution.test.ts')) {
             failures.push(`cp-execution-proof entry in integration-map.json missing test suite`);
           }
           if (!conn.doctorTargets.includes('wizard-simulate')) {
@@ -312,8 +312,8 @@ export function proveWizard(): WizardProofReport {
           if (!data.receiptHash || !data.verb || !data.status || !data.startedAt || !data.completedAt) {
             failures.push(`Receipt file ${f} structure is invalid`);
           }
-        } catch (e: any) {
-          failures.push(`Receipt file ${f} failed parsing: ${e.message}`);
+        } catch (error_: any) {
+          failures.push(`Receipt file ${f} failed parsing: ${error_.message}`);
         }
       }
     } else {
@@ -488,7 +488,7 @@ export async function proveProjectWizardComplete(): Promise<ProjectWizardComplet
     const integrationMapPath = path.join(tempDir, '.truex/reports/integration-map.json');
     if (fs.existsSync(integrationMapPath)) {
       try {
-        const data = JSON.parse(fs.readFileSync(integrationMapPath, 'utf-8'));
+        const data = JSON.parse(fs.readFileSync(integrationMapPath, 'utf8'));
         const expectedCheckpoints = [
           'cp-cli-contract',
           'cp-project-cell',
@@ -506,7 +506,7 @@ export async function proveProjectWizardComplete(): Promise<ProjectWizardComplet
             mapValid = false;
             break;
           }
-          if (id === 'cp-project-cell' && (!data[id].forgedArtifacts.includes('packages/truex-core/src/project-wizard.gall.ts') || !data[id].doctorTargets.includes('topology'))) {
+          if (id === 'cp-project-cell' && (!data[id].forgedArtifacts.includes('packages/membrane/src/project-wizard.gall.ts') || !data[id].doctorTargets.includes('topology'))) {
             mapValid = false;
             break;
           }
@@ -520,8 +520,8 @@ export async function proveProjectWizardComplete(): Promise<ProjectWizardComplet
         } else {
           failures.push("verb 'bind' generated integration-map.json but binding connections are invalid or missing targets");
         }
-      } catch (e: any) {
-        failures.push(`verb 'bind' failed to parse integration-map.json: ${e.message}`);
+      } catch (error_: any) {
+        failures.push(`verb 'bind' failed to parse integration-map.json: ${error_.message}`);
       }
     } else {
       failures.push("verb 'bind' failed to generate integration map");
@@ -543,7 +543,7 @@ export async function proveProjectWizardComplete(): Promise<ProjectWizardComplet
     const hardenRes = engine.harden('cp-cli-contract');
     cell.emitReceipt('harden', 'succeeded', hardenStart, new Date().toISOString());
     verbsTested++;
-    if (hardenRes.failureEnvelope.resilienceIndex === 1.0) {
+    if (hardenRes.failureEnvelope.resilienceIndex === 1) {
       invariants.push("verb 'harden' executed and verified failure envelope boundaries");
     } else {
       failures.push("verb 'harden' failed resilience checks");
@@ -704,11 +704,11 @@ function expectPathTraversalRefusal(cell: ProjectCell, invariants: string[], fai
   try {
     cell.resolvePath('../outside-boundary-tamper.json');
     failures.push("Path traversal did not throw");
-  } catch (e: any) {
-    if (e.message.includes("Path traversal refused")) {
+  } catch (error_: any) {
+    if (error_.message.includes("Path traversal refused")) {
       invariants.push("path traversal attack correctly caught and refused");
     } else {
-      failures.push(`Path traversal threw unexpected error: ${e.message}`);
+      failures.push(`Path traversal threw unexpected error: ${error_.message}`);
     }
   }
 }
@@ -727,11 +727,11 @@ function expectCheckpointSchemaValidation(planner: CheckpointPlanner, invariants
   try {
     planner.validateCheckpoint(invalidCp as any);
     failures.push("validateCheckpoint did not throw on vague/empty checkpoint details");
-  } catch (e: any) {
-    if (e.message.includes("Checkpoint planner validation failed")) {
+  } catch (error_: any) {
+    if (error_.message.includes("Checkpoint planner validation failed")) {
       invariants.push("vague checkpoint proposal correctly validated and rejected by planner");
     } else {
-      failures.push(`validateCheckpoint threw unexpected error: ${e.message}`);
+      failures.push(`validateCheckpoint threw unexpected error: ${error_.message}`);
     }
   }
 }
@@ -740,11 +740,11 @@ function expectMonotonicGateRefusal(controller: MissionController, invariants: s
   try {
     controller.verifyHandoff({ requireElapsed: true });
     failures.push("verifyHandoff did not refuse premature handoff");
-  } catch (e: any) {
-    if (e.message.includes("Handoff Refused: Monotonic mission gate has not opened yet")) {
+  } catch (error_: any) {
+    if (error_.message.includes("Handoff Refused: Monotonic mission gate has not opened yet")) {
       invariants.push("premature finalization correctly blocked by 12H Monotonic Release Gate");
     } else {
-      failures.push(`verifyHandoff threw unexpected error: ${e.message}`);
+      failures.push(`verifyHandoff threw unexpected error: ${error_.message}`);
     }
   }
 }
@@ -753,11 +753,11 @@ function expectReportsValidation(controller: MissionController, invariants: stri
   try {
     controller.verifyHandoff({ requireAgentReports: 5 });
     failures.push("verifyHandoff did not throw on missing agent reports");
-  } catch (e: any) {
-    if (e.message.includes("Handoff Refused: Missing agent reports")) {
+  } catch (error_: any) {
+    if (error_.message.includes("Handoff Refused: Missing agent reports")) {
       invariants.push("missing agent report files correctly validated and rejected during handoff");
     } else {
-      failures.push(`verifyHandoff threw unexpected error: ${e.message}`);
+      failures.push(`verifyHandoff threw unexpected error: ${error_.message}`);
     }
   }
 }

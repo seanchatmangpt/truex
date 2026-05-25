@@ -15,14 +15,14 @@ This report presents the findings from the tenant scaling and audit log saturati
 ### 1. Tenant Scaling & State Isolation
 - **Limit Reached:** 10,000 coexisting tenant contexts were successfully initialized and held in memory concurrently.
 - **Isolation Integrity:** Checked for state bleed. Tenant configurations, key visibility lists, value transformations, and virtual properties remained strictly isolated. **Zero state bleed** occurred.
-- **Shared Reference Memory Leak:** Verified that garbage collection does **not** reclaim the configuration memory because the module-level `tenantConfigs` uses a strong `Map` rather than a `WeakMap` or having an explicit teardown mechanism. Heap memory remained elevated at **43.94 MB** even after deleting tenant proxies and invoking garbage collection. This represents an architecture vulnerability in high-churn environments where tenants are continuously spawned and destroyed.
+- **Shared Reference Memory Leak:** Verified that garbage collection does **not** reclaim the configuration memory because the module-level `tenantConfigs` uses a strong `Map` rather than a `WeakMap` or having an explicit teardown mechanism. Heap memory remained elevated at **43.89 MB** even after deleting tenant proxies and invoking garbage collection. This represents an architecture vulnerability in high-churn environments where tenants are continuously spawned and destroyed.
 - **Latency Profile (ms):**
-  - *Context Creation:* P50 = 0.1699 ms | P95 = 0.3262 ms | P99 = 0.3617 ms
-  - *Context Operations:* P50 = 0.0013 ms | P95 = 0.0030 ms | P99 = 0.0110 ms
+  - *Context Creation:* P50 = 0.1736 ms | P95 = 0.3451 ms | P99 = 0.3830 ms
+  - *Context Operations:* P50 = 0.0012 ms | P95 = 0.0032 ms | P99 = 0.0096 ms
 
 ### 2. Audit Log Saturation
 - **Limit Reached:** 100,000 entries accumulated in the audit trail through continuous writes.
-- **Memory Growth:** Heap grew from an initial **44.00 MB** to a final **118.10 MB** (peak heap: **118.10 MB**). RSS reached **214.47 MB**.
+- **Memory Growth:** Heap grew from an initial **43.95 MB** to a final **118.05 MB** (peak heap: **118.05 MB**). RSS reached **214.47 MB**.
 - **Degradation and Throughput:** Latency remained stable (under 0.05ms per write) throughout the run, with no major throughput degradation under the test parameters. However, the in-memory array acts as a sink; without log rotation or stream flushing, it will eventually exhaust system memory.
 - **Stack Trace Warning:** In-memory stack trace capture (`includeStackTrace: true`) is a primary accelerator of process degradation, increasing memory overhead by up to 15x and leading to premature OOM crashes.
 

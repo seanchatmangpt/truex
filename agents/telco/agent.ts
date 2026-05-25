@@ -8,7 +8,7 @@
  */
 
 import { OcelCollector, createOcelProxy } from "../../skills/membrane/mutations.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
 
 /**
  * Result structure of an OCEL envelope ingestion transition.
@@ -38,6 +38,19 @@ export class TelcoAgent {
     targetState: { balance: number },
     newBalance: number
   ): IngestionResult {
+    if (!activityName || !actorName || typeof activityName !== 'string' || typeof actorName !== 'string') {
+      throw new TypeError("Activity and actor names must be non-empty strings");
+    }
+    if (activityName.includes('\0') || actorName.includes('\0')) {
+      throw new Error("Null bytes detected in transition metadata");
+    }
+    if (activityName.includes('__proto__') || actorName.includes('__proto__') || activityName.includes('prototype') || actorName.includes('prototype')) {
+      throw new Error("Prototype pollution attempted in transition metadata");
+    }
+    if (newBalance > 1_000_000_000) {
+      throw new Error("Oversized payload: balance exceeds maximum limit");
+    }
+
     // Inject deterministic context to avoid timing/entropy leaks during ingestion
     const ctx = createDeterministicContext(999);
     const collector = new OcelCollector(ctx);
@@ -71,6 +84,12 @@ export class TelcoAgent {
    * @returns True if the envelope cryptographic receipts and trace invariants hold.
    */
   validateEnvelope(envelope: any): boolean {
+    if (!envelope || typeof envelope !== 'object') {
+      throw new Error("Invalid envelope format: must be an object");
+    }
+    if (envelope.profile !== 'zoe.ocel2.v1' && envelope.profile !== 'truex-swarm') {
+      throw new Error(`Invalid protocol family: ${envelope.profile}`);
+    }
     return OcelCollector.verifyEnvelope(envelope);
   }
 }

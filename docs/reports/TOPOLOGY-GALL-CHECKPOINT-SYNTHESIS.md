@@ -17,17 +17,17 @@ This synthesis report documents the validation of the Truex Hook Topology.
 - Supabase/Expo database/app platforms.
 
 ## 3. Source Files Added/Changed
-- [topology.gall.ts](file:///Users/sac/truex/packages/truex-core/src/topology.gall.ts)
-- [index.ts](file:///Users/sac/truex/packages/truex-core/src/index.ts)
+- [topology.gall.ts](file:///Users/sac/truex/packages/membrane/src/topology.gall.ts)
+- [index.ts](file:///Users/sac/truex/packages/membrane/src/index.ts)
 
 ## 4. Tests Added/Changed
-- [topology-chain-replay.test.ts](file:///Users/sac/truex/packages/truex-core/test/topology/topology-chain-replay.test.ts)
-- [topology-rollback-storm.test.ts](file:///Users/sac/truex/packages/truex-core/test/topology/topology-rollback-storm.test.ts)
-- [topology-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/truex-core/test/topology/topology-partial-order-vkg.test.ts)
+- [topology-chain-replay.test.ts](file:///Users/sac/truex/packages/membrane/test/topology/topology-chain-replay.test.ts)
+- [topology-rollback-storm.test.ts](file:///Users/sac/truex/packages/membrane/test/topology/topology-rollback-storm.test.ts)
+- [topology-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/membrane/test/topology/topology-partial-order-vkg.test.ts)
 
 ## 5. Commands Run
 - `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove topology`
-- `npx vitest run packages/truex-core/test/topology`
+- `npx vitest run packages/membrane/test/topology`
 
 ## 6. Topology Accounting Domains
 - **Domain T1 (Topology Chain):** attempted: 3.000, converged: 1.000, refused: 1.000, rolledBack: 1.000, failed: 0.000

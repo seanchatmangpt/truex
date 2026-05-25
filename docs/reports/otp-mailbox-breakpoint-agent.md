@@ -6,7 +6,7 @@ This report documents the mailbox saturation and FIFO ordering stress tests exec
 
 ## Verification Execution
 
-- **Test Suite Path:** `packages/truex-core/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts`
+- **Test Suite Path:** `packages/membrane/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts`
 - **JSON Report Path:** `docs/benchmarks/otp-mailbox-breakpoint.report.json`
 - **Markdown Report Path:** `docs/benchmarks/otp-mailbox-breakpoint.report.md`
 
@@ -22,8 +22,8 @@ This report documents the mailbox saturation and FIFO ordering stress tests exec
 | Metric | Observation |
 | --- | --- |
 | GC Run Observed | No |
-| Heap Peak Range | 22.67 - 166.18 MB |
-| RSS Peak After | 349.91 MB |
-| Average Bytes/Msg Approx | 4216.08 Bytes |
+| Heap Peak Range | 34.80 - 47.45 MB |
+| RSS Peak After | 132.08 MB |
+| Average Bytes/Msg Approx | 36945.48 Bytes |
 
 For detailed benchmark numbers, see [otp-mailbox-breakpoint.report.md](file:///Users/sac/truex/docs/benchmarks/otp-mailbox-breakpoint.report.md).

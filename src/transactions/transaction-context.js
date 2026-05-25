@@ -52,7 +52,7 @@ export function createTransactionContext(target, options = {}) {
    */
   function call(fn) {
     const currentDepth = (globalThis.__truex_transaction_depth || 0) + 1
-    const limit = options.maxDepth !== undefined ? options.maxDepth : 100
+    const limit = options.maxDepth === undefined ? 100 : options.maxDepth
     if (currentDepth > limit) {
       throw new RecursionRefusalError(`Transaction nesting limit of ${limit} exceeded`)
     }

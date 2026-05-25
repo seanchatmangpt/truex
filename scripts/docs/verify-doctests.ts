@@ -58,20 +58,10 @@ function extractMarkdownDoctests(filePath: string, content: string): DoctestBloc
   let blockLines: { text: string; lineNum: number }[] = [];
   let blockStartLine = -1;
   
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+  for (const [i, line] of lines.entries()) {
     const lineNum = i + 1;
     
-    if (!inBlock) {
-      const match = line.match(/^```(ts|typescript|bash)\s+doctest\b(.*)$/);
-      if (match) {
-        inBlock = true;
-        blockLang = match[1];
-        blockAttributes = match[2];
-        blockStartLine = lineNum;
-        blockLines = [];
-      }
-    } else {
+    if (inBlock) {
       if (line.trim() === '```') {
         inBlock = false;
         const code = blockLines.map(l => l.text).join('\n');
@@ -93,6 +83,15 @@ function extractMarkdownDoctests(filePath: string, content: string): DoctestBloc
       } else {
         blockLines.push({ text: line, lineNum });
       }
+    } else {
+      const match = line.match(/^```(ts|typescript|bash)\s+doctest\b(.*)$/);
+      if (match) {
+        inBlock = true;
+        blockLang = match[1];
+        blockAttributes = match[2];
+        blockStartLine = lineNum;
+        blockLines = [];
+      }
     }
   }
   return blocks;
@@ -105,11 +104,20 @@ function extractJsDocDoctests(filePath: string, content: string): DoctestBlock[]
   let currentCommentLines: { text: string; originalLineNum: number }[] = [];
   let jsDocStartLine = -1;
   
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+  for (const [i, line] of lines.entries()) {
     const lineNum = i + 1;
     
-    if (!insideJsDoc) {
+    if (insideJsDoc) {
+      const endIdx = line.indexOf('*/');
+      if (endIdx === -1) {
+        currentCommentLines.push({ text: line, originalLineNum: lineNum });
+      } else {
+        const commentText = line.slice(0, endIdx);
+        currentCommentLines.push({ text: commentText, originalLineNum: lineNum });
+        jsDocComments.push({ startLine: jsDocStartLine, lines: [...currentCommentLines] });
+        insideJsDoc = false;
+      }
+    } else {
       const startIdx = line.indexOf('/**');
       if (startIdx !== -1) {
         insideJsDoc = true;
@@ -117,25 +125,15 @@ function extractJsDocDoctests(filePath: string, content: string): DoctestBlock[]
         currentCommentLines = [];
         
         const endIdx = line.indexOf('*/', startIdx + 3);
-        if (endIdx !== -1) {
+        if (endIdx === -1) {
+          const commentText = line.slice(startIdx + 3);
+          currentCommentLines.push({ text: commentText, originalLineNum: lineNum });
+        } else {
           const commentText = line.slice(startIdx + 3, endIdx);
           currentCommentLines.push({ text: commentText, originalLineNum: lineNum });
           jsDocComments.push({ startLine: jsDocStartLine, lines: currentCommentLines });
           insideJsDoc = false;
-        } else {
-          const commentText = line.slice(startIdx + 3);
-          currentCommentLines.push({ text: commentText, originalLineNum: lineNum });
         }
-      }
-    } else {
-      const endIdx = line.indexOf('*/');
-      if (endIdx !== -1) {
-        const commentText = line.slice(0, endIdx);
-        currentCommentLines.push({ text: commentText, originalLineNum: lineNum });
-        jsDocComments.push({ startLine: jsDocStartLine, lines: [...currentCommentLines] });
-        insideJsDoc = false;
-      } else {
-        currentCommentLines.push({ text: line, originalLineNum: lineNum });
       }
     }
   }
@@ -153,21 +151,11 @@ function extractJsDocDoctests(filePath: string, content: string): DoctestBlock[]
     let blockLines: { text: string; lineNum: number }[] = [];
     let blockStartLine = -1;
     
-    for (let i = 0; i < cleanedLines.length; i++) {
-      const cl = cleanedLines[i];
+    for (const cl of cleanedLines) {
       const lineText = cl.text;
       const originalLineNum = cl.originalLineNum;
       
-      if (!inBlock) {
-        const match = lineText.match(/^```(ts|typescript|bash)\s+doctest\b(.*)$/);
-        if (match) {
-          inBlock = true;
-          blockLang = match[1];
-          blockAttributes = match[2];
-          blockStartLine = originalLineNum;
-          blockLines = [];
-        }
-      } else {
+      if (inBlock) {
         if (lineText.trim() === '```') {
           inBlock = false;
           const code = blockLines.map(l => l.text).join('\n');
@@ -188,6 +176,15 @@ function extractJsDocDoctests(filePath: string, content: string): DoctestBlock[]
           });
         } else {
           blockLines.push({ text: lineText, lineNum: originalLineNum });
+        }
+      } else {
+        const match = lineText.match(/^```(ts|typescript|bash)\s+doctest\b(.*)$/);
+        if (match) {
+          inBlock = true;
+          blockLang = match[1];
+          blockAttributes = match[2];
+          blockStartLine = originalLineNum;
+          blockLines = [];
         }
       }
     }
@@ -287,11 +284,7 @@ function main() {
     const content = fs.readFileSync(file, 'utf8');
     let fileBlocks: DoctestBlock[] = [];
     
-    if (file.endsWith('.md')) {
-      fileBlocks = extractMarkdownDoctests(file, content);
-    } else {
-      fileBlocks = extractJsDocDoctests(file, content);
-    }
+    fileBlocks = file.endsWith('.md') ? extractMarkdownDoctests(file, content) : extractJsDocDoctests(file, content);
     
     doctests.push(...fileBlocks);
   }
@@ -366,7 +359,7 @@ describe(${JSON.stringify(block.filePath)}, () => {
         if (!trimmed) continue;
         if (trimmed.startsWith('#')) {
           const exitMatch = trimmed.match(/#\s*expect:\s*exit[cC]ode\s+(\d+)/);
-          if (exitMatch) expectedExitCode = parseInt(exitMatch[1], 10);
+          if (exitMatch) expectedExitCode = Number.parseInt(exitMatch[1], 10);
           
           const stdoutMatch = trimmed.match(/#\s*expect:\s*stdout\s+(.+)/);
           if (stdoutMatch) expectedStdout = stdoutMatch[1].replace(/^["']|["']$/g, '');
@@ -434,7 +427,7 @@ describe(${JSON.stringify(block.filePath)}, () => {
       execSync(`npx vitest run .generated/doctests --reporter=json --outputFile=${resultsJsonPath}`, {
         stdio: 'inherit'
       });
-    } catch (error) {
+    } catch {
       console.log('⚠️ Vitest reported test failures (expected if some doctests fail).');
     }
     
@@ -463,8 +456,8 @@ describe(${JSON.stringify(block.filePath)}, () => {
             }
           }
         }
-      } catch (err: any) {
-        console.error('Error parsing Vitest JSON results:', err.message);
+      } catch (error_: any) {
+        console.error('Error parsing Vitest JSON results:', error_.message);
       }
     } else {
       console.error('Error: Vitest JSON results file not found.');

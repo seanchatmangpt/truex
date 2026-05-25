@@ -8,8 +8,8 @@ Below is the compilation of the command list execution times, exit codes, and du
 
 | Command | Exit Code | Duration ms | Attempted | Succeeded | Failed | Refused | Quarantined | Skipped |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| `npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts` | 0.000 | 4233.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
-| `npx vitest run packages/truex-core/test/hook-otp` | 0.000 | 4606.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| `npx vitest run packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts` | 0.000 | 4233.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
+| `npx vitest run packages/membrane/test/hook-otp` | 0.000 | 4606.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove hook-otp` | 0.000 | 1562.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove benchmark` | 0.000 | 30601.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
 | `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove ecosystem` | 0.000 | 105535.000 | 1.000 | 1.000 | 0.000 | 0.000 | 0.000 | 0.000 |
@@ -43,7 +43,7 @@ Below is the compilation of the 10 OTP stress cases showing their attempted, pas
 ```json
 [
   {
-    "command": "npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
+    "command": "npx vitest run packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
     "exitCode": 0,
     "durationMs": 4233,
     "durationMsString": "4233.000 ms",
@@ -65,7 +65,7 @@ Below is the compilation of the 10 OTP stress cases showing their attempted, pas
     "quarantineRatePctString": "0.000%"
   },
   {
-    "command": "npx vitest run packages/truex-core/test/hook-otp",
+    "command": "npx vitest run packages/membrane/test/hook-otp",
     "exitCode": 0,
     "durationMs": 4606,
     "durationMsString": "4606.000 ms",

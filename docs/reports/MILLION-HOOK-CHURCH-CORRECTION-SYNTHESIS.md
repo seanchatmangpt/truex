@@ -61,7 +61,7 @@ Running `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove benchmark` yi
 ```
 
 ## 5. Stress/Failure Evidence
-Running `npx vitest run packages/truex-core/test/benchmark` verifies that:
+Running `npx vitest run packages/membrane/test/benchmark` verifies that:
 *   Malformed delta throws `parseGraphDelta` failure.
 *   Receipt tampering throws `verifyReceipt` validation failure.
 *   Replay divergence detects altered contexts/seeds and mutated quads.

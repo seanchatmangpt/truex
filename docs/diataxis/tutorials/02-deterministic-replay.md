@@ -15,7 +15,7 @@ To fully leverage Deterministic Replay, it helps to recall the core Truex archit
 To replay an execution, you first need an execution receipt. In the previous tutorial, we saw how the `execute` method returns a receipt object. In a production system, these are typically shipped to a database or blob storage.
 
 ```typescript
-import { GallSequencer } from '@truex/core';
+import { GallSequencer } from '@truex/membrane';
 import fs from 'fs';
 
 // Assume processOrderHook and initialState are imported/defined
@@ -34,7 +34,7 @@ async function captureReceipt() {
 Now, let's load the receipt and configure the `ReplayEngine`.
 
 ```typescript
-import { ReplayEngine } from '@truex/core';
+import { ReplayEngine } from '@truex/membrane';
 import fs from 'fs';
 
 const receiptData = JSON.parse(fs.readFileSync('receipt.json', 'utf8'));

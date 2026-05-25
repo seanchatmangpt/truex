@@ -15,7 +15,7 @@ Before we dive into the code, it's essential to understand the theoretical under
 First, ensure you have Truex installed and your project initialized. A standard Node.js or TypeScript project works perfectly.
 
 ```bash
-npm install @truex/core
+npm install @truex/membrane
 ```
 
 Create a new file named `my-first-hook.ts`. We will use TypeScript for better type safety and self-documenting code.
@@ -25,7 +25,7 @@ Create a new file named `my-first-hook.ts`. We will use TypeScript for better ty
 Let's define a simple hook that intercepts an order processing capability. This hook will manage the lifecycle of an e-commerce order.
 
 ```typescript
-import { Truex, HookContext } from '@truex/core';
+import { Truex, HookContext } from '@truex/membrane';
 
 // Define the shape of our state
 interface OrderState {
@@ -64,7 +64,7 @@ const processOrderHook = Truex.createHook<OrderState>({
 To execute the hook, we must submit it to the Gall sequencer. The sequencer acts as the supervisor for our OTP-equivalent processes.
 
 ```typescript
-import { GallSequencer } from '@truex/core';
+import { GallSequencer } from '@truex/membrane';
 
 async function run() {
   const sequencer = new GallSequencer();
@@ -99,7 +99,7 @@ console.log('Topology Nodes:', topology.getNodes());
 
 - **State Mutation Error**: If you receive a `Mutations outside context` error, ensure you are only modifying the state using `ctx.mutate()`. Direct assignments to `ctx.state` are blocked at runtime to guarantee deterministic replayability and Gall sequence integrity.
 - **Sequencer Timeout**: If the sequencer times out or hangs, check if your hook contains infinite loops, unhandled promise rejections, or unresolved asynchronous calls. The OTP equivalence layer enforces strict execution timeouts to prevent resource exhaustion.
-- **Missing Peer Dependencies**: If the sequencer fails to initialize, verify that you are not missing any peer dependencies required by the `@truex/core` package.
+- **Missing Peer Dependencies**: If the sequencer fails to initialize, verify that you are not missing any peer dependencies required by the `@truex/membrane` package.
 
 ## Conclusion
 

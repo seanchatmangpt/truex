@@ -60,11 +60,11 @@ The integration map acts as a logical linkage table showing checkpoint dependenc
 {
   "cp-cli-contract": [
     "scripts/truex.ts",
-    "packages/truex-core/test/project-wizard/project-wizard-cli.test.ts"
+    "packages/membrane/test/project-wizard/project-wizard-cli.test.ts"
   ],
   "cp-project-cell": [
-    "packages/truex-core/src/project-wizard.gall.ts",
-    "packages/truex-core/test/project-wizard/project-wizard-init-map.test.ts"
+    "packages/membrane/src/project-wizard.gall.ts",
+    "packages/membrane/test/project-wizard/project-wizard-init-map.test.ts"
   ]
 }
 ```
@@ -76,12 +76,12 @@ The integration map acts as a logical linkage table showing checkpoint dependenc
 The **Prove** phase runs the test suite or proof command associated with a checkpoint, capturing stdout, exit codes, and durations to generate a cryptographic execution proof.
 
 ### 5.1 Gaps Identified & Resolved
-During our detailed code review of `packages/truex-core/src/project-wizard.gall.ts`, a major design drift was detected:
+During our detailed code review of `packages/membrane/src/project-wizard.gall.ts`, a major design drift was detected:
 - **Design Drift:** The initial implementation of `prove` simulated the vitest command execution and hardcoded a success output instead of executing the actual script, which violated the **Universal Implementation Standards** and the **AGENTS.md Testing Law** (no mocked success paths for core primitives).
 - **Resolution:** We integrated `child_process.execSync` to invoke the `proofCommand` under the repository root context. It now captures actual durations, stdout/stderr, and exit codes, and dynamically updates the W4 ledger to record real failures or successes.
 
 ### 5.2 Execution Logic
-1. **Command Invocation:** Executes the checkpoint's `proofCommand` (e.g., `npx vitest run packages/truex-core/test/project-wizard/project-wizard-cli.test.ts`) using `execSync`.
+1. **Command Invocation:** Executes the checkpoint's `proofCommand` (e.g., `npx vitest run packages/membrane/test/project-wizard/project-wizard-cli.test.ts`) using `execSync`.
 2. **Metric Capture:** Captures start and end time (duration in milliseconds) and exit codes.
 3. **Accounting Registration:** Increments the W4 proof commands tried and records the result.
 4. **Proof Receipt Generation:** Writes a `.truex/reports/proof-${checkpointId}.json` summary.
@@ -175,14 +175,14 @@ The execution engine invariants are validated in `project-wizard-execution.test.
 ### 8.1 Test Command Execution
 Tests are run using the vitest framework:
 ```bash
-npx vitest run packages/truex-core/test/project-wizard/project-wizard-execution.test.ts
+npx vitest run packages/membrane/test/project-wizard/project-wizard-execution.test.ts
 ```
 
 ### 8.2 Execution Output
 ```text
  RUN  v4.1.7 /Users/sac/truex
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-execution.test.ts (1 test) 730ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-execution.test.ts (1 test) 730ms
      ✓ should forge placeholder files, bind maps, run proof, and harden envelope  729ms
 
  Test Files  1 passed (1)

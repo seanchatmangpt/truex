@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 
 const proofsFile = 'skills/project-evidence/proofs.ts';
 let code = fs.readFileSync(proofsFile, 'utf8');

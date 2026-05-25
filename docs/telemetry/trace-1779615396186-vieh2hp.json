@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779615396186-vieh2hp",
+  "spanId": "span-unknown",
+  "startTime": 1779615396186,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-map\"]}"
+  },
+  "events": [],
+  "endTime": 1779615397063,
+  "durationMs": 877
+}

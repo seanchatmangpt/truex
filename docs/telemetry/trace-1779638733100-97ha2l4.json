@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779638733100-97ha2l4",
+  "spanId": "span-unknown",
+  "startTime": 1779638733100,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard-plan\"]}"
+  },
+  "events": [],
+  "endTime": 1779638733101,
+  "durationMs": 1
+}

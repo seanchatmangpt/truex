@@ -1,0 +1,10 @@
+{
+  "name": "@truex/kernel-wasm",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "./pkg/wasm4pm.js",
+  "types": "./pkg/wasm4pm.d.ts",
+  "files": [
+    "pkg"
+  ]
+}

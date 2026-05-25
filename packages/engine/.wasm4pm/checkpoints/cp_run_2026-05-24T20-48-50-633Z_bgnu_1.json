@@ -1,0 +1,13 @@
+{
+  "id": "cp_run_2026-05-24T20-48-50-633Z_bgnu_1",
+  "runId": "run_2026-05-24T20-48-50-633Z_bgnu",
+  "timestamp": "2026-05-24T20:48:50.638Z",
+  "sequenceNumber": 1,
+  "state": "ready",
+  "progress": 1,
+  "metadata": {
+    "shutdownTime": "2026-05-24T20:48:50.638Z",
+    "type": "graceful_shutdown"
+  },
+  "savedAt": "2026-05-24T20:48:50.638Z"
+}

@@ -6,8 +6,8 @@ This tutorial provides executable doctests illustrating the key components of Tr
 Define a simple hook and execute it against a matching GraphDelta.
 
 ```typescript doctest name="first-hook"
-import { TruexHook } from "packages/truex-core/src/hook.js";
-import { createDeterministicContext } from "packages/truex-core/src/context.js";
+import { TruexHook } from "packages/membrane/src/hook.js";
+import { createDeterministicContext } from "packages/membrane/src/context.js";
 
 const hook = new TruexHook({
   id: "hook-1",
@@ -32,8 +32,8 @@ expect(result.receipt.status).toBe("confirmed");
 Run hook replay validation to verify deterministic convergence.
 
 ```typescript doctest name="replay-confirmed-receipt"
-import { TruexHook } from "packages/truex-core/src/hook.js";
-import { createDeterministicContext } from "packages/truex-core/src/context.js";
+import { TruexHook } from "packages/membrane/src/hook.js";
+import { createDeterministicContext } from "packages/membrane/src/context.js";
 
 const hook = new TruexHook({
   id: "hook-1",
@@ -61,8 +61,8 @@ expect(success).toBe(true);
 Verifying that modifying a receipt causes replay validation to fail.
 
 ```typescript doctest name="tampered-receipt-fails"
-import { TruexHook } from "packages/truex-core/src/hook.js";
-import { createDeterministicContext } from "packages/truex-core/src/context.js";
+import { TruexHook } from "packages/membrane/src/hook.js";
+import { createDeterministicContext } from "packages/membrane/src/context.js";
 
 const hook = new TruexHook({
   id: "hook-1",
@@ -91,9 +91,9 @@ expect(success).toBe(false);
 Asserting that exceeding standard capacity constraints (more than 100 quads) is rejected by Jidoka / PokaYoke.
 
 ```typescript doctest name="capacity-breach-refusal"
-import { PokaYoke, AndonSystem } from "packages/truex-core/src/manufacturing/jidoka.js";
-import { TruexHook } from "packages/truex-core/src/hook.js";
-import { createDeterministicContext } from "packages/truex-core/src/context.js";
+import { PokaYoke, AndonSystem } from "packages/membrane/src/manufacturing/jidoka.js";
+import { TruexHook } from "packages/membrane/src/hook.js";
+import { createDeterministicContext } from "packages/membrane/src/context.js";
 
 const andon = new AndonSystem();
 const pokaYoke = new PokaYoke(andon);
@@ -131,7 +131,7 @@ expect(() => {
 Proving two local deterministic contexts with the same seed behave identically.
 
 ```typescript doctest name="deterministic-context-same-seed"
-import { createDeterministicContext } from "packages/truex-core/src/context.js";
+import { createDeterministicContext } from "packages/membrane/src/context.js";
 
 const ctx1 = createDeterministicContext(12345);
 const ctx2 = createDeterministicContext(12345);
@@ -149,7 +149,7 @@ expect(time1).toBe(time2);
 Proving two local deterministic contexts with different seeds generate different sequences.
 
 ```typescript doctest name="deterministic-context-different-seed"
-import { createDeterministicContext } from "packages/truex-core/src/context.js";
+import { createDeterministicContext } from "packages/membrane/src/context.js";
 
 const ctx1 = createDeterministicContext(11111);
 const ctx2 = createDeterministicContext(22222);
@@ -163,7 +163,7 @@ expect(uuid1).not.toBe(uuid2);
 Proving `hash()` and `stableJson()` are deterministic and order keys alphabetically.
 
 ```typescript doctest name="hash-canonicalization-stability"
-import { stableJson, hash } from "packages/truex-core/src/hash.js";
+import { stableJson, hash } from "packages/membrane/src/hash.js";
 
 const obj1 = { z: 1, a: 2, m: 3 };
 const obj2 = { a: 2, m: 3, z: 1 };
@@ -184,7 +184,7 @@ npx tsx scripts/truex.ts doctor prove replay
 Verifying parsing of a valid GraphDelta structure.
 
 ```typescript doctest name="graph-delta-parser-valid"
-import { parseGraphDelta } from "packages/truex-core/src/runtime-law.js";
+import { parseGraphDelta } from "packages/membrane/src/runtime-law.js";
 
 const rawDelta = {
   id: "delta-123",
@@ -203,7 +203,7 @@ expect(parsed.adds[0].subject).toBe("A");
 Verifying that parsing of invalid/malformed structures fails as expected.
 
 ```typescript doctest name="graph-delta-parser-malformed"
-import { parseGraphDelta } from "packages/truex-core/src/runtime-law.js";
+import { parseGraphDelta } from "packages/membrane/src/runtime-law.js";
 
 const rawDelta = {
   id: "delta-123",
@@ -220,7 +220,7 @@ expect(() => parseGraphDelta(rawDelta)).toThrow("Quad.predicate must be a non-em
 A simple multi-node hook topology validation.
 
 ```typescript doctest name="topology-abc-validation"
-import { createTopologyRuntime, registerTopologyHook, emitTopologyDelta, runTopologyChain, type TopologyDelta } from "packages/truex-core/src/topology.gall.js";
+import { createTopologyRuntime, registerTopologyHook, emitTopologyDelta, runTopologyChain, type TopologyDelta } from "packages/membrane/src/topology.gall.js";
 
 const runtime = createTopologyRuntime(42);
 
@@ -295,7 +295,7 @@ expect(nodeIds).toEqual(["node-a", "node-b", "node-c"]);
 Proving hook-otp mailbox messages process in FIFO order.
 
 ```typescript doctest name="otp-mailbox-fifo"
-import { createHookMailbox } from "packages/truex-core/src/hook-otp.gall.js";
+import { createHookMailbox } from "packages/membrane/src/hook-otp.gall.js";
 
 const mailbox = createHookMailbox();
 const msg1 = { id: "msg-1", targetProcessId: "proc-1", delta: { id: "d1", adds: [], deletes: [] } };

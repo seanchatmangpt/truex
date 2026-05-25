@@ -7,7 +7,7 @@
  */
 
 import Database from 'better-sqlite3';
-import { initializeSchema } from '../../packages/truex-core/src/persistence/schema.js';
+import { initializeSchema } from '../../packages/membrane/src/persistence/schema.js';
 import {
   createPersistentMailbox,
   enqueueMessage,
@@ -23,10 +23,10 @@ import {
   rescueExecutingMessages,
   recordQueueMetrics,
   promoteScheduledMessages
-} from '../../packages/truex-core/src/persistent-mailbox.gall.js';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
-import { computeAccounting } from '../../packages/truex-core/src/runtime-law.js';
-import { hash } from '../../packages/truex-core/src/hash.js';
+} from '../../packages/membrane/src/persistent-mailbox.gall.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
+import { computeAccounting } from '../../packages/membrane/src/runtime-law.js';
+import { hash } from '../../packages/membrane/src/hash.js';
 
 export interface MailboxProofReport {
   case: string;
@@ -396,8 +396,8 @@ export async function proveMailbox(): Promise<MailboxProofReport> {
     idStalledRetry,
     config.queue,
     JSON.stringify({ id: 'stalled-retry' }),
-    now - 10000,
-    now - 10000,
+    now - 10_000,
+    now - 10_000,
     now - 8000,
     hash('stalled-retry-key')
   );
@@ -414,8 +414,8 @@ export async function proveMailbox(): Promise<MailboxProofReport> {
     idStalledRefuse,
     config.queue,
     JSON.stringify({ id: 'stalled-refuse' }),
-    now - 10000,
-    now - 10000,
+    now - 10_000,
+    now - 10_000,
     now - 8000,
     hash('stalled-refuse-key')
   );

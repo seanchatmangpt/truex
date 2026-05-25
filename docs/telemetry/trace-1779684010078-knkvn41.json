@@ -1,0 +1,12 @@
+{
+  "traceId": "trace-1779684010078-knkvn41",
+  "spanId": "span-unknown",
+  "startTime": 1779684010078,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wasm\"]}"
+  },
+  "events": [],
+  "endTime": 1779684010398,
+  "durationMs": 320
+}

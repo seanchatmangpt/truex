@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779649846378-ne069sp",
+  "spanId": "span-unknown",
+  "startTime": 1779649846378,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"lifecycle-benchmarks\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779649851756,
+      "attributes": {
+        "primitive": "lifecycle-benchmarks",
+        "status": "confirmed",
+        "executionTimeMs": 4892,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779649851756,
+  "durationMs": 5378
+}

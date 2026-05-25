@@ -7,10 +7,10 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
-import { InitVerb } from '../../packages/truex-core/src/wizard/verbs/init.js';
-import { MapVerb } from '../../packages/truex-core/src/wizard/verbs/map.js';
-import type { ProjectConsequenceCell } from '../../packages/truex-core/src/wizard/project-cell.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
+import { InitVerb } from '../../packages/membrane/src/wizard/verbs/init.js';
+import { MapVerb } from '../../packages/membrane/src/wizard/verbs/map.js';
+import type { ProjectConsequenceCell } from '../../packages/membrane/src/wizard/project-cell.js';
 
 export async function proveWizardMap() {
   const invariants: string[] = [];
@@ -61,7 +61,7 @@ export async function proveWizardMap() {
       
       const topologyFile = path.join(testDir, '.truex', 'project.evidence', 'topology.json');
       if (fs.existsSync(topologyFile)) {
-         const topology = JSON.parse(fs.readFileSync(topologyFile, 'utf-8'));
+         const topology = JSON.parse(fs.readFileSync(topologyFile, 'utf8'));
          if (topology.objects['dummy.ts'].type === 'source_file') invariants.push('Identified source file correctly');
          else failures.push('Failed to identify source file');
 

@@ -6,7 +6,7 @@ This guide walks you through creating, registering, and validating an Ontology f
 
 ## Prerequisites
 
-- `truex-core` installed.
+- `membrane` installed.
 - Understanding of Object-Centric Event Logging (OCEL 2.0).
 - Familiarity with JSON Schema or TypeScript interfaces.
 
@@ -53,7 +53,7 @@ To enforce these rules at runtime, you must register the ontology with the Proxy
 Create an initialization script `init.ts`:
 
 ```typescript
-import { OntologyRegistry } from 'truex-core/governance';
+import { OntologyRegistry } from 'membrane/governance';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -99,7 +99,7 @@ Indexing events: StartProduction, JidokaHalt...
 Once registered, the ontology acts as a strict schema for your OCEL event logs. If a capability attempts to log an event that violates the ontology, it will be rejected.
 
 ```typescript
-import { OCELLogger, OntologyRegistry } from 'truex-core';
+import { OCELLogger, OntologyRegistry } from 'membrane';
 
 const logger = new OCELLogger({ registry: OntologyRegistry.getInstance() });
 

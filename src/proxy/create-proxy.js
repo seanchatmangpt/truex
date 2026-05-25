@@ -62,7 +62,7 @@ function isNonConfigurableNonWritable(target, prop) {
   try {
     const desc = Reflect.getOwnPropertyDescriptor(target, prop)
     return desc && !desc.configurable && !desc.writable
-  } catch (e) {
+  } catch {
     return false
   }
 }
@@ -125,6 +125,8 @@ export function createProxy(target = {}, parentContext = null) {
     getOwnPropertyDescriptorInterceptors: [],
     applyInterceptors: [],
     constructInterceptors: [],
+    powlEngine: null,
+    logicEngine: null,
   }
 
   const proxy = new Proxy(target, {
@@ -242,12 +244,12 @@ export function createProxy(target = {}, parentContext = null) {
       try {
         const res = runInterceptors(interceptors, Reflect.apply, target, thisArg, argsList)
         return wrapValue(res, contextData)
-      } catch (err) {
-        if (err instanceof TypeError && unwrappedThis !== thisArg) {
+      } catch (error_) {
+        if (error_ instanceof TypeError && unwrappedThis !== thisArg) {
           const res = runInterceptors(interceptors, Reflect.apply, target, unwrappedThis, argsList)
           return wrapValue(res, contextData)
         }
-        throw err
+        throw error_
       }
     },
 

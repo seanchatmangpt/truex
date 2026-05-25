@@ -13,8 +13,8 @@ import {
 import {
   createTransactionContext,
 } from '../../src/transactions/transaction-context.js'
-import { createReceipt } from '../../packages/truex-core/src/receipt.js'
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js'
+import { createReceipt } from '../../packages/membrane/src/receipt.js'
+import { createDeterministicContext } from '../../packages/membrane/src/context.js'
 
 describe('Runaway & Recursion Controller', () => {
   describe('Circular Invariants Cycle Detection', () => {
@@ -154,8 +154,8 @@ describe('Runaway & Recursion Controller', () => {
             })
           })
         })
-      } catch (e) {
-        errorThrown = e
+      } catch (error_) {
+        errorThrown = error_
       }
 
       expect(errorThrown).toBeInstanceOf(Error)

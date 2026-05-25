@@ -3,7 +3,7 @@
 ## 1. Executive Summary
 This report verifies and validates the cryptographic integrity, receipt chain lineage, and post-quantum digital signature mechanisms within the TRUEX runtime environment. Consistent with the constraints and axioms in `AGENTS.md` (e.g., Gall sequencing, Testing Law, Replay Law, and Entropy Law), we have conducted a security audit, introduced defensive hardening measures, and expanded the testing surface to verify both lawful state convergence and adversarial tampering failures.
 
-All tests run across the core packages (`packages/truex-core/test`) and the low-level Gall proof suites (`src/lib/gall-truex/__tests__`) have successfully converged and passed.
+All tests run across the core packages (`packages/membrane/test`) and the low-level Gall proof suites (`src/lib/gall-truex/__tests__`) have successfully converged and passed.
 
 ---
 
@@ -98,7 +98,7 @@ export function verifyReportReceipt(receipt: Receipt & { signature?: string }, p
 ---
 
 ## 4. Test Expansion & Adversarial Coverage
-We expanded the test suite in `packages/truex-core/test/report-receipt.test.ts` to assert security limits explicitly:
+We expanded the test suite in `packages/membrane/test/report-receipt.test.ts` to assert security limits explicitly:
 
 1. **Tampered Receipt Fails**: Mutates each attribute (`id`, `eventId`, `deltaId`, `inputHash`, `outputHash`, `previousReceiptHash`, `status`) and asserts that `verifyReceipt` and `verifyReportReceipt` reject the payload.
 2. **Reordered Chain Fails**: Creates a chain of three valid sequential receipts (`r1 -> r2 -> r3`) and asserts that out-of-order combinations (e.g. `r2 -> r1`, `r3 -> r2`, `r1 -> r3`) fail lineage validation.
@@ -114,40 +114,40 @@ Below is the verification trace showing 36 test files and 210 test cases passing
 ```
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/hook-interceptor.test.ts (15 tests) 5ms
- ✓ packages/truex-core/test/skill-sandbox.test.ts (17 tests) 5ms
- ✓ packages/truex-core/test/integration/env-actuator.test.ts (11 tests) 15ms
- ✓ packages/truex-core/test/integration/consequence-actuator.test.ts (21 tests) 16ms
- ✓ packages/truex-core/test/integration/swarm-controller.test.ts (14 tests) 14ms
- ✓ packages/truex-core/test/persistence/membrane-link.test.ts (6 tests) 13ms
- ✓ packages/truex-core/test/doctor-diagnostics.test.ts (10 tests) 28ms
- ✓ packages/truex-core/test/persistence/journal.test.ts (7 tests) 123ms
- ✓ packages/truex-core/test/primitives.test.ts (5 tests) 71ms
- ✓ packages/truex-core/test/integration-surface.test.ts (6 tests) 90ms
- ✓ packages/truex-core/test/adapter.test.ts (4 tests) 10ms
- ✓ packages/truex-core/test/integration/trajectory-replay.test.ts (4 tests) 6ms
- ✓ packages/truex-core/test/persistence/lock.test.ts (5 tests) 18ms
- ✓ packages/truex-core/test/kaizen.test.ts (3 tests) 17ms
- ✓ packages/truex-core/test/membrane.test.ts (3 tests) 259ms
- ✓ packages/truex-core/test/integration/task-delta.test.ts (7 tests) 7ms
- ✓ packages/truex-core/test/manufacturing/swarm-actuator.test.ts (3 tests) 5ms
+ ✓ packages/membrane/test/hook-interceptor.test.ts (15 tests) 5ms
+ ✓ packages/membrane/test/skill-sandbox.test.ts (17 tests) 5ms
+ ✓ packages/membrane/test/integration/env-actuator.test.ts (11 tests) 15ms
+ ✓ packages/membrane/test/integration/consequence-actuator.test.ts (21 tests) 16ms
+ ✓ packages/membrane/test/integration/swarm-controller.test.ts (14 tests) 14ms
+ ✓ packages/membrane/test/persistence/membrane-link.test.ts (6 tests) 13ms
+ ✓ packages/membrane/test/doctor-diagnostics.test.ts (10 tests) 28ms
+ ✓ packages/membrane/test/persistence/journal.test.ts (7 tests) 123ms
+ ✓ packages/membrane/test/primitives.test.ts (5 tests) 71ms
+ ✓ packages/membrane/test/integration-surface.test.ts (6 tests) 90ms
+ ✓ packages/membrane/test/adapter.test.ts (4 tests) 10ms
+ ✓ packages/membrane/test/integration/trajectory-replay.test.ts (4 tests) 6ms
+ ✓ packages/membrane/test/persistence/lock.test.ts (5 tests) 18ms
+ ✓ packages/membrane/test/kaizen.test.ts (3 tests) 17ms
+ ✓ packages/membrane/test/membrane.test.ts (3 tests) 259ms
+ ✓ packages/membrane/test/integration/task-delta.test.ts (7 tests) 7ms
+ ✓ packages/membrane/test/manufacturing/swarm-actuator.test.ts (3 tests) 5ms
  ✓ src/lib/gall-truex/__tests__/sqlite-proof.test.ts (2 tests) 35ms
- ✓ packages/truex-core/test/manufacturing/visual.test.ts (4 tests) 15ms
- ✓ packages/truex-core/test/integration/autonomic-loop.test.ts (5 tests) 32ms
- ✓ packages/truex-core/test/receipt.property.test.ts (2 tests) 104ms
- ✓ packages/truex-core/test/manufacturing/line.test.ts (4 tests) 6ms
- ✓ packages/truex-core/test/s3-integration.test.ts (2 tests) 112ms
- ✓ packages/truex-core/test/manufacturing.test.ts (7 tests) 100ms
- ✓ packages/truex-core/test/manufacturing/lean.test.ts (3 tests) 2ms
- ✓ packages/truex-core/test/integration/closed-loop-convergence.test.ts (5 tests) 188ms
- ✓ packages/truex-core/test/replay.property.test.ts (1 test) 25ms
+ ✓ packages/membrane/test/manufacturing/visual.test.ts (4 tests) 15ms
+ ✓ packages/membrane/test/integration/autonomic-loop.test.ts (5 tests) 32ms
+ ✓ packages/membrane/test/receipt.property.test.ts (2 tests) 104ms
+ ✓ packages/membrane/test/manufacturing/line.test.ts (4 tests) 6ms
+ ✓ packages/membrane/test/s3-integration.test.ts (2 tests) 112ms
+ ✓ packages/membrane/test/manufacturing.test.ts (7 tests) 100ms
+ ✓ packages/membrane/test/manufacturing/lean.test.ts (3 tests) 2ms
+ ✓ packages/membrane/test/integration/closed-loop-convergence.test.ts (5 tests) 188ms
+ ✓ packages/membrane/test/replay.property.test.ts (1 test) 25ms
  ✓ src/lib/gall-truex/__tests__/engine-proof.test.ts (2 tests) 108ms
- ✓ packages/truex-core/test/persistence.test.ts (3 tests) 10ms
+ ✓ packages/membrane/test/persistence.test.ts (3 tests) 10ms
  ✓ src/lib/gall-truex/__tests__/replay-proof.test.ts (3 tests) 20ms
- ✓ packages/truex-core/test/jit.test.ts (2 tests) 168ms
+ ✓ packages/membrane/test/jit.test.ts (2 tests) 168ms
  ✓ src/lib/gall-truex/__tests__/hash-proof.test.ts (3 tests) 64ms
- ✓ packages/truex-core/test/report-receipt.test.ts (10 tests) 789ms
- ✓ packages/truex-core/test/heijunka.test.ts (3 tests) 942ms
+ ✓ packages/membrane/test/report-receipt.test.ts (10 tests) 789ms
+ ✓ packages/membrane/test/heijunka.test.ts (3 tests) 942ms
  ✓ src/lib/gall-truex/__tests__/receipt-proof.test.ts (5 tests) 3851ms
  ✓ src/lib/gall-truex/__tests__/signature-proof.test.ts (3 tests) 5459ms
 

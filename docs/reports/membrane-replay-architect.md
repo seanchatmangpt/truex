@@ -1,6 +1,6 @@
 # Membrane Replay Architecture & Implementation Report
 
-This report outlines the implementation details for the persistent membrane journal replay semantics in `packages/truex-core/src/membrane-replay.gall.ts`.
+This report outlines the implementation details for the persistent membrane journal replay semantics in `packages/membrane/src/membrane-replay.gall.ts`.
 
 ## 1. Executive Summary
 
@@ -12,7 +12,7 @@ This implementation adds robust transaction journal verification, crash-recovery
 
 ## 2. Core Primitives
 
-The following primitives are defined under `packages/truex-core/src/membrane-replay.gall.ts`:
+The following primitives are defined under `packages/membrane/src/membrane-replay.gall.ts`:
 
 - **`JournalEntry`**: Represents a single mutation step (hook execution or rollback) within a chain's timeline.
 - **`TopologySnapshot`**: Captures state maps and receipt tracking hashes at a given checkpoint.
@@ -77,7 +77,7 @@ Identifies incomplete chains from `rollback_snapshots` that crashed mid-executio
 
 ## 5. Verification Results
 
-All unit tests under `packages/truex-core/test/membrane-replay/` are passing successfully:
+All unit tests under `packages/membrane/test/membrane-replay/` are passing successfully:
 - **`membrane-crash-rollback.test.ts`**: Verifies that crash recovery rolls back modified states to original values, appends rollback entries, and references the original failure receipt.
 - **`membrane-partial-order-vkg.test.ts`**: Verifies partial-order scheduling, VKG state convergence, and detects journal truncation.
 - **`membrane-reconstruction.test.ts`**: Verifies path-ordering reconstruction from the journal WAL and detects tampering in modified receipt hashes.

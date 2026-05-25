@@ -1,0 +1,22 @@
+{
+  "objects": {
+    "docs/project-c4-container.mmd": {
+      "type": "source_file",
+      "size": 227
+    },
+    "docs/project-c4-context.mmd": {
+      "type": "source_file",
+      "size": 141
+    },
+    "dummy.test.ts": {
+      "type": "test_file",
+      "size": 20
+    },
+    "dummy.ts": {
+      "type": "source_file",
+      "size": 21
+    }
+  },
+  "relationships": [],
+  "hash": "820c9b7d5b3ed3d50b4c980bcc26bda62fd6858749e1f7bff3ca8483f13f00a8"
+}

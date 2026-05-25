@@ -65,7 +65,7 @@ Refusals and failures are not merely output to standard error; they are tracked 
 To prevent directory traversal attacks and enforce strict isolation, the CLI and the `ProjectCell` enforce boundary verification on all path resolutions.
 
 ### 4.1 Path Traversal Prevention
-The core logic resides in `ProjectCell.resolvePath` inside `packages/truex-core/src/project-wizard.gall.ts`:
+The core logic resides in `ProjectCell.resolvePath` inside `packages/membrane/src/project-wizard.gall.ts`:
 
 ```typescript
 resolvePath(relPath: string): string {
@@ -112,7 +112,7 @@ To prevent tampering and maintain the receipt lineage:
 ---
 
 ## 6. Verification and Test Results
-Unit and integration tests in `packages/truex-core/test/project-wizard/project-wizard-cli.test.ts` verify the correctness of path resolution, invalid traversal refusal, and receipt generation.
+Unit and integration tests in `packages/membrane/test/project-wizard/project-wizard-cli.test.ts` verify the correctness of path resolution, invalid traversal refusal, and receipt generation.
 
 ### 6.1 Executed Tests
 1. **Path Boundary Resolution & Traversal Refusal:** Asserts that resolving paths within the project directory succeeds, while resolving outside (e.g., `../outside.md`) throws a matching `/Path traversal refused/` exception.
@@ -124,7 +124,7 @@ Running `vitest` confirms complete compliance across all routing paths:
 ```bash
  RUN  v4.1.7 /Users/sac/truex
 
- ✓ packages/truex-core/test/project-wizard/project-wizard-cli.test.ts (3 tests) 819ms
+ ✓ packages/membrane/test/project-wizard/project-wizard-cli.test.ts (3 tests) 819ms
      ✓ should run all 8 CLI subcommands in sequence and emit receipts  810ms
 
  Test Files  1 passed (1)
@@ -141,7 +141,7 @@ During the verification process, a key architectural deadlock and runtime race c
 
 ### 7.1 The Grandchild Vitest Deadlock Issue
 - **Vulnerability:** When running the integration test under Vitest, spawning `truex.ts wizard prove` via `execSync` isolated the environment variables to keep the test clean.
-- **Deadlock Mechanics:** Because the parent Vitest process isolated the child process environment, `process.env.VITEST` was omitted. The child CLI process, seeing `process.env.VITEST` as `undefined`, fell back to running the physical test suite via `npx vitest run packages/truex-core/test/project-wizard/project-wizard-cli.test.ts`. This spawned a grandchild Vitest process running the same test suite.
+- **Deadlock Mechanics:** Because the parent Vitest process isolated the child process environment, `process.env.VITEST` was omitted. The child CLI process, seeing `process.env.VITEST` as `undefined`, fell back to running the physical test suite via `npx vitest run packages/membrane/test/project-wizard/project-wizard-cli.test.ts`. This spawned a grandchild Vitest process running the same test suite.
 - **Outcome:** This triggered a recursive loop where Vitest instances invoked themselves sequentially, causing a thread exhaustion deadlock and timing out after 30 seconds.
 
 ### 7.2 Resolution

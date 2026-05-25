@@ -31,13 +31,13 @@ export function emitC4Diagrams() {
     return;
   }
 
-  const graph = JSON.parse(fs.readFileSync(TOPOLOGY_FILE, 'utf-8'));
+  const graph = JSON.parse(fs.readFileSync(TOPOLOGY_FILE, 'utf8'));
   const nodes: OntologyNode[] = graph.nodes || [];
 
   let receiptHash = 'pending';
   if (fs.existsSync(RECEIPT_FILE)) {
     try {
-      const receiptData = JSON.parse(fs.readFileSync(RECEIPT_FILE, 'utf-8'));
+      const receiptData = JSON.parse(fs.readFileSync(RECEIPT_FILE, 'utf8'));
       receiptHash = receiptData.receiptHash || receiptData.id || 'unknown';
     } catch {}
   }
@@ -286,28 +286,28 @@ sequenceDiagram
 ## 7. Code Maps
 
 ### 7.1 S0/S1 Primitives
-*   \`packages/truex-core/src/hash.ts\`
-*   \`packages/truex-core/src/receipt.ts\`
-*   \`packages/truex-core/src/replay.ts\`
-*   \`packages/truex-core/src/context.ts\`
-*   \`packages/truex-core/src/signature.ts\`
+*   \`packages/membrane/src/hash.ts\`
+*   \`packages/membrane/src/receipt.ts\`
+*   \`packages/membrane/src/replay.ts\`
+*   \`packages/membrane/src/context.ts\`
+*   \`packages/membrane/src/signature.ts\`
 
 ### 7.2 S5 OTP
-*   \`packages/truex-core/src/hook-otp.gall.ts\`
-*   \`packages/truex-core/test/hook-otp/hook-otp-mailbox.test.ts\`
-*   \`packages/truex-core/test/hook-otp/hook-otp-supervisor.test.ts\`
-*   \`packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts\`
+*   \`packages/membrane/src/hook-otp.gall.ts\`
+*   \`packages/membrane/test/hook-otp/hook-otp-mailbox.test.ts\`
+*   \`packages/membrane/test/hook-otp/hook-otp-supervisor.test.ts\`
+*   \`packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts\`
 
 ### 7.3 S6 Topology
-*   \`packages/truex-core/src/topology.gall.ts\`
-*   \`packages/truex-core/test/topology/topology-chain-replay.test.ts\`
-*   \`packages/truex-core/test/topology/topology-rollback-storm.test.ts\`
-*   \`packages/truex-core/test/topology/topology-partial-order-vkg.test.ts\`
+*   \`packages/membrane/src/topology.gall.ts\`
+*   \`packages/membrane/test/topology/topology-chain-replay.test.ts\`
+*   \`packages/membrane/test/topology/topology-rollback-storm.test.ts\`
+*   \`packages/membrane/test/topology/topology-partial-order-vkg.test.ts\`
 
 ### 7.4 S7 Membrane Replay
-*   \`packages/truex-core/src/membrane-replay.gall.ts\`
-*   \`packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts\`
-*   \`packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts\`
+*   \`packages/membrane/src/membrane-replay.gall.ts\`
+*   \`packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts\`
+*   \`packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts\`
 
 ## 8. Architecture Accounting
 This map actively indexes the codebase dependencies.

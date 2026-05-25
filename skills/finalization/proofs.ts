@@ -9,7 +9,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
 import { execSync } from 'node:child_process';
-import { ProjectCell, MissionController } from '../../packages/truex-core/src/project-wizard.gall.js';
+import { ProjectCell, MissionController } from '../../packages/membrane/src/project-wizard.gall.js';
 
 export interface FinalizationProofReport {
   passed: boolean;
@@ -32,9 +32,9 @@ function runAndMeasure(cmd: string) {
       stdio: 'pipe',
       env: { ...process.env, TSX_DISABLE_CACHE: '1' }
     }).toString();
-  } catch (e: any) {
-    exitCode = e.status || 1;
-    output = e.stdout?.toString() || e.stderr?.toString() || e.message;
+  } catch (error_: any) {
+    exitCode = error_.status || 1;
+    output = error_.stdout?.toString() || error_.stderr?.toString() || error_.message;
   }
   return {
     command: cmd,
@@ -80,15 +80,15 @@ export async function proveFinalization(): Promise<FinalizationProofReport> {
     const controller = new MissionController(cell);
     try {
       controller.verifyHandoff({ requireElapsed: true });
-    } catch (e: any) {
-      if (e.message.includes("Handoff Refused: Monotonic mission gate has not opened yet")) {
+    } catch (error_: any) {
+      if (error_.message.includes("Handoff Refused: Monotonic mission gate has not opened yet")) {
         gateBlocksCorrectly = true;
       }
     } finally {
       fs.rmSync(tempDir, { recursive: true, force: true });
     }
-  } catch (err: any) {
-    console.error("Error during monotonic gate block check:", err);
+  } catch (error_: any) {
+    console.error("Error during monotonic gate block check:", error_);
   }
 
   // 6. Verify Risk Ledger contains all deferred risks
@@ -109,7 +109,7 @@ export async function proveFinalization(): Promise<FinalizationProofReport> {
       "static ast dependency analysis"
     ];
     for (const risk of expectedDeferredRisks) {
-      const regex = new RegExp(risk.replace(/\s+/g, '\\s+'), 'i');
+      const regex = new RegExp(risk.replace(/\s+/g, String.raw`\s+`), 'i');
       if (!regex.test(riskContent)) {
         missingRisks.push(risk);
       }

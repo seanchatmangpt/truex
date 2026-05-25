@@ -13,8 +13,8 @@ This report details the implementation, cryptographic convergence, and verificat
 
 ## 2. Test Architectures and Coverage
 We created the following test files to verify all queue isolation and retry backoff invariants:
-- `packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts`
-- `packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts`
+- `packages/membrane/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts`
+- `packages/membrane/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts`
 
 ### 2.1 Queue Isolation & Scheduling Discipline
 The `persistent-mailbox-queue-isolation.test.ts` suite implements 5 passing test cases:
@@ -48,7 +48,7 @@ This guarantees absolute determinism for the replay mechanism and ensures that i
 ## 4. Execution Invariant Verification
 All tests run and pass within the vitest environment:
 ```bash
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts (5 tests) 12ms
- ✓ packages/truex-core/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts (4 tests) 10ms
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-queue-isolation.test.ts (5 tests) 12ms
+ ✓ packages/membrane/test/persistent-mailbox/persistent-mailbox-retry-backoff.test.ts (4 tests) 10ms
 ```
 No mocks, stubs, or placeholder logic were introduced, complying strictly with repository axioms.

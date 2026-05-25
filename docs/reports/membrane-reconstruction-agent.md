@@ -1,7 +1,7 @@
 # Membrane Reconstruction & Persistent Replay Verification Report
 
 ## Executive Summary
-This report documents the verification of persistent replay reconstruction capabilities within the TRUEX core persistence membrane. The test suite implemented in [`membrane-reconstruction.test.ts`](file:///Users/sac/truex/packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts) proves that TRUEX successfully guarantees deterministic state reconstruction, lineage integrity, and execution convergence.
+This report documents the verification of persistent replay reconstruction capabilities within the TRUEX core persistence membrane. The test suite implemented in [`membrane-reconstruction.test.ts`](file:///Users/sac/truex/packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts) proves that TRUEX successfully guarantees deterministic state reconstruction, lineage integrity, and execution convergence.
 
 All **10 core test scenarios** have been fully implemented and verified as passing without using mocks, satisfying the repository's strict operational laws (Gall Law, Replay Law, Receipt Law).
 
@@ -64,14 +64,14 @@ All **10 core test scenarios** have been fully implemented and verified as passi
 ## Test Execution Results
 
 ```bash
-npx vitest run packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts
+npx vitest run packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts
 ```
 
 Output:
 ```
  RUN  v2.1.8 /Users/sac/truex
 
- ✓ packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts (10 tests) 24ms
+ ✓ packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts (10 tests) 24ms
 
  Test Files  1 passed (1)
       Tests  10 passed (10)

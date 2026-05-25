@@ -1,0 +1,17 @@
+{
+  "case": "doctor-wizard-telco-resource-leak",
+  "status": "passed",
+  "cycles": 100,
+  "metrics": {
+    "initialHeapMb": 83.689,
+    "initialRssMb": 210.781,
+    "finalHeapMb": 97.606,
+    "finalRssMb": 261.109,
+    "heapDeltaMb": 13.917,
+    "rssDeltaMb": 50.328,
+    "peakHeapMb": 110.371,
+    "totalDurationMs": 282.653,
+    "averageCycleDurationMs": 2.827
+  },
+  "timestamp": "2026-05-25T18:56:29.418Z"
+}

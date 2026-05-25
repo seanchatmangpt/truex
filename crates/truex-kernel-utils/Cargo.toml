@@ -1,0 +1,17 @@
+[package]
+name = "truex-kernel-utils"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Internal utilities for the truex-kernel process mining platform"
+
+[dependencies]
+serde = { workspace = true }
+smallvec = { workspace = true }
+itertools = { workspace = true }
+hashbrown = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

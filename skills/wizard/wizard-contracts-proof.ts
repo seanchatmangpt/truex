@@ -13,14 +13,12 @@ export function proveWizardContracts() {
   const failures: string[] = [];
   
   try {
-    const srcPath = path.resolve(process.cwd(), 'packages/truex-core/src/wizard');
+    const srcPath = path.resolve(process.cwd(), 'packages/membrane/src/wizard');
     const projectCellFile = path.join(srcPath, 'project-cell.ts');
     const projectReceiptsFile = path.join(srcPath, 'project-receipts.ts');
 
-    if (!fs.existsSync(projectCellFile)) {
-      failures.push('project-cell.ts missing');
-    } else {
-      const content = fs.readFileSync(projectCellFile, 'utf-8');
+    if (fs.existsSync(projectCellFile)) {
+      const content = fs.readFileSync(projectCellFile, 'utf8');
       if (content.includes('interface WizardContext')) invariants.push('WizardContext defined');
       else failures.push('Missing WizardContext');
       
@@ -35,14 +33,16 @@ export function proveWizardContracts() {
 
       if (content.includes('interface WizardVerb')) invariants.push('WizardVerb defined');
       else failures.push('Missing WizardVerb');
+    } else {
+      failures.push('project-cell.ts missing');
     }
 
-    if (!fs.existsSync(projectReceiptsFile)) {
-      failures.push('project-receipts.ts missing');
-    } else {
-      const content = fs.readFileSync(projectReceiptsFile, 'utf-8');
+    if (fs.existsSync(projectReceiptsFile)) {
+      const content = fs.readFileSync(projectReceiptsFile, 'utf8');
       if (content.includes('interface WizardReceipt')) invariants.push('WizardReceipt defined');
       else failures.push('Missing WizardReceipt');
+    } else {
+      failures.push('project-receipts.ts missing');
     }
   } catch (error: any) {
     failures.push(`Unexpected wizard contracts proof error: ${error.message}`);

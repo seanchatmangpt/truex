@@ -27,7 +27,7 @@ The benchmark harness for the "Million Hook Church" Case Study has been refined 
 
 ## Verification Results
 
-The architectural requirements were verified via `packages/truex-core/test/benchmark/million-hook-church.test.ts`:
+The architectural requirements were verified via `packages/membrane/test/benchmark/million-hook-church.test.ts`:
 - **Determinism:** Confirmed that identical seeds produce identical receipt counts and evaluation metrics.
 - **Scalability:** Verified that increasing hook counts result in a proportional increase in receipts and effects.
 - **Match Ratio:** Validated that `matchRatio: 0.0` correctly results in zero matches, while partial ratios behave as expected.

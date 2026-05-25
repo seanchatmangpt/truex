@@ -32,7 +32,7 @@ $$1 + 4 + 0 + 0 = 5$$
 
 ## 2. Stress Test Suite Run Accounting (`hook-otp.stress-results.json`)
 
-The stress test suite runs 10 specific test scenarios. The fine-grained message-level metrics are parsed directly from the execution pathways of the test cases inside `packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts`.
+The stress test suite runs 10 specific test scenarios. The fine-grained message-level metrics are parsed directly from the execution pathways of the test cases inside `packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts`.
 
 ### Fine-Grained Stress Case Breakdown
 | Stress Case Name | Attempted (`message`) | Confirmed (`message`) | Refused (`message`) | Failed (`message`) | Skipped (`message`) | Quarantined (`message`) | Restarted (`message`) | Replayed (`message`) |

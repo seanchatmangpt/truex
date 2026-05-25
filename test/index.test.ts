@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import * as fc from "fast-check";
-import { TruexHook, createDeterministicContext, hash } from "../packages/truex-core/src/index.js";
+import { TruexHook, createDeterministicContext, hash } from "../packages/membrane/src/index.js";
 
 describe("Truex Core - Hook Primitive Property Tests", () => {
   it("proves receipted lineage and deterministic convergence across random deltas", () => {

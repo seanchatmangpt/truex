@@ -8,7 +8,7 @@
 
 import { generateKeyPair, signReceiptHash, verifySignature, createReceipt } from "./mutations.js";
 import { verifyReceipt, verifyChain } from "./invariant.js";
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
 import { hash } from "../hash/mutations.js";
 
 /**

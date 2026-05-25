@@ -5,7 +5,7 @@
  * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
  */
 import { Faker, en } from '@faker-js/faker';
-import type { GraphDelta, Quad } from '../../packages/truex-core/src/runtime-law.js';
+import type { GraphDelta, Quad } from '../../packages/membrane/src/runtime-law.js';
 
 
 /**

@@ -10,18 +10,18 @@
 import Database from 'better-sqlite3';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { createDeterministicContext } from '../packages/truex-core/src/context.js';
-import { createAgyProductionLine } from '../packages/truex-core/src/manufacturing/registry.js';
-import { type GraphDelta, type Quad } from '../packages/truex-core/src/runtime-law.js';
+import { createDeterministicContext } from '../packages/membrane/src/context.js';
+import { createAgyProductionLine } from '../packages/membrane/src/manufacturing/registry.js';
+import { type GraphDelta, type Quad } from '../packages/membrane/src/runtime-law.js';
 import { 
   hash,
   initializeSchema,
   createReceipt,
   stableJson
-} from '../packages/truex-core/src/index.js';
-import { DeltaJournal } from '../packages/truex-core/src/persistence/journal.js';
-import { SQLiteReceiptStore } from '../packages/truex-core/src/persistence/receipt-store.js';
-import { OntologyRegistry } from '../packages/truex-core/src/persistence/ontology.js';
+} from '../packages/membrane/src/index.js';
+import { DeltaJournal } from '../packages/membrane/src/persistence/journal.js';
+import { SQLiteReceiptStore } from '../packages/membrane/src/persistence/receipt-store.js';
+import { OntologyRegistry } from '../packages/membrane/src/persistence/ontology.js';
 
 /**
  * Truex Antigravity Bridge (The Hook Interceptor)
@@ -89,7 +89,7 @@ function refineMutation(delta: GraphDelta, args: any): { delta: GraphDelta, args
 /**
  * The main hook interceptor execution flow.
  * Parses CLI arguments, constructs deterministic contexts, builds graph deltas,
- * refines them, and applies them to the production line while checking rules.
+ * refined them, and applies them to the production line while checking rules.
  */
 async function main() {
   const [,, toolName, argsJson] = process.argv;
@@ -178,7 +178,7 @@ async function main() {
         filePath = path.normalize(filePath).replace(/\\/g, '/');
       }
       if (filePath !== 'dummy.ts' && !filePath.includes('dummy') && ontologyRegistry.isOrphaned(filePath)) {
-        process.stderr.write(`⚠️  WARNING: Genesis Mutation (${filePath}). File is unmapped in the operational ontology. Ensure a test is written to satisfy the Documentation Law (prove ontology).\n`);
+        throw new Error(`Topology Law Violation: Genesis Mutation (${filePath}) is unmapped in the operational ontology.`);
       }
     }
 
@@ -187,9 +187,17 @@ async function main() {
       toolName === 'write_file' ||
       toolName === 'replace' ||
       toolName === 'write_to_file' ||
-      toolName === 'replace_file_content'
+      toolName === 'replace_file_content' ||
+      toolName === 'multi_replace_file_content'
     ) {
-      const content = refinedArgs.content || refinedArgs.new_string || refinedArgs.CodeContent || refinedArgs.ReplacementContent || '';
+      let content = refinedArgs.content || refinedArgs.new_string || refinedArgs.CodeContent || refinedArgs.ReplacementContent || '';
+      if (Array.isArray(refinedArgs.ReplacementChunks)) {
+        for (const chunk of refinedArgs.ReplacementChunks) {
+          if (chunk.ReplacementContent) {
+            content += '\n' + chunk.ReplacementContent;
+          }
+        }
+      }
       if (content.includes('FOSSIL')) {
         throw new Error('Semantic Law Violation: Fossil record detected in code mutation. Agents must use dynamic ontologies, not static fossils.');
       }

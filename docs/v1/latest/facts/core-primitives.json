@@ -3,7 +3,7 @@
   "corePrimitives": {
     "hash": {
       "files": [
-        "packages/truex-core/src/hash.ts"
+        "packages/membrane/src/hash.ts"
       ],
       "resolvedSymbols": [
         "stableJson",
@@ -12,7 +12,7 @@
     },
     "signature": {
       "files": [
-        "packages/truex-core/src/signature.ts"
+        "packages/membrane/src/signature.ts"
       ],
       "resolvedSymbols": [
         "generateKeyPair",
@@ -24,7 +24,7 @@
     },
     "receipt": {
       "files": [
-        "packages/truex-core/src/receipt.ts"
+        "packages/membrane/src/receipt.ts"
       ],
       "resolvedSymbols": [
         "generateKeyPair",
@@ -38,7 +38,7 @@
     },
     "replay": {
       "files": [
-        "packages/truex-core/src/replay.ts"
+        "packages/membrane/src/replay.ts"
       ],
       "resolvedSymbols": [
         "conditionMatches",
@@ -53,14 +53,14 @@
     }
   },
   "stats": {
-    "totalFiles": 73,
-    "totalFunctions": 165,
-    "totalClasses": 40,
-    "totalExportedSymbols": 421
+    "totalFiles": 85,
+    "totalFunctions": 172,
+    "totalClasses": 51,
+    "totalExportedSymbols": 460
   },
   "files": [
     {
-      "path": "packages/truex-core/src/benchmark/hookbench.gall.ts",
+      "path": "packages/membrane/src/benchmark/hookbench.gall.ts",
       "functions": 9,
       "classes": 1,
       "symbols": [
@@ -83,7 +83,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/benchmark/million-hook-church.ts",
+      "path": "packages/membrane/src/benchmark/million-hook-church.ts",
       "functions": 3,
       "classes": 1,
       "symbols": [
@@ -97,7 +97,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/benchmark/runner.ts",
+      "path": "packages/membrane/src/benchmark/runner.ts",
       "functions": 2,
       "classes": 0,
       "symbols": [
@@ -108,7 +108,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/benchmark/stress-tests.ts",
+      "path": "packages/membrane/src/benchmark/stress-tests.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -117,7 +117,33 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/concurrency.ts",
+      "path": "packages/membrane/src/concurrency/truex-wasm-bridge.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "TruexWasmBridge"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/concurrency/wasm-worker-pool.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "WasmWorkerPool",
+        "WasmTask"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/concurrency/wasm-worker.ts",
+      "functions": 0,
+      "classes": 0,
+      "symbols": [],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/concurrency.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -130,7 +156,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/context.ts",
+      "path": "packages/membrane/src/context.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -142,14 +168,14 @@
       ]
     },
     {
-      "path": "packages/truex-core/src/hash.ts",
+      "path": "packages/membrane/src/hash.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/hook-otp.gall.ts",
+      "path": "packages/membrane/src/hook-otp.gall.ts",
       "functions": 7,
       "classes": 0,
       "symbols": [
@@ -171,7 +197,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/hook.ts",
+      "path": "packages/membrane/src/hook.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -180,14 +206,14 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/index.ts",
+      "path": "packages/membrane/src/index.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/autonomic-loop.ts",
+      "path": "packages/membrane/src/integration/autonomic-loop.ts",
       "functions": 0,
       "classes": 2,
       "symbols": [
@@ -199,7 +225,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/consequence-actuator.ts",
+      "path": "packages/membrane/src/integration/consequence-actuator.ts",
       "functions": 4,
       "classes": 0,
       "symbols": [
@@ -216,7 +242,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/env-actuator.ts",
+      "path": "packages/membrane/src/integration/env-actuator.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -227,7 +253,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/hook-interceptor.ts",
+      "path": "packages/membrane/src/integration/hook-interceptor.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -236,7 +262,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/report-receipt.ts",
+      "path": "packages/membrane/src/integration/report-receipt.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -248,7 +274,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/skill-sandbox.ts",
+      "path": "packages/membrane/src/integration/skill-sandbox.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -258,7 +284,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/swarm-controller.ts",
+      "path": "packages/membrane/src/integration/swarm-controller.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -274,7 +300,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/task-delta.ts",
+      "path": "packages/membrane/src/integration/task-delta.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -283,7 +309,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/integration/trajectory-replay.ts",
+      "path": "packages/membrane/src/integration/trajectory-replay.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -298,7 +324,29 @@
       ]
     },
     {
-      "path": "packages/truex-core/src/manufacturing/collaboration.ts",
+      "path": "packages/membrane/src/lib/entropy.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "TruexEntropy"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/lib/logic-engine.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "LogicEngine",
+        "Term",
+        "Atom",
+        "Rule",
+        "Substitution"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/manufacturing/collaboration.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -307,7 +355,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/gemba.ts",
+      "path": "packages/membrane/src/manufacturing/gemba.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -317,7 +365,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/heijunka.ts",
+      "path": "packages/membrane/src/manufacturing/heijunka.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -327,7 +375,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/jidoka.ts",
+      "path": "packages/membrane/src/manufacturing/jidoka.ts",
       "functions": 0,
       "classes": 2,
       "symbols": [
@@ -337,7 +385,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/jit.ts",
+      "path": "packages/membrane/src/manufacturing/jit.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -346,7 +394,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/kaizen.ts",
+      "path": "packages/membrane/src/manufacturing/kaizen.ts",
       "functions": 0,
       "classes": 2,
       "symbols": [
@@ -358,7 +406,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/lean.ts",
+      "path": "packages/membrane/src/manufacturing/lean.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -369,7 +417,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/line.ts",
+      "path": "packages/membrane/src/manufacturing/line.ts",
       "functions": 1,
       "classes": 1,
       "symbols": [
@@ -379,7 +427,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/registry.ts",
+      "path": "packages/membrane/src/manufacturing/registry.ts",
       "functions": 1,
       "classes": 1,
       "symbols": [
@@ -390,7 +438,17 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/standardization.ts",
+      "path": "packages/membrane/src/manufacturing/remediator.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "Remediator",
+        "CorrectionProposal"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/manufacturing/standardization.ts",
       "functions": 2,
       "classes": 0,
       "symbols": [
@@ -401,7 +459,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/swarm-actuator.ts",
+      "path": "packages/membrane/src/manufacturing/swarm-actuator.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -411,7 +469,17 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/topology.ts",
+      "path": "packages/membrane/src/manufacturing/swarm-receipt.ts",
+      "functions": 1,
+      "classes": 0,
+      "symbols": [
+        "generateSwarmReceipt",
+        "SwarmReceipt"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/manufacturing/topology.ts",
       "functions": 0,
       "classes": 2,
       "symbols": [
@@ -423,7 +491,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/manufacturing/visual.ts",
+      "path": "packages/membrane/src/manufacturing/visual.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -433,7 +501,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/membrane-replay.gall.ts",
+      "path": "packages/membrane/src/membrane-replay.gall.ts",
       "functions": 13,
       "classes": 0,
       "symbols": [
@@ -463,14 +531,14 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/membrane.ts",
+      "path": "packages/membrane/src/membrane.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/ocel2-project-projection.gall.ts",
+      "path": "packages/membrane/src/ocel2-project-projection.gall.ts",
       "functions": 8,
       "classes": 0,
       "symbols": [
@@ -488,7 +556,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/ocel2-project-types.ts",
+      "path": "packages/membrane/src/ocel2-project-types.ts",
       "functions": 13,
       "classes": 0,
       "symbols": [
@@ -594,7 +662,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/ocpq-project-constraints.gall.ts",
+      "path": "packages/membrane/src/ocpq-project-constraints.gall.ts",
       "functions": 4,
       "classes": 0,
       "symbols": [
@@ -615,7 +683,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/audit-engine.ts",
+      "path": "packages/membrane/src/persistence/audit-engine.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -625,7 +693,17 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/index.ts",
+      "path": "packages/membrane/src/persistence/gossip-sync.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "GossipSync",
+        "PeerNetwork"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/persistence/index.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -635,7 +713,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/journal.ts",
+      "path": "packages/membrane/src/persistence/journal.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -644,7 +722,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/lock.ts",
+      "path": "packages/membrane/src/persistence/lock.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -654,7 +732,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/membrane-link.ts",
+      "path": "packages/membrane/src/persistence/membrane-link.ts",
       "functions": 1,
       "classes": 1,
       "symbols": [
@@ -664,7 +742,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/ontology.ts",
+      "path": "packages/membrane/src/persistence/ontology.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -674,7 +752,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/receipt-store.ts",
+      "path": "packages/membrane/src/persistence/receipt-store.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -683,7 +761,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/replay.ts",
+      "path": "packages/membrane/src/persistence/replay.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -692,7 +770,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/schema.ts",
+      "path": "packages/membrane/src/persistence/schema.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -703,7 +781,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/snapshot.ts",
+      "path": "packages/membrane/src/persistence/snapshot.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -714,7 +792,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistence/transactions.ts",
+      "path": "packages/membrane/src/persistence/transactions.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -723,7 +801,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/persistent-mailbox.gall.ts",
+      "path": "packages/membrane/src/persistent-mailbox.gall.ts",
       "functions": 21,
       "classes": 0,
       "symbols": [
@@ -763,26 +841,30 @@
       ]
     },
     {
-      "path": "packages/truex-core/src/plugins/otel-weaver.ts",
-      "functions": 0,
+      "path": "packages/membrane/src/plugins/otel-weaver.ts",
+      "functions": 1,
       "classes": 0,
       "symbols": [
+        "defineCittyPlugin",
         "OcelOtelWeaverPlugin"
       ],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/powl-project-workflow.gall.ts",
-      "functions": 7,
-      "classes": 0,
+      "path": "packages/membrane/src/powl-project-workflow.gall.ts",
+      "functions": 9,
+      "classes": 1,
       "symbols": [
         "validatePartialOrder",
         "validateChoiceGraph",
         "validateGallCheckpointWorkflow",
         "checkpointRegistryToPowl",
+        "validatePowlNode",
         "generateWorkflowHash",
         "createWizardWorkflow",
         "getWizard8VerbWorkflow",
+        "getTelco8VerbWorkflow",
+        "PowlExecutionEngine",
         "PowlNodeId",
         "PowlActivity",
         "PowlSilent",
@@ -795,14 +877,13 @@
         "GallCheckpointEdge",
         "GallCheckpointChoice",
         "GallCheckpointWorkflow",
-        "GallCheckpointRegistry"
+        "GallCheckpointRegistry",
+        "HookedConsequenceAttempt"
       ],
-      "internalLogicPaths": [
-        "validatePowlNode"
-      ]
+      "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/project-wizard.gall.ts",
+      "path": "packages/membrane/src/project-wizard.gall.ts",
       "functions": 0,
       "classes": 5,
       "symbols": [
@@ -823,21 +904,21 @@
       ]
     },
     {
-      "path": "packages/truex-core/src/receipt.ts",
+      "path": "packages/membrane/src/receipt.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/replay.ts",
+      "path": "packages/membrane/src/replay.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/runtime-law.ts",
+      "path": "packages/membrane/src/runtime-law.ts",
       "functions": 8,
       "classes": 0,
       "symbols": [
@@ -863,14 +944,35 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/signature.ts",
+      "path": "packages/membrane/src/signature.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [],
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/topology.gall.ts",
+      "path": "packages/membrane/src/telco.gall.ts",
+      "functions": 0,
+      "classes": 2,
+      "symbols": [
+        "TelcoMembrane",
+        "TelcoLifecycleManager",
+        "TelcoChannel",
+        "TelcoPeer",
+        "CapabilityBinding",
+        "TelcoSession",
+        "TelcoPacket",
+        "RouteDecision",
+        "TransmissionRecord",
+        "TelcoReceipt",
+        "TelcoAccounting"
+      ],
+      "internalLogicPaths": [
+        "T1_established_and_refused"
+      ]
+    },
+    {
+      "path": "packages/membrane/src/topology.gall.ts",
       "functions": 8,
       "classes": 0,
       "symbols": [
@@ -899,7 +1001,7 @@
       ]
     },
     {
-      "path": "packages/truex-core/src/utils/array.ts",
+      "path": "packages/membrane/src/utils/array.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -911,7 +1013,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/error-log.ts",
+      "path": "packages/membrane/src/utils/error-log.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -923,7 +1025,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/log-format.ts",
+      "path": "packages/membrane/src/utils/log-format.ts",
       "functions": 5,
       "classes": 0,
       "symbols": [
@@ -938,7 +1040,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/memory.ts",
+      "path": "packages/membrane/src/utils/memory.ts",
       "functions": 1,
       "classes": 2,
       "symbols": [
@@ -949,7 +1051,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/object.ts",
+      "path": "packages/membrane/src/utils/object.ts",
       "functions": 3,
       "classes": 0,
       "symbols": [
@@ -960,7 +1062,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/proxy-log.ts",
+      "path": "packages/membrane/src/utils/proxy-log.ts",
       "functions": 1,
       "classes": 0,
       "symbols": [
@@ -970,7 +1072,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/proxy-overhead.ts",
+      "path": "packages/membrane/src/utils/proxy-overhead.ts",
       "functions": 6,
       "classes": 0,
       "symbols": [
@@ -986,7 +1088,20 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/string.ts",
+      "path": "packages/membrane/src/utils/reactive-patterns.ts",
+      "functions": 3,
+      "classes": 0,
+      "symbols": [
+        "getReactivePatternNames",
+        "runReactivePattern",
+        "runAllReactivePatterns",
+        "patternMap",
+        "patternNames"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/utils/string.ts",
       "functions": 2,
       "classes": 0,
       "symbols": [
@@ -996,7 +1111,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/timing.ts",
+      "path": "packages/membrane/src/utils/timing.ts",
       "functions": 2,
       "classes": 1,
       "symbols": [
@@ -1008,7 +1123,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/utils/type.ts",
+      "path": "packages/membrane/src/utils/type.ts",
       "functions": 5,
       "classes": 0,
       "symbols": [
@@ -1021,7 +1136,26 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/wizard/project-cell.ts",
+      "path": "packages/membrane/src/utils/wasm-resource.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "WasmResource",
+        "wasmCleanupRegistry"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/validation/jidoka-controller.ts",
+      "functions": 0,
+      "classes": 1,
+      "symbols": [
+        "JidokaController"
+      ],
+      "internalLogicPaths": []
+    },
+    {
+      "path": "packages/membrane/src/wizard/project-cell.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [
@@ -1036,7 +1170,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/wizard/project-receipts.ts",
+      "path": "packages/membrane/src/wizard/project-receipts.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [
@@ -1045,7 +1179,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/wizard/project-route.ts",
+      "path": "packages/membrane/src/wizard/project-route.ts",
       "functions": 0,
       "classes": 0,
       "symbols": [
@@ -1057,7 +1191,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/wizard/verbs/init.ts",
+      "path": "packages/membrane/src/wizard/verbs/init.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -1066,7 +1200,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/wizard/verbs/map.ts",
+      "path": "packages/membrane/src/wizard/verbs/map.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -1076,7 +1210,7 @@
       "internalLogicPaths": []
     },
     {
-      "path": "packages/truex-core/src/wizard/verbs/plan.ts",
+      "path": "packages/membrane/src/wizard/verbs/plan.ts",
       "functions": 0,
       "classes": 1,
       "symbols": [
@@ -1087,7 +1221,7 @@
   ],
   "_metadata": {
     "emitter": "Core Facts Emitter",
-    "description": "Extracts core primitives and exported symbols from truex-core",
-    "timestamp": "2026-05-24T10:01:57.947Z"
+    "description": "Extracts core primitives and exported symbols from membrane",
+    "timestamp": "2026-05-25T18:57:23.655Z"
   }
 }

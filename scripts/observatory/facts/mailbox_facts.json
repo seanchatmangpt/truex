@@ -2,7 +2,7 @@
   "version": "1.0.0",
   "layer": "Persistent Mailbox (S10)",
   "description": "SQLite-backed, receipt-bearing operational mailbox and queue-state discipline.",
-  "timestamp": "2026-05-24T10:01:55.941Z",
+  "timestamp": "2026-05-25T18:57:21.176Z",
   "status": "passed",
   "domains": {
     "PM1": {
@@ -106,6 +106,6 @@
   "_metadata": {
     "emitter": "Persistent Mailbox Facts Emitter",
     "description": "Extracts facts from persistent mailbox S10 proofs.",
-    "timestamp": "2026-05-24T10:01:55.942Z"
+    "timestamp": "2026-05-25T18:57:21.176Z"
   }
 }

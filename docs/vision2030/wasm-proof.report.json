@@ -1,0 +1,13 @@
+{
+  "primitive": "wasm",
+  "passed": true,
+  "invariants": [
+    "WebAssembly module is reachable",
+    "WebAssembly basic exports executed successfully",
+    "WebAssembly state system clear method is registered"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 2
+  }
+}

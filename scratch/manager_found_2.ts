@@ -1,0 +1,1 @@
+I will check if the transcript logs contain the implementation of `TelcoLifecycleManager`.

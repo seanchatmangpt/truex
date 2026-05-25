@@ -6,7 +6,7 @@ This report presents the accounting metrics for the swarm subagent executions re
 > This accounting tracks the executions of the core swarm subagents (Governor, Doctor, Architect, Operator, Auditor, and Malicious security-test agents) across three main surfaces:
 > 1. Sequential sequential loops in the receipted audit script (`scripts/receipted-audit.ts`).
 > 2. Admission/refusal testing in the adapter proofs script (`skills/adapter/proofs.ts`).
-> 3. Decoupled consequence authority validation in the adapter test suite (`packages/truex-core/test/adapter.test.ts`).
+> 3. Decoupled consequence authority validation in the adapter test suite (`packages/membrane/test/adapter.test.ts`).
 
 ---
 

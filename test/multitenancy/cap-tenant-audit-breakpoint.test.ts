@@ -12,9 +12,9 @@ import {
   createAuditContext,
   registerAuditInterceptors
 } from '../../src/observability/audit-logger.js';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as os from 'os';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import * as os from 'node:os';
 
 interface TenantMetric {
   creationLatencyP50: number;
@@ -76,13 +76,13 @@ const auditBenchmarkResults: AuditMetric = {
   degradationObserved: false
 };
 
-const TENANT_COUNT = 10000;
+const TENANT_COUNT = 10_000;
 
 function runGC() {
   if (globalThis.gc) {
     try {
       globalThis.gc();
-    } catch (e) {
+    } catch {
       // GC trigger ignored or failed
     }
   }
@@ -93,7 +93,7 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
   it('runs tenant scale limits stress test (up to 10,000 coexisting tenant contexts)', async () => {
     runGC();
     const memBefore = process.memoryUsage();
-    tenantBenchmarkResults.heapBeforeMb = parseFloat((memBefore.heapUsed / (1024 * 1024)).toFixed(2));
+    tenantBenchmarkResults.heapBeforeMb = Number.parseFloat((memBefore.heapUsed / (1024 * 1024)).toFixed(2));
 
     const sharedTarget = {
       baseKey: "shared-base-value",
@@ -142,7 +142,7 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
     }
 
     const memAfter = process.memoryUsage();
-    tenantBenchmarkResults.heapAfterMb = parseFloat((memAfter.heapUsed / (1024 * 1024)).toFixed(2));
+    tenantBenchmarkResults.heapAfterMb = Number.parseFloat((memAfter.heapUsed / (1024 * 1024)).toFixed(2));
 
     // Verify state bleed across contexts
     let stateBleedDetected = false;
@@ -184,11 +184,11 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
     creationLatencies.sort((a, b) => a - b);
     opLatencies.sort((a, b) => a - b);
 
-    tenantBenchmarkResults.creationLatencyP50 = creationLatencies[Math.floor(tenantCount * 0.50)];
+    tenantBenchmarkResults.creationLatencyP50 = creationLatencies[Math.floor(tenantCount * 0.5)];
     tenantBenchmarkResults.creationLatencyP95 = creationLatencies[Math.floor(tenantCount * 0.95)];
     tenantBenchmarkResults.creationLatencyP99 = creationLatencies[Math.floor(tenantCount * 0.99)];
 
-    tenantBenchmarkResults.opLatencyP50 = opLatencies[Math.floor(tenantCount * 0.50)];
+    tenantBenchmarkResults.opLatencyP50 = opLatencies[Math.floor(tenantCount * 0.5)];
     tenantBenchmarkResults.opLatencyP95 = opLatencies[Math.floor(tenantCount * 0.95)];
     tenantBenchmarkResults.opLatencyP99 = opLatencies[Math.floor(tenantCount * 0.99)];
 
@@ -199,7 +199,7 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
     runGC();
     
     const memPostGc = process.memoryUsage();
-    tenantBenchmarkResults.heapPostGcMb = parseFloat((memPostGc.heapUsed / (1024 * 1024)).toFixed(2));
+    tenantBenchmarkResults.heapPostGcMb = Number.parseFloat((memPostGc.heapUsed / (1024 * 1024)).toFixed(2));
 
     // Assert that we successfully scaled up to 10,000 coexisting tenant contexts without blowing the heap.
     expect(tenantBenchmarkResults.heapAfterMb).toBeLessThan(1024); // must be well under 1GB
@@ -209,8 +209,8 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
     runGC();
     const initialMem = process.memoryUsage();
     
-    auditBenchmarkResults.initialHeapMb = parseFloat((initialMem.heapUsed / (1024 * 1024)).toFixed(2));
-    auditBenchmarkResults.initialRssMb = parseFloat((initialMem.rss / (1024 * 1024)).toFixed(2));
+    auditBenchmarkResults.initialHeapMb = Number.parseFloat((initialMem.heapUsed / (1024 * 1024)).toFixed(2));
+    auditBenchmarkResults.initialRssMb = Number.parseFloat((initialMem.rss / (1024 * 1024)).toFixed(2));
 
     let peakHeap = initialMem.heapUsed;
     let peakRss = initialMem.rss;
@@ -226,12 +226,12 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
       output: () => {}, // no-op to suppress console output overhead
       includeTimestamp: true,
       includeStackTrace: false, // test without stack trace to allow high density growth
-      maxLogEntries: 200000
+      maxLogEntries: 200_000
     });
     registerAuditInterceptors(proxyInterface, auditCtx);
 
-    const totalWrites = 100000;
-    const stepSize = 10000;
+    const totalWrites = 100_000;
+    const stepSize = 10_000;
     const stepsCount = totalWrites / stepSize;
     let baseWriteDuration = 0;
 
@@ -260,24 +260,24 @@ describe('Tenant & Audit Breakpoint Performance Stresses', () => {
 
       auditBenchmarkResults.steps.push({
         entriesCount: step * stepSize,
-        heapUsedMb: parseFloat((currentMem.heapUsed / (1024 * 1024)).toFixed(2)),
-        rssMb: parseFloat((currentMem.rss / (1024 * 1024)).toFixed(2)),
-        durationMs: parseFloat(stepDuration.toFixed(2)),
-        opsPerSec: parseFloat(opsPerSec.toFixed(2))
+        heapUsedMb: Number.parseFloat((currentMem.heapUsed / (1024 * 1024)).toFixed(2)),
+        rssMb: Number.parseFloat((currentMem.rss / (1024 * 1024)).toFixed(2)),
+        durationMs: Number.parseFloat(stepDuration.toFixed(2)),
+        opsPerSec: Number.parseFloat(opsPerSec.toFixed(2))
       });
 
       // Detect degradation/collapse boundary where step duration is > 2x the base duration (indicating >50% throughput degradation)
-      if (step > 1 && stepDuration > baseWriteDuration * 2.0 && auditBenchmarkResults.collapseBoundaryEntries === null) {
+      if (step > 1 && stepDuration > baseWriteDuration * 2 && auditBenchmarkResults.collapseBoundaryEntries === null) {
         auditBenchmarkResults.collapseBoundaryEntries = step * stepSize;
         auditBenchmarkResults.degradationObserved = true;
       }
     }
 
     const finalMem = process.memoryUsage();
-    auditBenchmarkResults.finalHeapMb = parseFloat((finalMem.heapUsed / (1024 * 1024)).toFixed(2));
-    auditBenchmarkResults.finalRssMb = parseFloat((finalMem.rss / (1024 * 1024)).toFixed(2));
-    auditBenchmarkResults.peakHeapMb = parseFloat((peakHeap / (1024 * 1024)).toFixed(2));
-    auditBenchmarkResults.peakRssMb = parseFloat((peakRss / (1024 * 1024)).toFixed(2));
+    auditBenchmarkResults.finalHeapMb = Number.parseFloat((finalMem.heapUsed / (1024 * 1024)).toFixed(2));
+    auditBenchmarkResults.finalRssMb = Number.parseFloat((finalMem.rss / (1024 * 1024)).toFixed(2));
+    auditBenchmarkResults.peakHeapMb = Number.parseFloat((peakHeap / (1024 * 1024)).toFixed(2));
+    auditBenchmarkResults.peakRssMb = Number.parseFloat((peakRss / (1024 * 1024)).toFixed(2));
     auditBenchmarkResults.totalWrites = totalWrites;
 
     // Verify audit log actually contains all the expected entries
@@ -368,7 +368,7 @@ afterAll(() => {
 
   mdContent += `\n## 4. Breakpoint & Collapse Insights\n\n`;
   mdContent += `1. **Tenant Context Limits:** Creating 10,000 coexisting tenant contexts consumes ~${(tenantBenchmarkResults.heapAfterMb - tenantBenchmarkResults.heapBeforeMb).toFixed(2)} MB of heap. There is **no state bleed** across proxies; visibility filters, virtual properties, and value transformations remain strictly isolated per tenant ID.\n`;
-  mdContent += `2. **Shared Reference Leak:** The \`tenantConfigs\` registry uses a standard JavaScript \`Map\` to store configurations. Consequently, releasing the tenant proxy does **not** allow Garbage Collection to reclaim the associated configuration objects, leading to a permanent leakage of ~${((tenantBenchmarkResults.heapPostGcMb - tenantBenchmarkResults.heapBeforeMb) * 1024 / 10000).toFixed(2)} KB per tenant. For high-churn environments, this will eventually trigger an Out-Of-Memory (OOM) crash.\n`;
+  mdContent += `2. **Shared Reference Leak:** The \`tenantConfigs\` registry uses a standard JavaScript \`Map\` to store configurations. Consequently, releasing the tenant proxy does **not** allow Garbage Collection to reclaim the associated configuration objects, leading to a permanent leakage of ~${((tenantBenchmarkResults.heapPostGcMb - tenantBenchmarkResults.heapBeforeMb) * 1024 / 10_000).toFixed(2)} KB per tenant. For high-churn environments, this will eventually trigger an Out-Of-Memory (OOM) crash.\n`;
   mdContent += `3. **Audit Log Saturation:** Growing the audit log to 100,000 entries results in a peak heap of **${auditBenchmarkResults.peakHeapMb.toFixed(2)} MB** and RSS of **${auditBenchmarkResults.peakRssMb.toFixed(2)} MB**. The audit storage grows linearly with zero memory reclamation because the log is kept in memory to preserve lineage replay capability.\n`;
   mdContent += `4. **Stack Trace Impact:** This test was run with stack traces *disabled*. When stack traces are enabled (\`includeStackTrace: true\`), memory usage increases by 10-15x because each write operation captures the full call stack, leading to process memory exhaustion (OOM) at around 30,000 to 50,000 entries.\n`;
 

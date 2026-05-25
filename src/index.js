@@ -48,6 +48,15 @@ export {
   registerContractInterceptors,
 } from './contracts/contract-context.js'
 
+// POWL v2 State Machine Governor
+export {
+  createPowlContext,
+  createPowlApplyInterceptor,
+  createPowlConstructInterceptor,
+  registerPowlInterceptors,
+} from './contracts/powl-context.js'
+
+
 // Simulation & Counterfactual Execution
 export {
   createSimulationContext,

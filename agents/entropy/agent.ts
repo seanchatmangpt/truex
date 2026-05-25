@@ -10,7 +10,7 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { EntropyGenerator } from '../../src/lib/entropy.js';
-import { hash } from '../../packages/truex-core/src/index.js';
+import { hash } from '../../packages/membrane/src/index.js';
 
 /**
  * Agent responsible for generating deterministic entropy for reliable test replay and benchmarks.

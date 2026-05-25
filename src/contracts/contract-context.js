@@ -5,6 +5,8 @@
  * Purpose: Implements exhaustive, receiptable operations without deferred logic or stubs.
  */
 import { createContext } from '../context/context.js'
+import { PowlStateMachine } from './powl-context.js'
+
 
 /**
  * Protocol & Call-Level Contracts for Proxyable.
@@ -87,10 +89,29 @@ export function createContractContext(target, contracts = {}) {
    * @param {object} contract - Contract rules for the method
    * @throws {Error} If sequence is violated
    */
+  function sequenceToPowl(sequence) {
+    const nodes = sequence.map(name => ({ type: 'activity', id: name, label: name }))
+    const edges = []
+    for (let i = 0; i < sequence.length - 1; i++) {
+      edges.push({ from: sequence[i], to: sequence[i + 1] })
+    }
+    return {
+      type: 'partial_order',
+      id: `legacy_seq_${sequence.join('_')}`,
+      nodes,
+      edges
+    }
+  }
+
   function validateSequence(methodName, contract) {
     if (!contract.sequence || contract.sequence.length === 0) {
       return
     }
+
+    console.warn(
+      `[DEPRECATION WARNING] Legacy contract sequence verification is deprecated. ` +
+      `Migrate '${methodName}' to createPowlContext.`
+    )
 
     const requiredSequence = contract.sequence
     const methodIndex = requiredSequence.indexOf(methodName)
@@ -100,15 +121,37 @@ export function createContractContext(target, contracts = {}) {
       return
     }
 
-    // Check if all previous methods in sequence have been called
-    for (let i = 0; i < methodIndex; i++) {
-      const requiredMethod = requiredSequence[i]
-      if (!contextState.sequenceIndex.has(requiredMethod)) {
-        throw new Error(
-          `Contract violation: ${methodName} requires ${requiredMethod} to be called first. ` +
-          `Required sequence: [${requiredSequence.join(' → ')}]`
-        )
+    // Mathematical graph validation using PowlStateMachine
+    const powlNode = sequenceToPowl(requiredSequence)
+    const stateMachine = new PowlStateMachine(powlNode)
+
+    // Replay history of already recorded calls that belong to the sequence
+    for (const historicCall of contextState.callSequence) {
+      if (requiredSequence.includes(historicCall)) {
+        try {
+          stateMachine.executeActivity(historicCall)
+        } catch {
+          // Ignore historic replay errors to maintain rollback robustness
+        }
       }
+    }
+
+    // Now verify if the current call is admissible
+    if (!stateMachine.isAdmissible(methodName)) {
+      // Find the first uncompleted predecessor to match legacy error message format
+      let missingPredecessor = null
+      for (let i = 0; i < methodIndex; i++) {
+        const requiredMethod = requiredSequence[i]
+        if (!contextState.sequenceIndex.has(requiredMethod)) {
+          missingPredecessor = requiredMethod
+          break
+        }
+      }
+
+      throw new Error(
+        `Contract violation: ${methodName} requires ${missingPredecessor || 'predecessor'} to be called first. ` +
+        `Required sequence: [${requiredSequence.join(' → ')}]`
+      )
     }
   }
 

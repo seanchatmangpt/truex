@@ -35,5 +35,5 @@ The Proxy Membrane explicitly refuses operations if:
 To prove the membrane wrapping, trap execution, and prototype protection:
 
 ```bash
-npx vitest run packages/truex-core/test/membrane.test.ts
+npx vitest run packages/membrane/test/membrane.test.ts
 ```

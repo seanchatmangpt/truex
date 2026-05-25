@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest'
 import fc from 'fast-check'
 import { faker } from '@faker-js/faker'
-import { isFunction, isPrimitive, isObject, isPlainObject, getType } from '../../packages/truex-core/src/utils/type.ts'
-import { deepMerge, deepClone } from '../../packages/truex-core/src/utils/object.ts'
-import { flatten, unique, intersection } from '../../packages/truex-core/src/utils/array.ts'
-import { camelToKebab, sanitizeString } from '../../packages/truex-core/src/utils/string.ts'
+import { isFunction, isPrimitive, isObject, isPlainObject, getType } from '../../packages/membrane/src/utils/type.ts'
+import { deepMerge, deepClone } from '../../packages/membrane/src/utils/object.ts'
+import { flatten, unique, intersection } from '../../packages/membrane/src/utils/array.ts'
+import { camelToKebab, sanitizeString } from '../../packages/membrane/src/utils/string.ts'
 
 describe('Helper utilities', () => {
   describe('Object utilities', () => {

@@ -1,6 +1,6 @@
-import fs from 'fs';
+import fs from 'node:fs';
 
-const indexPath = 'packages/truex-core/src/index.ts';
+const indexPath = 'packages/membrane/src/index.ts';
 let content = fs.readFileSync(indexPath, 'utf8');
 
 // The lines we want to replace are between `from "./ocel2-project-types.js";`

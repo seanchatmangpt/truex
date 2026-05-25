@@ -7,16 +7,16 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { hash } from '../../packages/truex-core/src/hash.js';
-import { computeAccounting } from '../../packages/truex-core/src/runtime-law.js';
+import { hash } from '../../packages/membrane/src/hash.js';
+import { computeAccounting } from '../../packages/membrane/src/runtime-law.js';
 import { 
   projectReportToOcel, 
   mailboxReportToOcel 
-} from '../../packages/truex-core/src/ocel2-project-projection.gall.js';
+} from '../../packages/membrane/src/ocel2-project-projection.gall.js';
 import { 
   PROJECT_CONSTRAINTS, 
   evaluateProjectConstraint 
-} from '../../packages/truex-core/src/ocpq-project-constraints.gall.js';
+} from '../../packages/membrane/src/ocpq-project-constraints.gall.js';
 import { 
   getWizard8VerbWorkflow, 
   validateChoiceGraph,
@@ -25,7 +25,7 @@ import {
   checkpointRegistryToPowl,
   generateWorkflowHash,
   createWizardWorkflow
-} from '../../packages/truex-core/src/powl-project-workflow.gall.js';
+} from '../../packages/membrane/src/powl-project-workflow.gall.js';
 import type { 
   WizardProjectReport, 
   OcelId, 
@@ -33,7 +33,7 @@ import type {
   ISODateTime, 
   Hash256,
   OcelV2Log
-} from '../../packages/truex-core/src/ocel2-project-types.js';
+} from '../../packages/membrane/src/ocel2-project-types.js';
 
 export interface ProjectEvidenceProofReport {
   passed: boolean;
@@ -82,10 +82,10 @@ export function proveProjectEvidenceTypes(): ProjectEvidenceProofReport {
   // Scan select source files for forbidden claims
   const rootDir = process.cwd();
   const filesToScan = [
-    path.join(rootDir, 'packages/truex-core/src/ocel2-project-types.ts'),
-    path.join(rootDir, 'packages/truex-core/src/ocel2-project-projection.gall.ts'),
-    path.join(rootDir, 'packages/truex-core/src/ocpq-project-constraints.gall.ts'),
-    path.join(rootDir, 'packages/truex-core/src/powl-project-workflow.gall.ts')
+    path.join(rootDir, 'packages/membrane/src/ocel2-project-types.ts'),
+    path.join(rootDir, 'packages/membrane/src/ocel2-project-projection.gall.ts'),
+    path.join(rootDir, 'packages/membrane/src/ocpq-project-constraints.gall.ts'),
+    path.join(rootDir, 'packages/membrane/src/powl-project-workflow.gall.ts')
   ];
 
   for (const file of filesToScan) {
@@ -345,16 +345,16 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
 
   // 2. S12 gap ledger exists and all gap statuses are closed or deferred
   const ledgerPath = path.join(rootDir, 'docs/reports/S12-GAP-LEDGER.md');
-  if (!fs.existsSync(ledgerPath)) {
-    failures.push("S12 gap ledger missing");
-  } else {
+  if (fs.existsSync(ledgerPath)) {
     invariants.push("S12 gap ledger exists");
     const ledgerContent = fs.readFileSync(ledgerPath, 'utf8');
-    if (ledgerContent.match(/\|\s*Open\s*\|/i)) {
+    if (/\|\s*Open\s*\|/i.test(ledgerContent)) {
       failures.push("Open unclassified gap found in ledger");
     } else {
       invariants.push("All gap statuses are closed or deferred");
     }
+  } else {
+    failures.push("S12 gap ledger missing");
   }
 
   // 3. Workflow Validation
@@ -362,8 +362,8 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
     const registry = createWizardWorkflow();
     checkpointRegistryToPowl(registry);
     invariants.push("POWL/Gall Wizard Workflow validates successfully");
-  } catch (e: any) {
-    failures.push(`Wizard Workflow validation failed: ${e.message}`);
+  } catch (error_: any) {
+    failures.push(`Wizard Workflow validation failed: ${error_.message}`);
   }
 
   // 4. Validate cycle detection
@@ -383,15 +383,15 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
     try {
       validatePartialOrder(cyclicOrder);
       failures.push("Cyclic partial order validation should have thrown an error but succeeded");
-    } catch (e: any) {
-      if (e.message.includes("Cyclic partial order refused")) {
+    } catch (error_: any) {
+      if (error_.message.includes("Cyclic partial order refused")) {
         invariants.push("POWL/Gall cycle rejection verified");
       } else {
-        failures.push(`Expected cyclic error but got: ${e.message}`);
+        failures.push(`Expected cyclic error but got: ${error_.message}`);
       }
     }
-  } catch (e: any) {
-    failures.push(`POWL/Gall cycle validation error: ${e.message}`);
+  } catch (error_: any) {
+    failures.push(`POWL/Gall cycle validation error: ${error_.message}`);
   }
 
   // 5. Validate choice graph validation (orphan node checking)
@@ -411,15 +411,15 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
     try {
       validateChoiceGraph(badGraph);
       failures.push("Choice graph with orphan node should have thrown an error but succeeded");
-    } catch (e: any) {
-      if (e.message.includes("Choice graph node not on start-end path refused: a3")) {
+    } catch (error_: any) {
+      if (error_.message.includes("Choice graph node not on start-end path refused: a3")) {
         invariants.push("Choice graph orphan node path rejection verified");
       } else {
-        failures.push(`Expected orphan path error but got: ${e.message}`);
+        failures.push(`Expected orphan path error but got: ${error_.message}`);
       }
     }
-  } catch (e: any) {
-    failures.push(`POWL/Gall choice graph validation error: ${e.message}`);
+  } catch (error_: any) {
+    failures.push(`POWL/Gall choice graph validation error: ${error_.message}`);
   }
 
   // 6. Validate checkpoint structure validation
@@ -435,15 +435,15 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
     try {
       validateGallCheckpointWorkflow(missingCommand);
       failures.push("Checkpoint with missing proofCommand should have failed");
-    } catch (e: any) {
-      if (e.message.includes("Checkpoint without proof command refused")) {
+    } catch (error_: any) {
+      if (error_.message.includes("Checkpoint without proof command refused")) {
         invariants.push("Checkpoint validation with missing fields verified");
       } else {
-        failures.push(`Expected proof command error but got: ${e.message}`);
+        failures.push(`Expected proof command error but got: ${error_.message}`);
       }
     }
-  } catch (e: any) {
-    failures.push(`Checkpoint structure validation error: ${e.message}`);
+  } catch (error_: any) {
+    failures.push(`Checkpoint structure validation error: ${error_.message}`);
   }
 
   // 7. Forbidden claims scan
@@ -457,10 +457,10 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
     /generic job queue/i
   ];
   const filesToScan = [
-    path.join(rootDir, 'packages/truex-core/src/ocel2-project-types.ts'),
-    path.join(rootDir, 'packages/truex-core/src/ocel2-project-projection.gall.ts'),
-    path.join(rootDir, 'packages/truex-core/src/ocpq-project-constraints.gall.ts'),
-    path.join(rootDir, 'packages/truex-core/src/powl-project-workflow.gall.ts')
+    path.join(rootDir, 'packages/membrane/src/ocel2-project-types.ts'),
+    path.join(rootDir, 'packages/membrane/src/ocel2-project-projection.gall.ts'),
+    path.join(rootDir, 'packages/membrane/src/ocpq-project-constraints.gall.ts'),
+    path.join(rootDir, 'packages/membrane/src/powl-project-workflow.gall.ts')
   ];
   for (const file of filesToScan) {
     if (fs.existsSync(file)) {
@@ -493,12 +493,12 @@ export function proveProjectEvidenceGapclose(): ProjectEvidenceGapcloseProofRepo
   const typesReportPath = path.join(rootDir, 'docs', 'benchmarks', 'project-evidence-types.report.json');
   if (fs.existsSync(typesReportPath)) {
     const typesReport = JSON.parse(fs.readFileSync(typesReportPath, 'utf8'));
-    if (typesReport.status !== "passed") {
-      failures.push("project-evidence-types proofs (type, projection, constraint) failed");
-    } else {
+    if (typesReport.status === "passed") {
       invariants.push("type tests pass");
       invariants.push("projection tests pass");
       invariants.push("constraint tests pass");
+    } else {
+      failures.push("project-evidence-types proofs (type, projection, constraint) failed");
     }
   } else {
     invariants.push("type tests pass");

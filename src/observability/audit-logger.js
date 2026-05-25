@@ -51,11 +51,11 @@ export function createAuditContext(target, options = {}) {
     
     // Stack trace control options
     includeStackTrace: options.includeStackTrace || (options.logLevel === 'debug') || false,
-    maxStoredTraces: options.maxStoredTraces !== undefined ? options.maxStoredTraces : 100,
+    maxStoredTraces: options.maxStoredTraces === undefined ? 100 : options.maxStoredTraces,
     stackTraceBehavior: options.stackTraceBehavior || 'truncate',
     
     // Bounded log options
-    maxLogEntries: options.maxLogEntries !== undefined ? options.maxLogEntries : 5000,
+    maxLogEntries: options.maxLogEntries === undefined ? 5000 : options.maxLogEntries,
     overflowBehavior: options.overflowBehavior || 'truncate',
     sqliteDb: options.sqliteDb || null,
     sqlitePath: options.sqlitePath || null,
@@ -80,6 +80,8 @@ export function createAuditContext(target, options = {}) {
 
   // Initialize SQLite db if needed
   let dbInstance = config.sqliteDb
+  let insertStmt = null
+
   if (config.overflowBehavior === 'sqlite' && !dbInstance) {
     const dbPath = config.sqlitePath || ':memory:'
     dbInstance = new Database(dbPath)
@@ -98,6 +100,9 @@ export function createAuditContext(target, options = {}) {
         data TEXT
       );
     `)
+    insertStmt = dbInstance.prepare(
+      'INSERT INTO gall_audit_logs (log_index, timestamp, trap, property, intent, status, data) VALUES (?, ?, ?, ?, ?, ?, ?)'
+    )
   }
 
   // Internal state for the context
@@ -218,7 +223,8 @@ export function createAuditContext(target, options = {}) {
       const oldestEntry = auditLog.shift()
       flushedCount++
 
-      if (config.overflowBehavior === 'sqlite') {
+      switch (config.overflowBehavior) {
+      case 'sqlite': {
         if (dbInstance) {
           dbInstance.prepare(
             'INSERT INTO gall_audit_logs (log_index, timestamp, trap, property, intent, status, data) VALUES (?, ?, ?, ?, ?, ?, ?)'
@@ -232,16 +238,26 @@ export function createAuditContext(target, options = {}) {
             JSON.stringify(oldestEntry)
           )
         }
-      } else if (config.overflowBehavior === 'disk') {
+      
+      break;
+      }
+      case 'disk': {
         const path = config.diskPath || 'audit-overflow.log'
         fs.appendFileSync(path, JSON.stringify(oldestEntry) + '\n', 'utf8')
-      } else if (config.overflowBehavior === 'compress') {
+      
+      break;
+      }
+      case 'compress': {
         const hashStr = crypto.createHash('sha256').update(JSON.stringify(oldestEntry)).digest('hex')
         rollingHash = crypto.createHash('sha256').update((rollingHash || '') + hashStr).digest('hex')
         if (compressedLogs.length >= 1000) {
           compressedLogs.shift()
         }
         compressedLogs.push({ index: oldestEntry.index, status: 'compressed', hash: hashStr })
+      
+      break;
+      }
+      // No default
       }
     }
 
@@ -305,7 +321,7 @@ export function createAuditContext(target, options = {}) {
     if (config.overflowBehavior === 'disk' && fs.existsSync(path)) {
       try {
         fs.unlinkSync(path)
-      } catch (e) {
+      } catch {
         // ignore
       }
     }
@@ -338,7 +354,7 @@ export function createAuditContext(target, options = {}) {
       return exportToCSV(auditLog)
     }
     case 'text': {
-      return auditLog.map((entry) => formatEntry(entry, 'text')).join('\\n')
+      return auditLog.map((entry) => formatEntry(entry, 'text')).join(String.raw`\n`)
     }
     default: {
       throw new Error(`Unsupported export format: ${format}`)

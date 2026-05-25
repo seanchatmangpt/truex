@@ -8,8 +8,8 @@ import {
   createCapabilityContext,
   registerCapabilityInterceptors,
 } from '../../src/security/capability-acl.js'
-import * as fs from 'fs'
-import * as path from 'path'
+import * as fs from 'node:fs'
+import * as path from 'node:path'
 
 // Record results for the reports
 const results = {
@@ -47,9 +47,9 @@ describe('Sandbox & ACL Security and Performance Breakpoint Stress Tests', () =>
   afterAll(() => {
     // Generate reports
     const endHeap = heapUsage()
-    results.benchmarks.heapBeforeMb = parseFloat(startHeap.toFixed(3))
-    results.benchmarks.heapAfterMb = parseFloat(endHeap.toFixed(3))
-    results.benchmarks.heapPeakMb = parseFloat(maxHeap.toFixed(3))
+    results.benchmarks.heapBeforeMb = Number.parseFloat(startHeap.toFixed(3))
+    results.benchmarks.heapAfterMb = Number.parseFloat(endHeap.toFixed(3))
+    results.benchmarks.heapPeakMb = Number.parseFloat(maxHeap.toFixed(3))
 
     const reportJsonDir = path.dirname('/Users/sac/truex/docs/benchmarks/cap-sandbox-acl-breakpoint.report.json')
     if (!fs.existsSync(reportJsonDir)) {
@@ -166,7 +166,7 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
 
     registerCapabilityInterceptors(proxyInterface, capCtx)
 
-    const operationsCount = 50000
+    const operationsCount = 50_000
     const start = performance.now()
 
     capCtx.call(() => {
@@ -218,7 +218,7 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
         // Attempt Object.getPrototypeOf traversal
         try {
           proto = Object.getPrototypeOf(proxyInterface.proxy)
-        } catch (e) {
+        } catch {
           threwError = true
         }
       })
@@ -253,7 +253,7 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
       sandboxCtx.call(() => {
         try {
           proto = proxyInterface.proxy.__proto__
-        } catch (e) {
+        } catch {
           threwError = true
         }
       })
@@ -266,9 +266,9 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
         category: 'Security Bypass',
         attempted: true,
         bypassed: proto !== null,
-        details: proto !== null
-          ? 'Bypassed. Reading __proto__ returned the raw Object.prototype because it was not in restrictedKeys.'
-          : 'Refused. Reading __proto__ was blocked.'
+        details: proto === null
+          ? 'Refused. Reading __proto__ was blocked.'
+          : 'Bypassed. Reading __proto__ returned the raw Object.prototype because it was not in restrictedKeys.'
       })
     })
 
@@ -291,7 +291,7 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
             proto.pollutedFieldByTest = 'hacked'
             pollutedSuccess = true
           }
-        } catch (e) {
+        } catch {
           threwError = true
         }
       })
@@ -329,8 +329,8 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
         // Reflect.get should still trigger get trap and get blocked
         try {
           Reflect.get(proxyInterface.proxy, 'foo')
-        } catch (e: any) {
-          if (e.message.includes('restricted')) {
+        } catch (error_: any) {
+          if (error_.message.includes('restricted')) {
             reflectGetBlocked = true
           }
         }
@@ -341,7 +341,7 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
           if (proto === Object.getPrototypeOf(target)) {
             reflectProtoBypassed = true
           }
-        } catch (e) {
+        } catch {
           // successfully blocked
         }
       })
@@ -388,8 +388,8 @@ This audit evaluated the security boundaries of the context-bound Sandboxing and
           // Mutate secret on wrapped nested object
           nestedObj.secret = 'mutated-via-nested'
           mutatedVal = target.nested.secret
-        } catch (e: any) {
-          if (e.message.includes('restricted') || e.message.includes('Sandbox violation')) {
+        } catch (error_: any) {
+          if (error_.message.includes('restricted') || error_.message.includes('Sandbox violation')) {
             threwError = true
           }
         }

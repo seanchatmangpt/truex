@@ -40,7 +40,7 @@ The table below compiles all attempts, completions, failures, refusals, and time
      - Proposal `prop-004` (speculative run causing duplicate UUID, refused by database constraint)
 2. **DoctorAgent**:
    - `scripts/receipted-audit.ts` (1 run, committed successfully)
-   - `packages/truex-core/test/adapter.test.ts` (3 runs submitted via adapter):
+   - `packages/membrane/test/adapter.test.ts` (3 runs submitted via adapter):
      - Proposal `prop-1` (valid payload, admitted & committed)
      - Proposal `prop-3` (malformed empty subject, refused by intake validation)
      - Proposal `prop-4` (speculative run causing duplicate UUID, refused by database constraint)

@@ -49,12 +49,12 @@ export class ProjectEvidenceGapcloseFactsEmitter extends FactEmitter {
           // Domain | Attempted | Succeeded | Failed | Refused | Quarantined | Skipped | Status
           gapDomains.push({
             domain: parts[0].replace(/\*\*/g, ''),
-            attempted: parseInt(parts[1], 10),
-            succeeded: parseInt(parts[2], 10),
-            failed: parseInt(parts[3], 10),
-            refused: parseInt(parts[4], 10),
-            quarantined: parseInt(parts[5], 10),
-            skipped: parseInt(parts[6], 10),
+            attempted: Number.parseInt(parts[1], 10),
+            succeeded: Number.parseInt(parts[2], 10),
+            failed: Number.parseInt(parts[3], 10),
+            refused: Number.parseInt(parts[4], 10),
+            quarantined: Number.parseInt(parts[5], 10),
+            skipped: Number.parseInt(parts[6], 10),
             status: parts[7]
           });
         }

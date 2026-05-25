@@ -33,8 +33,8 @@ This synthesis report documents the validation of the Truex Telco transition ing
 
 ## 7. Telco Ingestion Results
 - **Ingestion Success Rate:** 100.000%
-- **Ingestion Speed:** 6716.507 ops/sec
-- **Validation Speed:** 31994.582 ops/sec
+- **Ingestion Speed:** 7581.681 ops/sec
+- **Validation Speed:** 32594.568 ops/sec
 
 ## 8. Wizard Simulation Results
 - **Simulation Invariant Enforcement:** 100.000%

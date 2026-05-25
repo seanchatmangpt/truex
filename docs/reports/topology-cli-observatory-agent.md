@@ -35,16 +35,16 @@ We extended the Truex Observatory by adding:
 ## 4. Execution Evidence & Verification
 
 ### A. Topology Vitest Suite
-Executed: `npx vitest run packages/truex-core/test/topology`
+Executed: `npx vitest run packages/membrane/test/topology`
 *   **Status:** ✅ Passed
 *   **Passed Tests:** 26 / 26
 *   **Evidence:**
     ```text
-     ✓ packages/truex-core/test/topology/topology-partial-order-vkg.test.ts (6 tests) 17ms
-     ✓ packages/truex-core/test/topology/topology.gall.test.ts (6 tests) 10ms
-     ✓ packages/truex-core/test/topology/topology-chain-replay.test.ts (8 tests) 11ms
-     ✓ packages/truex-core/test/topology/topology-rollback-storm.test.ts (3 tests) 11ms
-     ✓ packages/truex-core/test/topology/topology.test.ts (3 tests) 5ms
+     ✓ packages/membrane/test/topology/topology-partial-order-vkg.test.ts (6 tests) 17ms
+     ✓ packages/membrane/test/topology/topology.gall.test.ts (6 tests) 10ms
+     ✓ packages/membrane/test/topology/topology-chain-replay.test.ts (8 tests) 11ms
+     ✓ packages/membrane/test/topology/topology-rollback-storm.test.ts (3 tests) 11ms
+     ✓ packages/membrane/test/topology/topology.test.ts (3 tests) 5ms
     ```
 
 ### B. Doctor prove CLI command

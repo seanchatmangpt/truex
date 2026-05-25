@@ -5,8 +5,8 @@ async function main() {
     const doctor = new DoctorAgent();
     const report = await doctor.prove("wizard");
     console.log("Report:", report);
-  } catch (e: any) {
-    console.error("Error Stack:", e.stack);
+  } catch (error_: any) {
+    console.error("Error Stack:", error_.stack);
   }
 }
 

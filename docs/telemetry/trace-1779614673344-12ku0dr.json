@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779614673344-12ku0dr",
+  "spanId": "span-unknown",
+  "startTime": 1779614673344,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"wizard\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779614675652,
+      "attributes": {
+        "primitive": "wizard",
+        "status": "confirmed",
+        "executionTimeMs": 1793,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779614675651,
+  "durationMs": 2307
+}

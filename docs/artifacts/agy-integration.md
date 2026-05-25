@@ -1,6 +1,6 @@
 # Antigravity Artifact: Agy Integration
 
-> **Generated:** 2026-05-24T10:01:57.947Z
+> **Generated:** 2026-05-25T18:57:23.657Z
 
 ## Integration Strategy
 
@@ -12,13 +12,13 @@
 
 ### truex-hook-loop
 - **Event:** BeforeTool
-- **Matcher:** `write_to_file|replace_file_content|run_command`
+- **Matcher:** `write_file|replace|run_shell_command|write_to_file|replace_file_content|run_command`
 - **Script:** `npx tsx scripts/truex-agy-bridge.ts {{tool}} '{{arguments}}'`
 - **Enabled:** true
 
 ### after-tool-actuation
 - **Event:** AfterTool
-- **Matcher:** `write_file|replace|write_to_file|replace_file_content|run_shell_command`
+- **Matcher:** `write_file|replace|run_shell_command|write_to_file|replace_file_content|run_command`
 - **Script:** `npx tsx scripts/after-tool-hook.ts`
 - **Enabled:** true
 

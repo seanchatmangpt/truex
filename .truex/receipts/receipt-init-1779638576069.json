@@ -1,0 +1,9 @@
+{
+  "receiptHash": "dab2caadefa57cc08304b82db31c06542f4f88cfda293aac2000a815c72bac8e",
+  "projectPath": "/Users/sac/truex",
+  "verb": "init",
+  "status": "refused",
+  "startedAt": "2026-05-24T16:02:56.068Z",
+  "completedAt": "2026-05-24T16:02:56.069Z",
+  "details": "Missing project path"
+}

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779684125462-6gulc7b",
+  "spanId": "span-unknown",
+  "startTime": 1779684125462,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"ledger\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779684126554,
+      "attributes": {
+        "primitive": "ledger",
+        "status": "refused",
+        "executionTimeMs": 109,
+        "invariantsCount": 3,
+        "failuresCount": 1
+      }
+    }
+  ],
+  "endTime": 1779684126554,
+  "durationMs": 1092
+}

@@ -1,38 +1,32 @@
 {
-  "timestamp": "2026-05-24T10:01:22.385Z",
+  "timestamp": "2026-05-25T18:57:14.061Z",
   "receiptStress": [
     {
       "count": 10,
-      "opsPerSec": 3738.2604603069735,
-      "durationMs": 2.675040999999993,
-      "memoryDeltaKb": 1412.59375
+      "opsPerSec": 3524.2290748898604,
+      "durationMs": 2.8375000000000057,
+      "memoryDeltaKb": 1390.46875
+    },
+    {
+      "count": 50,
+      "opsPerSec": 11989.688867573857,
+      "durationMs": 4.17025000000001,
+      "memoryDeltaKb": 6235.21875
     },
     {
       "count": 100,
-      "opsPerSec": 12739.056354400553,
-      "durationMs": 7.849874999999997,
-      "memoryDeltaKb": -1251.703125
-    },
-    {
-      "count": 1000,
-      "opsPerSec": 24416.024842621635,
-      "durationMs": 40.95670799999999,
-      "memoryDeltaKb": 15230.703125
-    },
-    {
-      "count": 10000,
-      "opsPerSec": 28522.32266640203,
-      "durationMs": 350.60258300000004,
-      "memoryDeltaKb": 727.6953125
+      "opsPerSec": 16304.790004902812,
+      "durationMs": 6.1331670000000145,
+      "memoryDeltaKb": 2082.8046875
     }
   ],
   "replayMetrics": {
-    "sampleCount": 1000,
-    "opsPerSec": 43031.72811073874,
+    "sampleCount": 50,
+    "opsPerSec": 33690.81534468344,
     "convergencePct": 100,
     "convergencePctUnderMutations": 0,
     "tamperDetectionPct": 100,
-    "durationMs": 23.238667000000078,
+    "durationMs": 1.4840840000000242,
     "tamperingNote": "cryptographic receipt integrity checks detected tested tampering cases"
   },
   "topologyDepth": [
@@ -50,16 +44,11 @@
       "maxDepth": 10,
       "cascadeDepth": 11,
       "refused": true
-    },
-    {
-      "maxDepth": 100,
-      "cascadeDepth": 101,
-      "refused": true
     }
   ],
   "topologyCycles": {
-    "attempted": 10,
-    "refused": 10,
+    "attempted": 2,
+    "refused": 2,
     "refusalPct": 100
   },
   "topologyFanout": [
@@ -72,11 +61,6 @@
       "maxFanout": 7,
       "actualFanout": 8,
       "refused": true
-    },
-    {
-      "maxFanout": 31,
-      "actualFanout": 32,
-      "refused": true
     }
   ],
   "rollbackMetrics": {
@@ -85,9 +69,9 @@
     "propagationPct": 100
   },
   "overheadRatioMetrics": {
-    "rawOpsPerSec": 8459664.32052109,
-    "receiptBackedOpsPerSec": 28175.992206295217,
-    "overheadRatio": 300.24370600979194,
+    "rawOpsPerSec": 4152306.6063165814,
+    "receiptBackedOpsPerSec": 24778.799655475574,
+    "overheadRatio": 167.57496989564677,
     "violatesCtqThreshold": true,
     "operatingMode": "degraded"
   }

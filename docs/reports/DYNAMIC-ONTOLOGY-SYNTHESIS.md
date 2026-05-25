@@ -37,7 +37,7 @@ npx tsx scripts/truex.ts doctor prove ontology
 - `❌ Primitive "ontology" failed proof.`
 - *Failure: Found 26 unmapped files: scripts/decouple-hookbench.ts, ...*
 - *Failure: Genesis Defect: Core file scripts/truex-agy-bridge.ts has no tests proving its capability.*
-- *Failure: Observability Defect: Core file packages/truex-core/src/hook.ts is not mapped by any Observatory Fact Emitter.*
+- *Failure: Observability Defect: Core file packages/membrane/src/hook.ts is not mapped by any Observatory Fact Emitter.*
 
 **Conclusion:** The failure is a massive success. The system is no longer lying to itself. It has actively audited its own AST and detected that while the code works, its *operational topology* is incomplete.
 

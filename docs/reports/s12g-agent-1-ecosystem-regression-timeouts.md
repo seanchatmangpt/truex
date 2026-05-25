@@ -79,6 +79,6 @@ Ecosystem Regression + Timeout Isolation:
 - S12-Caused Failures: None
 - S12-Exposed Failures: 1 (ocpq-project-constraints test aligned)
 - Environment Candidates: 4 (getPrototypeOf / unctx context pollution)
-- Deliverables: packages/truex-core/test/project-evidence/project-evidence-regression-boundary.test.ts
+- Deliverables: packages/membrane/test/project-evidence/project-evidence-regression-boundary.test.ts
 - Status: Fully Verified
 ```

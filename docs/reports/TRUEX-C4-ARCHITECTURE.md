@@ -6,13 +6,13 @@
 ## 0. Generation Receipt
 
 ```yaml
-generatedAt: 2026-05-24T10:01:57.940Z
-astFilesScanned: 243
-mappedFiles: 231
-orphanFiles: 12
-topologyHash: 2f05b2ff4175e37ba51721d404c9428850babe73ad98230e86c97a1a7cf56f7f
-receiptHash: d9cdd028-c4dc-45a7-9e0a-70deb3d4f745
-diagramHash: 809958f126641f6dd609d1e102fe45c932a12a68755f14b49a60bfdd4fb43dca pending
+generatedAt: 2026-05-25T18:57:23.648Z
+astFilesScanned: 285
+mappedFiles: 283
+orphanFiles: 2
+topologyHash: 42dc26cf26ceeef5102286b86e85041565826eafaa418c8ff45ed969c8ad511f
+receiptHash: cf6c1bd9-6309-473b-b607-de6133968f9e
+diagramHash: afa6f9780945d604a962fa25b77d09c199251f818df6a6ca17f45865e9cde83b pending
 doctorCommand: npx tsx scripts/truex.ts doctor prove architecture
 ```
 
@@ -239,47 +239,37 @@ sequenceDiagram
 ## 7. Code Maps
 
 ### 7.1 S0/S1 Primitives
-*   `packages/truex-core/src/hash.ts`
-*   `packages/truex-core/src/receipt.ts`
-*   `packages/truex-core/src/replay.ts`
-*   `packages/truex-core/src/context.ts`
-*   `packages/truex-core/src/signature.ts`
+*   `packages/membrane/src/hash.ts`
+*   `packages/membrane/src/receipt.ts`
+*   `packages/membrane/src/replay.ts`
+*   `packages/membrane/src/context.ts`
+*   `packages/membrane/src/signature.ts`
 
 ### 7.2 S5 OTP
-*   `packages/truex-core/src/hook-otp.gall.ts`
-*   `packages/truex-core/test/hook-otp/hook-otp-mailbox.test.ts`
-*   `packages/truex-core/test/hook-otp/hook-otp-supervisor.test.ts`
-*   `packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts`
+*   `packages/membrane/src/hook-otp.gall.ts`
+*   `packages/membrane/test/hook-otp/hook-otp-mailbox.test.ts`
+*   `packages/membrane/test/hook-otp/hook-otp-supervisor.test.ts`
+*   `packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts`
 
 ### 7.3 S6 Topology
-*   `packages/truex-core/src/topology.gall.ts`
-*   `packages/truex-core/test/topology/topology-chain-replay.test.ts`
-*   `packages/truex-core/test/topology/topology-rollback-storm.test.ts`
-*   `packages/truex-core/test/topology/topology-partial-order-vkg.test.ts`
+*   `packages/membrane/src/topology.gall.ts`
+*   `packages/membrane/test/topology/topology-chain-replay.test.ts`
+*   `packages/membrane/test/topology/topology-rollback-storm.test.ts`
+*   `packages/membrane/test/topology/topology-partial-order-vkg.test.ts`
 
 ### 7.4 S7 Membrane Replay
-*   `packages/truex-core/src/membrane-replay.gall.ts`
-*   `packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts`
-*   `packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts`
+*   `packages/membrane/src/membrane-replay.gall.ts`
+*   `packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts`
+*   `packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts`
 
 ## 8. Architecture Accounting
 This map actively indexes the codebase dependencies.
-**Total Mapped Nodes:** 243
+**Total Mapped Nodes:** 285
 
 ## 9. Orphans / Drift / Unmapped Files
 ❌ Found Orphans:
 - scripts/fix-imports.ts
 - scripts/mission/project-12h-finalization.ts
-- packages/truex-core/src/ocel2-project-projection.gall.ts
-- packages/truex-core/src/ocel2-project-types.ts
-- packages/truex-core/src/ocpq-project-constraints.gall.ts
-- packages/truex-core/src/powl-project-workflow.gall.ts
-- packages/truex-core/src/project-wizard.gall.ts
-- packages/truex-core/src/wizard/project-cell.ts
-- packages/truex-core/src/wizard/project-route.ts
-- packages/truex-core/src/wizard/verbs/init.ts
-- packages/truex-core/src/wizard/verbs/map.ts
-- packages/truex-core/src/wizard/verbs/plan.ts
 
 ## 10. Final Classification
 
@@ -288,7 +278,7 @@ Truex C4 Architecture State:
 - Alignment: Proven via Doctor
 - Dynamic Coverage: Active
 - Deployment Scope: Local-First (No Cloud)
-- Orphan Count: 12
+- Orphan Count: 2
 ```
 
 *Legend:*

@@ -30,7 +30,7 @@ These tests are non-mockable because they assert on real runtime transitions and
 
 ## 3. Runtime Evidence
 Ecosystem proof command exit codes and output:
-- **Stress Test Suite Command:** `npx vitest run packages/truex-core/test/hook-otp/hook-otp-nonmockable-stress.test.ts`
+- **Stress Test Suite Command:** `npx vitest run packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts`
   - **Exit Code:** 0
   - **Passed Tests:** 10 / 10
 - **Ecosystem Command:** `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove ecosystem`
@@ -93,10 +93,10 @@ Live execution of the Antigravity Bridge wrapper verified:
 
 ## 11. Performance Summary
 Local OTP-equivalent concurrency benchmark throughput:
-- **Raw Hook Execution:** 1456312.094 ops/sec
-- **OTP Mailbox (Eval-Only):** 6861063.465 ops/sec
-- **Receipt-Backed OTP (Full Loop):** 28095.215 ops/sec
-- **Overhead Ratio:** 51.835x
+- **Raw Hook Execution:** 1512859.304 ops/sec
+- **OTP Mailbox (Eval-Only):** 7005253.940 ops/sec
+- **Receipt-Backed OTP (Full Loop):** 29096.975 ops/sec
+- **Overhead Ratio:** 51.994x
 
 ---
 

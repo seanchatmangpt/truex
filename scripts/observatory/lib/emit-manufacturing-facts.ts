@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { RepositoryLaws } from '../../../packages/truex-core/src/manufacturing/registry.js';
-import { WorkStandards } from '../../../packages/truex-core/src/manufacturing/standardization.js';
+import { RepositoryLaws } from '../../../packages/membrane/src/manufacturing/registry.js';
+import { WorkStandards } from '../../../packages/membrane/src/manufacturing/standardization.js';
 import { FactEmitter, EmitterMetadata } from './fact-emitter.js';
 
 /**
@@ -73,16 +73,16 @@ export class ManufacturingFactsEmitter extends FactEmitter {
         orchestration: ["ProductionLine"]
       },
       files: [
-        "packages/truex-core/src/manufacturing/jit.ts",
-        "packages/truex-core/src/manufacturing/jidoka.ts",
-        "packages/truex-core/src/manufacturing/heijunka.ts",
-        "packages/truex-core/src/manufacturing/kaizen.ts",
-        "packages/truex-core/src/manufacturing/standardization.ts",
-        "packages/truex-core/src/manufacturing/gemba.ts",
-        "packages/truex-core/src/manufacturing/collaboration.ts",
-        "packages/truex-core/src/manufacturing/lean.ts",
-        "packages/truex-core/src/manufacturing/line.ts",
-        "packages/truex-core/src/manufacturing/registry.ts"
+        "packages/membrane/src/manufacturing/jit.ts",
+        "packages/membrane/src/manufacturing/jidoka.ts",
+        "packages/membrane/src/manufacturing/heijunka.ts",
+        "packages/membrane/src/manufacturing/kaizen.ts",
+        "packages/membrane/src/manufacturing/standardization.ts",
+        "packages/membrane/src/manufacturing/gemba.ts",
+        "packages/membrane/src/manufacturing/collaboration.ts",
+        "packages/membrane/src/manufacturing/lean.ts",
+        "packages/membrane/src/manufacturing/line.ts",
+        "packages/membrane/src/manufacturing/registry.ts"
       ]
     };
   }

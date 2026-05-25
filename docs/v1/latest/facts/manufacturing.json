@@ -130,20 +130,20 @@
     ]
   },
   "files": [
-    "packages/truex-core/src/manufacturing/jit.ts",
-    "packages/truex-core/src/manufacturing/jidoka.ts",
-    "packages/truex-core/src/manufacturing/heijunka.ts",
-    "packages/truex-core/src/manufacturing/kaizen.ts",
-    "packages/truex-core/src/manufacturing/standardization.ts",
-    "packages/truex-core/src/manufacturing/gemba.ts",
-    "packages/truex-core/src/manufacturing/collaboration.ts",
-    "packages/truex-core/src/manufacturing/lean.ts",
-    "packages/truex-core/src/manufacturing/line.ts",
-    "packages/truex-core/src/manufacturing/registry.ts"
+    "packages/membrane/src/manufacturing/jit.ts",
+    "packages/membrane/src/manufacturing/jidoka.ts",
+    "packages/membrane/src/manufacturing/heijunka.ts",
+    "packages/membrane/src/manufacturing/kaizen.ts",
+    "packages/membrane/src/manufacturing/standardization.ts",
+    "packages/membrane/src/manufacturing/gemba.ts",
+    "packages/membrane/src/manufacturing/collaboration.ts",
+    "packages/membrane/src/manufacturing/lean.ts",
+    "packages/membrane/src/manufacturing/line.ts",
+    "packages/membrane/src/manufacturing/registry.ts"
   ],
   "_metadata": {
     "emitter": "Manufacturing Facts Emitter",
     "description": "Extracts architectural facts about the manufacturing pillars and repository laws",
-    "timestamp": "2026-05-24T10:01:57.948Z"
+    "timestamp": "2026-05-25T18:57:23.657Z"
   }
 }

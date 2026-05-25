@@ -28,13 +28,13 @@ Modifying any cryptographic signature, lineage fields, or hashes in a receipt wi
 All stress/failure paths are verified automatically by the test suite.
 
 ```bash
-npx vitest run packages/truex-core/test/benchmark
+npx vitest run packages/membrane/test/benchmark
 ```
 
 ```text
- ✓ packages/truex-core/test/benchmark/generator.test.ts (6 tests)
- ✓ packages/truex-core/test/benchmark-entropy.test.ts (5 tests)
- ✓ packages/truex-core/test/benchmark/million-hook-church.test.ts (7 tests)
+ ✓ packages/membrane/test/benchmark/generator.test.ts (6 tests)
+ ✓ packages/membrane/test/benchmark-entropy.test.ts (5 tests)
+ ✓ packages/membrane/test/benchmark/million-hook-church.test.ts (7 tests)
 
  Test Files  3 passed (3)
       Tests  18 passed (18)

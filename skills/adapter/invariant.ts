@@ -6,7 +6,7 @@
  * Implements strict type validation of the agent identity, proposal identity, and the graph delta.
  */
 
-import { parseGraphDelta } from "../../packages/truex-core/src/runtime-law.js";
+import { parseGraphDelta } from "../../packages/membrane/src/runtime-law.js";
 
 /**
  * Represents a proposal submitted by an external agent.

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779651197561-ny6ydug",
+  "spanId": "span-unknown",
+  "startTime": 1779651197561,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"reactive-lifecycle\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779651198450,
+      "attributes": {
+        "primitive": "reactive-lifecycle",
+        "status": "confirmed",
+        "executionTimeMs": 426,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779651198450,
+  "durationMs": 889
+}

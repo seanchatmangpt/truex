@@ -1,0 +1,25 @@
+{
+  "traceId": "trace-1779644838214-zjj1srb",
+  "spanId": "span-unknown",
+  "startTime": 1779644838214,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"unified-benchmarks\"]}"
+  },
+  "events": [
+    {
+      "name": "ocel.receipt.generated",
+      "timestamp": 1779644838738,
+      "attributes": {
+        "primitive": "unified-benchmarks",
+        "receiptHash": "efc389df71c6f66de4f5ed4181e1ba5eb8007fc3b9e9a3ef9d9cf91848ff722b",
+        "status": "confirmed",
+        "executionTimeMs": 83,
+        "invariantsCount": 4,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779644838738,
+  "durationMs": 524
+}

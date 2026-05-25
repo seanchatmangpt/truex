@@ -1,0 +1,9 @@
+{
+  "receiptHash": "e9c2452bc6662fbf9979d7e964911304409a1621a5b5e7085012e489fe76882c",
+  "projectPath": "/Users/sac/truex",
+  "verb": "prove",
+  "status": "refused",
+  "startedAt": "2026-05-24T09:50:49.205Z",
+  "completedAt": "2026-05-24T09:50:49.206Z",
+  "details": "Project cell not initialized"
+}

@@ -33,7 +33,7 @@ export default defineConfig({
   test: {
     include: [
       'test/**/*.test.{js,ts}',
-      'packages/truex-core/test/**/*.test.{js,ts}',
+      'packages/membrane/test/**/*.test.{js,ts}',
       '.generated/doctests/**/*.test.ts'
     ],
     fileParallelism: false,

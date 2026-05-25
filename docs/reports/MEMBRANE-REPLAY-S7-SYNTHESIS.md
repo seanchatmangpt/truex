@@ -14,16 +14,16 @@ This synthesis report documents the validation of the Truex Membrane WAL persist
 - Supabase/Expo database/app platforms.
 
 ## 3. Source Files Added/Changed
-- [membrane-replay.gall.ts](file:///Users/sac/truex/packages/truex-core/src/membrane-replay.gall.ts)
+- [membrane-replay.gall.ts](file:///Users/sac/truex/packages/membrane/src/membrane-replay.gall.ts)
 
 ## 4. Tests Added/Changed
-- [membrane-reconstruction.test.ts](file:///Users/sac/truex/packages/truex-core/test/membrane-replay/membrane-reconstruction.test.ts)
-- [membrane-crash-rollback.test.ts](file:///Users/sac/truex/packages/truex-core/test/membrane-replay/membrane-crash-rollback.test.ts)
-- [membrane-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/truex-core/test/membrane-replay/membrane-partial-order-vkg.test.ts)
+- [membrane-reconstruction.test.ts](file:///Users/sac/truex/packages/membrane/test/membrane-replay/membrane-reconstruction.test.ts)
+- [membrane-crash-rollback.test.ts](file:///Users/sac/truex/packages/membrane/test/membrane-replay/membrane-crash-rollback.test.ts)
+- [membrane-partial-order-vkg.test.ts](file:///Users/sac/truex/packages/membrane/test/membrane-replay/membrane-partial-order-vkg.test.ts)
 
 ## 5. Commands Run
 - `TSX_DISABLE_CACHE=1 npx tsx scripts/truex.ts doctor prove membrane-replay`
-- `npx vitest run packages/truex-core/test/membrane-replay`
+- `npx vitest run packages/membrane/test/membrane-replay`
 
 ## 6. Membrane Replay Accounting Domains
 - **Domain J1 (Journal Lineage):** attempted: 1.000, converged: 1.000, corrupted: 1.000, tampered: 1.000, truncated: 0.000

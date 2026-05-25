@@ -1,6 +1,6 @@
 import { fileURLToPath } from 'node:url';
-import { createDeterministicContext } from '../../packages/truex-core/src/context.js';
-import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/truex-core/src/hook-otp.gall.js';
+import { createDeterministicContext } from '../../packages/membrane/src/context.js';
+import { createHookOtpRuntime, dispatchMessage, createHookProcess } from '../../packages/membrane/src/hook-otp.gall.js';
 
 // Content Filter Pattern: Removing unnecessary data before passing along
 export async function run() {

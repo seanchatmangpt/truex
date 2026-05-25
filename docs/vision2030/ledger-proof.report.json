@@ -1,0 +1,14 @@
+{
+  "primitive": "ledger",
+  "passed": true,
+  "invariants": [
+    "SQLite persistence membrane initialized",
+    "WasmWorkerPool and TruexWasmBridge instantiated successfully",
+    "Concurrent execution offloaded and committed cleanly",
+    "SQLite receipt store accurately recorded all executions"
+  ],
+  "failures": [],
+  "timings": {
+    "execution": 103
+  }
+}

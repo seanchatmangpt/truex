@@ -10,11 +10,11 @@
 import Database from 'better-sqlite3';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createDeterministicContext } from "../../packages/truex-core/src/context.js";
+import { createDeterministicContext } from "../../packages/membrane/src/context.js";
 import { hash } from "../hash/mutations.js";
 import { GallTruexSqliteEngine } from "../replay/mutations.js";
 import { TruexAgentAdapter } from "./mutations.js";
-import { parseGraphDelta, type HookDefinition } from "../../packages/truex-core/src/runtime-law.js";
+import { parseGraphDelta, type HookDefinition } from "../../packages/membrane/src/runtime-law.js";
 import { verifyReceipt } from "../receipt/invariant.js";
 
 /**
@@ -152,7 +152,7 @@ export function proveAdapter(): AdapterProofReport {
       previousReceiptHash: res3.receipt.receiptHash,
       parentSeed: 321
     });
-    const stepSeed = parseInt(stepSeedHash.substring(0, 8), 16) >>> 0;
+    const stepSeed = Number.parseInt(stepSeedHash.slice(0, 8), 16) >>> 0;
     const stepCtx = createDeterministicContext(stepSeed);
     const duplicateEventId = stepCtx.uuid();
 
