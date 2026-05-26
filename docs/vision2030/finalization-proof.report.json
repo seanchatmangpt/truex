@@ -2,16 +2,16 @@
   "primitive": "finalization",
   "passed": true,
   "invariants": [
-    "Vitest suite validation: PASSED (82569ms)",
-    "Ecosystem proof validation: PASSED (99893ms)",
-    "Mailbox S10 proof validation: PASSED (1481ms)",
-    "Observatory generator validation: PASSED (2578ms)",
+    "Vitest suite validation: PASSED (98307ms)",
+    "Ecosystem proof validation: PASSED (107764ms)",
+    "Mailbox S10 proof validation: PASSED (1547ms)",
+    "Observatory generator validation: PASSED (2675ms)",
     "12H monotonic gate block validation: PASSED",
     "Risk ledger validation (all deferred risks logged): PASSED"
   ],
   "failures": [],
   "timings": {
-    "execution": 186530
+    "execution": 210300
   },
   "receiptHash": "95398db2ff87f00a259c984bffbaa0c0218fff7351d5435e20a4cc90eb50374b"
 }
