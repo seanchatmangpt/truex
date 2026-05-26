@@ -78,7 +78,7 @@ assert_eq!(status, ReplayStatus::Verified);
 ### WASM (JavaScript/Node.js)
 
 ```javascript
-const wasm = require('@wasm4pm/prolog8');
+const wasm = require('@truex-kernel/prolog8');
 
 const input = {
   catalog: { /* Catalog */ },
@@ -170,7 +170,7 @@ cargo test -p prolog8 --test aat_live_counterfactual -- --nocapture
 
 ### Rust Library
 ```bash
-cd wasm4pm
+cd truex-kernel
 cargo build -p prolog8 --release
 ```
 
@@ -181,7 +181,7 @@ wasm-pack build --target nodejs --out-dir ../../packages/prolog8/pkg
 ```
 
 ### npm Package
-Published as `@wasm4pm/prolog8` (TypeScript bindings in `packages/prolog8/src/`).
+Published as `@truex-kernel/prolog8` (TypeScript bindings in `packages/prolog8/src/`).
 
 ## Architecture
 

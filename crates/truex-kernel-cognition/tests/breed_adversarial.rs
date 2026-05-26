@@ -6,7 +6,7 @@
 //! 3. Bypass-attempt (counterfactual): exactly-zero-effort input that the breed
 //!    previously accepted. Now it must either reject or emit meaningful trace.
 
-use wasm4pm_cognition::breeds::*;
+use truex_kernel_cognition::breeds::*;
 use std::fs;
 
 // =============================================================================
@@ -1463,7 +1463,7 @@ fn receipt_generation_and_hashing() {
 /// Rank 1 — mathematical: max_by with deterministic tiebreak must be stable.
 #[test]
 fn soar_deterministic_tiebreak() {
-    use wasm4pm_cognition::breeds::soar::Soar;
+    use truex_kernel_cognition::breeds::soar::Soar;
 
     let make_input = |ids: &[&str]| BreedInput {
         intent: "test".to_string(),
@@ -1511,7 +1511,7 @@ fn soar_deterministic_tiebreak() {
 /// Rank 2 — domain contract: adapter output is usable by all breeds.
 #[test]
 fn log_adapter_produces_valid_breed_input() {
-    use wasm4pm_cognition::log_adapter::{log_to_breed_input, LogAdapterInput};
+    use truex_kernel_cognition::log_adapter::{log_to_breed_input, LogAdapterInput};
 
     let top = vec!["Register".to_string(), "Approve".to_string(), "Close".to_string()];
     let input = log_to_breed_input(LogAdapterInput {
@@ -1553,6 +1553,6 @@ fn log_adapter_produces_valid_breed_input() {
     );
 
     // All breeds should be able to run with this input (smoke — just preconditions).
-    let result = wasm4pm_cognition::breeds::soar::Soar.preconditions(&input);
+    let result = truex_kernel_cognition::breeds::soar::Soar.preconditions(&input);
     assert!(result.is_ok(), "SOAR preconditions must pass on adapter output");
 }

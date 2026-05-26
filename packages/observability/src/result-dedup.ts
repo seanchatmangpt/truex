@@ -8,7 +8,7 @@
  * - `isDuplicate(logFile)` → boolean (check if log content seen before)
  * - `getExistingResult(logFile)` → CachedResult | null
  * - `recordResult(logFile, logContentHash, results)` → Store in dedup DB
- * - Persistence: `.wasm4pm/deduplicate.jsonl` (one JSON object per line)
+ * - Persistence: `.truex/deduplicate.jsonl` (one JSON object per line)
  * - OTEL span: `kernel.result_dedup_hit` when duplicate detected
  */
 
@@ -61,7 +61,7 @@ export class ResultDeduplicator {
   /** Optional OTEL span emitter. Set via `setSpanEmitter()`. Non-blocking. */
   private spanEmitter: ((event: OtelEvent) => void) | null = null;
 
-  constructor(dedupDbPath: string = '.wasm4pm/deduplicate.jsonl', defaultTtlMs: number = 24 * 60 * 60 * 1000) {
+  constructor(dedupDbPath: string = '.truex/deduplicate.jsonl', defaultTtlMs: number = 24 * 60 * 60 * 1000) {
     this.dedup_db_path = dedupDbPath;
     this.defaultTtlMs = defaultTtlMs;
   }

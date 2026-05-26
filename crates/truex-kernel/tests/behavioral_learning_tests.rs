@@ -9,8 +9,8 @@
 //! Modules tested: rl_orchestrator (RlOrchestrator, AgentType, CycleTelemetry)
 
 use std::collections::HashMap;
-use wasm4pm::rl_orchestrator::{AgentType, RlOrchestrator};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{AgentType, RlOrchestrator};
+use truex_kernel::RlState;
 
 /// Helper to create test RlState with reasonable defaults.
 fn make_test_state(health_level: u8) -> RlState {

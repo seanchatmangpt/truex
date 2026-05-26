@@ -182,7 +182,7 @@ describe('AgentOrchestrator.analyze — result shape contract', () => {
   it('context with no suspicious data produces no critical violations', async () => {
     const orchestrator = new AgentOrchestrator();
     // Clean context: real trace_id, no mock patterns, no suspicious services.
-    // NOTE: config-drift-guardian fires a *warning* when wasm4pm.toml is absent
+    // NOTE: config-drift-guardian fires a *warning* when truex.toml is absent
     // from the test CWD — this is expected behavior, not a bug. The contract
     // under test is that NO CRITICAL violations fire for clean input.
     const ctx = {
@@ -192,7 +192,7 @@ describe('AgentOrchestrator.analyze — result shape contract', () => {
     const monitor = await orchestrator.monitor(ctx);
     const result = await orchestrator.analyze(ctx, monitor);
 
-    // Only warnings (e.g. missing wasm4pm.toml) — no critical violations
+    // Only warnings (e.g. missing truex.toml) — no critical violations
     expect(result.critical_count).toBe(0);
     // All violations are from continuous agents — none are mock/stub/fabrication
     for (const v of result.violations) {
@@ -380,7 +380,7 @@ describe('AgentOrchestrator.plan — CorrectiveAction field shape', () => {
           process_mining_proof: null,
           timestamp: new Date().toISOString(),
           blocked_manufacturing: false,
-          target: 'wasm4pm.toml',
+          target: 'truex.toml',
         },
       ],
       critical_count: 0,
@@ -390,7 +390,7 @@ describe('AgentOrchestrator.plan — CorrectiveAction field shape', () => {
 
     const plan = await orchestrator.plan(analyze);
 
-    expect(plan.actions[0].target).toBe('wasm4pm.toml');
+    expect(plan.actions[0].target).toBe('truex.toml');
   });
 
   it('plan.critical_actions equals count of actions with severity critical', async () => {
@@ -494,7 +494,7 @@ describe('AgentOrchestrator.plan — CorrectiveAction field shape', () => {
 
   it('all-warning violations → all actions have requires_approval=false', async () => {
     const orchestrator = new AgentOrchestrator();
-    // config-drift-guardian fires warning for missing wasm4pm.toml
+    // config-drift-guardian fires warning for missing truex.toml
     const analyze: AnalyzeResult = {
       violations: [
         {
@@ -505,7 +505,7 @@ describe('AgentOrchestrator.plan — CorrectiveAction field shape', () => {
           process_mining_proof: null,
           timestamp: new Date().toISOString(),
           blocked_manufacturing: false,
-          target: 'wasm4pm.toml',
+          target: 'truex.toml',
         },
       ],
       critical_count: 0,
@@ -543,7 +543,7 @@ describe('Monitor→Analyze→Plan chain — structural invariants', () => {
   it('chain from clean context produces zero critical actions', async () => {
     const orchestrator = new AgentOrchestrator();
     // Clean context: no mock/stub patterns, no fabricated trace IDs.
-    // config-drift-guardian may fire a warning (missing wasm4pm.toml in test CWD)
+    // config-drift-guardian may fire a warning (missing truex.toml in test CWD)
     // but no critical violations should arise.
     const ctx = {
       artifact_id: 'clean-chain',

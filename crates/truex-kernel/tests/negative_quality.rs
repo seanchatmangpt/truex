@@ -14,9 +14,9 @@
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::ilp_discovery::{compute_simplicity, discover_ilp_petri_net_from_log};
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::ilp_discovery::{compute_simplicity, discover_ilp_petri_net_from_log};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -25,8 +25,8 @@ use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
 fn find_fixture(name: &str) -> Option<std::path::PathBuf> {
     let candidates = [
         format!("tests/fixtures/{}", name),
-        format!("wasm4pm/tests/fixtures/{}", name),
-        format!("../wasm4pm/tests/fixtures/{}", name),
+        format!("truex_kernel/tests/fixtures/{}", name),
+        format!("../truex_kernel/tests/fixtures/{}", name),
     ];
     for p in &candidates {
         if Path::new(p).exists() {

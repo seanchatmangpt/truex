@@ -10,8 +10,8 @@
 
 use chrono::{Duration, Utc};
 use std::collections::{HashMap, HashSet};
-use wasm4pm::discovery::discover_ocel_dfg_pure;
-use wasm4pm::models::{OCELEvent, OCELEventObjectRef, OCELObject, OCEL};
+use truex_kernel::discovery::discover_ocel_dfg_pure;
+use truex_kernel::models::{OCELEvent, OCELEventObjectRef, OCELObject, OCEL};
 
 // ============================================================================
 // Test Helper

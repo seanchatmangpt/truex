@@ -2,7 +2,7 @@
   "schema_version": "1",
   "benchmark_date": "2026-05-05",
   "regression_threshold_percent": 20,
-  "description": "Prediction subsystem performance baselines for @wasm4pm/kernel. All times are wall-clock milliseconds measured on a synthetic log (deterministic seed). The regression_threshold_percent field controls how much a future measurement is allowed to exceed the median_ms before a CI alert fires. Baselines were measured on Node.js 22 / Apple M-series hardware; adjust median_ms for your CI environment.",
+  "description": "Prediction subsystem performance baselines for @truex/kernel. All times are wall-clock milliseconds measured on a synthetic log (deterministic seed). The regression_threshold_percent field controls how much a future measurement is allowed to exceed the median_ms before a CI alert fires. Baselines were measured on Node.js 22 / Apple M-series hardware; adjust median_ms for your CI environment.",
   "environment": {
     "runtime": "Node.js 22",
     "hardware_class": "Apple silicon (M-series)",

@@ -1,11 +1,11 @@
-# Development Guide for wasm4pm
+# Development Guide for truex-kernel
 
 Architecture, extension points, and internal design documentation.
 
 ## Project Structure
 
 ```
-wasm4pm/
+truex-kernel/
 ├── src/                           # Rust WASM implementation
 │   ├── lib.rs                    # Entry point, module exports
 │   ├── api.ts                    # TypeScript API definitions (reference)
@@ -29,7 +29,7 @@ wasm4pm/
 │   └── streaming.rs              # Streaming DFG builder (IoT/chunked ingestion)
 │
 ├── cli/                          # Command-line interface
-│   └── index.ts                  # wasm4pm CLI commands
+│   └── index.ts                  # truex-kernel CLI commands
 │
 ├── examples/                      # Example applications
 │   ├── interactive-demo.html      # Browser demo
@@ -411,7 +411,7 @@ Minimum: ES2020, WebAssembly support
 
 ```bash
 npm run build:all
-wc -c pkg/wasm4pm_bg.wasm
+wc -c pkg/truex_kernel_bg.wasm
 ```
 
 ### Runtime Profiling

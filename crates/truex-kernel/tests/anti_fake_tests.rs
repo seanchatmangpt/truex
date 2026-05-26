@@ -9,7 +9,7 @@
 //!
 //! Run: `cargo test --test anti_fake_tests --features browser`
 
-use wasm4pm::testing::{ActivityEvidence, ConformanceVerdict, EvidenceError, ObjectEvidence, PowlTestHarness};
+use truex_kernel::testing::{ActivityEvidence, ConformanceVerdict, EvidenceError, ObjectEvidence, PowlTestHarness};
 
 fn bh(data: &str) -> String {
     blake3::hash(data.as_bytes()).to_hex().to_string()
@@ -123,7 +123,7 @@ fn missing_required_activity_never_passes() {
 
 #[test]
 fn panic_in_route_body_produces_unhandled_panic_not_passed() {
-    use wasm4pm::testing::AndonPull;
+    use truex_kernel::testing::AndonPull;
 
     let mut h = PowlTestHarness::new("panicking-route")
         .model(model("sequential-two-step.powl.json"));

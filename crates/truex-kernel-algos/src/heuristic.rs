@@ -1,4 +1,4 @@
-use wasm4pm_types::*;
+use truex_kernel_types::*;
 use std::collections::HashMap;
 
 /// Heuristic Miner - discovers DFG based on activity frequencies and directly-follows relationships

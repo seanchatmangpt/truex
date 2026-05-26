@@ -1,8 +1,8 @@
 //! State space reachability and coverage analysis tests.
 //! Verifies that RL orchestrator tracks 8D state bin visits correctly.
 
-use wasm4pm::rl_orchestrator::RlOrchestrator;
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::RlOrchestrator;
+use truex_kernel::RlState;
 
 #[test]
 fn test_state_coverage_initialization() {

@@ -2,7 +2,7 @@
  * feedback-loop.ts
  * Algorithm Feedback Loop — captures and stores quality metrics for process mining discovery
  *
- * Provides: captureFeedback(algorithm, logSize, metrics) → saves JSON to .wasm4pm/algorithm-feedback/
+ * Provides: captureFeedback(algorithm, logSize, metrics) → saves JSON to .truex/algorithm-feedback/
  * Indexed by: algorithm ID + log size bucket (0-100, 100-1K, 1K-10K, 10K-100K, 100K+)
  */
 
@@ -124,8 +124,8 @@ export async function captureFeedback(
   emit?: (event: OtelEvent) => void
 ): Promise<void> {
   try {
-    // Ensure .wasm4pm/algorithm-feedback/ directory exists
-    const baseDir = path.resolve(process.cwd(), '.wasm4pm', 'algorithm-feedback');
+    // Ensure .truex/algorithm-feedback/ directory exists
+    const baseDir = path.resolve(process.cwd(), '.truex', 'algorithm-feedback');
 
     await fs.mkdir(baseDir, { recursive: true });
 
@@ -184,7 +184,7 @@ export async function captureFeedback(
  */
 export async function loadAlgorithmFeedback(algorithm: string): Promise<FeedbackRecord[]> {
   try {
-    const baseDir = path.resolve(process.cwd(), '.wasm4pm', 'algorithm-feedback');
+    const baseDir = path.resolve(process.cwd(), '.truex', 'algorithm-feedback');
     const feedbackFile = path.join(baseDir, `${algorithm}_feedback.jsonl`);
 
     try {

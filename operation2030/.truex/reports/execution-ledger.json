@@ -1,0 +1,42 @@
+[
+  {
+    "receiptHash": "c24d9ff0e5444815c1dd75c551a7fb4ad1c24cb6f3f30edb09881fe07b3a78c2",
+    "verb": "init",
+    "status": "succeeded",
+    "startedAt": "2026-05-26T05:11:38.285Z",
+    "completedAt": "2026-05-26T05:11:38.287Z",
+    "durationMs": 2
+  },
+  {
+    "receiptHash": "7b3d3985efe557274d4e176071a261fb92d8978747b67d4145302e3904d9c350",
+    "verb": "map",
+    "status": "succeeded",
+    "startedAt": "2026-05-26T05:12:21.347Z",
+    "completedAt": "2026-05-26T05:12:21.354Z",
+    "durationMs": 7
+  },
+  {
+    "receiptHash": "c6f389abff67b61669a42b574581046850edfe88c4b756dd7f22fa35e6cb62fd",
+    "verb": "plan",
+    "status": "succeeded",
+    "startedAt": "2026-05-26T05:12:23.707Z",
+    "completedAt": "2026-05-26T05:12:23.714Z",
+    "durationMs": 7
+  },
+  {
+    "receiptHash": "e2f804689f99214389585662c7847991c94e97384936fe0dcc42d3628df349d7",
+    "verb": "forge",
+    "status": "succeeded",
+    "startedAt": "2026-05-26T05:12:31.903Z",
+    "completedAt": "2026-05-26T05:12:31.908Z",
+    "durationMs": 5
+  },
+  {
+    "receiptHash": "23d154a7046a4aab16ae9ff413e7b4a75c97d2d98bbb8fd1049f9a1006e7cf70",
+    "verb": "bind",
+    "status": "succeeded",
+    "startedAt": "2026-05-26T05:12:34.303Z",
+    "completedAt": "2026-05-26T05:12:34.312Z",
+    "durationMs": 9
+  }
+]

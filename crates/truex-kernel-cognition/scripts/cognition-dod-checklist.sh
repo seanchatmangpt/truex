@@ -7,7 +7,7 @@
 #   1 — One or more items failed
 #
 # Usage:
-#   bash crates/wasm4pm-cognition/scripts/cognition-dod-checklist.sh
+#   bash crates/truex-kernel-cognition/scripts/cognition-dod-checklist.sh
 
 set -uo pipefail
 
@@ -39,7 +39,7 @@ echo "    Root: $ROOT"
 echo
 
 # ── DoD-01: Real Rust crate exists (not a placeholder package.json or empty dir) ──
-CRATE_TOML="crates/wasm4pm-cognition/Cargo.toml"
+CRATE_TOML="crates/truex-kernel-cognition/Cargo.toml"
 if [ -f "$CRATE_TOML" ] && grep -q '\[package\]' "$CRATE_TOML"; then
     check 1 "Real Rust crate exists" "pass"
 else
@@ -47,7 +47,7 @@ else
 fi
 
 # ── DoD-02: All breeds are Rust modules in src/breeds/ ─────────────────────────
-BREED_DIR="crates/wasm4pm-cognition/src/breeds"
+BREED_DIR="crates/truex-kernel-cognition/src/breeds"
 REQUIRED_BREEDS=(frame cbr dendral strips prolog production_rules gps soar hearsay)
 MISSING_BREEDS=()
 for breed in "${REQUIRED_BREEDS[@]}"; do
@@ -64,10 +64,10 @@ fi
 # ── DoD-03: Common breed trait (CognitionBreed) exists ─────────────────────────
 TRAIT_FILE=""
 for candidate in \
-    "crates/wasm4pm-cognition/src/breeds/mod.rs" \
-    "crates/wasm4pm-cognition/src/traits.rs" \
-    "crates/wasm4pm-cognition/src/cognition.rs" \
-    "crates/wasm4pm-cognition/src/lib.rs"; do
+    "crates/truex-kernel-cognition/src/breeds/mod.rs" \
+    "crates/truex-kernel-cognition/src/traits.rs" \
+    "crates/truex-kernel-cognition/src/cognition.rs" \
+    "crates/truex-kernel-cognition/src/lib.rs"; do
     if [ -f "$candidate" ] && grep -q "trait.*Breed\|pub trait CognitionBreed" "$candidate" 2>/dev/null; then
         TRAIT_FILE="$candidate"
         break
@@ -80,7 +80,7 @@ else
 fi
 
 # ── DoD-04: wasm-bindgen exports exist in src/wasm.rs ──────────────────────────
-WASM_RS="crates/wasm4pm-cognition/src/wasm.rs"
+WASM_RS="crates/truex-kernel-cognition/src/wasm.rs"
 if [ -f "$WASM_RS" ]; then
     EXPORT_COUNT=$(grep -c "#\[wasm_bindgen\]" "$WASM_RS" 2>/dev/null || echo 0)
     EXPECTED_EXPORTS=(cognition_run cognition_verify cognition_replay system_build system_verify)
@@ -111,7 +111,7 @@ else
 fi
 
 # ── DoD-06: No forbidden placeholder tokens in src/ ────────────────────────────
-SRC_DIR="crates/wasm4pm-cognition/src"
+SRC_DIR="crates/truex-kernel-cognition/src"
 if [ -d "$SRC_DIR" ]; then
     FORBIDDEN=$(grep -rn \
         --include="*.rs" \
@@ -130,7 +130,7 @@ else
 fi
 
 # ── DoD-07: Capability probe passes (cognition-doctor.sh exits 0) ───────────────
-DOCTOR_SCRIPT="crates/wasm4pm-cognition/scripts/cognition-doctor.sh"
+DOCTOR_SCRIPT="crates/truex-kernel-cognition/scripts/cognition-doctor.sh"
 if [ -f "$DOCTOR_SCRIPT" ]; then
     if bash "$DOCTOR_SCRIPT" >/dev/null 2>&1; then
         check 7 "Capability probe passes (cognition-doctor.sh exits 0)" "pass"
@@ -167,7 +167,7 @@ else
 fi
 
 # ── DoD-10: CLI uses compiled WASM (no console.log stubs) ───────────────────────
-CLI_CMD="apps/wasm4pm/src/commands/cognition.ts"
+CLI_CMD="apps/truex-kernel/src/commands/cognition.ts"
 if [ -f "$CLI_CMD" ]; then
     if grep -q "(stub)\|console\.log.*not yet\|console\.log.*TODO\|throw new Error.*not implemented" "$CLI_CMD" 2>/dev/null; then
         check 10 "CLI uses compiled WASM (no console.log stubs)" "fail: stub/TODO markers detected in $CLI_CMD"

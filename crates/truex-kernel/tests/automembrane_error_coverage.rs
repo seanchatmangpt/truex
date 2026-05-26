@@ -26,7 +26,7 @@
 use serde_json::json;
 
 // Import the automembrane module
-use wasm4pm::automembrane::{
+use truex_kernel::automembrane::{
     classify_motion_internal, evaluate_custody_layer, EnvelopeHandles, RequestMotion, Verdict,
     VerdictReceipt,
 };
@@ -174,7 +174,7 @@ fn e4_build_motion_invalid_log_handle_returns_error() {
 
     // Verification: error code is consistent
     assert_eq!(
-        wasm4pm::error::codes::INVALID_HANDLE,
+        truex_kernel::error::codes::INVALID_HANDLE,
         "INVALID_HANDLE"
     );
 }
@@ -188,7 +188,7 @@ fn e5_build_motion_trace_index_out_of_range() {
 
     // Verification: error code matches contract
     assert_eq!(
-        wasm4pm::error::codes::INVALID_INPUT,
+        truex_kernel::error::codes::INVALID_INPUT,
         "INVALID_INPUT"
     );
 }
@@ -204,7 +204,7 @@ fn e6_build_motion_empty_trace_returns_error() {
     // If the trace is empty, construction must fail with actionable message.
 
     // Verification: empty trace detection logic
-    let empty_events: Vec<wasm4pm::models::Event> = vec![];
+    let empty_events: Vec<truex_kernel::models::Event> = vec![];
     assert!(empty_events.last().is_none());
 }
 
@@ -248,7 +248,7 @@ fn e7_envelope_handles_serialization_roundtrip() {
         "time": Some("handle-ts")
     });
 
-    let result: Result<wasm4pm::automembrane::EnvelopeHandles, serde_json::Error> =
+    let result: Result<truex_kernel::automembrane::EnvelopeHandles, serde_json::Error> =
         serde_json::from_str(&handles_json.to_string());
 
     assert!(result.is_ok());
@@ -398,10 +398,10 @@ fn e12_error_message_includes_recovery_hint_for_custody() {
 fn e12_error_code_enum_completeness() {
     // Verify all expected error codes exist
     let codes = vec![
-        wasm4pm::error::codes::INVALID_JSON,
-        wasm4pm::error::codes::INVALID_INPUT,
-        wasm4pm::error::codes::INVALID_HANDLE,
-        wasm4pm::error::codes::INTERNAL_ERROR,
+        truex_kernel::error::codes::INVALID_JSON,
+        truex_kernel::error::codes::INVALID_INPUT,
+        truex_kernel::error::codes::INVALID_HANDLE,
+        truex_kernel::error::codes::INTERNAL_ERROR,
     ];
 
     // All codes should be non-empty strings

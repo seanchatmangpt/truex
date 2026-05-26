@@ -1,4 +1,4 @@
-//! pm4py Cross-Validation — wasm4pm vs pm4py oracle on real XES data
+//! pm4py Cross-Validation — truex_kernel vs pm4py oracle on real XES data
 //!
 //! Oracle source: pm4py 2.x Python library run on the same XES files.
 //! All expected values were produced by running:
@@ -6,15 +6,15 @@
 //!
 //! Oracle rank: Rank 1 (mathematical theorem from pm4py reference implementation)
 //!
-//! Invariant: for any XES file, wasm4pm DFG edge set and frequencies must
+//! Invariant: for any XES file, truex_kernel DFG edge set and frequencies must
 //! exactly match pm4py output.  Heuristic miner with same dependency threshold
 //! must keep the same edge set.
 
 use std::collections::{HashMap, HashSet};
 use std::fs;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser (same pattern as real_data_algo_validation.rs)
@@ -185,7 +185,7 @@ const ROADTRAFFIC_END_ORACLE: &[(&str, usize)] = &[
 // Helpers
 // ---------------------------------------------------------------------------
 
-fn dfg_to_edge_freq_map(dfg: &wasm4pm::models::DirectlyFollowsGraph) -> HashMap<(String, String), usize> {
+fn dfg_to_edge_freq_map(dfg: &truex_kernel::models::DirectlyFollowsGraph) -> HashMap<(String, String), usize> {
     dfg.edges.iter().map(|e| ((e.from.clone(), e.to.clone()), e.frequency)).collect()
 }
 
@@ -206,7 +206,7 @@ fn dfg_running_example_exact_edge_set_matches_pm4py() {
     assert_eq!(
         actual.len(),
         RUNNING_EXAMPLE_DFG_ORACLE.len(),
-        "Edge count mismatch: wasm4pm={} pm4py={}",
+        "Edge count mismatch: truex_kernel={} pm4py={}",
         actual.len(),
         RUNNING_EXAMPLE_DFG_ORACLE.len()
     );
@@ -216,7 +216,7 @@ fn dfg_running_example_exact_edge_set_matches_pm4py() {
         let actual_freq = actual.get(&key).copied().unwrap_or(0);
         assert_eq!(
             actual_freq, expected_freq,
-            "Edge {}→{}: wasm4pm={} pm4py={}",
+            "Edge {}→{}: truex_kernel={} pm4py={}",
             from, to, actual_freq, expected_freq
         );
     }
@@ -286,7 +286,7 @@ fn dfg_roadtraffic_exact_edge_set_matches_pm4py() {
     assert_eq!(
         actual.len(),
         ROADTRAFFIC_DFG_ORACLE.len(),
-        "roadtraffic edge count mismatch: wasm4pm={} pm4py={}",
+        "roadtraffic edge count mismatch: truex_kernel={} pm4py={}",
         actual.len(),
         ROADTRAFFIC_DFG_ORACLE.len()
     );
@@ -296,7 +296,7 @@ fn dfg_roadtraffic_exact_edge_set_matches_pm4py() {
         let actual_freq = actual.get(&key).copied().unwrap_or(0);
         assert_eq!(
             actual_freq, expected_freq,
-            "roadtraffic edge {}→{}: wasm4pm={} pm4py={}",
+            "roadtraffic edge {}→{}: truex_kernel={} pm4py={}",
             from, to, actual_freq, expected_freq
         );
     }
@@ -315,7 +315,7 @@ fn dfg_roadtraffic_start_end_activities_match_pm4py() {
         assert_eq!(
             dfg.start_activities.get(act).copied().unwrap_or(0),
             freq,
-            "Start activity '{}': wasm4pm={} pm4py={}",
+            "Start activity '{}': truex_kernel={} pm4py={}",
             act,
             dfg.start_activities.get(act).copied().unwrap_or(0),
             freq
@@ -326,7 +326,7 @@ fn dfg_roadtraffic_start_end_activities_match_pm4py() {
         assert_eq!(
             dfg.end_activities.get(act).copied().unwrap_or(0),
             freq,
-            "End activity '{}': wasm4pm={} pm4py={}",
+            "End activity '{}': truex_kernel={} pm4py={}",
             act,
             dfg.end_activities.get(act).copied().unwrap_or(0),
             freq

@@ -35,9 +35,9 @@ describe('AUDIT: 5-layer precedence testing', () => {
     expect(cfg.metadata.provenance['algorithm.name']?.source).toBe('env');
   });
 
-  it('Layer 3 (JSON): wasm4pm.json algorithm=heuristic overrides ENV', async () => {
+  it('Layer 3 (JSON): truex.json algorithm=heuristic overrides ENV', async () => {
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.json'),
+      path.join(tmp, 'truex.json'),
       JSON.stringify({
         version: '26.4.5',
         source: { kind: 'file' },
@@ -52,11 +52,11 @@ describe('AUDIT: 5-layer precedence testing', () => {
     expect(cfg.metadata.provenance['algorithm.name']?.source).toBe('json');
   });
 
-  it('Layer 2 (TOML): wasm4pm.toml algorithm=inductive overrides JSON and ENV', async () => {
-    await fs.writeFile(path.join(tmp, 'wasm4pm.json'), JSON.stringify({
+  it('Layer 2 (TOML): truex.toml algorithm=inductive overrides JSON and ENV', async () => {
+    await fs.writeFile(path.join(tmp, 'truex.json'), JSON.stringify({
       version: '26.4.5', source: { kind: 'file' }, algorithm: { name: 'heuristic_miner' },
     }));
-    await fs.writeFile(path.join(tmp, 'wasm4pm.toml'), '[algorithm]\nname = "inductive_miner"');
+    await fs.writeFile(path.join(tmp, 'truex.toml'), '[algorithm]\nname = "inductive_miner"');
     const cfg = await resolveConfig({
       configSearchPaths: [tmp],
       env: { WASM4PM_ALGORITHM: 'alpha_plus_plus' },
@@ -66,7 +66,7 @@ describe('AUDIT: 5-layer precedence testing', () => {
   });
 
   it('Layer 1 (CLI): --algorithm dfg overrides ALL layers', async () => {
-    await fs.writeFile(path.join(tmp, 'wasm4pm.toml'), '[algorithm]\nname = "inductive_miner"');
+    await fs.writeFile(path.join(tmp, 'truex.toml'), '[algorithm]\nname = "inductive_miner"');
     const cfg = await resolveConfig({
       configSearchPaths: [tmp],
       cliOverrides: { algorithm: 'genetic_algorithm' },
@@ -90,7 +90,7 @@ describe('AUDIT: 5-layer precedence testing', () => {
 
     // Layer 3: JSON = fast (overrides ENV)
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.json'),
+      path.join(tmp, 'truex.json'),
       JSON.stringify({ version: '26.4.5', source: { kind: 'file' }, execution: { profile: 'fast' } })
     );
     const json_cfg = await resolveConfig({
@@ -100,7 +100,7 @@ describe('AUDIT: 5-layer precedence testing', () => {
     expect(json_cfg.execution.profile).toBe('fast');
 
     // Layer 2: TOML = stream (overrides JSON and ENV)
-    await fs.writeFile(path.join(tmp, 'wasm4pm.toml'), '[execution]\nprofile = "stream"');
+    await fs.writeFile(path.join(tmp, 'truex.toml'), '[execution]\nprofile = "stream"');
     const toml_cfg = await resolveConfig({
       configSearchPaths: [tmp],
       env: { WASM4PM_PROFILE: 'quality' },
@@ -170,21 +170,21 @@ describe('AUDIT: Malformed config file handling', () => {
   afterEach(async () => { await fs.rm(tmp, { recursive: true, force: true }); });
 
   it('Malformed TOML (invalid syntax) produces clear error', async () => {
-    await fs.writeFile(path.join(tmp, 'wasm4pm.toml'), 'this is [[ not valid toml');
+    await fs.writeFile(path.join(tmp, 'truex.toml'), 'this is [[ not valid toml');
     await expect(
       resolveConfig({ configSearchPaths: [tmp] })
     ).rejects.toThrow(/Failed to parse TOML/i);
   });
 
   it('Invalid JSON (trailing comma) produces clear error', async () => {
-    await fs.writeFile(path.join(tmp, 'wasm4pm.json'), '{ "version": "26.4.5", }');
+    await fs.writeFile(path.join(tmp, 'truex.json'), '{ "version": "26.4.5", }');
     await expect(
       resolveConfig({ configSearchPaths: [tmp] })
     ).rejects.toThrow(/Failed to parse JSON/i);
   });
 
   it('TOML with unknown fields still loads (ignored)', async () => {
-    await fs.writeFile(path.join(tmp, 'wasm4pm.toml'), `
+    await fs.writeFile(path.join(tmp, 'truex.toml'), `
 version = "26.4.5"
 [source]
 kind = "file"
@@ -196,7 +196,7 @@ foo = "bar"
   });
 
   it('JSON config file path shown in error message on validation failure', async () => {
-    const jsonPath = path.join(tmp, 'wasm4pm.json');
+    const jsonPath = path.join(tmp, 'truex.json');
     await fs.writeFile(jsonPath, JSON.stringify({
       version: '26.4.5',
       source: { kind: 'file' },
@@ -206,18 +206,18 @@ foo = "bar"
       await resolveConfig({ configSearchPaths: [tmp] });
       throw new Error('Should have thrown');
     } catch (e) {
-      expect((e as Error).message).toMatch(/wasm4pm.json/);
+      expect((e as Error).message).toMatch(/truex.json/);
     }
   });
 
   it('TOML config file path shown in error message on validation failure', async () => {
-    const tomlPath = path.join(tmp, 'wasm4pm.toml');
+    const tomlPath = path.join(tmp, 'truex.toml');
     await fs.writeFile(tomlPath, '[algorithm]\nname = "nonexistent_algo"');
     try {
       await resolveConfig({ configSearchPaths: [tmp] });
       throw new Error('Should have thrown');
     } catch (e) {
-      expect((e as Error).message).toMatch(/wasm4pm.toml/);
+      expect((e as Error).message).toMatch(/truex.toml/);
     }
   });
 });
@@ -274,7 +274,7 @@ describe('AUDIT: Config provenance tracking', () => {
   afterEach(async () => { await fs.rm(tmp, { recursive: true, force: true }); });
 
   it('Mixed config (CLI + ENV + file) shows provenance for each field', async () => {
-    await fs.writeFile(path.join(tmp, 'wasm4pm.toml'), `
+    await fs.writeFile(path.join(tmp, 'truex.toml'), `
 version = "26.4.5"
 [source]
 kind = "file"

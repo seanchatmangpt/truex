@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779772823556-nigx5ch",
+  "spanId": "span-unknown",
+  "startTime": 1779772823556,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"replay\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779772824514,
+      "attributes": {
+        "primitive": "replay",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 3,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779772824514,
+  "durationMs": 958
+}

@@ -17,7 +17,7 @@
 use std::sync::{Arc, Barrier};
 use std::thread;
 
-use wasm4pm::self_healing::{advance_clock, now_ms, reset_clock, with_clock_lock, CLOCK_LOCK};
+use truex_kernel::self_healing::{advance_clock, now_ms, reset_clock, with_clock_lock, CLOCK_LOCK};
 
 const THREADS: usize = 8;
 const ITERATIONS: u64 = 50;

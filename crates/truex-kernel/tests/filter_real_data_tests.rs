@@ -19,7 +19,7 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser (same pattern used across all real-data tests)
@@ -88,7 +88,7 @@ fn load_xes(candidates: &[&str]) -> Option<EventLog> {
     None
 }
 
-fn activity_of(t: &wasm4pm::models::Trace, idx: usize) -> Option<&str> {
+fn activity_of(t: &truex_kernel::models::Trace, idx: usize) -> Option<&str> {
     t.events.get(idx)
         .and_then(|e| e.attributes.get("concept:name"))
         .and_then(|v| v.as_string())
@@ -272,7 +272,7 @@ fn filter_variants_top_k_roadtraffic_top3_matches_pm4py_oracle() {
 // pm4py: filter_directly_follows_relation([(Insert Fine Notification, Add penalty)]) = 52
 // ---------------------------------------------------------------------------
 
-fn trace_has_direct_follow(t: &wasm4pm::models::Trace, from: &str, to: &str) -> bool {
+fn trace_has_direct_follow(t: &truex_kernel::models::Trace, from: &str, to: &str) -> bool {
     t.events.windows(2).any(|w| {
         let a = w[0].attributes.get("concept:name").and_then(|v| v.as_string());
         let b = w[1].attributes.get("concept:name").and_then(|v| v.as_string());

@@ -1,5 +1,5 @@
 /**
- * Configuration Schema for wasm4pm Engine
+ * Configuration Schema for truex-kernel Engine
  * Defines all configuration structures, validation, and execution profiles
  */
 import { Wasm4pmError, ErrorCode, ErrorRecovery } from './errors.js';

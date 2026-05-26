@@ -498,6 +498,7 @@ export function createTenantContext(target: any, tenantId: string, options: any 
 
   proxyInterface.defineSetInterceptor((t: any, prop: any) => {
     if (!visibleKeys.has(prop)) return false;
+    return undefined;
   });
 
   return {

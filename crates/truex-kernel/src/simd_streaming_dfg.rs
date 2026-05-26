@@ -31,7 +31,7 @@
 //! # Example
 //!
 //! ```rust,ignore
-//! use wasm4pm::simd_streaming_dfg::SimdStreamingDfg;
+//! use truex_kernel::simd_streaming_dfg::SimdStreamingDfg;
 //!
 //! let mut dfg = SimdStreamingDfg::new();
 //!

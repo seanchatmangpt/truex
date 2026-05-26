@@ -422,9 +422,9 @@ export class TelcoMembrane {
 
   private emitReceipt(
     verb: string,
-    sessionId?: string,
-    channelId?: string,
-    packetHash?: string,
+    sessionId: string | undefined,
+    channelId: string | undefined,
+    packetHash: string | undefined,
     decision: string
   ): TelcoReceipt {
     const receiptId = `rcpt_${verb}_${hash({ verb, sessionId, channelId, packetHash, decision, index: this.receipts.length }).slice(0, 12)}`;

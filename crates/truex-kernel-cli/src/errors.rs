@@ -1,7 +1,7 @@
 use colored::*;
 use std::process;
 
-/// Custom error types for the wasm4pm (wpm) CLI
+/// Custom error types for the truex_kernel (wpm) CLI
 #[derive(thiserror::Error, Debug)]
 pub enum Wasm4pmError {
     #[error("IO error: {0}")]

@@ -14,9 +14,9 @@
 //! Gap E: drift detection correctness against ground-truth scenarios.
 
 use std::collections::{HashMap, HashSet};
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::prediction_drift::{jaccard_distance, DEFAULT_DRIFT_THRESHOLD};
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::prediction_drift::{jaccard_distance, DEFAULT_DRIFT_THRESHOLD};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -107,7 +107,7 @@ fn jaccard_sudden_drift_disjoint_activities_score_is_one() {
 #[test]
 #[ignore = "wasm_bindgen boundary: detect_drift requires wasm-bindgen runtime"]
 fn drift_detection_fires_on_sudden_drift() {
-    use wasm4pm::prediction_drift::detect_drift;
+    use truex_kernel::prediction_drift::detect_drift;
 
     // First 5 traces: A→B→C; next 5 traces: X→Y→Z (completely different)
     let mut log = EventLog::new();
@@ -154,7 +154,7 @@ fn drift_detection_fires_on_sudden_drift() {
 #[test]
 #[ignore = "wasm_bindgen boundary: detect_drift requires wasm-bindgen runtime"]
 fn no_false_positive_on_stable_log() {
-    use wasm4pm::prediction_drift::detect_drift;
+    use truex_kernel::prediction_drift::detect_drift;
 
     // 20 identical traces: A→B→C
     let mut log = EventLog::new();
@@ -198,7 +198,7 @@ fn no_false_positive_on_stable_log() {
 #[test]
 #[ignore = "wasm_bindgen boundary: detect_drift requires wasm-bindgen runtime"]
 fn drift_detection_delay_bounded_by_window_size() {
-    use wasm4pm::prediction_drift::detect_drift;
+    use truex_kernel::prediction_drift::detect_drift;
 
     // Change point: first 10 traces = A→B→C, next 10 traces = A→B→D
     let mut log = EventLog::new();

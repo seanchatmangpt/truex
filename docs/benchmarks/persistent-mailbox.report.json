@@ -90,7 +90,7 @@
     "transitionAttempts": 9,
     "integrityAttempts": 2,
     "rescueAttempts": 2,
-    "durationMs": 18,
+    "durationMs": 17,
     "mailboxHash": "e17d64c391fad605468b011d2a703155406015c7eab1fc92aec2b37f723ab7b5"
   },
   "invariants": [

@@ -1,0 +1,16 @@
+{
+  "epoch": 1,
+  "boundary": {
+    "root": "/tmp/operation2030",
+    "allowedDirectories": [],
+    "excludedPatterns": []
+  },
+  "initialRootHash": "",
+  "genesisHash": "",
+  "path": "/tmp/operation2030",
+  "mission": "Execute Operation 2030 walkthrough",
+  "durationHours": 12,
+  "agents": 5,
+  "status": "initialized",
+  "initializedAt": "2026-05-26T05:11:38.285Z"
+}

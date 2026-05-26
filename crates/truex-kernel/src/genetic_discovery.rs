@@ -20,7 +20,7 @@ pub fn discover_genetic_algorithm(
     generations: usize,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.genetic_algorithm",
+        target: "truex_kernel.discovery.genetic_algorithm",
         algorithm = "genetic_algorithm",
         activity_key = activity_key,
         population_size = population_size,
@@ -32,7 +32,7 @@ pub fn discover_genetic_algorithm(
         get_or_init_state().with_object(eventlog_handle, |obj| match obj {
             Some(StoredObject::EventLog(log)) => {
                 tracing::info!(
-                    target: "wasm4pm.discovery.genetic_algorithm",
+                    target: "truex_kernel.discovery.genetic_algorithm",
                     checkpoint = "feature_extraction",
                     log_size = log.traces.len(),
                     activity_count = log.get_activities(activity_key).len(),
@@ -49,7 +49,7 @@ pub fn discover_genetic_algorithm(
     let edge_count = best_dfg.edges.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.genetic_algorithm",
+        target: "truex_kernel.discovery.genetic_algorithm",
         checkpoint = "result_generation",
         node_count = node_count,
         edge_count = edge_count,

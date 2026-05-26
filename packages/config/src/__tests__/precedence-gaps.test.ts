@@ -213,7 +213,7 @@ describe('5-layer precedence: algorithm name', () => {
 
     // File overrides ENV
     await fs.writeFile(
-      path.join(tmpDir, 'wasm4pm.toml'),
+      path.join(tmpDir, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "inductive_miner"\n'
     );
     const cfgFile = await resolveConfig({

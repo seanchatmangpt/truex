@@ -5,9 +5,9 @@
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::time::Duration;
-use wasm4pm::models::{EventLog, Trace, Event, AttributeValue};
-use wasm4pm::state::{get_or_init_state, StoredObject};
-use wasm4pm::ml_algorithms::*;
+use truex_kernel::models::{EventLog, Trace, Event, AttributeValue};
+use truex_kernel::state::{get_or_init_state, StoredObject};
+use truex_kernel::ml_algorithms::*;
 
 fn setup_mock_log(num_traces: usize, events_per_trace: usize) -> String {
     let mut log = EventLog {

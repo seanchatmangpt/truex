@@ -444,7 +444,7 @@ pub fn discover_alpha_plus_plus(
     min_support: f64,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.alpha_plus_plus",
+        target: "truex_kernel.discovery.alpha_plus_plus",
         algorithm = "alpha_plus_plus",
         activity_key = activity_key,
         min_support = min_support,
@@ -455,7 +455,7 @@ pub fn discover_alpha_plus_plus(
     let pn = get_or_init_state().with_object(eventlog_handle, |obj| match obj {
         Some(StoredObject::EventLog(log)) => {
             tracing::info!(
-                target: "wasm4pm.discovery.alpha_plus_plus",
+                target: "truex_kernel.discovery.alpha_plus_plus",
                 checkpoint = "feature_extraction",
                 log_size = log.traces.len(),
                 activity_count = log.get_activities(activity_key).len(),
@@ -475,7 +475,7 @@ pub fn discover_alpha_plus_plus(
     let n_arcs = pn.arcs.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.alpha_plus_plus",
+        target: "truex_kernel.discovery.alpha_plus_plus",
         checkpoint = "result_generation",
         place_count = n_places,
         transition_count = n_transitions,

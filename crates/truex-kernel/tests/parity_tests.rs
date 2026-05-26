@@ -1,6 +1,6 @@
-//! Parity Tests: wasm4pm vs pm4py
+//! Parity Tests: truex_kernel vs pm4py
 //!
-//! This module tests that wasm4pm's optimized implementations produce
+//! This module tests that truex_kernel's optimized implementations produce
 //! structurally equivalent results to pm4py (the reference implementation).
 //!
 //! Testing Strategy:
@@ -12,7 +12,7 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::models::{AttributeValue, EventLog};
+use truex_kernel::models::{AttributeValue, EventLog};
 
 // ── Test Fixtures ───────────────────────────────────────────────────────
 
@@ -179,8 +179,8 @@ fn test_dfg_parity_with_pm4py() {
         })
         .collect();
 
-    // Now run wasm4pm's DFG discovery
-    // Since wasm4pm uses handle-based WASM API, we need to use internal methods
+    // Now run truex_kernel's DFG discovery
+    // Since truex_kernel uses handle-based WASM API, we need to use internal methods
     let activity_key = "activity";
 
     // Build activities set
@@ -192,7 +192,7 @@ fn test_dfg_parity_with_pm4py() {
             }
         }
     }
-    let wasm4pm_activities: Vec<String> = activities_set.iter().cloned().collect();
+    let truex-kernel_activities: Vec<String> = activities_set.iter().cloned().collect();
 
     // Build DFG edges
     let mut edge_counts: HashMap<(String, String), usize> = HashMap::new();
@@ -228,7 +228,7 @@ fn test_dfg_parity_with_pm4py() {
         }
     }
 
-    let wasm4pm_edges: Vec<CanonicalEdge> = edge_counts
+    let truex-kernel_edges: Vec<CanonicalEdge> = edge_counts
         .into_iter()
         .map(|((from, to), freq)| CanonicalEdge {
             from,
@@ -237,12 +237,12 @@ fn test_dfg_parity_with_pm4py() {
         })
         .collect();
 
-    let wasm4pm_start: Vec<CanonicalActivityCount> = start_activities
+    let truex-kernel_start: Vec<CanonicalActivityCount> = start_activities
         .into_iter()
         .map(|(activity, count)| CanonicalActivityCount { activity, count })
         .collect();
 
-    let wasm4pm_end: Vec<CanonicalActivityCount> = end_activities
+    let truex-kernel_end: Vec<CanonicalActivityCount> = end_activities
         .into_iter()
         .map(|(activity, count)| CanonicalActivityCount { activity, count })
         .collect();
@@ -256,59 +256,59 @@ fn test_dfg_parity_with_pm4py() {
     };
     pm4py_canonical.sort();
 
-    let mut wasm4pm_canonical = CanonicalDFG {
-        activities: wasm4pm_activities,
-        edges: wasm4pm_edges,
-        start_activities: wasm4pm_start,
-        end_activities: wasm4pm_end,
+    let mut truex-kernel_canonical = CanonicalDFG {
+        activities: truex-kernel_activities,
+        edges: truex-kernel_edges,
+        start_activities: truex-kernel_start,
+        end_activities: truex-kernel_end,
     };
-    wasm4pm_canonical.sort();
+    truex-kernel_canonical.sort();
 
     // Compare activities
     assert_eq!(
-        wasm4pm_canonical.activities.len(),
+        truex-kernel_canonical.activities.len(),
         pm4py_canonical.activities.len(),
-        "Activity count mismatch: wasm4pm has {}, pm4py has {}",
-        wasm4pm_canonical.activities.len(),
+        "Activity count mismatch: truex_kernel has {}, pm4py has {}",
+        truex-kernel_canonical.activities.len(),
         pm4py_canonical.activities.len()
     );
 
     for activity in &pm4py_canonical.activities {
         assert!(
-            wasm4pm_canonical.activities.contains(activity),
-            "Missing activity in wasm4pm: {}",
+            truex-kernel_canonical.activities.contains(activity),
+            "Missing activity in truex_kernel: {}",
             activity
         );
     }
 
     // Compare edges (allow for small differences in counts due to different parsing)
     println!("pm4py edges: {}", pm4py_canonical.edges.len());
-    println!("wasm4pm edges: {}", wasm4pm_canonical.edges.len());
+    println!("truex_kernel edges: {}", truex-kernel_canonical.edges.len());
 
     for pm4py_edge in &pm4py_canonical.edges {
-        let found = wasm4pm_canonical
+        let found = truex-kernel_canonical
             .edges
             .iter()
             .any(|e| e.from == pm4py_edge.from && e.to == pm4py_edge.to);
 
         assert!(
             found,
-            "Missing edge in wasm4pm: {} -> {} (count: {})",
+            "Missing edge in truex_kernel: {} -> {} (count: {})",
             pm4py_edge.from, pm4py_edge.to, pm4py_edge.frequency
         );
     }
 
     // Compare start activities
     assert_eq!(
-        wasm4pm_canonical.start_activities.len(),
+        truex-kernel_canonical.start_activities.len(),
         pm4py_canonical.start_activities.len(),
         "Start activity count mismatch"
     );
 
     for start in &pm4py_canonical.start_activities {
         assert!(
-            wasm4pm_canonical.start_activities.contains(start),
-            "Missing start activity in wasm4pm: {} (count: {})",
+            truex-kernel_canonical.start_activities.contains(start),
+            "Missing start activity in truex_kernel: {} (count: {})",
             start.activity,
             start.count
         );
@@ -316,15 +316,15 @@ fn test_dfg_parity_with_pm4py() {
 
     // Compare end activities
     assert_eq!(
-        wasm4pm_canonical.end_activities.len(),
+        truex-kernel_canonical.end_activities.len(),
         pm4py_canonical.end_activities.len(),
         "End activity count mismatch"
     );
 
     for end in &pm4py_canonical.end_activities {
         assert!(
-            wasm4pm_canonical.end_activities.contains(end),
-            "Missing end activity in wasm4pm: {} (count: {})",
+            truex-kernel_canonical.end_activities.contains(end),
+            "Missing end activity in truex_kernel: {} (count: {})",
             end.activity,
             end.count
         );
@@ -369,17 +369,17 @@ fn test_event_log_statistics() {
 ///
 /// To regenerate reference outputs:
 /// ```bash
-/// cd /Users/sac/chatmangpt/wasm4pm
-/// python3 wasm4pm/tests/generate_pm4py_reference.py
+/// cd /Users/sac/chatmangpt/truex_kernel
+/// python3 truex_kernel/tests/generate_pm4py_reference.py
 /// ```
 #[test]
 fn test_generate_reference_instructions() {
     println!("To regenerate pm4py reference outputs:");
-    println!("  cd /Users/sac/chatmangpt/wasm4pm");
-    println!("  python3 wasm4pm/tests/generate_pm4py_reference.py");
+    println!("  cd /Users/sac/chatmangpt/truex_kernel");
+    println!("  python3 truex_kernel/tests/generate_pm4py_reference.py");
     println!();
     println!("This will generate:");
-    println!("  - running-example.json (event log for wasm4pm)");
+    println!("  - running-example.json (event log for truex_kernel)");
     println!("  - pm4py_dfg_output.json (reference DFG)");
     println!("  - pm4py_inductive_output.json (reference process tree)");
     println!("  - pm4py_alpha_output.json (reference Petri net)");

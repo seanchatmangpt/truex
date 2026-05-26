@@ -3,7 +3,7 @@
  * @description Logic for the Storehouse Stewardship Infrastructure.
  */
 import { AndonSystem, PokaYoke } from '@truex/membrane';
-import type { Field, Increase, FirstPortion, Provision, Receiver, StorehouseReceipt } from './types.js';
+import type { Field, Increase, FirstPortion, Provision, Receiver, StorehouseReceipt, StorehouseContext } from './types.js';
 
 export class StorehouseManager {
   private andon: AndonSystem;
@@ -84,7 +84,15 @@ export class StorehouseManager {
   /**
    * A function that represents the whole loop.
    */
-  stewardIncrease(increase: Increase, field: Field, receiver: Receiver): StorehouseReceipt {
+  stewardIncrease(
+    increase: Increase,
+    field: Field,
+    receiver: Receiver,
+    context?: StorehouseContext
+  ): StorehouseReceipt {
+    if (context) {
+      console.log(`[Storehouse] Processing increase for Run: ${context.runId}, Trace: ${context.traceId}`);
+    }
     const portion = this.calculateFirstPortion(increase, `inc-${field.id}`);
     const provision = this.routeProvision(portion, receiver, field.id);
     return this.issueReceipt(provision);

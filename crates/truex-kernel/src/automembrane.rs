@@ -1,6 +1,6 @@
 //! # AutoMembrane — Pre-Control Membrane for Process Mining
 //!
-//! AutoMembrane is the foundational "pre-control membrane" layer of the wasm4pm
+//! AutoMembrane is the foundational "pre-control membrane" layer of the truex_kernel
 //! Vision 2030 architecture. It intercepts process motions (requests to act on
 //! process objects) and issues structured verdicts before any downstream algorithm
 //! executes, enforcing evidence requirements and custody rules at the boundary.

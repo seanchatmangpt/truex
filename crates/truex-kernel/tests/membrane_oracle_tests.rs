@@ -9,12 +9,12 @@
 
 #![cfg(feature = "miniml")]
 
-use wasm4pm::actor_envelope::{ActorEnvelope, ActorProfile, score_actor_motion_from_envelope};
-use wasm4pm::automembrane::{
+use truex_kernel::actor_envelope::{ActorEnvelope, ActorProfile, score_actor_motion_from_envelope};
+use truex_kernel::automembrane::{
     LayerVerdict, RequestMotion, Verdict,
     classify_motion_internal, compose_verdicts, evaluate_custody_layer,
 };
-use wasm4pm::route_envelope::{RouteEnvelope, RouteVariant, score_route_motion_from_envelope};
+use truex_kernel::route_envelope::{RouteEnvelope, RouteVariant, score_route_motion_from_envelope};
 
 // ---------------------------------------------------------------------------
 // Shared test helpers
@@ -468,7 +468,7 @@ fn test_route_empty_action_allows_vacuously() {
 
 #[test]
 fn test_benchmark_runner_deterministic() {
-    use wasm4pm::benchmark_runner::builtin_benchmarks;
+    use truex_kernel::benchmark_runner::builtin_benchmarks;
 
     let traces1 = builtin_benchmarks();
     let traces2 = builtin_benchmarks();
@@ -491,7 +491,7 @@ fn test_benchmark_runner_deterministic() {
 
 #[test]
 fn test_benchmark_traces_have_required_fields() {
-    use wasm4pm::benchmark_runner::builtin_benchmarks;
+    use truex_kernel::benchmark_runner::builtin_benchmarks;
 
     let traces = builtin_benchmarks();
     for trace in &traces {
@@ -652,7 +652,7 @@ fn test_verdict_receipt_serializes_roundtrip() {
     let receipt = classify_motion_internal(&motion);
 
     let json = serde_json::to_string(&receipt).expect("VerdictReceipt must serialize");
-    let restored: wasm4pm::automembrane::VerdictReceipt =
+    let restored: truex_kernel::automembrane::VerdictReceipt =
         serde_json::from_str(&json).expect("VerdictReceipt must deserialize");
 
     assert_eq!(restored.request_id, receipt.request_id);

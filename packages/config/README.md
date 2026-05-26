@@ -57,8 +57,8 @@ counterparts.
 Config is loaded in this priority order (highest first):
 
 1. **CLI arguments** - Passed to `loadConfig({ cliOverrides })`
-2. **TOML files** - `./wasm4pm.toml` or `~/.wasm4pm/config.toml`
-3. **JSON files** - `./wasm4pm.json` or `~/.wasm4pm/config.json`
+2. **TOML files** - `./truex.toml` or `~/.truex/config.toml`
+3. **JSON files** - `./truex.json` or `~/.truex/config.json`
 4. **Environment variables** - `WASM4PM_*` prefix
 5. **Defaults** - Built-in defaults
 
@@ -66,7 +66,7 @@ Config is loaded in this priority order (highest first):
 
 ### TOML Format
 
-Create `./wasm4pm.toml` or `~/.wasm4pm/config.toml`:
+Create `./truex.toml` or `~/.truex/config.toml`:
 
 ```toml
 version = "26.4.5"
@@ -98,7 +98,7 @@ endpoint = "http://localhost:4318"
 
 ### JSON Format
 
-Create `./wasm4pm.json` or `~/.wasm4pm/config.json`:
+Create `./truex.json` or `~/.truex/config.json`:
 
 ```json
 {
@@ -226,7 +226,7 @@ For convenience there are three presets you can scaffold from:
 ```typescript
 import { getExamplePresetConfig } from '@truex/config';
 
-await fs.writeFile('wasm4pm.toml', getExamplePresetConfig('quality'));
+await fs.writeFile('truex.toml', getExamplePresetConfig('quality'));
 //                                       ^ 'fast' | 'balanced' | 'quality'
 ```
 
@@ -314,7 +314,7 @@ console.log(config.metadata.provenance);
 // Output:
 // {
 //   version: { value: '26.4.5', source: 'default' },
-//   execution: { value: {...}, source: 'config', path: './wasm4pm.toml' },
+//   execution: { value: {...}, source: 'config', path: './truex.toml' },
 //   observability: { value: {...}, source: 'env' }
 // }
 ```
@@ -443,7 +443,7 @@ function loadConfig(options?: LoadConfigOptions): Promise<Config>
 
 **Options:**
 - `cliOverrides?: CliOverrides` - CLI-provided overrides (highest priority)
-- `configSearchPaths?: string[]` - Paths to search for config files (default: `[cwd, ~/.wasm4pm]`)
+- `configSearchPaths?: string[]` - Paths to search for config files (default: `[cwd, ~/.truex]`)
 - `env?: NodeJS.ProcessEnv` - Environment variables (default: `process.env`)
 
 **Returns:** Complete configuration with metadata

@@ -13,15 +13,15 @@
 //! Execution strategy:
 //!   - Hardware: Apple M3 Max (Metal 4 GPU) — RTX 4090 not available on this host
 //!   - GPU path: wgpu via Metal backend (WGSL validated by naga; dispatch not timed)
-//!   - CPU path: LinUCB reference in `wasm4pm/src/ml/linucb.rs` (ground truth)
+//!   - CPU path: LinUCB reference in `truex_kernel/src/ml/linucb.rs` (ground truth)
 //!   - Benchmark: CPU LinUCB at batch=2048 using `std::time::Instant`
 //!   - Parity: all 2048 CPU actions verified for determinism (two independent runs)
 //!
-//! Output: `.wasm4pm/benchmarks/benchmarks/gpu_wgsl_<timestamp>.json`
+//! Output: `.truex/benchmarks/benchmarks/gpu_wgsl_<timestamp>.json`
 
 use std::fs;
 use std::time::{Instant, SystemTime, UNIX_EPOCH};
-use wasm4pm::ml::LinUCBAgent;
+use truex_kernel::ml::LinUCBAgent;
 
 // ─── Constants matching the WGSL kernel ───────────────────────────────────────
 
@@ -386,7 +386,7 @@ fn main() {
 
     let output_dir = concat!(
         env!("CARGO_MANIFEST_DIR"),
-        "/../.wasm4pm/benchmarks/benchmarks"
+        "/../.truex/benchmarks/benchmarks"
     );
     fs::create_dir_all(output_dir).expect("Cannot create output directory");
     let filename = format!("{output_dir}/gpu_wgsl_{timestamp}.json");

@@ -26,9 +26,9 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::collections::{HashMap, HashSet};
 use std::time::Duration;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 #[path = "helpers.rs"]
 mod helpers;
@@ -307,7 +307,7 @@ fn bench_window_sizes(c: &mut Criterion) {
             &window_size,
             |b, &ws| {
                 b.iter(|| {
-                    let _ = wasm4pm::prediction_drift::detect_drift(&handle, ACTIVITY_KEY, ws);
+                    let _ = truex_kernel::prediction_drift::detect_drift(&handle, ACTIVITY_KEY, ws);
                 });
             },
         );
@@ -379,7 +379,7 @@ fn bench_drift_scenarios(c: &mut Criterion) {
             &handle,
             |b, h| {
                 b.iter(|| {
-                    let _ = wasm4pm::prediction_drift::detect_drift(h, ACTIVITY_KEY, 10);
+                    let _ = truex_kernel::prediction_drift::detect_drift(h, ACTIVITY_KEY, 10);
                 });
             },
         );

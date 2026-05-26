@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Publishing script forwasm4pm
+# Publishing script fortruex-kernel
 # Handles version bumping, testing, building, and npm publishing
 
 set -e
@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 # Get current version
 CURRENT_VERSION=$(grep '"version"' package.json | head -1 | sed 's/.*"version": "\([^"]*\)".*/\1/')
 
-echo -e "${BLUE}===wasm4pm Publishing ===${NC}"
+echo -e "${BLUE}===truex-kernel Publishing ===${NC}"
 echo "Current version: $CURRENT_VERSION"
 echo ""
 
@@ -100,7 +100,7 @@ if [ $? -eq 0 ]; then
     echo ""
     echo "Next steps:"
     echo "  git push origin main --tags"
-    echo "  Create GitHub release at: https://github.com/seanchatmangpt/wasm4pm/releases"
+    echo "  Create GitHub release at: https://github.com/seanchatmangpt/truex-kernel/releases"
 else
     echo -e "${RED}npm publish failed${NC}"
     echo "Rolling back git changes..."

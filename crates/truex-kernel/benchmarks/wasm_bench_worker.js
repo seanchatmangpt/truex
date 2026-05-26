@@ -11,10 +11,10 @@ const { performance } = require('perf_hooks');
 // Load the Node.js WASM build
 let pm;
 try {
-  pm = require('../pkg-nodejs/wasm4pm.js');
+  pm = require('../pkg-nodejs/truex_kernel.js');
 } catch (_) {
   try {
-    pm = require('../pkg/wasm4pm.js');
+    pm = require('../pkg/truex_kernel.js');
   } catch (e) {
     parentPort.postMessage({ error: `Cannot load WASM module: ${e.message}` });
     process.exit(1);

@@ -1,5 +1,5 @@
 /**
- * Phase 3: Full End-to-End Integration Tests for wasm4pm v26.4.5
+ * Phase 3: Full End-to-End Integration Tests for truex-kernel v26.4.5
  *
  * Comprehensive testing of all 10 components working together:
  * - Config loading and validation

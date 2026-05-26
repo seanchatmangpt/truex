@@ -52,7 +52,7 @@ export class AuditStore {
   private dirty: boolean = false;
 
   constructor(storePath?: string) {
-    this.storePath = storePath || join(process.cwd(), '.wasm4pm', 'agents', 'audit.jsonl');
+    this.storePath = storePath || join(process.cwd(), '.truex', 'agents', 'audit.jsonl');
     this._load();
   }
 

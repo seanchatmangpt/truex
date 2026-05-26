@@ -19,11 +19,11 @@
 //! 14. Benchmark challenge map: challenge-response pairs verified
 
 use std::collections::BTreeSet;
-use wasm4pm::agentic::prelude::*;
-use wasm4pm::hot_kernels::{marking_enabled4, marking_fire4, Marking4, Transition4};
-use wasm4pm::rl_orchestrator::{compute_reward, AgentType, RlOrchestrator};
-use wasm4pm::spc::{check_western_electric_rules, ChartData, SpecialCause, TrendDirection};
-use wasm4pm::RlState;
+use truex_kernel::agentic::prelude::*;
+use truex_kernel::hot_kernels::{marking_enabled4, marking_fire4, Marking4, Transition4};
+use truex_kernel::rl_orchestrator::{compute_reward, AgentType, RlOrchestrator};
+use truex_kernel::spc::{check_western_electric_rules, ChartData, SpecialCause, TrendDirection};
+use truex_kernel::RlState;
 
 /// Helper to create test RlState with reasonable defaults
 fn make_test_state(health_level: u8) -> RlState {

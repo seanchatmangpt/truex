@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 #
 # perf-baseline.sh
-# Comprehensive performance baseline for all 36 wasm4pm algorithms
+# Comprehensive performance baseline for all 36 truex-kernel algorithms
 #
 # Measures latency, memory, and throughput across small/medium/large logs
-# Outputs results to .wasm4pm/perf-baseline.json for regression detection
+# Outputs results to .truex/perf-baseline.json for regression detection
 #
 # Usage:
 #   ./scripts/perf-baseline.sh              # Run full baseline
@@ -17,7 +17,7 @@ set -euo pipefail
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
-RESULTS_DIR="${PROJECT_ROOT}/.wasm4pm"
+RESULTS_DIR="${PROJECT_ROOT}/.truex"
 BASELINE_FILE="${RESULTS_DIR}/perf-baseline.json"
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
@@ -45,7 +45,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-echo "wasm4pm Performance Baseline"
+echo "truex-kernel Performance Baseline"
 echo "============================"
 echo "Profile: ${PROFILE}"
 echo "Quick Mode: ${QUICK_MODE}"
@@ -53,9 +53,9 @@ echo "Output: ${BASELINE_FILE}"
 echo ""
 
 # Ensure WASM is built
-if [ ! -f "${PROJECT_ROOT}/@truex/kernel-wasm/pkg/wasm4pm.js" ]; then
+if [ ! -f "${PROJECT_ROOT}/@truex/kernel-wasm/pkg/truex_kernel.js" ]; then
   echo "Building WASM..."
-  cd "${PROJECT_ROOT}/wasm4pm"
+  cd "${PROJECT_ROOT}/truex-kernel"
   npm run build:${PROFILE} 2>&1 | tail -20
 fi
 
@@ -175,7 +175,7 @@ for ALGO_SPEC in "${ALGOS[@]}"; do
   echo -ne "\r[$COMPLETED/$TOTAL_ALGOS] Measuring ${ALGO} (${DATA_SIZE})... "
 
   cat > /tmp/benchmark.js << EOF
-const wasm = require('${PROJECT_ROOT}/@truex/kernel-wasm/pkg/wasm4pm.js');
+const wasm = require('${PROJECT_ROOT}/@truex/kernel-wasm/pkg/truex_kernel.js');
 const testData = ${TEST_DATA};
 
 async function benchmark() {

@@ -1,4 +1,4 @@
-use wasm4pm::ml::regression::regression_internal;
+use truex_kernel::ml::regression::regression_internal;
 
 #[test]
 fn test_regression_internal_basic() {

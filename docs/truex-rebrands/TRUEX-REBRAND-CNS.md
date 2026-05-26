@@ -68,7 +68,7 @@ CNS itself operates below the level of OCEL JSON. Its "receipt" is the mathemati
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
 *   **Upstream:** Driven by `unibit` and `bcinr`.
-*   **Downstream:** Forms the physical memory layout that `wasm4pm` analyzes.
+*   **Downstream:** Forms the physical memory layout that `truex-kernel` analyzes.
 *   **Replay:** Provides the exact timing guarantees required for perfect simulation in `sos`.
 
 ---

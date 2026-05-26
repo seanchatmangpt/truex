@@ -3,19 +3,19 @@
 
 use std::collections::HashMap;
 use std::time::Instant;
-use wasm4pm::discovery::discover_dfg;
-use wasm4pm::fast_discovery::{discover_astar, discover_hill_climbing};
-use wasm4pm::incremental_dfg::{IncrementalDFG, StreamingDFG};
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::discover_inductive_miner;
-use wasm4pm::state::{get_or_init_state, StoredObject};
-use wasm4pm::streaming::streaming_alpha::StreamingAlphaPlusBuilder;
-use wasm4pm::streaming::streaming_astar::StreamingAStarBuilder;
-use wasm4pm::streaming::streaming_declare::StreamingDeclareBuilder;
-use wasm4pm::streaming::streaming_hill_climbing::StreamingHillClimbingBuilder;
-use wasm4pm::streaming::streaming_inductive::StreamingInductiveBuilder;
-use wasm4pm::streaming::streaming_noise_filtered_dfg::StreamingNoiseFilteredDfgBuilder;
-use wasm4pm::streaming::StreamingAlgorithm;
+use truex_kernel::discovery::discover_dfg;
+use truex_kernel::fast_discovery::{discover_astar, discover_hill_climbing};
+use truex_kernel::incremental_dfg::{IncrementalDFG, StreamingDFG};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::discover_inductive_miner;
+use truex_kernel::state::{get_or_init_state, StoredObject};
+use truex_kernel::streaming::streaming_alpha::StreamingAlphaPlusBuilder;
+use truex_kernel::streaming::streaming_astar::StreamingAStarBuilder;
+use truex_kernel::streaming::streaming_declare::StreamingDeclareBuilder;
+use truex_kernel::streaming::streaming_hill_climbing::StreamingHillClimbingBuilder;
+use truex_kernel::streaming::streaming_inductive::StreamingInductiveBuilder;
+use truex_kernel::streaming::streaming_noise_filtered_dfg::StreamingNoiseFilteredDfgBuilder;
+use truex_kernel::streaming::StreamingAlgorithm;
 
 fn make_log(cases: usize) -> String {
     let activities = ["Start", "A", "B", "C", "D", "End"];

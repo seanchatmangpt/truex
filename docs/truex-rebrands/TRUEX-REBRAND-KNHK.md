@@ -56,7 +56,7 @@ Feeds the relationship data (`event-object`, `object-object`) required to assemb
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
 *   **Upstream:** Fed by `cns` and `bcinr`.
-*   **Downstream:** Queried by `wasm4pm` and `@truex/membrane`.
+*   **Downstream:** Queried by `truex-kernel` and `@truex/membrane`.
 
 ---
 

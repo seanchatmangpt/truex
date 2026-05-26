@@ -1,6 +1,6 @@
 //! Particle Swarm Optimization implementation
 //!
-//! Ported and adapted from wasm4pm genetic_discovery.rs (PSO section)
+//! Ported and adapted from truex_kernel genetic_discovery.rs (PSO section)
 //!
 //! Provides a generic PSO algorithm for continuous optimization.
 

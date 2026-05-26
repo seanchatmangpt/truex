@@ -7,7 +7,7 @@
 //! Extracted from embedded #[cfg(test)] block in src/reinforcement.rs.
 
 use std::hash::Hash;
-use wasm4pm::reinforcement::{
+use truex_kernel::reinforcement::{
     Agent, DoubleQLearning, ExpectedSARSAAgent, QLearning, ReinforceAgent, SARSAAgent,
     WorkflowAction, WorkflowState,
 };

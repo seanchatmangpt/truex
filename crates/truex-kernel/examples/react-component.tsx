@@ -1,7 +1,7 @@
 /**
- * wasm4pm React Component Example
+ * truex-kernel React Component Example
  *
- * Shows how to integrate wasm4pm into a modern React application
+ * Shows how to integrate truex-kernel into a modern React application
  * Includes real-time process discovery and visualization
  */
 
@@ -107,7 +107,7 @@ export const ProcessMiningApp: React.FC = () => {
   return (
     <div style={styles.container}>
       <header style={styles.header}>
-        <h1>⚙️ wasm4pm React Integration</h1>
+        <h1>⚙️ truex-kernel React Integration</h1>
         <p>Real-time Process Discovery in React Applications</p>
       </header>
 

@@ -1,17 +1,17 @@
 {
-  "name": "@truex/membrane",
+  "name": "@truex/kernel-wasm",
   "version": "26.5.21",
   "description": "Process Mining in WebAssembly - High-Speed Algorithms for Browser and Node.js",
-  "main": "pkg/wasm4pm.js",
-  "types": "pkg/wasm4pm.d.ts",
+  "main": "pkg/truex_kernel.js",
+  "types": "pkg/truex_kernel.d.ts",
   "files": [
     "pkg/"
   ],
   "exports": {
     ".": {
-      "types": "./pkg/wasm4pm.d.ts",
-      "import": "./pkg/wasm4pm.js",
-      "require": "./pkg/wasm4pm.js"
+      "types": "./pkg/truex_kernel.d.ts",
+      "import": "./pkg/truex_kernel.js",
+      "require": "./pkg/truex_kernel.js"
     }
   },
   "scripts": {
@@ -38,7 +38,7 @@
     "format": "prettier --write \"**/*.{js,ts,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,ts,json,md}\"",
     "type:check": "tsc --noEmit",
-    "docs": "typedoc --out docs pkg/wasm4pm.d.ts",
+    "docs": "typedoc --out docs pkg/truex_kernel.d.ts",
     "bench": "node benchmarks/wasm_bench_runner.js",
     "bench:ci": "node benchmarks/wasm_bench_runner.js --ci",
     "bench:build": "npm run build:nodejs && npm run bench",
@@ -49,12 +49,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/seanchatmangpt/wasm4pm.git",
-    "directory": "@truex/kernel"
+    "url": "https://github.com/seanchatmangpt/truex.git",
+    "directory": "crates/truex-kernel"
   },
-  "homepage": "https://github.com/seanchatmangpt/wasm4pm/tree/main/wasm4pm",
+  "homepage": "https://github.com/seanchatmangpt/truex/tree/main/crates/truex-kernel",
   "bugs": {
-    "url": "https://github.com/seanchatmangpt/wasm4pm/issues"
+    "url": "https://github.com/seanchatmangpt/truex/issues"
   },
   "keywords": [
     "process-mining",

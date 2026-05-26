@@ -1,4 +1,4 @@
-//! State Space Exploration Audit — wasm4pm RL
+//! State Space Exploration Audit — truex_kernel RL
 //!
 //! Validates:
 //! 1. All 8 dimensions have adequate coverage
@@ -19,8 +19,8 @@
 //!   6: circuit_state [0-2]
 //!   7: cycle_phase [0-3]
 
-use wasm4pm::rl_orchestrator::RlOrchestrator;
-use wasm4pm::{RlState, RlAction};
+use truex_kernel::rl_orchestrator::RlOrchestrator;
+use truex_kernel::{RlState, RlAction};
 use std::collections::{HashMap, HashSet};
 
 // ============================================================================

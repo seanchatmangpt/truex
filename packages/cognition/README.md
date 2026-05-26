@@ -59,5 +59,5 @@ This package enforces FM-5 protection — no test may mock the WASM initializati
 ## See Also
 
 - [@truex/contracts](../contracts) — Shared contracts and receipts
-- [@wasm4pm/agents](../agents) — Autonomous agents using cognition
+- [@truex/agents](../agents) — Autonomous agents using cognition
 - [@truex/testing](../testing) — Test harnesses with real cognition

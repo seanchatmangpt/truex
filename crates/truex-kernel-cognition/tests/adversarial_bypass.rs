@@ -10,16 +10,16 @@
 
 use std::time::Duration;
 
-use wasm4pm_cognition::authority::AuthorityKind;
-use wasm4pm_cognition::autosystems::adversarial::{
+use truex_kernel_cognition::authority::AuthorityKind;
+use truex_kernel_cognition::autosystems::adversarial::{
     bench_missing::BenchMissingDetector, central_firehose::CentralFirehoseDetector,
     human_authority::HumanAuthorityDetector, missing_evidence::MissingEvidenceDetector,
     repair_weakens::RepairWeakensDetector, replay_broken::ReplayBrokenDetector,
     self_certify::SelfCertifyDetector, stub_gate::StubGateDetector,
 };
-use wasm4pm_cognition::autosystems::findings::Detector;
-use wasm4pm_cognition::autosystems::receipt::ReceiptChain;
-use wasm4pm_cognition::evidence::{Artifact, EvidenceSource, Verdict, VerifyingKey};
+use truex_kernel_cognition::autosystems::findings::Detector;
+use truex_kernel_cognition::autosystems::receipt::ReceiptChain;
+use truex_kernel_cognition::evidence::{Artifact, EvidenceSource, Verdict, VerifyingKey};
 
 /// Hand-built evidence source: the test author specifies exactly what the
 /// "verified" surface looks like. Detectors must use only this surface.
@@ -189,18 +189,18 @@ fn self_certify_fires_on_signing_skew_2s() {
     assert_eq!(f[0].code, "AGENT_SELF_CERTIFIES");
 }
 
-// 6. Bench missing — `.wasm4pm/results/x.json` with outcome="maybe".
+// 6. Bench missing — `.truex/results/x.json` with outcome="maybe".
 #[test]
 fn bench_missing_fires_on_unparseable_outcome() {
     use std::io::Write;
     // Build a temp dir + write a file with outcome:"maybe".
     let dir = std::env::temp_dir().join(format!("wpm-cog-bench-{}", std::process::id()));
-    let _ = std::fs::create_dir_all(dir.join(".wasm4pm/results"));
-    let path = dir.join(".wasm4pm/results/primary.json");
+    let _ = std::fs::create_dir_all(dir.join(".truex/results"));
+    let path = dir.join(".truex/results/primary.json");
     let mut f = std::fs::File::create(&path).expect("temp file");
     write!(f, r#"{{"outcome":"maybe"}}"#).unwrap();
 
-    let fs_src = wasm4pm_cognition::evidence::FilesystemEvidenceSource::new(
+    let fs_src = truex_kernel_cognition::evidence::FilesystemEvidenceSource::new(
         dir.clone(),
         ReceiptChain::new(),
     );
@@ -234,7 +234,7 @@ fn repair_weakens_fires_on_non_adjacent_drop() {
 // 8. Replay broken — locally consistent chain BUT external root mismatch.
 #[test]
 fn replay_broken_fires_on_external_root_mismatch() {
-    use wasm4pm_cognition::autosystems::receipt::ActorSigner;
+    use truex_kernel_cognition::autosystems::receipt::ActorSigner;
     let signer = ActorSigner::from_seed([7u8; 32]);
     let mut chain = ReceiptChain::new();
     chain.append_signed(&signer, vec![0xaau8; 32], vec![0xbbu8; 32]);
@@ -258,7 +258,7 @@ fn replay_broken_fires_on_external_root_mismatch() {
 #[cfg(feature = "wasm")]
 #[test]
 fn wasm_input_too_large_is_rejected() {
-    use wasm4pm_cognition::wasm::{cognition_run, MAX_INPUT_LEN};
+    use truex_kernel_cognition::wasm::{cognition_run, MAX_INPUT_LEN};
     let big = "x".repeat(MAX_INPUT_LEN + 1);
     let res = cognition_run(&big);
     assert!(res.is_err());
@@ -267,7 +267,7 @@ fn wasm_input_too_large_is_rejected() {
 // Bounded registry test — independent of WASM feature.
 #[test]
 fn bounded_registry_does_not_grow_without_limit() {
-    use wasm4pm_cognition::registry::{BoundedRegistry, CognitionReceipt};
+    use truex_kernel_cognition::registry::{BoundedRegistry, CognitionReceipt};
     let mut reg = BoundedRegistry::new();
     for i in 0..(BoundedRegistry::capacity_limit() + 100) {
         reg.insert(

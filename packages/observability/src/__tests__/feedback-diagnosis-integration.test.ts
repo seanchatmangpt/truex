@@ -14,7 +14,7 @@ import {
 } from '../feedback-loop.js';
 import { diagnose, type ConformanceResult, type LogStats } from '../root-cause.js';
 
-const testFeedbackDir = path.join(process.cwd(), '.wasm4pm', 'algorithm-feedback');
+const testFeedbackDir = path.join(process.cwd(), '.truex', 'algorithm-feedback');
 
 describe('feedback-loop + root-cause integration', () => {
   beforeEach(async () => {

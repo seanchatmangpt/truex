@@ -1,8 +1,8 @@
 use anyhow::Result;
 use clap::{Args, Subcommand};
 use colored::*;
-use wasm4pm_cli::io::{Io, Table};
-use wasm4pm::SPC_HISTORY;
+use truex_kernel_cli::io::{Io, Table};
+use truex_kernel::SPC_HISTORY;
 
 #[derive(Args, Debug)]
 pub struct SpcArgs {

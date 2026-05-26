@@ -17,9 +17,9 @@
 //! Gap: F / cross-backend parity
 
 use std::collections::HashMap;
-use wasm4pm::models::{AttributeValue, DirectlyFollowsGraph, Event, EventLog, Trace};
-use wasm4pm::simd_streaming_dfg::SimdStreamingDfg;
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
+use truex_kernel::models::{AttributeValue, DirectlyFollowsGraph, Event, EventLog, Trace};
+use truex_kernel::simd_streaming_dfg::SimdStreamingDfg;
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -34,7 +34,7 @@ fn make_log(traces: &[&[&str]]) -> EventLog {
                 let mut m = HashMap::new();
                 m.insert(
                     "concept:name".to_string(),
-                    wasm4pm::models::AttributeValue::String(format!("case{}", idx)),
+                    truex_kernel::models::AttributeValue::String(format!("case{}", idx)),
                 );
                 m
             },
@@ -84,10 +84,10 @@ fn simd_dfg(log: &EventLog, activity_key: &str) -> DirectlyFollowsGraph {
 /// Build a batch DFG using the columnar approach (no wasm_bindgen).
 fn batch_dfg(log: &EventLog, activity_key: &str) -> DirectlyFollowsGraph {
     use rustc_hash::FxHashMap;
-    use wasm4pm::models::{DFGNode, DirectlyFollowsRelation};
+    use truex_kernel::models::{DFGNode, DirectlyFollowsRelation};
 
     let col_owned = log.to_columnar_owned(activity_key);
-    let col = wasm4pm::models::ColumnarLog::from_owned(&col_owned);
+    let col = truex_kernel::models::ColumnarLog::from_owned(&col_owned);
 
     let mut dfg = DirectlyFollowsGraph::new();
     dfg.nodes.extend(col.vocab.iter().map(|&act| DFGNode {

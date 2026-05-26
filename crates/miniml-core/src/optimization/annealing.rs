@@ -1,6 +1,6 @@
 //! Simulated Annealing implementation
 //!
-//! Ported and adapted from wasm4pm more_discovery.rs (SA section)
+//! Ported and adapted from truex_kernel more_discovery.rs (SA section)
 //!
 //! Provides a generic simulated annealing algorithm for optimization.
 

@@ -22,7 +22,7 @@ export interface CognitionErrorOptions {
 
 export class CognitionError extends Error {
   public readonly code: CognitionErrorCode;
-  public readonly cause?: unknown;
+  public override readonly cause?: unknown;
   public readonly details?: Record<string, unknown>;
 
   constructor(

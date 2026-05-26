@@ -661,13 +661,13 @@ export class AgentOrchestrator {
     _context: AgentExecutionContext,
     config: { thresholds: { max_deviations: number } }
   ): AgentResult {
-    // In the TypeScript layer, this validates wasm4pm.toml consistency
+    // In the TypeScript layer, this validates truex.toml consistency
     // The Python layer handles settings.json enforcement
     const violations: Violation[] = [];
 
-    // Check for wasm4pm.toml existence
+    // Check for truex.toml existence
     const { existsSync } = require('fs');
-    const wasm4pmToml = 'wasm4pm.toml';
+    const wasm4pmToml = 'truex.toml';
     if (!existsSync(wasm4pmToml)) {
       violations.push({
         agent_name: 'config-drift-guardian',

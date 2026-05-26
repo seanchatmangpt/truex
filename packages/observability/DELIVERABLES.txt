@@ -2,7 +2,7 @@
 OBSERVABILITY LAYER IMPLEMENTATION - COMPLETE DELIVERABLES
 ================================================================================
 
-PROJECT: @wasm4pm/observability
+PROJECT: @truex/observability
 VERSION: 26.4.5
 STATUS: PRODUCTION READY
 LOCATION: /Users/sac/wasm4pm/packages/observability
@@ -147,10 +147,10 @@ CONFIGURATION (3 files)
 ================================================================================
 
 package.json
-  - Name: @wasm4pm/observability
+  - Name: @truex/observability
   - Version: 26.4.5
   - Scripts: build, test, test:ui, clean, type-check
-  - Dependencies: @wasm4pm/contracts (workspace:*)
+  - Dependencies: @truex/contracts (workspace:*)
   - DevDependencies: typescript, vitest, @types/node
 
 tsconfig.json
@@ -235,7 +235,7 @@ USAGE QUICK START
 ================================================================================
 
 1. Import:
-   import { ObservabilityLayer } from '@wasm4pm/observability'
+   import { ObservabilityLayer } from '@truex/observability'
 
 2. Create:
    const obs = new ObservabilityLayer({
@@ -299,7 +299,7 @@ NEXT STEPS
 
 1. Review documentation in packages/observability/
 2. Run tests: npm test
-3. Integrate with other packages (@wasm4pm/engine, etc.)
+3. Integrate with other packages (@truex/engine, etc.)
 4. Add observability config to environment variables
 5. Set up OTEL collector if using distributed tracing
 6. Monitor JSON event files and OTEL exports

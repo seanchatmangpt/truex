@@ -1,11 +1,11 @@
 use anyhow::{Context, Result};
-use wasm4pm_cli::io::Io;
+use truex_kernel_cli::io::Io;
 use serde_json::Value;
 use std::fs;
 use std::path::PathBuf;
-use wasm4pm::autonomic_execute_cycle;
-use wasm4pm::state::delete_object;
-use wasm4pm::xes_format::load_eventlog_from_xes;
+use truex_kernel::autonomic_execute_cycle;
+use truex_kernel::state::delete_object;
+use truex_kernel::xes_format::load_eventlog_from_xes;
 
 pub fn run(
     input: PathBuf,
@@ -19,7 +19,7 @@ pub fn run(
     let xes_content = fs::read_to_string(&input)
         .with_context(|| format!("Failed to read event log: {:?}", input))?;
 
-    // 2. Load into wasm4pm state
+    // 2. Load into truex_kernel state
     let log_handle = load_eventlog_from_xes(&xes_content)
         .map_err(|_| anyhow::anyhow!("Failed to load event log into WASM state"))?;
 

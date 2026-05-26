@@ -19,9 +19,9 @@
 //! Gap: F (streaming batch equivalence)
 
 use std::collections::HashMap;
-use wasm4pm::models::{AttributeValue, DirectlyFollowsGraph, Event, EventLog, Trace};
-use wasm4pm::simd_streaming_dfg::SimdStreamingDfg;
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
+use truex_kernel::models::{AttributeValue, DirectlyFollowsGraph, Event, EventLog, Trace};
+use truex_kernel::simd_streaming_dfg::SimdStreamingDfg;
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -91,10 +91,10 @@ fn simd_dfg_from_log(log: &EventLog, activity_key: &str) -> DirectlyFollowsGraph
 /// (same logic as `discover_dfg` wasm_bindgen wrapper but without the JsValue layer).
 fn batch_dfg_from_log(log: &EventLog, activity_key: &str) -> DirectlyFollowsGraph {
     use rustc_hash::FxHashMap;
-    use wasm4pm::models::{DFGNode, DirectlyFollowsRelation};
+    use truex_kernel::models::{DFGNode, DirectlyFollowsRelation};
 
     let col_owned = log.to_columnar_owned(activity_key);
-    let col = wasm4pm::models::ColumnarLog::from_owned(&col_owned);
+    let col = truex_kernel::models::ColumnarLog::from_owned(&col_owned);
 
     let mut dfg = DirectlyFollowsGraph::new();
 
@@ -450,7 +450,7 @@ fn streaming_late_event_handled_deterministically() {
 ///
 /// A streaming conformance API (`streaming_conformance_begin` /
 /// `streaming_conformance_add_event` / `streaming_conformance_finalize`)
-/// exists in `wasm4pm::streaming_conformance` under the `streaming_full`
+/// exists in `truex_kernel::streaming_conformance` under the `streaming_full`
 /// feature flag.  That API operates event-by-event against a DFG handle,
 /// not against a PetriNet, so its fitness metric differs from
 /// `check_token_based_replay`.

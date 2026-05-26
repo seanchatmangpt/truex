@@ -46,7 +46,7 @@ export class WasmServerClient {
   }) {
     this.socketPath =
       config?.socketPath ??
-      path.join(os.homedir(), '.wasm4pm', 'wasm-server.sock');
+      path.join(os.homedir(), '.truex', 'wasm-server.sock');
     this.requestTimeout = config?.requestTimeout ?? 10000;
   }
 

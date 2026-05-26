@@ -3,7 +3,7 @@
 //! This test verifies that all RL agent methods emit the expected OTEL spans
 //! with correct field values for observability.
 
-use wasm4pm::reinforcement::{
+use truex_kernel::reinforcement::{
     QLearning, SARSAAgent, DoubleQLearning, ExpectedSARSAAgent, ReinforceAgent,
     WorkflowState, WorkflowAction,
 };

@@ -1,6 +1,6 @@
 /// Chicago TDD Auditor — Comprehensive Observability & Oracle Validation
 ///
-/// Validates wasm4pm against Van der Aalst process mining standards:
+/// Validates truex_kernel against Van der Aalst process mining standards:
 /// 1. OTEL Span Coverage: Every command emits span with (service_name, status, domain attributes)
 /// 2. Three-Layer Evidence: OTEL span + test assertion + schema conformance
 /// 3. Chicago TDD Oracles: Rank-1+ (no Rank-5 code-derived oracles)

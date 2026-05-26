@@ -102,7 +102,7 @@ CONFIGURATION (3 files)
 ================================================================================
 
 1. package.json
-   - Name: @wasm4pm/contracts
+   - Name: @truex/contracts
    - Version: 26.4.5
    - Type: module (ESM)
    - Dependencies: blake3@^2.1.4, uuid@^9.0.1

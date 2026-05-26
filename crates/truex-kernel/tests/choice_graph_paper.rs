@@ -2,16 +2,16 @@
 //! arXiv:2505.07052 — Kourani, Park, van der Aalst, "Unlocking
 //! Non-Block-Structured Decisions: Inductive Mining with Choice Graphs").
 //!
-//! These tests are end-to-end: build a `wasm4pm_types::ChoiceGraph`, add it
+//! These tests are end-to-end: build a `truex_kernel_types::ChoiceGraph`, add it
 //! to a `PowlArena`, project to a Petri net via the existing POWL→PN
 //! conversion, then replay traces and assert fitness behaviour.
 
-use wasm4pm::powl::conformance::token_replay::replay_trace;
-use wasm4pm::powl::conversion::to_petri_net;
-use wasm4pm::powl_arena::PowlArena;
-use wasm4pm::powl_event_log::{Event, Trace};
-use wasm4pm::powl_parser::parse_powl_model_string;
-use wasm4pm_types::{ChoiceGraph, ChoiceGraphError, ChoiceGraphNode};
+use truex_kernel::powl::conformance::token_replay::replay_trace;
+use truex_kernel::powl::conversion::to_petri_net;
+use truex_kernel::powl_arena::PowlArena;
+use truex_kernel::powl_event_log::{Event, Trace};
+use truex_kernel::powl_parser::parse_powl_model_string;
+use truex_kernel_types::{ChoiceGraph, ChoiceGraphError, ChoiceGraphNode};
 
 use std::collections::HashMap;
 
@@ -215,7 +215,7 @@ fn disconnected_node_rejected() {
 // distinguishes acceptance from rejection in the same direction as XOR.
 #[test]
 fn xor_lowered_to_two_node_choice_graph_language_match() {
-    use wasm4pm::powl_arena::Operator;
+    use truex_kernel::powl_arena::Operator;
 
     // CG model: Start → {a, b} → End.
     let mut arena_cg = PowlArena::new();

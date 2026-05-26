@@ -257,15 +257,15 @@ pub struct EventLog {
     pub traces: Vec<Trace>,
 }
 
-fn convert_attribute_value(val: wasm4pm_types::AttributeValue) -> Option<AttributeValue> {
+fn convert_attribute_value(val: truex_kernel_types::AttributeValue) -> Option<AttributeValue> {
     match val {
-        wasm4pm_types::AttributeValue::String(s) => Some(AttributeValue::String(s)),
-        wasm4pm_types::AttributeValue::Date(d) => Some(AttributeValue::Date(d.to_rfc3339())),
-        wasm4pm_types::AttributeValue::Int(i) => Some(AttributeValue::Int(i)),
-        wasm4pm_types::AttributeValue::Float(f) => Some(AttributeValue::Float(f)),
-        wasm4pm_types::AttributeValue::Boolean(b) => Some(AttributeValue::Boolean(b)),
-        wasm4pm_types::AttributeValue::ID(id) => Some(AttributeValue::String(id.to_string())),
-        wasm4pm_types::AttributeValue::List(l) => {
+        truex_kernel_types::AttributeValue::String(s) => Some(AttributeValue::String(s)),
+        truex_kernel_types::AttributeValue::Date(d) => Some(AttributeValue::Date(d.to_rfc3339())),
+        truex_kernel_types::AttributeValue::Int(i) => Some(AttributeValue::Int(i)),
+        truex_kernel_types::AttributeValue::Float(f) => Some(AttributeValue::Float(f)),
+        truex_kernel_types::AttributeValue::Boolean(b) => Some(AttributeValue::Boolean(b)),
+        truex_kernel_types::AttributeValue::ID(id) => Some(AttributeValue::String(id.to_string())),
+        truex_kernel_types::AttributeValue::List(l) => {
             let mut list = Vec::new();
             for attr in l {
                 if let Some(cv) = convert_attribute_value(attr.value) {
@@ -274,7 +274,7 @@ fn convert_attribute_value(val: wasm4pm_types::AttributeValue) -> Option<Attribu
             }
             Some(AttributeValue::List(list))
         },
-        wasm4pm_types::AttributeValue::Container(c) => {
+        truex_kernel_types::AttributeValue::Container(c) => {
             let mut map = HashMap::new();
             for attr in c {
                 if let Some(cv) = convert_attribute_value(attr.value) {
@@ -283,11 +283,11 @@ fn convert_attribute_value(val: wasm4pm_types::AttributeValue) -> Option<Attribu
             }
             Some(AttributeValue::Container(map))
         },
-        wasm4pm_types::AttributeValue::None() => None,
+        truex_kernel_types::AttributeValue::None() => None,
     }
 }
 
-fn convert_attributes(attrs: wasm4pm_types::Attributes) -> HashMap<String, AttributeValue> {
+fn convert_attributes(attrs: truex_kernel_types::Attributes) -> HashMap<String, AttributeValue> {
     let mut map = HashMap::new();
     for attr in attrs {
         if let Some(cv) = convert_attribute_value(attr.value) {
@@ -297,8 +297,8 @@ fn convert_attributes(attrs: wasm4pm_types::Attributes) -> HashMap<String, Attri
     map
 }
 
-impl From<wasm4pm_types::EventLog> for EventLog {
-    fn from(log: wasm4pm_types::EventLog) -> Self {
+impl From<truex_kernel_types::EventLog> for EventLog {
+    fn from(log: truex_kernel_types::EventLog) -> Self {
         let mut traces = Vec::with_capacity(log.traces.len());
         for trace in log.traces {
             let mut events = Vec::with_capacity(trace.events.len());

@@ -17,8 +17,8 @@
 use criterion::{black_box, BenchmarkId, Criterion, Throughput};
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::models::*;
-use wasm4pm::montecarlo::{run_monte_carlo_simulation, MonteCarloConfig};
+use truex_kernel::models::*;
+use truex_kernel::montecarlo::{run_monte_carlo_simulation, MonteCarloConfig};
 
 #[path = "../helpers.rs"]
 mod helpers;

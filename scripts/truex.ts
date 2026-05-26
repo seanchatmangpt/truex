@@ -1323,7 +1323,7 @@ const pmDiscoverCommand = defineCommand({
   },
   async run({ args }) {
     const logContent = fs.readFileSync(args.log, 'utf8');
-    const wasm = await import('../packages/kernel-wasm/pkg/wasm4pm.js');
+    const wasm = await import('../packages/kernel-wasm/pkg/truex_kernel.js');
     let logHandle: string;
     if (args.log.endsWith('.json')) {
       logHandle = wasm.load_eventlog_from_json(logContent);
@@ -1360,7 +1360,7 @@ const pmConformCommand = defineCommand({
   async run({ args }) {
     const logContent = fs.readFileSync(args.log, 'utf8');
     const modelContent = fs.readFileSync(args.model, 'utf8');
-    const wasm = await import('../packages/kernel-wasm/pkg/wasm4pm.js');
+    const wasm = await import('../packages/kernel-wasm/pkg/truex_kernel.js');
 
     const result = wasm.token_replay_fitness(modelContent, logContent);
     console.log(JSON.stringify(JSON.parse(result), null, 2));

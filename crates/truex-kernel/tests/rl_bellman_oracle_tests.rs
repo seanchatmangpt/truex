@@ -21,7 +21,7 @@
 //! the unvisited cases.
 
 use std::hash::Hash;
-use wasm4pm::reinforcement::{
+use truex_kernel::reinforcement::{
     Agent, DoubleQLearning, ExpectedSARSAAgent, QLearning, ReinforceAgent, SARSAAgent,
     WorkflowAction, WorkflowState,
 };

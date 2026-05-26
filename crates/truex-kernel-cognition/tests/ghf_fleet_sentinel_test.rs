@@ -1,4 +1,4 @@
-use wasm4pm_cognition::ghf::{check_fleet_drift, RefusalState8, ValidationResult};
+use truex_kernel_cognition::ghf::{check_fleet_drift, RefusalState8, ValidationResult};
 
 #[test]
 fn test_refuses_fleet_drift_detected() {

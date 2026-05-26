@@ -11,18 +11,18 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // alignment_fitness and align_etconformance are behind feature gates
 #[cfg(feature = "alignment_fitness")]
-use wasm4pm::alignment_fitness::{compute_alignment_fitness, AlignmentFitnessConfig};
+use truex_kernel::alignment_fitness::{compute_alignment_fitness, AlignmentFitnessConfig};
 
 #[cfg(feature = "align_etconformance")]
-use wasm4pm::align_etconformance::{compute_align_etconformance_precision, AlignETConformanceConfig};
+use truex_kernel::align_etconformance::{compute_align_etconformance_precision, AlignETConformanceConfig};
 
 #[cfg(any(feature = "alignment_fitness", feature = "align_etconformance", feature = "discovery_advanced"))]
-use wasm4pm::ilp_discovery::discover_ilp_petri_net_from_log;
+use truex_kernel::ilp_discovery::discover_ilp_petri_net_from_log;
 
 // ---------------------------------------------------------------------------
 // Inline XES parser

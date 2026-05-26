@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import * as wasm from '../packages/kernel-wasm/pkg/wasm4pm.js';
+import * as wasm from '../packages/kernel-wasm/pkg/truex_kernel.js';
 import { WasmWorkerPool } from '../packages/membrane/src/concurrency/wasm-worker-pool.js';
 import { TruexWasmBridge } from '../packages/membrane/src/concurrency/truex-wasm-bridge.ts';
 

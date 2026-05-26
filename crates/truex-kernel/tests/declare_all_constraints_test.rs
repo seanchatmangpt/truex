@@ -12,7 +12,7 @@
 //! 9. CoExistence: Both A and B occur in same trace
 //! 10. NotCoExistence: A and B do NOT both occur in same trace
 
-use wasm4pm::models::{EventLog, Trace, Event, AttributeValue};
+use truex_kernel::models::{EventLog, Trace, Event, AttributeValue};
 use std::collections::HashMap;
 
 fn attr(k: &str, v: &str) -> (String, AttributeValue) {

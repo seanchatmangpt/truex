@@ -8,9 +8,9 @@
 //!
 //! Run: `cargo test --test proof_pack_tests --features browser`
 
-use wasm4pm::testing::conformance::AndonPull;
-use wasm4pm::testing::proof_pack::ProofPackWriter;
-use wasm4pm::testing::{ConformanceVerdict, PowlTestHarness};
+use truex_kernel::testing::conformance::AndonPull;
+use truex_kernel::testing::proof_pack::ProofPackWriter;
+use truex_kernel::testing::{ConformanceVerdict, PowlTestHarness};
 
 #[test]
 fn proof_pack_writer_creates_required_directory() {
@@ -131,8 +131,8 @@ fn manifest_is_written_by_finalize() {
 
 #[test]
 fn write_proof_dimensions_records_not_measured() {
-    use wasm4pm::testing::conformance::ProofDimension;
-    let report = wasm4pm::testing::ReplayReport {
+    use truex_kernel::testing::conformance::ProofDimension;
+    let report = truex_kernel::testing::ReplayReport {
         fitness: ProofDimension::Measured(1.0),
         precision: ProofDimension::Measured(1.0),
         receipt_coverage: ProofDimension::NotMeasured,

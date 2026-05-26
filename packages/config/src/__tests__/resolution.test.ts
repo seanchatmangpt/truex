@@ -32,14 +32,14 @@ describe('Resolution', () => {
       expect(cfgEnv.execution.profile).toBe('stream');
       expect(cfgEnv.metadata.provenance['execution.profile']?.source).toBe('env');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.json'), JSON.stringify({
+      await fs.writeFile(path.join(tmpDir, 'truex.json'), JSON.stringify({
         version: '26.4.5', source: { kind: 'file' }, execution: { profile: 'fast' },
       }));
       const cfgJson = await resolveConfig({ configSearchPaths: [tmpDir], env: { WASM4PM_PROFILE: 'stream' } });
       expect(cfgJson.execution.profile).toBe('fast');
       expect(cfgJson.metadata.provenance['execution.profile']?.source).toBe('json');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'), '[execution]\nprofile = "quality"');
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'), '[execution]\nprofile = "quality"');
       const cfgToml = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgToml.execution.profile).toBe('quality');
       expect(cfgToml.metadata.provenance['execution.profile']?.source).toBe('toml');
@@ -59,25 +59,25 @@ describe('Resolution', () => {
   // ---------------------------------------------------------------------------
   describe('source, sink, algorithm', () => {
     it('loads source, sink, and algorithm config from TOML, CLI, and env overrides', async () => {
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "http"\nurl = "https://example.com:9000/events"`);
       const cfgSrc = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgSrc.source.kind).toBe('http');
       expect(cfgSrc.source.url).toBe('https://example.com:9000/events');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"\n[sink]\nkind = "file"\npath = "./out.pnml"`);
       const cfgSink = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgSink.sink.kind).toBe('file');
       expect(cfgSink.sink.path).toBe('./out.pnml');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"\n[algorithm]\nname = "heuristic_miner"\n[algorithm.parameters]\nthreshold = 0.8`);
       const cfgAlgo = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgAlgo.algorithm.name).toBe('heuristic_miner');
       expect(cfgAlgo.algorithm.parameters).toEqual({ threshold: 0.8 });
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"`);
       // genetic_algorithm requires quality profile
       const cfgAlgoCli = await resolveConfig({
@@ -94,7 +94,7 @@ describe('Resolution', () => {
       expect(cfgSinkCli.sink.kind).toBe('http');
       expect(cfgSinkCli.sink.url).toBe('https://example.com:3000/ingest');
 
-      await fs.rm(path.join(tmpDir, 'wasm4pm.toml'), { force: true });
+      await fs.rm(path.join(tmpDir, 'truex.toml'), { force: true });
       const cfgSrcEnv = await resolveConfig({ configSearchPaths: [tmpDir], env: { WASM4PM_SOURCE_KIND: 'stream' } });
       expect(cfgSrcEnv.source.kind).toBe('stream');
 
@@ -109,7 +109,7 @@ describe('Resolution', () => {
   // ---------------------------------------------------------------------------
   describe('observability and watch config', () => {
     it('loads otel and watch config from TOML, env, and CLI', async () => {
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"\n[observability.otel]\nenabled = true\nexporter = "console"\nendpoint = "https://example.com:4318"\nrequired = true`);
       const cfg = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfg.observability.otel?.enabled).toBe(true);
@@ -117,7 +117,7 @@ describe('Resolution', () => {
       expect(cfg.observability.otel?.endpoint).toBe('https://example.com:4318');
       expect(cfg.observability.otel?.required).toBe(true);
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"`);
       const cfgEnv = await resolveConfig({
         configSearchPaths: [tmpDir],
@@ -126,7 +126,7 @@ describe('Resolution', () => {
       expect(cfgEnv.observability.otel?.enabled).toBe(true);
       expect(cfgEnv.observability.otel?.endpoint).toBe('http://collector:4318');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"\n[watch]\nenabled = true\npoll_interval = 500\ncheckpoint_dir = "/tmp/ckpts"`);
       const cfgWatch = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgWatch.watch?.enabled).toBe(true);
@@ -149,7 +149,7 @@ describe('Resolution', () => {
       const cfg = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfg.schemaVersion).toBe(SCHEMA_VERSION);
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\nschema_version = 1\n[source]\nkind = "file"`);
       const cfgFile = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgFile.schemaVersion).toBe(1);
@@ -172,7 +172,7 @@ describe('Resolution', () => {
       const cfg2 = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfg.metadata.hash).toBe(cfg2.metadata.hash);
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         '[source]\nkind = "file"\n[execution]\nprofile = "fast"');
       const cfgProv = await resolveConfig({
         cliOverrides: { outputFormat: 'json' },
@@ -190,13 +190,13 @@ describe('Resolution', () => {
   // ---------------------------------------------------------------------------
   describe('deep merge, error handling, and env booleans', () => {
     it('merges partial file config with defaults and CLI merges with file', async () => {
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"\n[execution]\ntimeout = 60000`);
       const cfg = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfg.execution.timeout).toBe(60000);
       expect(cfg.execution.profile).toBe('balanced');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'),
         `version = "1.0.0"\n[source]\nkind = "file"\n[output]\nformat = "json"`);
       const cfgMerge = await resolveConfig({
         cliOverrides: { outputDestination: '/tmp/out.json' },
@@ -207,18 +207,18 @@ describe('Resolution', () => {
     });
 
     it('throws on invalid TOML/JSON syntax and schema-invalid config; handles missing/empty gracefully', async () => {
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'), '[execution\nbad');
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'), '[execution\nbad');
       await expect(resolveConfig({ configSearchPaths: [tmpDir] })).rejects.toThrow(/Failed to parse TOML/);
 
-      await fs.rm(path.join(tmpDir, 'wasm4pm.toml'), { force: true });
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.json'), '{ bad }');
+      await fs.rm(path.join(tmpDir, 'truex.toml'), { force: true });
+      await fs.writeFile(path.join(tmpDir, 'truex.json'), '{ bad }');
       await expect(resolveConfig({ configSearchPaths: [tmpDir] })).rejects.toThrow(/Failed to parse JSON/);
 
-      await fs.rm(path.join(tmpDir, 'wasm4pm.json'), { force: true });
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'), '[execution]\nprofile = "turbo"');
+      await fs.rm(path.join(tmpDir, 'truex.json'), { force: true });
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'), '[execution]\nprofile = "turbo"');
       await expect(resolveConfig({ configSearchPaths: [tmpDir] })).rejects.toThrow(/validation failed/i);
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'), '');
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'), '');
       const cfgEmpty = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgEmpty.version).toBe('26.4.5');
 
@@ -242,12 +242,12 @@ describe('Resolution', () => {
   // ---------------------------------------------------------------------------
   describe('example configs and hashing integration', () => {
     it('provides valid TOML and JSON examples, fingerprint is 8 hex chars, and diff detects profile change', async () => {
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'), getExampleTomlConfig());
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'), getExampleTomlConfig());
       const cfgToml = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgToml.version).toBe('26.4.5');
       expect(cfgToml.execution.profile).toBe('balanced');
 
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.json'), getExampleJsonConfig());
+      await fs.writeFile(path.join(tmpDir, 'truex.json'), getExampleJsonConfig());
       const cfgJson = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfgJson.version).toBe('26.4.5');
       expect(cfgJson.execution.profile).toBe('balanced');

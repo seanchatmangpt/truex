@@ -5,8 +5,8 @@
 //! orchestrator across multiple cycles, verifying that Bellman updates occur
 //! and learning progresses (indirect verification of Q-delta instrumentation).
 
-use wasm4pm::rl_orchestrator::{RlOrchestrator, compute_reward};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{RlOrchestrator, compute_reward};
+use truex_kernel::RlState;
 
 fn make_state(health: u8, event_rate_q: u8) -> RlState {
     RlState {

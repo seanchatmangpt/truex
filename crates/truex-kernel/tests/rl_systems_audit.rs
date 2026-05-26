@@ -1,6 +1,6 @@
 //! RL Systems Audit — 5 Critical Gaps + Rank-1 Oracle Validation
 //!
-//! Comprehensive audit of wasm4pm RL orchestrator identifying and validating
+//! Comprehensive audit of truex_kernel RL orchestrator identifying and validating
 //! fixes for:
 //!   GAP-1: Bellman update divergence (unbounded Q-values)
 //!   GAP-2: Feature normalization (invalid LinUCB context)
@@ -11,11 +11,11 @@
 //! Test count: 18 tests (Rank-1 mathematical oracles + integration)
 //! All tests are deterministic (seeded RNG where applicable).
 
-use wasm4pm::reinforcement::QLearning;
-use wasm4pm::rl_orchestrator::{
+use truex_kernel::reinforcement::QLearning;
+use truex_kernel::rl_orchestrator::{
     compute_reward, compute_health_state, learning_rate_schedule, RlOrchestrator,
 };
-use wasm4pm::{create_rl_state, RlAction};
+use truex_kernel::{create_rl_state, RlAction};
 
 // ---------------------------------------------------------------------------
 // GAP-1: Bellman Update Divergence (Q-values Unbounded)

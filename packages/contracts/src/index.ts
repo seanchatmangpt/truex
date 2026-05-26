@@ -11,7 +11,7 @@
 // Engine types (merged from @wasm4pm/types)
 export * from './types.js';
 
-// Template static data (merged from @wasm4pm/templates)
+// Template static data (merged from @truex/templates)
 export * from './templates/index.js';
 
 // Error system - PRD §14

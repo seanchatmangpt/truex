@@ -1,4 +1,4 @@
-/// Scalability benchmarking harness — wasm4pm process mining kernel.
+/// Scalability benchmarking harness — truex_kernel process mining kernel.
 ///
 /// Sweeps batch_size (trace count) from 256 to 8192 in steps of 256
 /// across three feature distributions: uniform, skewed, adversarial.
@@ -11,10 +11,10 @@ use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Through
 mod helpers;
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::discovery::discover_dfg;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::discover_inductive_miner;
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::discovery::discover_dfg;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::discover_inductive_miner;
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 const ACTIVITY_KEY: &str = "concept:name";
 const TIMESTAMP_KEY: &str = "time:timestamp";

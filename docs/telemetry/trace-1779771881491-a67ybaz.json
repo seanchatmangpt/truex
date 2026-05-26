@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779771881491-a67ybaz",
+  "spanId": "span-unknown",
+  "startTime": 1779771881491,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook-otp\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779771882517,
+      "attributes": {
+        "primitive": "hook-otp",
+        "status": "confirmed",
+        "executionTimeMs": 31,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779771882517,
+  "durationMs": 1026
+}

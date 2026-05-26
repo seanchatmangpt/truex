@@ -13,7 +13,7 @@
 
 set -euo pipefail
 
-# ── Locate workspace root (script lives in crates/wasm4pm-cognition/scripts/) ──
+# ── Locate workspace root (script lives in crates/truex-kernel-cognition/scripts/) ──
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 
@@ -114,19 +114,19 @@ run_check 1 \
   "${WORKSPACE_ROOT}/Cargo.toml found" \
   "Cargo.toml not found at ${WORKSPACE_ROOT}"
 
-# Check 2: wasm4pm crate directory exists
+# Check 2: truex-kernel crate directory exists
 run_check 2 \
-  "wasm4pm crate directory present" \
-  "[ -d '${WORKSPACE_ROOT}/wasm4pm/src' ]" \
-  "wasm4pm/src directory found" \
-  "wasm4pm/src not found under ${WORKSPACE_ROOT}"
+  "truex-kernel crate directory present" \
+  "[ -d '${WORKSPACE_ROOT}/truex-kernel/src' ]" \
+  "truex-kernel/src directory found" \
+  "truex-kernel/src not found under ${WORKSPACE_ROOT}"
 
-# Check 3: apps/wasm4pm CLI source present
+# Check 3: apps/truex-kernel CLI source present
 run_check 3 \
-  "CLI app source present (apps/wasm4pm/src/cli.ts)" \
-  "[ -f '${WORKSPACE_ROOT}/apps/wasm4pm/src/cli.ts' ]" \
-  "apps/wasm4pm/src/cli.ts found" \
-  "apps/wasm4pm/src/cli.ts not found"
+  "CLI app source present (apps/truex-kernel/src/cli.ts)" \
+  "[ -f '${WORKSPACE_ROOT}/apps/truex-kernel/src/cli.ts' ]" \
+  "apps/truex-kernel/src/cli.ts found" \
+  "apps/truex-kernel/src/cli.ts not found"
 
 # Check 4: packages/ monorepo directory exists with at least 3 packages
 run_check 4 \
@@ -142,31 +142,31 @@ run_check 5 \
   "packages/contracts/dist/index.js found" \
   "packages/contracts/dist/index.js not found — run pnpm build"
 
-# Check 6: CLI dist binary is present (apps/wasm4pm/dist/bin/wpm.js)
+# Check 6: CLI dist binary is present (apps/truex-kernel/dist/bin/wpm.js)
 run_check 6 \
-  "CLI dist binary present (apps/wasm4pm/dist/bin/wpm.js)" \
-  "[ -f '${WORKSPACE_ROOT}/apps/wasm4pm/dist/bin/wpm.js' ]" \
+  "CLI dist binary present (apps/truex-kernel/dist/bin/wpm.js)" \
+  "[ -f '${WORKSPACE_ROOT}/apps/truex-kernel/dist/bin/wpm.js' ]" \
   "dist/bin/wpm.js found" \
-  "dist/bin/wpm.js not found — run pnpm build in apps/wasm4pm"
+  "dist/bin/wpm.js not found — run pnpm build in apps/truex-kernel"
 
-# Check 7: WASM build artefact present (@truex/kernel-wasm/pkg/wasm4pm.js OR @truex/kernel-wasm/pkg/package.json)
+# Check 7: WASM build artefact present (@truex/kernel-wasm/pkg/truex_kernel.js OR @truex/kernel-wasm/pkg/package.json)
 run_check 7 \
   "WASM pkg artefact present (@truex/kernel-wasm/pkg/package.json)" \
-  "[ -f '${WORKSPACE_ROOT}/@truex/kernel-wasm/pkg/package.json' ] || [ -f '${WORKSPACE_ROOT}/@truex/kernel-wasm/pkg/wasm4pm.js' ]" \
+  "[ -f '${WORKSPACE_ROOT}/@truex/kernel-wasm/pkg/package.json' ] || [ -f '${WORKSPACE_ROOT}/@truex/kernel-wasm/pkg/truex_kernel.js' ]" \
   "WASM pkg artefact found" \
-  "@truex/kernel-wasm/pkg/ not found — run npm run build:nodejs in wasm4pm/"
+  "@truex/kernel-wasm/pkg/ not found — run npm run build:nodejs in truex-kernel/"
 
-# Check 8: node_modules present for apps/wasm4pm
+# Check 8: node_modules present for apps/truex-kernel
 run_check 8 \
-  "apps/wasm4pm node_modules present" \
-  "[ -d '${WORKSPACE_ROOT}/apps/wasm4pm/node_modules' ]" \
-  "apps/wasm4pm/node_modules found" \
-  "apps/wasm4pm/node_modules not found — run pnpm install"
+  "apps/truex-kernel node_modules present" \
+  "[ -d '${WORKSPACE_ROOT}/apps/truex-kernel/node_modules' ]" \
+  "apps/truex-kernel/node_modules found" \
+  "apps/truex-kernel/node_modules not found — run pnpm install"
 
 # Check 9: exit-codes.ts defines all 5 standard codes (smoke-test source)
 run_check 9 \
   "exit-codes.ts defines success + execution_error + system_error" \
-  "grep -q 'execution_error' '${WORKSPACE_ROOT}/apps/wasm4pm/src/exit-codes.ts' && grep -q 'system_error' '${WORKSPACE_ROOT}/apps/wasm4pm/src/exit-codes.ts'" \
+  "grep -q 'execution_error' '${WORKSPACE_ROOT}/apps/truex-kernel/src/exit-codes.ts' && grep -q 'system_error' '${WORKSPACE_ROOT}/apps/truex-kernel/src/exit-codes.ts'" \
   "exit-codes.ts contains expected constants" \
   "exit-codes.ts missing expected constants"
 

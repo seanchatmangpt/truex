@@ -16,13 +16,13 @@
 use std::collections::{HashMap, HashSet};
 use std::fs;
 
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
-use wasm4pm::rl_orchestrator::{compute_health_state, compute_reward, RlOrchestrator};
-use wasm4pm::self_healing::CircuitBreaker;
-use wasm4pm::spc::{check_western_electric_rules, spc_mean, spc_std_dev, ChartData};
-use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
-use wasm4pm::RlState;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
+use truex_kernel::rl_orchestrator::{compute_health_state, compute_reward, RlOrchestrator};
+use truex_kernel::self_healing::CircuitBreaker;
+use truex_kernel::spc::{check_western_electric_rules, spc_mean, spc_std_dev, ChartData};
+use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
+use truex_kernel::RlState;
 
 const ACTIVITY_KEY: &str = "concept:name";
 

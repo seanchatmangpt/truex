@@ -8,7 +8,7 @@
 //!
 //! Run: `cargo test --test route_driven_tdd_tests --features browser`
 
-use wasm4pm::testing::{ActivityEvidence, AndonPull, ConformanceVerdict, ObjectEvidence, PowlTestHarness};
+use truex_kernel::testing::{ActivityEvidence, AndonPull, ConformanceVerdict, ObjectEvidence, PowlTestHarness};
 
 fn bh(data: &str) -> String {
     blake3::hash(data.as_bytes()).to_hex().to_string()

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779748046696-hbaxyb2",
+  "spanId": "span-unknown",
+  "startTime": 1779748046697,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"benchmark\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779748049738,
+      "attributes": {
+        "primitive": "benchmark",
+        "status": "confirmed",
+        "executionTimeMs": 1932,
+        "invariantsCount": 20,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779748049737,
+  "durationMs": 3040
+}

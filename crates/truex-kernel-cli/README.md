@@ -1,11 +1,11 @@
-# crates/wasm4pm-cli — Rust-native wpm binary
+# crates/truex-kernel-cli — Rust-native wpm binary
 
 ## Status: Secondary binary — NOT the published CLI
 
-This crate produces a Rust-native binary also named `wpm`. It is a **secondary, developer-facing tool** and is NOT the binary that ships in the published `@wasm4pm/cli` npm package.
+This crate produces a Rust-native binary also named `wpm`. It is a **secondary, developer-facing tool** and is NOT the binary that ships in the published `@truex/cli` npm package.
 
-**The authoritative user-facing CLI is `apps/wasm4pm/` (TypeScript).**
-It ships as `@wasm4pm/cli` on npm and exposes 35+ commands covering all Van der Aalst process mining perspectives.
+**The authoritative user-facing CLI is `apps/truex-kernel/` (TypeScript).**
+It ships as `@truex/cli` on npm and exposes 35+ commands covering all Van der Aalst process mining perspectives.
 
 This crate is part of the Cargo workspace (`Cargo.toml` members list) and builds as part of `cargo build --workspace`, but it is never referenced by `pnpm build` or the npm publish pipeline.
 
@@ -15,24 +15,24 @@ This crate is part of the Cargo workspace (`Cargo.toml` members list) and builds
 
 Both binaries are named `wpm` (per `[[bin]] name = "wpm"` in `Cargo.toml`).
 
-- If a developer runs `cargo install --path crates/wasm4pm-cli`, the Rust binary lands in `~/.cargo/bin/wpm` and shadows the TypeScript CLI.
-- The TypeScript CLI binary is `dist/bin/wpm.js` invoked via the npm `bin` field. It only shadows the Rust binary when installed via `npm install -g @wasm4pm/cli`.
+- If a developer runs `cargo install --path crates/truex-kernel-cli`, the Rust binary lands in `~/.cargo/bin/wpm` and shadows the TypeScript CLI.
+- The TypeScript CLI binary is `dist/bin/wpm.js` invoked via the npm `bin` field. It only shadows the Rust binary when installed via `npm install -g @truex/cli`.
 
-**Source of truth by binary name:** The TypeScript CLI at `apps/wasm4pm/` is the source of truth for the `wpm` command. If both are installed, PATH order determines which runs.
+**Source of truth by binary name:** The TypeScript CLI at `apps/truex-kernel/` is the source of truth for the `wpm` command. If both are installed, PATH order determines which runs.
 
 ---
 
 ## What this binary does
 
-The Rust binary exposes a narrower, lower-level command set built directly on the `wasm4pm` Rust crate (not via WASM/JS bridge):
+The Rust binary exposes a narrower, lower-level command set built directly on the `truex-kernel` Rust crate (not via WASM/JS bridge):
 
 | Command | Description |
 |---------|-------------|
 | `doctor` | 4-check environment health (rustc, wasm-pack, Cargo.toml, src/) — simpler than the TypeScript `wpm doctor` (17 checks) |
-| `wizard` | Interactive project setup — writes `.wasm4pm/config.json` with name, author, license, deployment profile |
+| `wizard` | Interactive project setup — writes `.truex/config.json` with name, author, license, deployment profile |
 | `telco status\|map\|dispatch` | Vision 2030 nanosecond architecture status display and simulated event dispatch |
-| `mining discover\|conformance` | Process discovery (heuristic miner via `wasm4pm-algos`) and token-replay conformance against native types |
-| `config get\|set` | Read/write key-value pairs in `.wasm4pm/config.json` |
+| `mining discover\|conformance` | Process discovery (heuristic miner via `truex-kernel-algos`) and token-replay conformance against native types |
+| `config get\|set` | Read/write key-value pairs in `.truex/config.json` |
 | `autoprocess` | Calls `autonomic_execute_cycle()` directly on the Rust WASM crate — same Perception→Decision→Protection→Optimization pipeline as `wpm autoprocess` in the TypeScript CLI, but native |
 | `agent list\|status\|switch\|reset` | Manage the 5 RL agents (QLearning, SARSA, DoubleQLearning, ExpectedSARSA, REINFORCE) via `RL_ORCHESTRATOR` thread-local |
 | `spc status\|history` | Read the SPC ring buffer from `SPC_HISTORY` thread-local — Western Electric rule violations, cycle metrics |
@@ -43,16 +43,16 @@ The Rust binary exposes a narrower, lower-level command set built directly on th
 
 ## Key distinction from the TypeScript CLI
 
-| Dimension | This crate (`crates/wasm4pm-cli`) | TypeScript CLI (`apps/wasm4pm/`) |
+| Dimension | This crate (`crates/truex-kernel-cli`) | TypeScript CLI (`apps/truex-kernel/`) |
 |-----------|-----------------------------------|----------------------------------|
 | Binary name | `wpm` | `wpm` |
-| Published | No | Yes (`@wasm4pm/cli` on npm) |
+| Published | No | Yes (`@truex/cli` on npm) |
 | Command count | 10 commands / subcommands | 35+ commands |
-| WASM bridge | None — calls Rust crate directly | Yes — via `@wasm4pm/kernel` |
+| WASM bridge | None — calls Rust crate directly | Yes — via `@truex/kernel` |
 | Unique commands | `telco`, `spc`, `agent`, `wizard`, `audit` | `predict`, `drift-watch`, `powl`, `conformance`, `quality`, `simulate`, `temporal`, `social`, `swarm`, `repl`, `prolog8`, `membrane`, `trace`, and many more |
 | Overlapping commands | `doctor`, `autoprocess`, `mining discover/conformance`, `config` | Same functional coverage, more complete |
 | OTEL instrumentation | None | Full 3-layer (CLI/JSONL/OTEL spans) |
-| Receipt chain | None | BLAKE3 receipts auto-saved to `.wasm4pm/results/` |
+| Receipt chain | None | BLAKE3 receipts auto-saved to `.truex/results/` |
 | Test harness | `assert_cmd` + `predicates` (5 tests in `tests/cli_tests.rs`) | `vitest` + `@truex/testing` harnesses |
 
 ---
@@ -81,7 +81,7 @@ Direct management of the 5 RL agents via the `RL_ORCHESTRATOR` thread-local. All
 | `mining discover` | `wpm run <log.xes>` | TypeScript wraps full kernel with 35 algorithms. TypeScript wins. |
 | `mining conformance` | `wpm conformance` | TypeScript has alignments + precision. TypeScript wins. |
 | `config get\|set` | `wpm init` / ENV vars | TypeScript has Zod-validated 5-layer config. TypeScript wins. |
-| `wizard` | `wpm init` | Both scaffold `.wasm4pm/`. TypeScript `init` is richer. |
+| `wizard` | `wpm init` | Both scaffold `.truex/`. TypeScript `init` is richer. |
 | `audit` | `wpm conformance` / `wpm quality` | TypeScript exposes more quality dimensions. TypeScript wins. |
 
 ---
@@ -92,10 +92,10 @@ This crate builds with the rest of the Cargo workspace:
 
 ```bash
 # From workspace root
-cargo build -p wasm4pm-cli
+cargo build -p truex-kernel-cli
 
 # Install to ~/.cargo/bin (WARNING: shadows TypeScript wpm if installed)
-cargo install --path crates/wasm4pm-cli
+cargo install --path crates/truex-kernel-cli
 
 # Run tests
 cargo test --test cli_tests
@@ -107,7 +107,7 @@ The binary is NOT included in any `pnpm build` or `npm publish` pipeline.
 
 ## Recommendation for contributors
 
-- For user-facing process mining work, use the TypeScript CLI (`apps/wasm4pm/`).
+- For user-facing process mining work, use the TypeScript CLI (`apps/truex-kernel/`).
 - Use this crate for low-level debugging of the Rust RL/SPC/autonomic layer when you need direct access to `RL_ORCHESTRATOR` and `SPC_HISTORY` thread-locals without the JS bridge overhead.
 - Do not `cargo install` this binary in shared environments where the TypeScript CLI is also installed — the naming conflict will cause confusion.
 - If you add a command here, evaluate whether it belongs in the TypeScript CLI instead (with OTEL, receipts, and 35-command cohesion).

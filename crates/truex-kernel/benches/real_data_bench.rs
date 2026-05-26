@@ -16,23 +16,23 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::{collections::HashMap, fs, time::Duration};
 
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::algorithms::discover_alpha_plus_plus_from_log;
-use wasm4pm::batches::discover_batches;
-use wasm4pm::correlation_miner::{mine_correlation, CorrelationConfig};
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::fast_discovery::{discover_astar_from_log, discover_hill_climbing_from_log};
-use wasm4pm::genetic_discovery::{
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::algorithms::discover_alpha_plus_plus_from_log;
+use truex_kernel::batches::discover_batches;
+use truex_kernel::correlation_miner::{mine_correlation, CorrelationConfig};
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::fast_discovery::{discover_astar_from_log, discover_hill_climbing_from_log};
+use truex_kernel::genetic_discovery::{
     discover_aco_algorithm_from_log, discover_genetic_algorithm_from_log,
     discover_pso_algorithm_from_log,
 };
-use wasm4pm::ilp_discovery::{discover_ilp_petri_net_from_log, discover_optimized_dfg_from_log};
-use wasm4pm::log_to_trie::discover_prefix_tree_inner;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::{
+use truex_kernel::ilp_discovery::{discover_ilp_petri_net_from_log, discover_optimized_dfg_from_log};
+use truex_kernel::log_to_trie::discover_prefix_tree_inner;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::{
     discover_inductive_miner_from_log, discover_simulated_annealing_from_log,
 };
-use wasm4pm::transition_system::discover_transition_system;
+use truex_kernel::transition_system::discover_transition_system;
 
 const ACTIVITY_KEY: &str = "concept:name";
 const TIMESTAMP_KEY: &str = "time:timestamp";

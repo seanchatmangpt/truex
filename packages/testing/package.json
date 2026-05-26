@@ -1,6 +1,6 @@
 {
   "name": "@truex/testing",
-  "version": "26.5.21",
+  "version": "26.5.25-CONVERGED",
   "description": "Testing utilities and fixtures",
   "type": "module",
   "main": "./dist/index.js",
@@ -29,7 +29,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@truex/contracts": "workspace:*"
+    "@truex/contracts": "workspace:*",
+    "@truex/swarm": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",

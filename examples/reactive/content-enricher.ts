@@ -11,7 +11,7 @@ export async function run() {
     console.log(`[ContentEnricher] Received sparse message: ${msg.id}`);
     
     const baseData = msg.delta.adds[0];
-    const enrichedData = `${baseData} + ENRICHED_WITH_(${state.enrichmentData})`;
+    const enrichedData = `${baseData.subject}:${baseData.predicate}:${baseData.object} + ENRICHED_WITH_(${state.enrichmentData})`;
     
     console.log(`[ContentEnricher] Hydrated payload: ${enrichedData}`);
     console.log(`[ContentEnricher] Forwarding enriched payload to: ${state.targetId}`);
@@ -33,7 +33,11 @@ export async function run() {
   dispatchMessage(runtime, { 
     id: "msg-sparse-1", 
     targetProcessId: "content-enricher", 
-    delta: { id: "d1", adds: ["user_id:12345"], deletes: [] } 
+    delta: { 
+      id: "d1", 
+      adds: [{ subject: "user", predicate: "id", object: "12345", graph: null }], 
+      deletes: [] 
+    } 
   });
 }
 const isMain = process.argv[1] && process.argv[1] === fileURLToPath(import.meta.url);

@@ -8,8 +8,8 @@
 //! Modules tested: rl_orchestrator, reinforcement agents
 
 use std::collections::HashSet;
-use wasm4pm::rl_orchestrator::{compute_reward, AgentType, RlOrchestrator};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{compute_reward, AgentType, RlOrchestrator};
+use truex_kernel::RlState;
 
 /// Helper: create an RlState with dummy features and given health level.
 fn make_test_state(health_level: u8) -> RlState {

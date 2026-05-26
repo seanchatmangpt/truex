@@ -1,6 +1,6 @@
-# Examples for wasm4pm
+# Examples for truex-kernel
 
-This directory contains working examples demonstrating how to use wasm4pm in different environments.
+This directory contains working examples demonstrating how to use truex-kernel in different environments.
 
 ## Quick Start
 
@@ -146,7 +146,7 @@ npm run example:webpack
 Requirements:
 
 - Node.js 14+
-- @wasm4pm/cli package built for Node.js
+- @truex/cli package built for Node.js
 
 Build for Node.js:
 
@@ -157,7 +157,7 @@ npm run build:nodejs
 Usage:
 
 ```javascript
-const pm = require('@wasm4pm/cli');
+const pm = require('@truex/cli');
 pm.init();
 const handle = pm.load_eventlog_from_xes(xesContent);
 ```
@@ -178,7 +178,7 @@ npm run build:web
 Usage:
 
 ```javascript
-import init, * as pm from '@wasm4pm/cli';
+import init, * as pm from '@truex/cli';
 
 async function setup() {
   await init();
@@ -402,7 +402,7 @@ To add new examples:
 
 ## Further Reading
 
-- [wasm4pm README](../README.md)
+- [truex-kernel README](../README.md)
 - [Integration Tests](../__tests__/integration/README.md)
 - [Test Fixtures](../__tests__/data/fixtures/README.md)
 - [XES Standard](http://xes-standard.org/)

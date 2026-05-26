@@ -1,6 +1,6 @@
-use wasm4pm::state::{get_or_init_state, StoredObject};
-use wasm4pm::autoprocess::{AutoProcessAgent, CircuitState};
-use wasm4pm_types::event_log::{EventLog, Trace, Event, AttributeValue, XESEditableAttribute};
+use truex_kernel::state::{get_or_init_state, StoredObject};
+use truex_kernel::autoprocess::{AutoProcessAgent, CircuitState};
+use truex_kernel_types::event_log::{EventLog, Trace, Event, AttributeValue, XESEditableAttribute};
 use fake::Fake;
 use proptest::prelude::*;
 
@@ -21,8 +21,8 @@ mod global_adversarial {
 
         // 2. Poisoned null bytes or whitespace in handle
         let log = EventLog::new(vec![], Vec::new());
-        let wasm4pm_log: wasm4pm::models::EventLog = log.into();
-        let handle = state.store_object(StoredObject::EventLog(wasm4pm_log)).unwrap();
+        let truex-kernel_log: truex_kernel::models::EventLog = log.into();
+        let handle = state.store_object(StoredObject::EventLog(truex-kernel_log)).unwrap();
         
         let poisoned = format!("{}\0", handle);
         assert!(state.get_object(&poisoned).unwrap().is_none());
@@ -35,7 +35,7 @@ mod global_adversarial {
     /// Counterfactual: If the reward signal is pure noise (max variance), the circuit breaker MUST trip.
     #[test]
     fn test_global_mape_k_meltdown() {
-        use wasm4pm::RlState;
+        use truex_kernel::RlState;
         let mut agent = AutoProcessAgent::with_config(0.5, 0.9, 5, 100);
         
         let state = RlState {
@@ -66,8 +66,8 @@ mod global_adversarial {
     fn test_global_zombie_handles() {
         let state = get_or_init_state();
         let log = EventLog::new(vec![], Vec::new());
-        let wasm4pm_log: wasm4pm::models::EventLog = log.into();
-        let handle = state.store_object(StoredObject::EventLog(wasm4pm_log)).unwrap();
+        let truex-kernel_log: truex_kernel::models::EventLog = log.into();
+        let handle = state.store_object(StoredObject::EventLog(truex-kernel_log)).unwrap();
         
         state.clear_all().unwrap();
         
@@ -88,8 +88,8 @@ mod global_adversarial {
                 events.push(Event::new(Vec::new()));
             }
             let log = EventLog::new(vec![Trace::new("case".to_string(), events)], Vec::new());
-            let wasm4pm_log: wasm4pm::models::EventLog = log.into();
-            let handle = state.store_object(StoredObject::EventLog(wasm4pm_log)).unwrap();
+            let truex-kernel_log: truex_kernel::models::EventLog = log.into();
+            let handle = state.store_object(StoredObject::EventLog(truex-kernel_log)).unwrap();
             assert!(state.get_object(&handle).unwrap().is_some());
             state.delete_object(&handle).unwrap();
         }

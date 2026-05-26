@@ -1,0 +1,10 @@
+{
+  "receiptHash": "7b3d3985efe557274d4e176071a261fb92d8978747b67d4145302e3904d9c350",
+  "projectPath": "/tmp/operation2030",
+  "verb": "map",
+  "status": "succeeded",
+  "startedAt": "2026-05-26T05:12:21.347Z",
+  "completedAt": "2026-05-26T05:12:21.354Z",
+  "reportPath": ".truex/reports/project-topology.json",
+  "details": "Topology mapped. Hash: dc10f1405cd29c32c931f269b40bb5bd59ebf3ff7194259a558de1c10b872514"
+}

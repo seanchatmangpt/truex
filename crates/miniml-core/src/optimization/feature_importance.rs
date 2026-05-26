@@ -1,6 +1,6 @@
 //! Feature Importance (Permutation/SHAP-lite)
 //!
-//! Ported from wasm4pm feature_importance.rs
+//! Ported from truex_kernel feature_importance.rs
 //!
 //! Provides permutation-based feature importance analysis.
 //! Answers: "Which features matter most for prediction?"

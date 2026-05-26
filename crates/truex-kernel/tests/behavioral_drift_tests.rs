@@ -13,12 +13,12 @@
 //! 6. Multi-rule detection priority (each rule fires on its own drift type)
 
 #[cfg(feature = "ml")]
-use wasm4pm::prediction_additions::ewma;
-use wasm4pm::spc::{
+use truex_kernel::prediction_additions::ewma;
+use truex_kernel::spc::{
     check_western_electric_rules, spc_mean, spc_std_dev, ChartData, ShiftDirection, SpecialCause,
     TrendDirection,
 };
-use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
+use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
 
 // ---------------------------------------------------------------------------
 // Helpers

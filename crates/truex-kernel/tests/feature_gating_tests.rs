@@ -1,4 +1,4 @@
-//! Feature Gating Tests for wasm4pm Deployment Profiles
+//! Feature Gating Tests for truex_kernel Deployment Profiles
 //!
 //! Verifies that:
 //! 1. All feature flags compile without errors

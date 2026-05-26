@@ -1977,7 +1977,9 @@ Truex OTP Non-Mockable Stress State:
       receiptHash: result.receiptHash
     };
 
-    this.writeReport(primitive, report);
+    if (!(options?.skipWrite === true)) {
+      this.writeReport(primitive, report);
+    }
     
     if (result.passed) {
       console.log(`✅ Primitive "${primitive}" proven successfully.`);

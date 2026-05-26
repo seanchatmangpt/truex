@@ -16,14 +16,14 @@ export async function run() {
     }
     if (msg.type === 'SEND') {
        console.log('Sender: Sending message...');
-       return { effects: [{ type: 'send', targetProcessId: 'receiver', delta: msg.delta, messageId: 'msg-1' }], nextState: state };
+       return { effects: [{ kind: 'send', targetProcessId: 'receiver', delta: msg.delta, messageId: 'msg-1' }], nextState: state };
     }
     return { effects: [], nextState: state };
   };
 
   const receiverBehavior = (state: any, msg: any) => {
     console.log('Receiver: Received message, sending ACK.');
-    return { effects: [{ type: 'send', targetProcessId: 'sender', delta: { id: 'ack-1', adds: [], deletes: [] }, messageId: 'ack-1', type: 'ACK' }], nextState: state };
+    return { effects: [{ kind: 'send', targetProcessId: 'sender', delta: { id: 'ack-1', adds: [], deletes: [] }, messageId: 'ack-1', type: 'ACK' }], nextState: state };
   };
 
   runtime.processes.set("sender", createHookProcess("sender", senderBehavior, { delivered: false }));

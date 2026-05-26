@@ -1,6 +1,6 @@
 {
   "name": "@truex/storehouse",
-  "version": "0.1.0",
+  "version": "26.5.25-CONVERGED",
   "description": "Storehouse Infrastructure for TrueX - Stewardship Receipting and Overflow Routing",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

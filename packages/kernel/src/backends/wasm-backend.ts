@@ -7,7 +7,7 @@
  * Spec reference: Section 3.3 (WasmBackend declaration)
  */
 
-import * as wasm from '@truex/membrane';
+import * as wasm from '@truex/kernel-wasm';
 import type {
   MiningBackend,
   BackendCapabilities,

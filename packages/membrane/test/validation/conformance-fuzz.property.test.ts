@@ -6,7 +6,7 @@ import { AndonSystem } from '../../src/manufacturing/jidoka.js';
 import { hash } from '../../src/hash.js';
 import { createDeterministicContext } from '../../src/context.js';
 import { createReceipt } from '../../src/receipt.js';
-import * as wasm from '../../../../packages/kernel-wasm/pkg/wasm4pm.js';
+import * as wasm from '../../../../packages/kernel-wasm/pkg/truex_kernel.js';
 
 // Fast-check Arbitrary for generating malformed JSON strings or random corrupt structures
 const malformedJsonArbitrary = fc.oneof(

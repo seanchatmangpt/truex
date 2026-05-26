@@ -1,6 +1,6 @@
 {
-  "name": "proxyable",
-  "version": "26.5.22",
+  "name": "truex-membrane",
+  "version": "26.5.25-CONVERGED",
   "description": "Dynamic JavaScript proxy creation with isolated context-based interception",
   "repository": "unjs/proxyable",
   "license": "MIT",

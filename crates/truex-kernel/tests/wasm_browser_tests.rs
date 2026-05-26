@@ -19,13 +19,13 @@ wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
 fn browser_get_version_returns_non_empty() {
-    let version = wasm4pm::get_version();
+    let version = truex_kernel::get_version();
     assert!(!version.is_empty(), "get_version() must return a non-empty string in browser");
 }
 
 #[wasm_bindgen_test]
 fn browser_get_capabilities_returns_ok() {
-    let result = wasm4pm::get_capabilities();
+    let result = truex_kernel::get_capabilities();
     assert!(
         result.is_ok(),
         "get_capabilities() must return Ok in browser, got Err"
@@ -34,7 +34,7 @@ fn browser_get_capabilities_returns_ok() {
 
 #[wasm_bindgen_test]
 fn browser_get_cache_stats_returns_ok() {
-    let result = wasm4pm::get_cache_stats();
+    let result = truex_kernel::get_cache_stats();
     assert!(
         result.is_ok(),
         "get_cache_stats() must return Ok in browser"
@@ -62,7 +62,7 @@ fn browser_load_xes_and_discover_dfg() {
   </trace>
 </log>"#;
 
-    let handle = wasm4pm::load_eventlog_from_xes(xes);
+    let handle = truex_kernel::load_eventlog_from_xes(xes);
     assert!(
         handle.is_ok(),
         "load_eventlog_from_xes() must succeed in browser"
@@ -70,7 +70,7 @@ fn browser_load_xes_and_discover_dfg() {
     let handle = handle.unwrap();
     assert!(!handle.is_empty(), "Handle must be non-empty");
 
-    let dfg_json = wasm4pm::discover_dfg(&handle, "concept:name");
+    let dfg_json = truex_kernel::discover_dfg(&handle, "concept:name");
     assert!(
         dfg_json.is_ok(),
         "discover_dfg() must succeed in browser"
@@ -82,7 +82,7 @@ fn browser_load_xes_and_discover_dfg() {
     );
 
     // Clean up
-    let _ = wasm4pm::delete_object(&handle);
+    let _ = truex_kernel::delete_object(&handle);
 }
 
 #[wasm_bindgen_test]
@@ -94,11 +94,11 @@ fn browser_load_xes_delete_then_reject() {
   </trace>
 </log>"#;
 
-    let handle = wasm4pm::load_eventlog_from_xes(xes).expect("load must succeed");
-    wasm4pm::delete_object(&handle).expect("delete must succeed");
+    let handle = truex_kernel::load_eventlog_from_xes(xes).expect("load must succeed");
+    truex_kernel::delete_object(&handle).expect("delete must succeed");
 
     // After deletion, further use of the handle must fail gracefully
-    let dfg = wasm4pm::discover_dfg(&handle, "concept:name");
+    let dfg = truex_kernel::discover_dfg(&handle, "concept:name");
     assert!(
         dfg.is_err(),
         "Using a deleted handle must return an error"

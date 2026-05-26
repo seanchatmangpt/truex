@@ -10,11 +10,11 @@
 //! every expected value is derived from the algorithm's mathematical
 //! specification or documented domain contract, not from the implementation.
 
-use wasm4pm_cognition::breeds::{
+use truex_kernel_cognition::breeds::{
     Candidate, Fact, Goal, Rule, StateAtom, BreedInput, BreedId, dispatch_breed_test,
 };
-use wasm4pm_cognition::breeds::hearsay::noisy_or;
-use wasm4pm_cognition::breeds::production_rules::combine_cf;
+use truex_kernel_cognition::breeds::hearsay::noisy_or;
+use truex_kernel_cognition::breeds::production_rules::combine_cf;
 
 // =============================================================================
 // Helper builders
@@ -300,8 +300,8 @@ fn strips_unreachable_goal_returns_error() {
 /// Contract: the preconditions() gate must fire for missing goals.
 #[test]
 fn strips_preconditions_reject_empty_goals() {
-    use wasm4pm_cognition::breeds::strips::Strips;
-    use wasm4pm_cognition::breeds::CognitionBreed;
+    use truex_kernel_cognition::breeds::strips::Strips;
+    use truex_kernel_cognition::breeds::CognitionBreed;
 
     let mut input = empty_input_base();
     input.goals = vec![]; // empty — violates precondition
@@ -317,8 +317,8 @@ fn strips_preconditions_reject_empty_goals() {
 /// Rank-2: STRIPS empty rules → precondition rejects.
 #[test]
 fn strips_preconditions_reject_empty_rules() {
-    use wasm4pm_cognition::breeds::strips::Strips;
-    use wasm4pm_cognition::breeds::CognitionBreed;
+    use truex_kernel_cognition::breeds::strips::Strips;
+    use truex_kernel_cognition::breeds::CognitionBreed;
 
     let mut input = empty_input_base();
     input.goals = vec![goal("g", "done", "true")];
@@ -381,8 +381,8 @@ fn gps_presatisfied_goal_returns_empty_plan() {
 /// Rank-2: GPS empty goals → precondition rejects.
 #[test]
 fn gps_preconditions_reject_empty_goals() {
-    use wasm4pm_cognition::breeds::gps::Gps;
-    use wasm4pm_cognition::breeds::CognitionBreed;
+    use truex_kernel_cognition::breeds::gps::Gps;
+    use truex_kernel_cognition::breeds::CognitionBreed;
 
     let mut input = empty_input_base();
     input.goals = vec![];
@@ -473,8 +473,8 @@ fn hearsay_confidence_cannot_exceed_one() {
 /// Rank-2: Hearsay requires at least one knowledge source (rule).
 #[test]
 fn hearsay_preconditions_reject_empty_rules() {
-    use wasm4pm_cognition::breeds::hearsay::Hearsay;
-    use wasm4pm_cognition::breeds::CognitionBreed;
+    use truex_kernel_cognition::breeds::hearsay::Hearsay;
+    use truex_kernel_cognition::breeds::CognitionBreed;
 
     let mut input = empty_input_base();
     input.rules = vec![];
@@ -573,8 +573,8 @@ fn soar_better_than_is_transitive() {
 /// Rank-2: SOAR empty candidates → precondition rejects.
 #[test]
 fn soar_preconditions_reject_empty_candidates() {
-    use wasm4pm_cognition::breeds::soar::Soar;
-    use wasm4pm_cognition::breeds::CognitionBreed;
+    use truex_kernel_cognition::breeds::soar::Soar;
+    use truex_kernel_cognition::breeds::CognitionBreed;
 
     let mut input = empty_input_base();
     input.candidates = vec![];
@@ -691,8 +691,8 @@ fn dendral_no_constraints_all_survive() {
 /// Rank-2: DENDRAL empty candidates → precondition rejects.
 #[test]
 fn dendral_preconditions_reject_empty_candidates() {
-    use wasm4pm_cognition::breeds::dendral::Dendral;
-    use wasm4pm_cognition::breeds::CognitionBreed;
+    use truex_kernel_cognition::breeds::dendral::Dendral;
+    use truex_kernel_cognition::breeds::CognitionBreed;
 
     let mut input = empty_input_base();
     input.candidates = vec![];

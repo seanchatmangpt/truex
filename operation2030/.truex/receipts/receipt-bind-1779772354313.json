@@ -1,0 +1,9 @@
+{
+  "receiptHash": "23d154a7046a4aab16ae9ff413e7b4a75c97d2d98bbb8fd1049f9a1006e7cf70",
+  "projectPath": "/Users/sac/truex/operation2030",
+  "verb": "bind",
+  "status": "succeeded",
+  "startedAt": "2026-05-26T05:12:34.303Z",
+  "completedAt": "2026-05-26T05:12:34.312Z",
+  "details": "Bound checkpoint components: cp-cli-contract"
+}

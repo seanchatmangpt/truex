@@ -66,7 +66,7 @@ mod discovery_otel_validation {
     /// test_discovery_otel(
     ///     "discover_dfg",
     ///     || discover_dfg_from_log(&log, "concept:name"),
-    ///     &["wasm4pm.discovery.dfg"],
+    ///     &["truex_kernel.discovery.dfg"],
     ///     &["algorithm", "log_size", "activity_count", "node_count", "edge_count"],
     /// );
     /// ```
@@ -141,14 +141,14 @@ mod discovery_otel_validation {
     fn test_discover_dfg_otel_spans() {
         // NOTE: This test is a TEMPLATE. To make it functional, you need:
         // 1. A working tracing subscriber that records spans (see OtelCapture above)
-        // 2. Integration with `wasm4pm_test_harness` or similar
+        // 2. Integration with `truex-kernel_test_harness` or similar
         //
         // For now, the test demonstrates the structure and assertions
         // that MUST be in place when OTEL integration is complete.
 
         println!("TEMPLATE TEST: discover_dfg OTEL validation");
         println!("  Assertions needed:");
-        println!("    - Span name: 'wasm4pm.discovery.dfg'");
+        println!("    - Span name: 'truex_kernel.discovery.dfg'");
         println!("    - Level: INFO");
         println!("    - Attributes: algorithm, log_size, activity_count, node_count, edge_count, complexity");
         println!("    - Checkpoints: 'feature_extraction', 'result_generation'");
@@ -160,8 +160,8 @@ mod discovery_otel_validation {
         //
         // assert!(!dfg.nodes.is_empty(), "DFG should have nodes");
         // assert!(!dfg.edges.is_empty(), "DFG should have edges");
-        // assert!(capture.has_span_with_target("wasm4pm.discovery.dfg"), "Missing DFG span");
-        // assert!(capture.has_attributes("wasm4pm.discovery.dfg", &["algorithm", "log_size", "activity_count"]), "Missing required attributes");
+        // assert!(capture.has_span_with_target("truex_kernel.discovery.dfg"), "Missing DFG span");
+        // assert!(capture.has_attributes("truex_kernel.discovery.dfg", &["algorithm", "log_size", "activity_count"]), "Missing required attributes");
     }
 
     /// Test: discover_alpha_plus_plus emits OTEL spans with correct attributes
@@ -170,7 +170,7 @@ mod discovery_otel_validation {
     fn test_discover_alpha_plus_plus_otel_spans() {
         println!("TEMPLATE TEST: discover_alpha_plus_plus OTEL validation");
         println!("  Assertions needed:");
-        println!("    - Span name: 'wasm4pm.discovery.alpha_plus_plus'");
+        println!("    - Span name: 'truex_kernel.discovery.alpha_plus_plus'");
         println!("    - Attributes: algorithm, log_size, activity_count, place_count, transition_count, arc_count, min_support");
         println!("    - Checkpoints: 'feature_extraction', 'result_generation'");
     }
@@ -181,7 +181,7 @@ mod discovery_otel_validation {
     fn test_discover_declare_otel_spans() {
         println!("TEMPLATE TEST: discover_declare OTEL validation");
         println!("  Assertions needed:");
-        println!("    - Span name: 'wasm4pm.discovery.declare'");
+        println!("    - Span name: 'truex_kernel.discovery.declare'");
         println!("    - Attributes: algorithm, activity_key, activity_count, trace_count, profiles_count");
         println!("    - Checkpoints: 'feature_extraction', 'profile_building', 'result_generation'");
     }
@@ -191,7 +191,7 @@ mod discovery_otel_validation {
     #[ignore = "Algorithm needs tracing instrumentation first"]
     fn test_discover_heuristic_miner_otel_spans() {
         println!("TODO: Add tracing to discover_heuristic_miner");
-        println!("  Required span: 'wasm4pm.discovery.heuristic_miner'");
+        println!("  Required span: 'truex_kernel.discovery.heuristic_miner'");
         println!("  Required attributes: algorithm, log_size, activity_count, dependency_threshold, node_count, edge_count");
     }
 
@@ -200,7 +200,7 @@ mod discovery_otel_validation {
     #[ignore = "Algorithm needs tracing instrumentation first"]
     fn test_discover_inductive_miner_otel_spans() {
         println!("TODO: Add tracing to discover_inductive_miner");
-        println!("  Required span: 'wasm4pm.discovery.inductive_miner'");
+        println!("  Required span: 'truex_kernel.discovery.inductive_miner'");
         println!("  Required attributes: algorithm, log_size, activity_count, tree_nodes, tree_depth");
     }
 
@@ -209,7 +209,7 @@ mod discovery_otel_validation {
     #[ignore = "Algorithm needs tracing instrumentation first"]
     fn test_discover_hill_climbing_otel_spans() {
         println!("TODO: Add tracing to discover_hill_climbing");
-        println!("  Required span: 'wasm4pm.discovery.hill_climbing'");
+        println!("  Required span: 'truex_kernel.discovery.hill_climbing'");
         println!("  Required attributes: algorithm, log_size, activity_count, iterations_used, fitness_improvement, node_count, edge_count");
     }
 
@@ -218,7 +218,7 @@ mod discovery_otel_validation {
     #[ignore = "Algorithm needs tracing instrumentation first"]
     fn test_discover_simulated_annealing_otel_spans() {
         println!("TODO: Add tracing to discover_simulated_annealing");
-        println!("  Required span: 'wasm4pm.discovery.simulated_annealing'");
+        println!("  Required span: 'truex_kernel.discovery.simulated_annealing'");
         println!("  Required attributes: algorithm, log_size, activity_count, initial_temperature, cooling_rate, final_temperature, accepted_moves");
     }
 
@@ -227,7 +227,7 @@ mod discovery_otel_validation {
     #[ignore = "Algorithm needs tracing instrumentation first"]
     fn test_discover_astar_otel_spans() {
         println!("TODO: Add tracing to discover_astar");
-        println!("  Required span: 'wasm4pm.discovery.astar'");
+        println!("  Required span: 'truex_kernel.discovery.astar'");
         println!("  Required attributes: algorithm, log_size, activity_count, max_iterations, iterations_used, frontier_size, node_count, edge_count");
     }
 
@@ -236,7 +236,7 @@ mod discovery_otel_validation {
     #[ignore = "Algorithm needs tracing instrumentation first"]
     fn test_discover_genetic_algorithm_otel_spans() {
         println!("TODO: Add tracing to discover_genetic_algorithm");
-        println!("  Required span: 'wasm4pm.discovery.genetic_algorithm'");
+        println!("  Required span: 'truex_kernel.discovery.genetic_algorithm'");
         println!("  Required attributes: algorithm, log_size, activity_count, population_size, generations, final_fitness, convergence_generation");
     }
 
@@ -250,20 +250,20 @@ mod discovery_otel_validation {
     /// - Entry span with algorithm name
     /// - At least one checkpoint span
     /// - Required attributes (algorithm, log_size, activity_count)
-    /// - Correct target prefix (wasm4pm.discovery.*)
+    /// - Correct target prefix (truex_kernel.discovery.*)
     #[test]
     #[ignore = "Requires complete OTEL integration"]
     fn test_all_discovery_algorithms_emit_spans() {
         let algorithm_specs = vec![
-            ("discover_dfg", "wasm4pm.discovery.dfg", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_alpha_plus_plus", "wasm4pm.discovery.alpha_plus_plus", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_declare", "wasm4pm.discovery.declare", &["algorithm", "activity_count"][..]),
-            ("discover_heuristic_miner", "wasm4pm.discovery.heuristic_miner", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_inductive_miner", "wasm4pm.discovery.inductive_miner", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_hill_climbing", "wasm4pm.discovery.hill_climbing", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_simulated_annealing", "wasm4pm.discovery.simulated_annealing", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_astar", "wasm4pm.discovery.astar", &["algorithm", "log_size", "activity_count"][..]),
-            ("discover_genetic_algorithm", "wasm4pm.discovery.genetic_algorithm", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_dfg", "truex_kernel.discovery.dfg", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_alpha_plus_plus", "truex_kernel.discovery.alpha_plus_plus", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_declare", "truex_kernel.discovery.declare", &["algorithm", "activity_count"][..]),
+            ("discover_heuristic_miner", "truex_kernel.discovery.heuristic_miner", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_inductive_miner", "truex_kernel.discovery.inductive_miner", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_hill_climbing", "truex_kernel.discovery.hill_climbing", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_simulated_annealing", "truex_kernel.discovery.simulated_annealing", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_astar", "truex_kernel.discovery.astar", &["algorithm", "log_size", "activity_count"][..]),
+            ("discover_genetic_algorithm", "truex_kernel.discovery.genetic_algorithm", &["algorithm", "log_size", "activity_count"][..]),
         ];
 
         println!("Parametric test: {} algorithms", algorithm_specs.len());
@@ -342,7 +342,7 @@ mod discovery_otel_validation {
 //    ```
 //
 // **References:**
-// - Audit Report: `/Users/sac/wasm4pm/.claude/audit-discovery-otel.md`
+// - Audit Report: `/Users/sac/truex_kernel/.claude/audit-discovery-otel.md`
 // - DFG Template: `discovery.rs:77-130` (fully instrumented)
 // - Alpha++ Template: `algorithms.rs:441-496` (fully instrumented)
 // - Chicago TDD: `~/.claude/rules/chicago-tdd.md` (evidence standard)

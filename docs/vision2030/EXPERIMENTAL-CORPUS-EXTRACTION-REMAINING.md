@@ -1415,15 +1415,15 @@ _Generated 2026-05-18. Provenance receipt in .portfolio/chain.json._
 - **Tera template materialization (μ₃)**: Consumes SPARQL facts to generate artifacts. Example: `supabase-migration.tera` `[commit:a41cec8]`. Driven by `[ggen]`.
 - **Canonical runtime artifacts (μ₄ validate, μ₅ emit)**: Supabase migrations and Expo mobile threshold surfaces emitted directly into the `supabase/` and `packages/` directories `[commit:974ad35]`. Driven by `[ggen]`.
 - **Receipt emission**: `[snapshot:open-ontologies]` `.ggen/receipts` tracks 94 entries verified via EARL verifier. `mcpp` maintains `.mcpp/chain.jsonl` `[snapshot:mcpp]`. Driven by `[ggen]`/`[bash]`/`[cargo-make]` (e.g., `verify-receipts.sh` `[commit:68f3972]`).
-- **Conformance replay (wasm4pm)**: `mcpp ocel replay --global` evaluates OCEL logs against POWL v2 discovery `[memory:project_mcpp_wasm4pm_boundary]`. Driven by `[mcpp CLI]`/`[claude]`.
-- **Admission gates**: Evaluates conformance. Doctor classifies into `RouteConformanceFailed`, `MissingRouteActivity`, etc. `[memory:project_mcpp_wasm4pm_boundary]`. Driven by `[mcpp]`.
+- **Conformance replay (truex-kernel)**: `mcpp ocel replay --global` evaluates OCEL logs against POWL v2 discovery `[memory:project_mcpp_truex-kernel_boundary]`. Driven by `[mcpp CLI]`/`[claude]`.
+- **Admission gates**: Evaluates conformance. Doctor classifies into `RouteConformanceFailed`, `MissingRouteActivity`, etc. `[memory:project_mcpp_truex-kernel_boundary]`. Driven by `[mcpp]`.
 
 ## 3. Autonomic gap
 
 - **Legacy Gemini Invocation**: open-ontologies still shells out to `gemini -p ... --approval-mode yolo` `[transcript:ec324c5f-7e29-477c-b1bb-c394f10654d8]`. Needs patching to `npx -y @google/gemini-cli -p ... -y` to match speckit-ralph's recent CLI integration `[transcript:711d1ee0-e054-4566-9d11-ef8ef9673820]`.
 - **TTL Authoring Loop**: Ontology additions currently require Claude sessions. Smallest concrete change: A dedicated `tools/repo-state/reconcile/briefs/ontostar-authoring.yaml` brief to ingest natural-language domain needs and output `https://zoela.org/ontology/` namespaced TTL files.
 - **ggen sync execution & remediation**: `ggen sync` runs manually by Claude `[transcript:ecaa7798-621a-44dc-ab39-2dd04b553c35]`. Smallest concrete change: A cron loop driver (e.g., `bash tools/ggen-sync-loop.sh`) that pipes `pnpm validate:all` and `ggen sync` stderr into a Gemini remediation brief when they fail.
-- **Conformance Feedback Loop**: `mcpp ocel replay` and wasm4pm output `[memory:project_mcpp_wasm4pm_boundary]` are read by Claude. Smallest concrete change: A script extracting fitness/precision metrics from `bench_data/ocel20_example.jsonocel` `[snapshot:wasm4pm]` and routing them to Gemini via `gemini-do.sh` to self-correct the TTL/SPARQL mismatch.
+- **Conformance Feedback Loop**: `mcpp ocel replay` and truex-kernel output `[memory:project_mcpp_truex-kernel_boundary]` are read by Claude. Smallest concrete change: A script extracting fitness/precision metrics from `bench_data/ocel20_example.jsonocel` `[snapshot:truex-kernel]` and routing them to Gemini via `gemini-do.sh` to self-correct the TTL/SPARQL mismatch.
 
 ...
 ```
@@ -1877,20 +1877,20 @@ This document summarizes the complete conversion of the Unjucks template engine 
 ## Repository: untitled1
 *No .md files found in this repository (depth <= 2).*
 
-## Repository: wasm4pm-backups
-**Source:** `/Users/sac/wasm4pm-backups/RECOVERY.md`
+## Repository: truex-kernel-backups
+**Source:** `/Users/sac/truex-kernel-backups/RECOVERY.md`
 
 ```markdown
-# wasm4pm Preservation Snapshot — 2026-05-15
+# truex-kernel Preservation Snapshot — 2026-05-15
 
-Backup created before cleanup of 334 uncommitted files / 16 stashes / 17 worktrees in `/Users/sac/wasm4pm`.
+Backup created before cleanup of 334 uncommitted files / 16 stashes / 17 worktrees in `/Users/sac/truex-kernel`.
 
 ## Files in this directory
 
 | File | Purpose |
 |---|---|
-| `wasm4pm-bundle-20260515-161011.bundle` | Portable git bundle. All refs + reachable objects. 486M. |
-| `wasm4pm-dot-git-20260515-161011.tar.zst` | Bit-for-bit tar.zst of `.git/` (incl. dangling objects + reflog). 499M. |
+| `truex-kernel-bundle-20260515-161011.bundle` | Portable git bundle. All refs + reachable objects. 486M. |
+| `truex-kernel-dot-git-20260515-161011.tar.zst` | Bit-for-bit tar.zst of `.git/` (incl. dangling objects + reflog). 499M. |
 | `RECOVERY.md` | This file. |
 
 ## What's preserved
@@ -1901,8 +1901,8 @@ Every uncommitted byte is reachable via a permanent ref in the repo's `.git/refs
 |---|--:|---|
 | `backup/pre-cleanup-2026-05-15` (tag) | 1 | Annotated tag pinning the pre-cleanup HEAD on `main`. Recovery anchor. |
 | `wip/stash-N-<label>` | 16 | Each of the 16 `git stash list` entries materialized as a branch (so stash drop / reflog expiration cannot destroy them). |
-| `wip/main-tree-2026-05-15` | 1 | Snapshot of `main`'s working tree at preservation time. 3-parent stash-style commit (P1=HEAD, P2=index, P3=untracked). All 334 uncommitted file changes (incl. PhD theses, `wasm4pm/src/advanced/`, real-data tests) recoverable. |
-| `wip/worktree-<name>-2026-05-15` | 11 | Per-worktree working-tree snapshot for each of the 11 worktrees that had meaningful uncommitted content (includes untracked new crates `wasm4pm-prolog`, `wasm4pm-simd-prolog`; new shell completions; cognition command tree). |
+| `wip/main-tree-2026-05-15` | 1 | Snapshot of `main`'s working tree at preservation time. 3-parent stash-style commit (P1=HEAD, P2=index, P3=untracked). All 334 uncommitted file changes (incl. PhD theses, `truex-kernel/src/advanced/`, real-data tests) recoverable. |
+| `wip/worktree-<name>-2026-05-15` | 11 | Per-worktree working-tree snapshot for each of the 11 worktrees that had meaningful uncommitted content (includes untracked new crates `truex-kernel-prolog`, `truex-kernel-simd-prolog`; new shell completions; cognition command tree). |
 | `rescue/dangling-<short>-<slug>` | 5 | Substantive dangling commits found by `git fsck` that were not reachable from any other ref. |
 | **Total preservation refs** | **34** | |
 

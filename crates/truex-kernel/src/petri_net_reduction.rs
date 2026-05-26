@@ -15,7 +15,7 @@
 //! 4. **Elimination of identical places** -- merge places that share
 //!    identical preset and postset transitions.
 //!
-//! Adapted from pm4wasm `algorithms::reduction` to wasm4pm's `models::PetriNet`.
+//! Adapted from pm4wasm `algorithms::reduction` to truex_kernel's `models::PetriNet`.
 
 use crate::models::{PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition};
 use std::collections::HashMap;

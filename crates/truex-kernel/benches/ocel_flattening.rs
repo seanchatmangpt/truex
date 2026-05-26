@@ -12,8 +12,8 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::models::{OCELEvent, OCELObject, OCEL};
-use wasm4pm::ocel_flatten::measure_flattening_loss;
+use truex_kernel::models::{OCELEvent, OCELObject, OCEL};
+use truex_kernel::ocel_flatten::measure_flattening_loss;
 
 #[path = "helpers.rs"]
 mod helpers;

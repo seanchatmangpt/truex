@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779747599521-gut93p6",
+  "spanId": "span-unknown",
+  "startTime": 1779747599521,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779747600308,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779747600308,
+  "durationMs": 787
+}

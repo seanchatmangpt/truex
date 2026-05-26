@@ -96,6 +96,7 @@ export function registerCapabilityInterceptors(proxyInterface: any, capCtx: any)
 
   proxyInterface.defineSetInterceptor((target: any, prop: any) => {
     if (!canWrite(prop)) return false;
+    return undefined;
   });
 
   proxyInterface.defineHasInterceptor((target: any, prop: any) => {
@@ -104,6 +105,7 @@ export function registerCapabilityInterceptors(proxyInterface: any, capCtx: any)
 
   proxyInterface.defineDeletePropertyInterceptor((target: any, prop: any) => {
     if (!canDelete(prop)) return false;
+    return undefined;
   });
 
   // Descriptor read protection check
@@ -116,6 +118,7 @@ export function registerCapabilityInterceptors(proxyInterface: any, capCtx: any)
   // defineProperty write protection check
   proxyInterface.defineDefinePropertyInterceptor((target: any, prop: any, descriptor: any) => {
     if (!canWrite(prop)) return false;
+    return undefined;
   });
 
   proxyInterface.defineApplyInterceptor((target: any, thisArg: any, argsList: any) => {
@@ -365,8 +368,9 @@ export function registerSandboxInterceptors(proxyInterface: any, sandboxCtx: any
 
   proxyInterface.defineSetInterceptor((target: any, prop: any) => {
     const state = sandboxCtx.context.tryUse();
-    if (!state) return undefined;
+    if (!state) return false;
     if (sandboxCtx.isRestricted(prop)) return false;
+    return undefined;
   });
 
   proxyInterface.defineOwnKeysInterceptor((target: any, currentKeys: any[]) => {
@@ -385,8 +389,9 @@ export function registerSandboxInterceptors(proxyInterface: any, sandboxCtx: any
 
   proxyInterface.defineDeletePropertyInterceptor((target: any, prop: any) => {
     const state = sandboxCtx.context.tryUse();
-    if (!state) return undefined;
+    if (!state) return false;
     if (sandboxCtx.isRestricted(prop) || !state.policy.allowDelete) return false;
+    return undefined;
   });
 
   proxyInterface.defineApplyInterceptor((target: any, thisArg: any, argsList: any) => {

@@ -11,11 +11,11 @@
 //! All assertions use real OCEL data (no mocks) and verify mathematical properties.
 
 use std::collections::{HashMap, HashSet};
-use wasm4pm::models::{
+use truex_kernel::models::{
     AttributeValue, OCELEvent, OCELEventObjectRef, OCELObject, OCEL,
 };
-use wasm4pm::discovery::discover_ocel_dfg_pure;
-use wasm4pm::ocel_io::validate_ocel_object_lifecycles;
+use truex_kernel::discovery::discover_ocel_dfg_pure;
+use truex_kernel::ocel_io::validate_ocel_object_lifecycles;
 
 // =============================================================================
 // TASK 1: OCEL LOADING & VALIDATION

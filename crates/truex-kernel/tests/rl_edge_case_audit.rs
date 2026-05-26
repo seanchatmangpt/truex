@@ -1,7 +1,7 @@
 //! Edge case audit for RL orchestrator: action bounds, reward NaN/Inf, LinUCB safety
 
-use wasm4pm::rl_orchestrator::{RlOrchestrator, AgentType, compute_reward, compute_reward_with_momentum, RewardParameters};
-use wasm4pm::{RlState, RlAction};
+use truex_kernel::rl_orchestrator::{RlOrchestrator, AgentType, compute_reward, compute_reward_with_momentum, RewardParameters};
+use truex_kernel::{RlState, RlAction};
 
 // GUARD 1: Action bounds (0-4 valid, reject out-of-range)
 #[test]

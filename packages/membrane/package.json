@@ -1,6 +1,6 @@
 {
   "name": "@truex/membrane",
-  "version": "26.5.22",
+  "version": "26.5.25-CONVERGED",
   "type": "module",
   "exports": {
     ".": "./src/index.ts"

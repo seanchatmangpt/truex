@@ -3,7 +3,7 @@
 //! STRIPS: Test that frame axioms preserve implicit state across actions
 //! GPS: Test that subgoal ordering reduces backtracking and matches Newell & Shaw benchmarks
 
-use wasm4pm_cognition::breeds::{
+use truex_kernel_cognition::breeds::{
     Candidate, Fact, Goal, Rule, StateAtom, BreedInput, BreedId, dispatch_breed_test,
 };
 

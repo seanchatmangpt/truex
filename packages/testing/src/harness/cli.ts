@@ -54,7 +54,7 @@ export async function createCliTestEnv(configContent?: string): Promise<CliTestE
   const outputDir = path.join(tempDir, 'output');
   await fs.mkdir(outputDir, { recursive: true });
 
-  const configPath = path.join(tempDir, 'wasm4pm.json');
+  const configPath = path.join(tempDir, 'truex.json');
   if (configContent) {
     await fs.writeFile(configPath, configContent, 'utf-8');
   }
@@ -72,10 +72,10 @@ export async function createCliTestEnv(configContent?: string): Promise<CliTestE
         // best effort
       }
       try {
-        // Remove global .wasm4pm/ artifacts (results, receipts, cache) to prevent cross-test pollution
-        await fs.rm('.wasm4pm', { recursive: true, force: true });
+        // Remove global .truex/ artifacts (results, receipts, cache) to prevent cross-test pollution
+        await fs.rm('.truex', { recursive: true, force: true });
       } catch {
-        // best effort — .wasm4pm may not exist
+        // best effort — .truex may not exist
       }
     },
   };
@@ -202,7 +202,7 @@ export function assertErrorCode(result: CliResult, errorCode: string): void {
 export async function writeTestConfig(
   dir: string,
   config: Record<string, unknown>,
-  filename = 'wasm4pm.json'
+  filename = 'truex.json'
 ): Promise<string> {
   const filePath = path.join(dir, filename);
   await fs.writeFile(filePath, JSON.stringify(config, null, 2), 'utf-8');

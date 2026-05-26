@@ -9,7 +9,7 @@
 //! - Rank 3 (Metamorphic): dirty data degrades conformance, proportional frequency effects
 
 use std::collections::HashMap;
-use wasm4pm::models::{
+use truex_kernel::models::{
     AttributeValue, ConformanceResult, Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace,
     PetriNetTransition, Trace,
 };
@@ -692,7 +692,7 @@ fn dirty_data_conformance_impact_documented() {
     //
     // Clean log (all traces fit model): high fitness
     // Add 2 traces with extra activity X (doesn't fit model): fitness drops
-    use wasm4pm::conformance::token_replay_pure;
+    use truex_kernel::conformance::token_replay_pure;
 
     let petri_net = make_abc_petri_net();
 

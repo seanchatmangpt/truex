@@ -11,7 +11,7 @@ This S14 checkpoint proves the complete E2E integration, concurrency correctness
 - **Domain E2E (Path Verification):** Success Rate: 100.000% (34/34 patterns executed cleanly)
 - **Domain CONC (Concurrency):** Success Rate: 100.000% (34/34 concurrent resolutions)
 - **Domain FUZZ (Fault Tolerance):** Success Rate: 93.800% (469 succeeded, 31 quarantined, 31 refused)
-- **Domain LEAK (Memory Integrity):** Success Rate: 100.000% (Heap growth observed: 16.275 MB, within limit of 50 MB)
+- **Domain LEAK (Memory Integrity):** Success Rate: 100.000% (Heap growth observed: 16.369 MB, within limit of 50 MB)
 
 ## 3. Operational State Diagram
 ```mermaid
@@ -28,12 +28,12 @@ graph TD
 ```
 
 ## 4. Performance & Validation Synthesis
-- **E2E Duration:** 34 ms
+- **E2E Duration:** 37 ms
 - **Concurrency Duration:** 10 ms
 - **Fuzz Duration:** 35 ms
-- **Initial Heap Used:** 75.148 MB
-- **Final Heap Used:** 91.423 MB
-- **Heap Growth:** 16.275 MB
+- **Initial Heap Used:** 75.151 MB
+- **Final Heap Used:** 91.521 MB
+- **Heap Growth:** 16.369 MB
 - **Verification Hash:** `35b186d2de91597c34a823308305773a0325ac259b0877b8f26a25502088831e`
 
 ---

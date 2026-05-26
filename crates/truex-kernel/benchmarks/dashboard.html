@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wasm4pm Browser Benchmark Dashboard</title>
+    <title>truex-kernel Browser Benchmark Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <style>
       * {
@@ -253,7 +253,7 @@
   <body>
     <div class="container">
       <header>
-        <h1>wasm4pm Browser Benchmarks</h1>
+        <h1>truex-kernel Browser Benchmarks</h1>
         <p class="subtitle">Interactive Performance Analysis Dashboard</p>
       </header>
 
@@ -304,7 +304,7 @@
       </div>
 
       <footer>
-        <p>wasm4pm Browser Benchmark Dashboard — Performance analysis for WebAssembly process mining algorithms</p>
+        <p>truex-kernel Browser Benchmark Dashboard — Performance analysis for WebAssembly process mining algorithms</p>
       </footer>
     </div>
 
@@ -549,7 +549,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `wasm4pm_benchmarks_${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `truex-kernel_benchmarks_${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

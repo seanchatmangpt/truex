@@ -87,12 +87,12 @@ describe('Consensus Logger - Buffer Management', () => {
 
 describe('Consensus Logger - Log Path Management', () => {
   it('should construct correct log path', () => {
-    const baseDir = '.wasm4pm';
+    const baseDir = '.truex';
     const logPath = `${baseDir}/swarm/consensus-log.jsonl`;
 
     expect(logPath).toContain('consensus-log.jsonl');
     expect(logPath).toContain('swarm');
-    expect(logPath).toContain('.wasm4pm');
+    expect(logPath).toContain('.truex');
   });
 
   it('should support custom base directory', () => {

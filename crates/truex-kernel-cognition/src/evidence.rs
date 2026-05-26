@@ -297,7 +297,7 @@ impl EvidenceSource for OtelEvidenceSource {
 
 /// Evidence-source that reads benchmark outcomes from the local filesystem.
 ///
-/// Looks for `.wasm4pm/results/<target>.json` under `root` and parses
+/// Looks for `.truex/results/<target>.json` under `root` and parses
 /// `{ "outcome": "pass" | "fail" | "skip" }`. Any other value yields `None`,
 /// which is what a real "verdict missing" signal looks like.
 pub struct FilesystemEvidenceSource {
@@ -344,7 +344,7 @@ impl EvidenceSource for FilesystemEvidenceSource {
     fn benchmark_verdict(&self, target: &str) -> Option<Verdict> {
         let path = self
             .root
-            .join(".wasm4pm")
+            .join(".truex")
             .join("results")
             .join(format!("{}.json", target));
         let content = std::fs::read_to_string(&path).ok()?;

@@ -7,7 +7,7 @@ check-all:
 
 # Type Generation
 generate-types:
-	cargo test -p wasm4pm ts_rs_export --features bcinr
+	cargo test -p truex-kernel ts_rs_export --features bcinr
 	@echo "Types generated successfully in target/ts-rs"
 
 # ── Benchmarks ────────────────────────────────────────────────────────────────
@@ -30,7 +30,7 @@ bench-full:
 
 # ── Real-Data Substrate Certificate ──────────────────────────────────────────
 VERSION    := 26.5.21
-CERT_DIR   := target/wasm4pm-v$(VERSION)
+CERT_DIR   := target/truex-kernel-v$(VERSION)
 
 REAL_DATA_TESTS := \
   real_data_algo_validation \
@@ -115,8 +115,8 @@ substrate-cert: real-data fake-audit
 algo-registry:
 	@mkdir -p $(CERT_DIR)
 	@cd "$(CURDIR)/.." && python3 scripts/generate_algorithm_registry.py \
-	  --src-dir wasm4pm/src \
-	  --tests-dir wasm4pm/tests \
+	  --src-dir truex-kernel/src \
+	  --tests-dir truex-kernel/tests \
 	  --criterion-dir target/criterion \
 	  --output "$(CURDIR)/$(CERT_DIR)/algorithm-registry.json" \
 	  --version $(VERSION)
@@ -145,9 +145,9 @@ bench-report: algo-registry
 
 substrate-certificate: substrate-cert bench-report
 	@cd "$(CURDIR)/.." && python3 scripts/generate_capability_matrix.py \
-	  --src-dir wasm4pm/src \
-	  --tests-dir wasm4pm/tests \
-	  --cargo-toml wasm4pm/Cargo.toml \
+	  --src-dir truex-kernel/src \
+	  --tests-dir truex-kernel/tests \
+	  --cargo-toml truex-kernel/Cargo.toml \
 	  --output "$(CURDIR)/$(CERT_DIR)/capability-matrix.json" \
 	  --version $(VERSION)
 	@cd "$(CURDIR)/.." && python3 scripts/update_substrate_cert.py \

@@ -1,6 +1,6 @@
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::time::Duration;
-use wasm4pm::testing::{ActivityEvidence, ObjectEvidence, PowlTestHarness};
+use truex_kernel::testing::{ActivityEvidence, ObjectEvidence, PowlTestHarness};
 
 #[path = "helpers.rs"]
 mod helpers;

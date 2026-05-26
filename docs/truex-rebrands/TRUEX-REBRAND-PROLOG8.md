@@ -54,7 +54,7 @@ Called by the Membrane or the Kernel to evaluate complex, multi-variable policy 
 ---
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
-*   **Upstream:** Queried by `proxyable` and `wasm4pm`.
+*   **Upstream:** Queried by `proxyable` and `truex-kernel`.
 *   **Downstream:** Queries `knhk` for graph relationships.
 
 ---

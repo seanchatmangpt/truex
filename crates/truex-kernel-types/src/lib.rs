@@ -1,5 +1,5 @@
 
-#![doc = "Binary data structures for wasm4pm process mining platform."]
+#![doc = "Binary data structures for truex_kernel process mining platform."]
 #![doc = ""]
 #![doc = "This crate defines the canonical types that all functions pass around:"]
 #![doc = "- Event log formats (EventLog, OCEL)"]

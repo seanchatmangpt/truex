@@ -3,7 +3,7 @@
  * perf-summary.ts
  * Performance baseline summary and analysis tool
  *
- * Reads .wasm4pm/perf-baseline.json and generates:
+ * Reads .truex/perf-baseline.json and generates:
  * - Formatted markdown table of results
  * - Algorithm performance rankings
  * - Latency color-coding (green/yellow/red)
@@ -227,7 +227,7 @@ function compareBaselines(baseline1: BaselineData, baseline2: BaselineData): str
 
 async function main() {
   const args = process.argv.slice(2);
-  let baselineFile = path.join(process.cwd(), '.wasm4pm/perf-baseline.json');
+  let baselineFile = path.join(process.cwd(), '.truex/perf-baseline.json');
   let compareFile: string | null = null;
 
   for (let i = 0; i < args.length; i++) {

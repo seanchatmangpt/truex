@@ -263,7 +263,7 @@ describe('CLI overrides and example presets', () => {
   afterEach(async () => { await fs.rm(tmpDir, { recursive: true, force: true }); });
 
   it('CLI ML and RL overrides win over file config, presets round-trip, and example env file covers all vars', async () => {
-    await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'),
+    await fs.writeFile(path.join(tmpDir, 'truex.toml'),
       `version = "26.4.5"\n[source]\nkind = "file"\n[ml]\nenabled = false\ntasks = ["forecast"]\n`);
     const cfgMl = await resolveConfig({
       configSearchPaths: [tmpDir],
@@ -283,7 +283,7 @@ describe('CLI overrides and example presets', () => {
     expect(cfgRl.rl!.epsilon).toBe(0.02);
 
     for (const preset of ['fast', 'balanced', 'quality'] as const) {
-      await fs.writeFile(path.join(tmpDir, 'wasm4pm.toml'), getExamplePresetConfig(preset));
+      await fs.writeFile(path.join(tmpDir, 'truex.toml'), getExamplePresetConfig(preset));
       const cfg = await resolveConfig({ configSearchPaths: [tmpDir] });
       expect(cfg.execution.profile).toBe(preset);
     }

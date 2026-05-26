@@ -782,7 +782,7 @@ describe('Execute correction audit-trail structural invariants — Rank 2', () =
         {
           agent: 'config-drift-guardian',
           type: 'config_restoration',
-          target: 'wasm4pm.toml',
+          target: 'truex.toml',
           severity: 'warning',
           requires_approval: false,
         },

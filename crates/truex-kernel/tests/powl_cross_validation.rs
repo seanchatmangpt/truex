@@ -10,10 +10,10 @@
 
 use std::collections::HashMap;
 
-use wasm4pm::powl::conformance::token_replay::{compute_fitness, replay_trace};
-use wasm4pm::powl::conversion::to_petri_net;
-use wasm4pm::powl_arena::{Operator, PowlArena};
-use wasm4pm::powl_event_log::{Event, EventLog, Trace};
+use truex_kernel::powl::conformance::token_replay::{compute_fitness, replay_trace};
+use truex_kernel::powl::conversion::to_petri_net;
+use truex_kernel::powl_arena::{Operator, PowlArena};
+use truex_kernel::powl_event_log::{Event, EventLog, Trace};
 
 // ─── Shared helpers ───────────────────────────────────────────────────────────
 
@@ -165,7 +165,7 @@ fn test_loop_round_trip_fidelity() {
 
 #[test]
 fn test_choice_graph_sub_model_nesting() {
-    use wasm4pm_types::{ChoiceGraph, ChoiceGraphNode};
+    use truex_kernel_types::{ChoiceGraph, ChoiceGraphNode};
 
     // Build a 4-node ChoiceGraph: Start(0) → P(1) → End(3)
     //                                      → Q(2) → End(3)
@@ -475,8 +475,8 @@ fn test_loop_rejects_invalid_structure() {
 
 #[test]
 fn scc_order_produces_topological_sequence() {
-    use wasm4pm::powl::discovery::cuts::detect_sequence_cut;
-    use wasm4pm::powl::discovery::DiscoveryConfig;
+    use truex_kernel::powl::discovery::cuts::detect_sequence_cut;
+    use truex_kernel::powl::discovery::DiscoveryConfig;
 
     let traces = vec![
         vec!["A".to_string(), "B".to_string(), "C".to_string()],
@@ -600,8 +600,8 @@ fn fitness_one_on_trivially_conforming_log() {
 
 #[test]
 fn scc_reversal_affects_sequence_cut_ordering() {
-    use wasm4pm::powl::discovery::cuts::detect_sequence_cut;
-    use wasm4pm::powl::discovery::DiscoveryConfig;
+    use truex_kernel::powl::discovery::cuts::detect_sequence_cut;
+    use truex_kernel::powl::discovery::DiscoveryConfig;
 
     // Five traces, all strictly A → B → C (no variation, unambiguous total order).
     let traces: Vec<Vec<String>> = std::iter::repeat_with(|| {

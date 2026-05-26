@@ -16,11 +16,11 @@
 //! - Activity vocabulary matches log
 
 use std::collections::HashMap;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::genetic_discovery::discover_genetic_algorithm_from_log;
-use wasm4pm::ilp_discovery::discover_ilp_petri_net_from_log;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::genetic_discovery::discover_genetic_algorithm_from_log;
+use truex_kernel::ilp_discovery::discover_ilp_petri_net_from_log;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Test Fixture Builders
@@ -781,7 +781,7 @@ fn test_genetic_algorithm_generations_zero() {
 #[test]
 fn test_pso_algorithm_swarm_zero() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"]]);
-    let result = wasm4pm::genetic_discovery::discover_pso_algorithm_from_log(
+    let result = truex_kernel::genetic_discovery::discover_pso_algorithm_from_log(
         &log,
         "concept:name",
         0,
@@ -798,7 +798,7 @@ fn test_pso_algorithm_swarm_zero() {
 #[test]
 fn test_pso_algorithm_swarm_minimum_valid() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"], vec!["A", "C", "B"]]);
-    let result = wasm4pm::genetic_discovery::discover_pso_algorithm_from_log(
+    let result = truex_kernel::genetic_discovery::discover_pso_algorithm_from_log(
         &log,
         "concept:name",
         1,
@@ -819,7 +819,7 @@ fn test_pso_algorithm_swarm_minimum_valid() {
 #[test]
 fn test_pso_algorithm_iterations_zero() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"]]);
-    let result = wasm4pm::genetic_discovery::discover_pso_algorithm_from_log(
+    let result = truex_kernel::genetic_discovery::discover_pso_algorithm_from_log(
         &log,
         "concept:name",
         5,
@@ -836,7 +836,7 @@ fn test_pso_algorithm_iterations_zero() {
 #[test]
 fn test_aco_algorithm_ant_count_zero() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"]]);
-    let result = wasm4pm::genetic_discovery::discover_aco_algorithm_from_log(
+    let result = truex_kernel::genetic_discovery::discover_aco_algorithm_from_log(
         &log,
         "concept:name",
         0,
@@ -853,7 +853,7 @@ fn test_aco_algorithm_ant_count_zero() {
 #[test]
 fn test_aco_algorithm_ant_count_minimum_valid() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"], vec!["A", "C", "B"]]);
-    let result = wasm4pm::genetic_discovery::discover_aco_algorithm_from_log(
+    let result = truex_kernel::genetic_discovery::discover_aco_algorithm_from_log(
         &log,
         "concept:name",
         1,
@@ -874,7 +874,7 @@ fn test_aco_algorithm_ant_count_minimum_valid() {
 #[test]
 fn test_aco_algorithm_iterations_zero() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"]]);
-    let result = wasm4pm::genetic_discovery::discover_aco_algorithm_from_log(
+    let result = truex_kernel::genetic_discovery::discover_aco_algorithm_from_log(
         &log,
         "concept:name",
         5,
@@ -891,7 +891,7 @@ fn test_aco_algorithm_iterations_zero() {
 #[test]
 fn test_simulated_annealing_invalid_temperature() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"]]);
-    use wasm4pm::more_discovery::discover_simulated_annealing_from_log;
+    use truex_kernel::more_discovery::discover_simulated_annealing_from_log;
 
     // Test with temperature = 0.0 (invalid)
     let (dfg, fitness) = discover_simulated_annealing_from_log(&log, "concept:name", 0.0, 0.5);
@@ -914,7 +914,7 @@ fn test_simulated_annealing_invalid_temperature() {
 #[test]
 fn test_simulated_annealing_invalid_cooling_rate() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"]]);
-    use wasm4pm::more_discovery::discover_simulated_annealing_from_log;
+    use truex_kernel::more_discovery::discover_simulated_annealing_from_log;
 
     // Test with cooling_rate = 0.0 (invalid)
     let (dfg, fitness) = discover_simulated_annealing_from_log(&log, "concept:name", 1.0, 0.0);
@@ -945,7 +945,7 @@ fn test_simulated_annealing_invalid_cooling_rate() {
 #[test]
 fn test_simulated_annealing_valid_parameters() {
     let log = build_log_with_activities(&[vec!["A", "B", "C"], vec!["A", "C", "B"]]);
-    use wasm4pm::more_discovery::discover_simulated_annealing_from_log;
+    use truex_kernel::more_discovery::discover_simulated_annealing_from_log;
 
     let (dfg, fitness) = discover_simulated_annealing_from_log(&log, "concept:name", 1.0, 0.95);
     assert!(

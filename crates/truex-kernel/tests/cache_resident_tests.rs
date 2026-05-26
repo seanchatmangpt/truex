@@ -1,11 +1,11 @@
 // Integration tests for cache-efficient data structures
 // Run with: cargo test --test cache_resident_tests
 
-use wasm4pm::cache_resident::{
+use truex_kernel::cache_resident::{
     decode_rl_state, encode_rl_state, ActionRecommendation, CycleSnapshot, QEntry, QTable,
     VariantEntry, VariantMap,
 };
-use wasm4pm::RlState;
+use truex_kernel::RlState;
 
 #[test]
 fn test_state_encoding_decode_roundtrip() {

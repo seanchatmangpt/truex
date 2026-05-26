@@ -12,10 +12,10 @@
 //! - Rank 2 properties (domain contracts)
 
 use std::collections::HashMap;
-use wasm4pm::hierarchical::{discover_hierarchical, DfgChunker, DfgChunkResult, HierarchicalConfig};
-use wasm4pm::ml::pca::pca_internal;
-use wasm4pm::ml::regression::regression_internal;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::hierarchical::{discover_hierarchical, DfgChunker, DfgChunkResult, HierarchicalConfig};
+use truex_kernel::ml::pca::pca_internal;
+use truex_kernel::ml::regression::regression_internal;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Fixture: Controlled EventLog

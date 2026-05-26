@@ -98,7 +98,7 @@ pub enum SpecialCause {
 /// # Example
 ///
 /// ```
-/// use wasm4pm::spc::{ChartData, check_western_electric_rules, SpecialCause};
+/// use truex_kernel::spc::{ChartData, check_western_electric_rules, SpecialCause};
 ///
 /// // Rule 1: a point beyond UCL fires OutOfControl
 /// let data = vec![ChartData {
@@ -443,7 +443,7 @@ impl ProcessCapability {
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::spc::spc_mean;
+/// use truex_kernel::spc::spc_mean;
 ///
 /// assert_eq!(spc_mean(&[1.0, 2.0, 3.0]), 2.0);
 /// assert_eq!(spc_mean(&[]), 0.0);
@@ -462,7 +462,7 @@ pub fn spc_mean(data: &[f64]) -> f64 {
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::spc::spc_std_dev;
+/// use truex_kernel::spc::spc_std_dev;
 ///
 /// // [1, 2, 3]: mean=2, sum-sq-dev=2, N-1=2 → variance=1.0 → σ=1.0
 /// assert_eq!(spc_std_dev(&[1.0, 2.0, 3.0]), 1.0);
@@ -488,7 +488,7 @@ pub fn spc_std_dev(data: &[f64]) -> f64 {
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::spc::normal_cdf;
+/// use truex_kernel::spc::normal_cdf;
 ///
 /// // Φ(0) = 0.5 by symmetry of the standard normal
 /// assert!((normal_cdf(0.0) - 0.5).abs() < 1e-6);
@@ -592,7 +592,7 @@ pub fn inverse_normal_cdf_public(p: f64) -> f64 {
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::spc::dpmo_to_sigma;
+/// use truex_kernel::spc::dpmo_to_sigma;
 ///
 /// // Six-Sigma quality: 3.4 DPMO → ~6.0σ
 /// assert!((dpmo_to_sigma(3.4) - 6.0).abs() < 0.1);

@@ -36,9 +36,9 @@ This plan maps all 21 historic projects into a single, unified 7-Tier stack. The
 * **The Unification:** The `proxyable` Membrane intercepts intent via VKG Hooks. Before it passes intent down, it can query `KNHK` for sub-2ns object-centric relationship checks, and `PROLOG8` for declarative Horn-clause evaluations of complex business policies.
 
 ## Tier 1: Process Geometry & Concurrency
-**Repositories:** `wasm4pm`, `BitActor`, `POWL v2`, `PICTL`
+**Repositories:** `truex-kernel`, `BitActor`, `POWL v2`, `PICTL`
 * **The Role:** The Mathematical Physics Engine.
-* **The Unification:** Once intent passes the Membrane, it is evaluated. `POWL v2` provides the partial-order graph rules, statically validated for soundness by `PICTL`. `wasm4pm` compiles those rules into branchless Rust/WASM for sub-millisecond execution. `BitActor` provides the lock-free, zero-variance isolated memory arenas where the state actually settles.
+* **The Unification:** Once intent passes the Membrane, it is evaluated. `POWL v2` provides the partial-order graph rules, statically validated for soundness by `PICTL`. `truex-kernel` compiles those rules into branchless Rust/WASM for sub-millisecond execution. `BitActor` provides the lock-free, zero-variance isolated memory arenas where the state actually settles.
 
 ## Tier 0: The Truex Physics Layer (Zero-Variance Substrate)
 **Repositories:** `BitStar`, `CNS`, `BCINR`, `UNIBIT`, `GITVAN`
@@ -50,7 +50,7 @@ This plan maps all 21 historic projects into a single, unified 7-Tier stack. The
 ## 2. Immediate Execution Trajectory
 While the vision encompasses a massive distributed operating system, the construction sequence must remain linear (Gall Law):
 1. **Solidify Tier 2 (Membrane):** Complete the VKG hooks and OCEL2 tracking in TS. *(In Progress)*
-2. **Connect Tier 1 (Kernel):** Wire `wasm4pm` and `POWL v2` to adjudicate the Membrane's intents.
+2. **Connect Tier 1 (Kernel):** Wire `truex-kernel` and `POWL v2` to adjudicate the Membrane's intents.
 3. **Automate Tier 4 (Execution):** Maximize the Antigravity CLI and `ERLMCP` to autonomously trigger subagents upon Membrane failures.
 4. **Deploy Tiers 5 & 6:** Re-enable GGEN to build the BusinessOS frontend on top of the newly stabilized substrate.
 ## 3. The Unified Evolution Matrix

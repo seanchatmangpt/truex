@@ -14,7 +14,7 @@ pub struct ProjectConfig {
 }
 
 pub fn run() -> anyhow::Result<()> {
-    println!("{}", "Welcome to the wasm4pm (wpm) project wizard!".bold().cyan());
+    println!("{}", "Welcome to the truex_kernel (wpm) project wizard!".bold().cyan());
     println!("This will help you set up your process mining project metadata.\n");
 
     let theme = ColorfulTheme::default();
@@ -54,7 +54,7 @@ pub fn run() -> anyhow::Result<()> {
     println!("{}", "Walkthrough:".bold());
     println!(
         "1. Your configuration is saved in {}",
-        ".wasm4pm/config.json".yellow()
+        ".truex/config.json".yellow()
     );
     println!(
         "2. You can now use {} to check your system health.",
@@ -69,12 +69,12 @@ pub fn run() -> anyhow::Result<()> {
 }
 
 fn save_config(config: &ProjectConfig) -> anyhow::Result<()> {
-    let dot_wasm4pm = Path::new(".wasm4pm");
-    if !dot_wasm4pm.exists() {
-        fs::create_dir_all(dot_wasm4pm).context("Failed to create .wasm4pm directory")?;
+    let dot_truex-kernel = Path::new(".truex");
+    if !dot_truex-kernel.exists() {
+        fs::create_dir_all(dot_truex-kernel).context("Failed to create .truex directory")?;
     }
 
-    let config_path = dot_wasm4pm.join("config.json");
+    let config_path = dot_truex-kernel.join("config.json");
     let content = serde_json::to_string_pretty(config).context("Failed to serialize config")?;
     fs::write(config_path, content).context("Failed to write config.json")?;
 

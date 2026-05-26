@@ -15,7 +15,7 @@
 //! - Trend classification correctness
 
 use std::collections::HashSet;
-use wasm4pm::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
+use truex_kernel::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
 
 // ===========================================================================
 // JACCARD DISTANCE TESTS

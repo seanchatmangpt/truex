@@ -1,4 +1,4 @@
-//! agentic module — Lawful agentic control primitives for wasm4pm
+//! agentic module — Lawful agentic control primitives for truex_kernel
 //!
 //! This module provides type-first, trait-first shells for role selection, task decomposition,
 //! handoffs, topology selection, evidence sufficiency checking, escalation, artifact dispatch,

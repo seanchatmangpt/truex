@@ -23,11 +23,11 @@ use std::time::Duration;
 mod helpers;
 use helpers::{bench_sizes, bench_sizes_slow, make_handle, ACTIVITY_KEY};
 
-use wasm4pm::advanced_algorithms::discover_heuristic_miner;
-use wasm4pm::algorithms::discover_alpha_plus_plus;
-use wasm4pm::discovery::{discover_declare, discover_dfg};
-use wasm4pm::genetic_discovery::discover_genetic_algorithm;
-use wasm4pm::more_discovery::{discover_inductive_miner, extract_process_skeleton};
+use truex_kernel::advanced_algorithms::discover_heuristic_miner;
+use truex_kernel::algorithms::discover_alpha_plus_plus;
+use truex_kernel::discovery::{discover_declare, discover_dfg};
+use truex_kernel::genetic_discovery::discover_genetic_algorithm;
+use truex_kernel::more_discovery::{discover_inductive_miner, extract_process_skeleton};
 
 /// Register all discovery core benchmarks into the criterion instance.
 pub fn bench_discovery_core(c: &mut Criterion) {

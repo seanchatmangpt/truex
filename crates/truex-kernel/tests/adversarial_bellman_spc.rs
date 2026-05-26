@@ -33,9 +33,9 @@
 //! Run with:
 //!   cargo test --test adversarial_bellman_spc --features cloud
 
-use wasm4pm::reinforcement::QLearning;
-use wasm4pm::spc::{check_western_electric_rules, ChartData, ShiftDirection, SpecialCause, TrendDirection};
-use wasm4pm::{create_rl_state, RlAction, RlState};
+use truex_kernel::reinforcement::QLearning;
+use truex_kernel::spc::{check_western_electric_rules, ChartData, ShiftDirection, SpecialCause, TrendDirection};
+use truex_kernel::{create_rl_state, RlAction, RlState};
 
 // ---------------------------------------------------------------------------
 // Helpers — Bellman

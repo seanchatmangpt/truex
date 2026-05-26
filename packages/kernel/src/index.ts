@@ -242,7 +242,7 @@ export type {
   BatchResult,
 } from './batch-runner.js';
 
-// Export all WASM functions from @truex/membrane to provide unified entry point
-export * from '@truex/membrane';
+// Export all WASM functions from @truex/kernel-wasm to provide unified entry point
+export * from '@truex/kernel-wasm';
 
 

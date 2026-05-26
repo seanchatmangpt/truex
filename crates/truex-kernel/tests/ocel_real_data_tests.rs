@@ -11,12 +11,12 @@
 #[cfg(feature = "ocel")]
 mod ocel_tests {
     use std::fs;
-    use wasm4pm::models::OCEL;
-    use wasm4pm::ocel_flatten::measure_flattening_loss;
-    use wasm4pm::ocel_io::validate_ocel_object_lifecycles;
+    use truex_kernel::models::OCEL;
+    use truex_kernel::ocel_flatten::measure_flattening_loss;
+    use truex_kernel::ocel_io::validate_ocel_object_lifecycles;
 
     const OCEL_PATHS: &[&str] = &[
-        "/Users/sac/wasm4pm/bench_data/ocel20_example.jsonocel",
+        "/Users/sac/truex_kernel/bench_data/ocel20_example.jsonocel",
         "bench_data/ocel20_example.jsonocel",
         "../bench_data/ocel20_example.jsonocel",
         "tests/fixtures/ocel20_example.jsonocel",

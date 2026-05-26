@@ -2,12 +2,12 @@
 //!
 //! The test harness tests itself. Each test instruments its own execution
 //! using [`PowlTestHarness`] and verifies it against a declared lifecycle
-//! model. This proves that `wasm4pm::testing` is not just a claim layer —
+//! model. This proves that `truex_kernel::testing` is not just a claim layer —
 //! the testing substrate follows its own declared route.
 //!
 //! Run: `cargo test --test self_conformance_tests --features browser`
 
-use wasm4pm::testing::{ActivityEvidence, ConformanceVerdict, ObjectEvidence, PowlTestHarness};
+use truex_kernel::testing::{ActivityEvidence, ConformanceVerdict, ObjectEvidence, PowlTestHarness};
 
 fn bh(data: &str) -> String {
     blake3::hash(data.as_bytes()).to_hex().to_string()

@@ -1,0 +1,9 @@
+{
+  "receiptHash": "e2f804689f99214389585662c7847991c94e97384936fe0dcc42d3628df349d7",
+  "projectPath": "/Users/sac/truex/operation2030",
+  "verb": "forge",
+  "status": "succeeded",
+  "startedAt": "2026-05-26T05:12:31.903Z",
+  "completedAt": "2026-05-26T05:12:31.908Z",
+  "details": "Forged checkpoint: cp-cli-contract"
+}

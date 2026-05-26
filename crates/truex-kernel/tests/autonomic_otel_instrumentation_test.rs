@@ -8,7 +8,7 @@
 //! 2. Circuit breaker healing decision rationale (timeout, state transitions, thresholds)
 //! 3. SPC alert detection with rule-specific signals
 
-use wasm4pm::{
+use truex_kernel::{
     self_healing::{CircuitBreaker, CircuitBreakerConfig, CircuitState},
     spc::{check_western_electric_rules, ChartData, SpecialCause},
 };
@@ -67,7 +67,7 @@ fn test_circuit_breaker_closed_state_emits_decision_span() {
 
 #[test]
 fn test_circuit_breaker_open_timeout_expiration_emits_probe_span() {
-    wasm4pm::self_healing::with_clock_lock(|| {
+    truex_kernel::self_healing::with_clock_lock(|| {
         let config = CircuitBreakerConfig {
             failure_threshold: 2,
             success_threshold: 2,
@@ -82,7 +82,7 @@ fn test_circuit_breaker_open_timeout_expiration_emits_probe_span() {
         assert_eq!(breaker.state(), CircuitState::Open);
 
         // Advance time past open_timeout
-        wasm4pm::self_healing::advance_clock(150); // 150ms > 100ms open_timeout
+        truex_kernel::self_healing::advance_clock(150); // 150ms > 100ms open_timeout
 
         // Call allow_request() which should detect timeout and transition
         let allowed = breaker.allow_request();
@@ -103,7 +103,7 @@ fn test_circuit_breaker_open_timeout_expiration_emits_probe_span() {
 
 #[test]
 fn test_circuit_breaker_halfopen_timeout_recovery_failure_emits_span() {
-    wasm4pm::self_healing::with_clock_lock(|| {
+    truex_kernel::self_healing::with_clock_lock(|| {
         let config = CircuitBreakerConfig {
             failure_threshold: 2,
             success_threshold: 2,
@@ -118,12 +118,12 @@ fn test_circuit_breaker_halfopen_timeout_recovery_failure_emits_span() {
         assert_eq!(breaker.state(), CircuitState::Open);
 
         // Advance past open_timeout → HalfOpen
-        wasm4pm::self_healing::advance_clock(150);
+        truex_kernel::self_healing::advance_clock(150);
         let _ = breaker.allow_request(); // Triggers transition
         assert_eq!(breaker.state(), CircuitState::HalfOpen);
 
         // Advance past half_open_timeout (circuit still HalfOpen) → should fail
-        wasm4pm::self_healing::advance_clock(100); // Total 250ms, half_open_timeout is 50ms from last change
+        truex_kernel::self_healing::advance_clock(100); // Total 250ms, half_open_timeout is 50ms from last change
         let allowed = breaker.allow_request();
 
         // Verify transition back to Open due to timeout
@@ -145,7 +145,7 @@ fn test_circuit_breaker_halfopen_timeout_recovery_failure_emits_span() {
 
 #[test]
 fn test_circuit_breaker_halfopen_to_closed_on_success() {
-    wasm4pm::self_healing::with_clock_lock(|| {
+    truex_kernel::self_healing::with_clock_lock(|| {
         let config = CircuitBreakerConfig {
             failure_threshold: 2,
             success_threshold: 2,
@@ -159,7 +159,7 @@ fn test_circuit_breaker_halfopen_to_closed_on_success() {
         breaker.record_failure();
 
         // Advance and move to HalfOpen
-        wasm4pm::self_healing::advance_clock(150);
+        truex_kernel::self_healing::advance_clock(150);
         let _ = breaker.allow_request();
         assert_eq!(breaker.state(), CircuitState::HalfOpen);
 
@@ -373,14 +373,14 @@ fn test_spc_multiple_rules_fire_in_single_buffer() {
 
 #[test]
 fn test_spc_and_circuit_breaker_clock_consistency() {
-    wasm4pm::self_healing::with_clock_lock(|| {
+    truex_kernel::self_healing::with_clock_lock(|| {
         // Reset clock for clean test
-        wasm4pm::self_healing::reset_clock();
+        truex_kernel::self_healing::reset_clock();
 
-        let t0 = wasm4pm::self_healing::now_ms();
+        let t0 = truex_kernel::self_healing::now_ms();
 
-        wasm4pm::self_healing::advance_clock(100);
-        let t1 = wasm4pm::self_healing::now_ms();
+        truex_kernel::self_healing::advance_clock(100);
+        let t1 = truex_kernel::self_healing::now_ms();
 
         assert!(t1 > t0, "Clock must advance monotonically");
         assert!(

@@ -13,12 +13,12 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::ml::automl::{discover_automl_classify_internal, discover_automl_forecast_internal};
-use wasm4pm::ml::classification::{extract_features, knn_sweep_cv};
-use wasm4pm::ml::forecasting::forecast_internal;
-use wasm4pm::ml::pca::pca_internal;
-use wasm4pm::ml::regression::regression_internal;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::ml::automl::{discover_automl_classify_internal, discover_automl_forecast_internal};
+use truex_kernel::ml::classification::{extract_features, knn_sweep_cv};
+use truex_kernel::ml::forecasting::forecast_internal;
+use truex_kernel::ml::pca::pca_internal;
+use truex_kernel::ml::regression::regression_internal;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser

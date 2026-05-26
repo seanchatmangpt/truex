@@ -13,8 +13,8 @@
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::collections::{HashMap, HashSet};
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 mod helpers;
 use helpers::*;

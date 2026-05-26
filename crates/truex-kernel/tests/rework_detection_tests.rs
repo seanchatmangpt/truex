@@ -9,9 +9,9 @@
 
 use std::collections::HashSet;
 use std::fs;
-use wasm4pm::models::EventLog;
-use wasm4pm::rl_orchestrator::compute_health_state;
-use wasm4pm::RlState;
+use truex_kernel::models::EventLog;
+use truex_kernel::rl_orchestrator::compute_health_state;
+use truex_kernel::RlState;
 
 const FIXTURES_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures");
 
@@ -25,10 +25,10 @@ fn load_event_log_json(name: &str) -> EventLog {
 
 /// Detect if a trace contains activity repetition (rework).
 /// Same logic as lib.rs::has_activity_repetition — tested here independently.
-fn has_activity_repetition(trace: &wasm4pm::models::Trace, activity_key: &str) -> bool {
+fn has_activity_repetition(trace: &truex_kernel::models::Trace, activity_key: &str) -> bool {
     let mut seen = HashSet::new();
     for event in &trace.events {
-        if let Some(wasm4pm::models::AttributeValue::String(name)) =
+        if let Some(truex_kernel::models::AttributeValue::String(name)) =
             event.attributes.get(activity_key)
         {
             if seen.contains(name) {
@@ -164,7 +164,7 @@ fn test_real_log_health_state_from_actual_metrics() {
     let mut activity_set = HashSet::new();
     for trace in &log.traces {
         for event in &trace.events {
-            if let Some(wasm4pm::models::AttributeValue::String(name)) =
+            if let Some(truex_kernel::models::AttributeValue::String(name)) =
                 event.attributes.get("activity")
             {
                 activity_set.insert(name.clone());
@@ -263,7 +263,7 @@ fn test_real_log_rework_ratio_produces_distinct_rl_states() {
             let mut s = HashSet::new();
             for trace in &log.traces {
                 for event in &trace.events {
-                    if let Some(wasm4pm::models::AttributeValue::String(n)) =
+                    if let Some(truex_kernel::models::AttributeValue::String(n)) =
                         event.attributes.get("activity")
                     {
                         s.insert(n.clone());

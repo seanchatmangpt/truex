@@ -1,4 +1,4 @@
-# Package: @wasm4pm/supabase
+# Package: @truex/supabase
 
 > **Path:** `packages/supabase/`
 > **Gall Classification:** Tier 0 - Distributed Substrate
@@ -26,5 +26,5 @@ The Supabase sync refuses a transition if:
 ## 5. Proof Command
 
 ```bash
-pnpm --filter @wasm4pm/supabase test
+pnpm --filter @truex/supabase test
 ```

@@ -20,8 +20,8 @@
 //! Measure: cumulative reward, convergence rate, action distribution.
 //! Expected: Pessimistic bias visible in positive-skew environments (all rewards positive).
 
-use wasm4pm::rl_orchestrator::RlOrchestrator;
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::RlOrchestrator;
+use truex_kernel::RlState;
 use std::collections::HashMap;
 
 /// Stable system state — no alerts, no drift, circuit closed.

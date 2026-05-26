@@ -19,11 +19,11 @@
 /// Edge cases: empty input and single-row input for each algorithm.
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::time::Duration;
-use wasm4pm::fast_discovery::cluster_traces;
-use wasm4pm::ml::classification::{extract_features, knn_internal};
-use wasm4pm::ml::forecasting::forecast_internal;
-use wasm4pm::ml::pca::pca_internal;
-use wasm4pm::ml::regression::regression_internal;
+use truex_kernel::fast_discovery::cluster_traces;
+use truex_kernel::ml::classification::{extract_features, knn_internal};
+use truex_kernel::ml::forecasting::forecast_internal;
+use truex_kernel::ml::pca::pca_internal;
+use truex_kernel::ml::regression::regression_internal;
 
 #[path = "helpers.rs"]
 mod helpers;

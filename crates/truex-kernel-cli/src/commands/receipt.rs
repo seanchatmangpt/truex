@@ -3,7 +3,7 @@ use clap::{Args, Subcommand};
 use colored::*;
 use std::fs::File;
 use std::path::PathBuf;
-use wasm4pm::receipt::{
+use truex_kernel::receipt::{
     DiagnosticAudience, FindingSeverity, ReceiptDoctor, VerificationState,
 };
 
@@ -198,9 +198,9 @@ fn verify_ocel2(args: &VerifyOcel2Args) -> Result<()> {
     // Check if any OCEL specific findings
     let has_ocel_issue = report.findings.iter().any(|f| {
         matches!(f.code, 
-            wasm4pm::receipt::ReceiptTruthRefusal::ObservedOCELMissing | 
-            wasm4pm::receipt::ReceiptTruthRefusal::ExpectedOCELMissing | 
-            wasm4pm::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
+            truex_kernel::receipt::ReceiptTruthRefusal::ObservedOCELMissing | 
+            truex_kernel::receipt::ReceiptTruthRefusal::ExpectedOCELMissing | 
+            truex_kernel::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
     });
 
     println!("\n{}", "=== wpm receipt verify-ocel2 ===".bold().cyan());
@@ -221,8 +221,8 @@ fn detect_fixture_mutation(args: &DetectFixtureMutationArgs) -> Result<()> {
     
     let has_mutation = report.findings.iter().any(|f| {
         matches!(f.code, 
-            wasm4pm::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected | 
-            wasm4pm::receipt::ReceiptTruthRefusal::ExpectedObservedCloneDetected)
+            truex_kernel::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected | 
+            truex_kernel::receipt::ReceiptTruthRefusal::ExpectedObservedCloneDetected)
     });
 
     println!("\n{}", "=== wpm receipt detect-fixture-mutation ===".bold().cyan());
@@ -241,7 +241,7 @@ fn verify_boundary_evidence(args: &VerifyBoundaryEvidenceArgs) -> Result<()> {
     let report = ReceiptDoctor::audit(&receipt);
     
     let has_issue = report.findings.iter().any(|f| {
-        matches!(f.code, wasm4pm::receipt::ReceiptTruthRefusal::BoundaryEvidenceMissing)
+        matches!(f.code, truex_kernel::receipt::ReceiptTruthRefusal::BoundaryEvidenceMissing)
     });
 
     if !has_issue {
@@ -259,7 +259,7 @@ fn verify_proof_class(args: &VerifyProofClassArgs) -> Result<()> {
     let report = ReceiptDoctor::audit(&receipt);
     
     let has_issue = report.findings.iter().any(|f| {
-        matches!(f.code, wasm4pm::receipt::ReceiptTruthRefusal::ClosureOverclaimed)
+        matches!(f.code, truex_kernel::receipt::ReceiptTruthRefusal::ClosureOverclaimed)
     });
 
     if !has_issue {
@@ -278,7 +278,7 @@ fn verify_challenge(args: &VerifyChallengeArgs) -> Result<()> {
     
     let has_issue = report.findings.iter().any(|f| {
         matches!(f.code, 
-            wasm4pm::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
+            truex_kernel::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
     });
 
     if !has_issue {
@@ -391,9 +391,9 @@ fn truthforge(args: &TruthforgeArgs) -> Result<()> {
         }
         let report = ReceiptDoctor::audit(&mutated);
         let caught = report.findings.iter().any(|f| {
-            matches!(f.code, wasm4pm::receipt::ReceiptTruthRefusal::ChallengeNonceMismatch 
-                | wasm4pm::receipt::ReceiptTruthRefusal::ChallengeNonceMissing
-                | wasm4pm::receipt::ReceiptTruthRefusal::ObservedTraceNotChallengeBound)
+            matches!(f.code, truex_kernel::receipt::ReceiptTruthRefusal::ChallengeNonceMismatch 
+                | truex_kernel::receipt::ReceiptTruthRefusal::ChallengeNonceMissing
+                | truex_kernel::receipt::ReceiptTruthRefusal::ObservedTraceNotChallengeBound)
         });
         mutation_results.push(("Challenge Nonce Tamper", caught, report.findings.iter().map(|f| format!("{:?}", f.code)).collect::<Vec<_>>().join(", ")));
     }
@@ -414,9 +414,9 @@ fn truthforge(args: &TruthforgeArgs) -> Result<()> {
         }
         let report = ReceiptDoctor::audit(&mutated);
         let caught = report.findings.iter().any(|f| {
-            matches!(f.code, wasm4pm::receipt::ReceiptTruthRefusal::ClosureOverclaimed 
-                | wasm4pm::receipt::ReceiptTruthRefusal::BoundaryEvidenceMissing
-                | wasm4pm::receipt::ReceiptTruthRefusal::ProofClassOverclaimed)
+            matches!(f.code, truex_kernel::receipt::ReceiptTruthRefusal::ClosureOverclaimed 
+                | truex_kernel::receipt::ReceiptTruthRefusal::BoundaryEvidenceMissing
+                | truex_kernel::receipt::ReceiptTruthRefusal::ProofClassOverclaimed)
         });
         mutation_results.push(("Proof Class Overclaim", caught, report.findings.iter().map(|f| format!("{:?}", f.code)).collect::<Vec<_>>().join(", ")));
     }
@@ -429,8 +429,8 @@ fn truthforge(args: &TruthforgeArgs) -> Result<()> {
         }
         let report = ReceiptDoctor::audit(&mutated);
         let caught = report.findings.iter().any(|f| {
-            matches!(f.code, wasm4pm::receipt::ReceiptTruthRefusal::BoundaryEvidenceMissing
-                | wasm4pm::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
+            matches!(f.code, truex_kernel::receipt::ReceiptTruthRefusal::BoundaryEvidenceMissing
+                | truex_kernel::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
         });
         mutation_results.push(("Mock/Placeholder Injection", caught, report.findings.iter().map(|f| format!("{:?}", f.code)).collect::<Vec<_>>().join(", ")));
     }
@@ -466,8 +466,8 @@ fn truthforge(args: &TruthforgeArgs) -> Result<()> {
         }
         let report = ReceiptDoctor::audit(&mutated);
         let caught = report.findings.iter().any(|f| {
-            matches!(f.code, wasm4pm::receipt::ReceiptTruthRefusal::ExpectedObservedCloneDetected
-                | wasm4pm::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
+            matches!(f.code, truex_kernel::receipt::ReceiptTruthRefusal::ExpectedObservedCloneDetected
+                | truex_kernel::receipt::ReceiptTruthRefusal::PlaceholderEvidenceDetected)
         });
         mutation_results.push(("Expected-Observed Clone Tamper", caught, report.findings.iter().map(|f| format!("{:?}", f.code)).collect::<Vec<_>>().join(", ")));
     }

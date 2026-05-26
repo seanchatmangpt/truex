@@ -9,11 +9,11 @@
 //! These tests complement the existing behavioral_drift_tests.rs which verify
 //! detection within ±10 traces. Here we verify exact matches at exact positions.
 
-use wasm4pm::spc::{
+use truex_kernel::spc::{
     check_western_electric_rules, spc_mean, spc_std_dev, ChartData, ShiftDirection, SpecialCause,
     TrendDirection,
 };
-use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
+use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
 
 // ---------------------------------------------------------------------------
 // Helpers

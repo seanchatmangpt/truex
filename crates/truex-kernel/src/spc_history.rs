@@ -19,7 +19,7 @@ use std::collections::VecDeque;
 ///
 /// # Example
 /// ```
-/// # use wasm4pm::spc_history::RingBuffer;
+/// # use truex_kernel::spc_history::RingBuffer;
 /// let mut buffer: RingBuffer<i32, 5> = RingBuffer::new();
 /// buffer.push(1);
 /// buffer.push(2);
@@ -40,7 +40,7 @@ impl<T: Clone, const N: usize> RingBuffer<T, N> {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::RingBuffer;
+    /// # use truex_kernel::spc_history::RingBuffer;
     /// let buffer: RingBuffer<i32, 10> = RingBuffer::new();
     /// assert_eq!(buffer.len(), 0);
     /// ```
@@ -59,7 +59,7 @@ impl<T: Clone, const N: usize> RingBuffer<T, N> {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::RingBuffer;
+    /// # use truex_kernel::spc_history::RingBuffer;
     /// let mut buffer: RingBuffer<i32, 3> = RingBuffer::new();
     /// buffer.push(1);
     /// buffer.push(2);
@@ -78,7 +78,7 @@ impl<T: Clone, const N: usize> RingBuffer<T, N> {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::RingBuffer;
+    /// # use truex_kernel::spc_history::RingBuffer;
     /// let mut buffer: RingBuffer<i32, 5> = RingBuffer::new();
     /// assert_eq!(buffer.len(), 0);
     /// buffer.push(42);
@@ -92,7 +92,7 @@ impl<T: Clone, const N: usize> RingBuffer<T, N> {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::RingBuffer;
+    /// # use truex_kernel::spc_history::RingBuffer;
     /// let buffer: RingBuffer<i32, 5> = RingBuffer::new();
     /// assert!(buffer.is_empty());
     /// ```
@@ -104,7 +104,7 @@ impl<T: Clone, const N: usize> RingBuffer<T, N> {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::RingBuffer;
+    /// # use truex_kernel::spc_history::RingBuffer;
     /// let mut buffer: RingBuffer<i32, 3> = RingBuffer::new();
     /// buffer.push(1);
     /// buffer.push(2);
@@ -119,7 +119,7 @@ impl<T: Clone, const N: usize> RingBuffer<T, N> {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::RingBuffer;
+    /// # use truex_kernel::spc_history::RingBuffer;
     /// let mut buffer: RingBuffer<i32, 5> = RingBuffer::new();
     /// buffer.push(1);
     /// buffer.push(2);
@@ -168,7 +168,7 @@ impl SpcSnapshot {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::SpcSnapshot;
+    /// # use truex_kernel::spc_history::SpcSnapshot;
     /// let snapshot = SpcSnapshot {
     ///     timestamp: "2026-04-13T12:00:00Z".to_string(),
     ///     event_rate: 5.2,
@@ -211,7 +211,7 @@ impl SpcHistory {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::SpcHistory;
+    /// # use truex_kernel::spc_history::SpcHistory;
     /// let history = SpcHistory::new();
     /// assert_eq!(history.cycle_count, 0);
     /// assert!(!history.has_sufficient_data());
@@ -232,7 +232,7 @@ impl SpcHistory {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
+    /// # use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
     /// let mut history = SpcHistory::new();
     /// let snapshot = SpcSnapshot::new(
     ///     "2026-04-13T12:00:00Z".to_string(),
@@ -285,7 +285,7 @@ impl SpcHistory {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
+    /// # use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
     /// let mut history = SpcHistory::new();
     /// assert!(!history.has_sufficient_data());
     ///
@@ -310,7 +310,7 @@ impl SpcHistory {
     ///
     /// # Example
     /// ```
-    /// # use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
+    /// # use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
     /// let mut history = SpcHistory::new();
     /// history.record_snapshot(SpcSnapshot::new("t1".into(), 5.0, 150.0, 0.8, 0));
     /// history.record_snapshot(SpcSnapshot::new("t2".into(), 5.5, 155.0, 0.82, 0));

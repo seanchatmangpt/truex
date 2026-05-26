@@ -21,8 +21,8 @@
 //! all initial markings single tokens), so the bitmask path analysis applies.
 
 use std::collections::HashMap;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::models::{AttributeValue, Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition, Trace};
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::models::{AttributeValue, Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition, Trace};
 
 // ---------------------------------------------------------------------------
 // Helpers

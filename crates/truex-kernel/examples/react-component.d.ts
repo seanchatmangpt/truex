@@ -1,7 +1,7 @@
 /**
- * wasm4pm React Component Example
+ * truex-kernel React Component Example
  *
- * Shows how to integrate wasm4pm into a modern React application
+ * Shows how to integrate truex-kernel into a modern React application
  * Includes real-time process discovery and visualization
  */
 import React from 'react';

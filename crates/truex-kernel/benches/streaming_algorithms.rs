@@ -2,8 +2,8 @@
 /// These algorithms process logs incrementally.
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::time::Duration;
-use wasm4pm::discovery::discover_dfg;
-use wasm4pm::simd_streaming_dfg::discover_dfg_simd_handle;
+use truex_kernel::discovery::discover_dfg;
+use truex_kernel::simd_streaming_dfg::discover_dfg_simd_handle;
 
 #[path = "helpers.rs"]
 mod helpers;

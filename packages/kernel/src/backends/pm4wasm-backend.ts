@@ -187,7 +187,7 @@ export class Pm4wasmBackend implements MiningBackend {
 
   /**
    * Optional WASM module (passed at construction or lazy-loaded).
-   * Typed as Pm4WasmModule to avoid hard dependency on @wasm4pm/pm4wasm during testing.
+   * Typed as Pm4WasmModule to avoid hard dependency on @truex/process-intelligence during testing.
    */
   private wasmModule: Pm4WasmModule | null;
 
@@ -786,7 +786,7 @@ export class Pm4wasmBackend implements MiningBackend {
 
   /**
    * Load WASM module dynamically.
-   * In Phase 2, this will import from @wasm4pm/cli or equivalent.
+   * In Phase 2, this will import from @truex/cli or equivalent.
    */
   private async loadWasmModule(): Promise<Pm4WasmModule> {
     return await import('@truex/kernel') as unknown as Pm4WasmModule;

@@ -3,11 +3,11 @@
 Comprehensive pm4py Reference Generator for Full Parity Testing
 
 Generates reference outputs for ALL pm4py algorithms to validate
-wasm4pm parity across the complete feature set.
+truex-kernel parity across the complete feature set.
 
 Usage:
-    cd /Users/sac/chatmangpt/wasm4pm
-    python3 wasm4pm/tests/comprehensive_pm4py_reference.py
+    cd /Users/sac/chatmangpt/truex-kernel
+    python3 truex-kernel/tests/comprehensive_pm4py_reference.py
 """
 
 import pm4py
@@ -16,7 +16,7 @@ from pathlib import Path
 import sys
 
 # Fixtures directory
-FIXTURES_DIR = Path("wasm4pm/tests/fixtures")
+FIXTURES_DIR = Path("truex-kernel/tests/fixtures")
 OUTPUT_DIR = FIXTURES_DIR
 
 def load_running_example():
@@ -25,7 +25,7 @@ def load_running_example():
     return pm4py.read_xes(str(xes_path))
 
 def save_event_log_json(log, output_path):
-    """Save event log as JSON for wasm4pm to load."""
+    """Save event log as JSON for truex-kernel to load."""
     output = {"attributes": {}, "traces": []}
 
     if hasattr(log, 'iterrows'):
@@ -322,9 +322,9 @@ def main():
     print("Summary")
     print("="*60)
     print(f"Generated {len(results)} reference outputs")
-    print(f"\nRun wasm4pm parity tests:")
-    print(f"  cd wasm4pm")
-    print(f"  cargo test --package wasm4pm --test comprehensive_parity_tests")
+    print(f"\nRun truex-kernel parity tests:")
+    print(f"  cd truex-kernel")
+    print(f"  cargo test --package truex-kernel --test comprehensive_parity_tests")
 
 if __name__ == "__main__":
     main()

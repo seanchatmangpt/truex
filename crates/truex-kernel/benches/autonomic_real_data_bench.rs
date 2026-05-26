@@ -24,12 +24,12 @@ use std::collections::{HashMap, HashSet};
 use std::time::Duration;
 use std::fs;
 
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
-use wasm4pm::rl_orchestrator::{compute_health_state, RlOrchestrator};
-use wasm4pm::self_healing::CircuitBreaker;
-use wasm4pm::spc::{check_western_electric_rules, ChartData};
-use wasm4pm::RlState;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::prediction_drift::{classify_trend, ewma_series, jaccard_distance};
+use truex_kernel::rl_orchestrator::{compute_health_state, RlOrchestrator};
+use truex_kernel::self_healing::CircuitBreaker;
+use truex_kernel::spc::{check_western_electric_rules, ChartData};
+use truex_kernel::RlState;
 
 const ACTIVITY_KEY: &str = "concept:name";
 const TIMESTAMP_KEY: &str = "time:timestamp";

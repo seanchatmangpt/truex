@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * wasm4pm CLI - Command-line interface for process mining
+ * truex-kernel CLI - Command-line interface for process mining
  *
  * Usage:
- *   wasm4pm load <file>               Load an event log
- *   wasm4pm discover <file> <algo>    Discover process model
- *   wasm4pm analyze <file>            Analyze event log
- *   wasm4pm export <file> <format>    Export results
+ *   truex-kernel load <file>               Load an event log
+ *   truex-kernel discover <file> <algo>    Discover process model
+ *   truex-kernel analyze <file>            Analyze event log
+ *   truex-kernel export <file> <format>    Export results
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'fs';
@@ -41,7 +41,7 @@ class WASM4PMCLI {
   async init() {
     try {
       await this.client.init();
-      console.log('✅ wasm4pm initialized');
+      console.log('✅ truex-kernel initialized');
     } catch (error) {
       console.error('❌ Failed to initialize:', error);
       process.exit(1);
@@ -267,7 +267,7 @@ class WASM4PMCLI {
       case 'version':
       case '-v':
       case '--version':
-        console.log('wasm4pm v0.1.0');
+        console.log('truex-kernel v0.1.0');
         break;
       default:
         console.error(`❌ Unknown command: ${command}`);
@@ -279,12 +279,12 @@ class WASM4PMCLI {
   private printHelp(): void {
     console.log(`
 ╔════════════════════════════════════════════════════════════════╗
-║                        wasm4pm v0.1.0                          ║
+║                        truex-kernel v0.1.0                          ║
 ║            Process Mining in WebAssembly                       ║
 ╚════════════════════════════════════════════════════════════════╝
 
 USAGE:
-  wasm4pm <command> [options]
+  truex-kernel <command> [options]
 
 COMMANDS:
   load <file>              Load and validate an event log
@@ -302,17 +302,17 @@ OPTIONS:
   --timestamp-key <key>    Timestamp attribute key (default: time:timestamp)
 
 EXAMPLES:
-  wasm4pm load data/log.xes
-  wasm4pm discover data/log.xes dfg -o result.json
-  wasm4pm discover data/log.xes alpha
-  wasm4pm discover data/log.xes ilp -o petri_net.json
-  wasm4pm discover data/log.xes genetic -o evolved_model.json
-  wasm4pm discover data/log.xes pso -o swarm_model.json
-  wasm4pm analyze data/log.xes --verbose
-  wasm4pm export data/log.json xes -o log.xes
+  truex-kernel load data/log.xes
+  truex-kernel discover data/log.xes dfg -o result.json
+  truex-kernel discover data/log.xes alpha
+  truex-kernel discover data/log.xes ilp -o petri_net.json
+  truex-kernel discover data/log.xes genetic -o evolved_model.json
+  truex-kernel discover data/log.xes pso -o swarm_model.json
+  truex-kernel analyze data/log.xes --verbose
+  truex-kernel export data/log.json xes -o log.xes
 
 DOCUMENTATION:
-  https://github.com/seanchatmangpt/wasm4pm
+  https://github.com/seanchatmangpt/truex-kernel
     `);
   }
 }

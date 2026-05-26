@@ -12,7 +12,7 @@
 
 use chrono::{Duration, Utc};
 use std::collections::{HashMap, HashSet};
-use wasm4pm::models::{OCELEvent, OCELEventObjectRef, OCELObject, OCEL};
+use truex_kernel::models::{OCELEvent, OCELEventObjectRef, OCELObject, OCEL};
 
 // ============================================================================
 // Test Helper

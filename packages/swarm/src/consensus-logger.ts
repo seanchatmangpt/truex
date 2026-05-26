@@ -4,7 +4,7 @@
  * Records all consensus decisions and performance updates to a JSONL log
  * for post-run analysis and debugging.
  *
- * File format: `.wasm4pm/swarm/consensus-log.jsonl`
+ * File format: `.truex/swarm/consensus-log.jsonl`
  * Each line is a JSON object with timestamp, decision, and performance metrics.
  */
 
@@ -23,7 +23,7 @@ export interface ConsensusLogEntry {
 
 /**
  * Logger for consensus decisions.
- * Writes JSONL to `.wasm4pm/swarm/consensus-log.jsonl` (creates directory if needed).
+ * Writes JSONL to `.truex/swarm/consensus-log.jsonl` (creates directory if needed).
  */
 export class ConsensusLogger {
   private logPath: string;
@@ -31,7 +31,7 @@ export class ConsensusLogger {
   private flushInterval = 5000; // Flush every 5 seconds
   private flushTimer: ReturnType<typeof setInterval> | null = null;
 
-  constructor(baseDir: string = '.wasm4pm') {
+  constructor(baseDir: string = '.truex') {
     this.logPath = path.join(baseDir, 'swarm', 'consensus-log.jsonl');
   }
 

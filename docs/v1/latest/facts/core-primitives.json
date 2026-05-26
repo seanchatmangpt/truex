@@ -54,9 +54,9 @@
   },
   "stats": {
     "totalFiles": 85,
-    "totalFunctions": 172,
+    "totalFunctions": 180,
     "totalClasses": 51,
-    "totalExportedSymbols": 460
+    "totalExportedSymbols": 468
   },
   "files": [
     {
@@ -157,10 +157,11 @@
     },
     {
       "path": "packages/membrane/src/context.ts",
-      "functions": 1,
+      "functions": 2,
       "classes": 0,
       "symbols": [
         "createDeterministicContext",
+        "useContext",
         "TruexContext"
       ],
       "internalLogicPaths": [
@@ -176,12 +177,19 @@
     },
     {
       "path": "packages/membrane/src/hook-otp.gall.ts",
-      "functions": 7,
+      "functions": 14,
       "classes": 0,
       "symbols": [
         "createHookMailbox",
         "createHookProcess",
         "createHookSupervisor",
+        "initializeOtpSchema",
+        "saveProcessState",
+        "saveMailboxMessage",
+        "removeMailboxMessage",
+        "recoverProcess",
+        "initHookOtpDb",
+        "persistProcess",
         "createHookOtpRuntime",
         "dispatchMessage",
         "replayMessage",
@@ -1222,6 +1230,6 @@
   "_metadata": {
     "emitter": "Core Facts Emitter",
     "description": "Extracts core primitives and exported symbols from membrane",
-    "timestamp": "2026-05-25T18:57:23.655Z"
+    "timestamp": "2026-05-26T05:19:54.170Z"
   }
 }

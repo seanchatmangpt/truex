@@ -4,7 +4,7 @@
 /// verifies that parsing does not panic, and asserts that the detected issue
 /// is observable from the parsed EventLog structure.
 use std::collections::HashMap;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser — mirrors the pattern used in benchmarks.rs and

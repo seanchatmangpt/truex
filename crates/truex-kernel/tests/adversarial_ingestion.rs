@@ -1,6 +1,6 @@
 #![cfg(feature = "miniml")]
-use wasm4pm::drift_manager::{StreamCircuitBreaker, TraceSnapshot, CircuitState};
-use wasm4pm_types::import::xes::{XESParsingTraceStream, XESImportOptions};
+use truex_kernel::drift_manager::{StreamCircuitBreaker, TraceSnapshot, CircuitState};
+use truex_kernel_types::import::xes::{XESParsingTraceStream, XESImportOptions};
 use fake::Fake;
 use proptest::prelude::*;
 
@@ -75,8 +75,8 @@ mod tests {
     /// Counterfactual: Creating an extremely dense "hairball" graph.
     #[test]
     fn test_adversarial_ocel_density_bounds() {
-        use wasm4pm::oc_orchestrator::OntologyDiscoveryAgent;
-        use wasm4pm_types::ocel::{OCEL, OCELObject, OCELRelationship};
+        use truex_kernel::oc_orchestrator::OntologyDiscoveryAgent;
+        use truex_kernel_types::ocel::{OCEL, OCELObject, OCELRelationship};
 
         let mut agent = OntologyDiscoveryAgent::new();
         let mut objects = Vec::new();
@@ -138,14 +138,14 @@ mod tests {
 
         // Post-condition: Should either error or handle it, but not panic.
         // Rule 1 violation (MAD based) likely trips because -5000 is an outlier.
-        assert!(result.is_ok() || matches!(result, Err(wasm4pm::drift_manager::DriftError::SevereDriftDetected)));
+        assert!(result.is_ok() || matches!(result, Err(truex_kernel::drift_manager::DriftError::SevereDriftDetected)));
     }
 
     /// Counterfactual: What if the knowledge base has conflicting/poisoned date formats?
     #[test]
     fn test_adversarial_poisoned_knowledge_base() {
-        use wasm4pm_types::import::persistence::IngestionKnowledgeBase;
-        use wasm4pm_types::import::timestamp_utils::parse_timestamp;
+        use truex_kernel_types::import::persistence::IngestionKnowledgeBase;
+        use truex_kernel_types::import::timestamp_utils::parse_timestamp;
 
         let mut kb = IngestionKnowledgeBase::new();
         kb.learn_date_format("time:timestamp".to_string(), "INVALID_FORMAT_STRING".to_string());
@@ -163,8 +163,8 @@ mod tests {
     /// Counterfactual: malformed OCEL object mapping.
     #[test]
     fn test_adversarial_malformed_ocel_mapping() {
-        use wasm4pm::oc_orchestrator::OntologyDiscoveryAgent;
-        use wasm4pm_types::ocel::{OCEL, OCELObject};
+        use truex_kernel::oc_orchestrator::OntologyDiscoveryAgent;
+        use truex_kernel_types::ocel::{OCEL, OCELObject};
 
         let mut agent = OntologyDiscoveryAgent::new();
         let objects = vec![

@@ -4,8 +4,8 @@
 //! - **Gap 5**: LinUCB weight L2 norms for convergence tracking (Rank-1 oracle)
 //! - **Gap 4**: Per-dimension state transition tracing and state space coverage (Rank-3 metamorphic)
 
-use wasm4pm::rl_orchestrator::{RlOrchestrator, StateCoverage};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{RlOrchestrator, StateCoverage};
+use truex_kernel::RlState;
 
 fn make_state(
     health: u8,

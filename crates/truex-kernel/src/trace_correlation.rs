@@ -4,7 +4,7 @@
 //! When CLI parent calls WASM child, both must share trace_id.
 //!
 //! Pattern:
-//! CLI span: trace_abc, span_001, name=wasm4pm.command.run
+//! CLI span: trace_abc, span_001, name=truex_kernel.command.run
 //! WASM span: trace_abc, span_002, parent_span_id=span_001, name=wasm.discover_dfg
 //!
 //! Correlation proves: WASM execution causally depends on CLI invocation

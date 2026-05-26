@@ -3,8 +3,8 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use serde_json::json;
 use std::time::Duration;
-use wasm4pm::models::EventLog;
-use wasm4pm::powl_api::discover_powl_from_log;
+use truex_kernel::models::EventLog;
+use truex_kernel::powl_api::discover_powl_from_log;
 
 #[path = "helpers.rs"]
 mod helpers;

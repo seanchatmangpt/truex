@@ -478,7 +478,7 @@ describe('configToConformanceThresholds', () => {
                 high_threshold: 0.50,
                 severe_threshold: 0.75,
               },
-              envelopes: { persist: true, path: '.wasm4pm/envelopes' },
+              envelopes: { persist: true, path: '.truex/envelopes' },
             },
           } as unknown as Partial<Config>)
         );
@@ -669,7 +669,7 @@ describe('buildMcppRequest', () => {
       }
     });
 
-    it('extensions.wasm4pm.algorithm.name matches config algorithm', () => {
+    it('extensions.truex.algorithm.name matches config algorithm', () => {
       const req = buildMcppRequest(
         makeConfig({ algorithm: { name: 'heuristic_miner', parameters: {} } }),
         'pid',

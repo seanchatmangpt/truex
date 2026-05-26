@@ -18,9 +18,9 @@
 
 #[cfg(feature = "cloud")]
 mod stability_tests {
-    use wasm4pm::rl_stability_monitor::RlStabilityMonitor;
-    use wasm4pm::rl_orchestrator::{RlOrchestrator, compute_reward};
-    use wasm4pm::RlState;
+    use truex_kernel::rl_stability_monitor::RlStabilityMonitor;
+    use truex_kernel::rl_orchestrator::{RlOrchestrator, compute_reward};
+    use truex_kernel::RlState;
 
     // =========================================================================
     // RISK-1: Learning Rate Aggression
@@ -222,14 +222,14 @@ mod stability_tests {
     /// around health_delta + momentum_max = 1.0 + 0.5 = 1.5 (not grow linearly).
     #[test]
     fn test_stability_momentum_bonus_doesnt_explode() {
-        use wasm4pm::rl_orchestrator::compute_reward_with_momentum;
+        use truex_kernel::rl_orchestrator::compute_reward_with_momentum;
 
         // Compute reward for 50 consecutive successes
         let mut cumulative = 0.0;
         let mut prev_reward = 0.0;
 
         for successes in 0..50 {
-            let reward = compute_reward_with_momentum(wasm4pm::rl_orchestrator::RewardParameters {
+            let reward = compute_reward_with_momentum(truex_kernel::rl_orchestrator::RewardParameters {
                 prev_health: 1,      // improved (from health_level 1 → 0)
                 curr_health: 0,
                 spc_alert_count: 0,  // no SPC alerts

@@ -1,9 +1,9 @@
 #![allow(dead_code)]
-// Shared helpers for all wasm4pm Criterion benchmarks.
+// Shared helpers for all truex_kernel Criterion benchmarks.
 // Included via `#[path = "helpers.rs"] mod helpers;` in each bench file.
 use std::collections::HashMap;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 pub const ACTIVITY_KEY: &str = "concept:name";
 pub const TIMESTAMP_KEY: &str = "time:timestamp";

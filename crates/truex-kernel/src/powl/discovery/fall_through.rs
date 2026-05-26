@@ -229,18 +229,18 @@ pub fn choice_graph_v2_fall_through(
 
     // Replace each Activity-node in the cut graph with a SubModel sub-tree.
     // SubModel = XOR of partition activities (placeholder for recursive PM×).
-    let mut new_nodes: Vec<wasm4pm_types::ChoiceGraphNode> =
+    let mut new_nodes: Vec<truex_kernel_types::ChoiceGraphNode> =
         Vec::with_capacity(cut.graph.nodes.len());
     for (i, n) in cut.graph.nodes.iter().enumerate() {
         match n {
-            wasm4pm_types::ChoiceGraphNode::Start => {
-                new_nodes.push(wasm4pm_types::ChoiceGraphNode::Start)
+            truex_kernel_types::ChoiceGraphNode::Start => {
+                new_nodes.push(truex_kernel_types::ChoiceGraphNode::Start)
             }
-            wasm4pm_types::ChoiceGraphNode::End => {
-                new_nodes.push(wasm4pm_types::ChoiceGraphNode::End)
+            truex_kernel_types::ChoiceGraphNode::End => {
+                new_nodes.push(truex_kernel_types::ChoiceGraphNode::End)
             }
-            wasm4pm_types::ChoiceGraphNode::Activity(_)
-            | wasm4pm_types::ChoiceGraphNode::SubModel(_) => {
+            truex_kernel_types::ChoiceGraphNode::Activity(_)
+            | truex_kernel_types::ChoiceGraphNode::SubModel(_) => {
                 let p_idx = cut.partition_for_node[i].expect("Activity node maps to partition");
                 let part = &cut.partition[p_idx];
                 let trans_indices: Vec<u32> = part
@@ -252,11 +252,11 @@ pub fn choice_graph_v2_fall_through(
                 } else {
                     arena.add_operator(Operator::Xor, trans_indices)
                 };
-                new_nodes.push(wasm4pm_types::ChoiceGraphNode::SubModel(sub_idx));
+                new_nodes.push(truex_kernel_types::ChoiceGraphNode::SubModel(sub_idx));
             }
         }
     }
-    let new_graph = wasm4pm_types::ChoiceGraph::new(new_nodes, cut.graph.edges.clone())
+    let new_graph = truex_kernel_types::ChoiceGraph::new(new_nodes, cut.graph.edges.clone())
         .map_err(|e| format!("post-substitution CG invalid: {}", e))?;
     Ok(arena.add_choice_graph(new_graph))
 }

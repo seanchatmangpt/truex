@@ -1,5 +1,5 @@
 /**
- * wasm4pm — High-Performance Process Intelligence Control WebAssembly Client Library
+ * truex-kernel — High-Performance Process Intelligence Control WebAssembly Client Library
  *
  * High-level TypeScript API for process mining in the browser.
  * Provides intuitive access to discovery, analysis, and conformance checking.
@@ -37,7 +37,7 @@ export function parseWasm4pmError(error) {
   return { code: 'UNKNOWN_ERROR', message: String(error) };
 }
 /**
- * Main client for wasm4pm operations
+ * Main client for truex-kernel operations
  * Handles initialization, data management, and algorithm execution
  */
 export class ProcessMiningClient {
@@ -56,12 +56,12 @@ export class ProcessMiningClient {
     try {
       // This will be the compiled WASM module
       // The actual initialization depends on how wasm-pack builds the module
-      if (typeof globalThis !== 'undefined' && globalThis.wasm4pm) {
-        this.wasmModule = globalThis.wasm4pm;
+      if (typeof globalThis !== 'undefined' && globalThis.truex) {
+        this.wasmModule = globalThis.truex;
       }
       this.initialized = true;
     } catch (error) {
-      throw new Error(`Failed to initialize wasm4pm: ${error}`);
+      throw new Error(`Failed to initialize truex-kernel: ${error}`);
     }
   }
   /**
@@ -171,7 +171,7 @@ export class ProcessMiningClient {
     return this.wasmModule.oc_performance_analysis(ocel.getId());
   }
   /**
-   * Get the version of wasm4pm
+   * Get the version of truex-kernel
    */
   getVersion() {
     if (!this.initialized) throw new Error('Client not initialized. Call init() first.');

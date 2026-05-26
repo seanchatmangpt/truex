@@ -1,5 +1,5 @@
 /**
- * Phase 3: Full End-to-End Integration Tests for wasm4pm v26.4.5
+ * Phase 3: Full End-to-End Integration Tests for truex-kernel v26.4.5
  *
  * Comprehensive testing of all 10 components working together:
  * - Config loading and validation
@@ -25,7 +25,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import * as pm from '../../pkg/wasm4pm.js';
+import * as pm from '../../pkg/truex_kernel.js';
 import { XES_MINIMAL, XES_SEQUENTIAL, XES_PARALLEL, XES_WORKFLOW } from '../helpers/fixtures.js';
 import { Wasm4pmConfig, ExecutionProfile, SourceFormat, ExecutionMode } from '../../src/config.js';
 

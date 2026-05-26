@@ -18,10 +18,10 @@
 use criterion::{black_box, BenchmarkId, Criterion, Throughput};
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::algorithms::discover_alpha_plus_plus;
-use wasm4pm::models::*;
-use wasm4pm::pnml_io::{from_pnml, to_pnml};
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::algorithms::discover_alpha_plus_plus;
+use truex_kernel::models::*;
+use truex_kernel::pnml_io::{from_pnml, to_pnml};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 #[path = "../helpers.rs"]
 mod helpers;

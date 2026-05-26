@@ -1,6 +1,6 @@
 //! Genetic Algorithm implementation
 //!
-//! Ported and adapted from wasm4pm genetic_discovery.rs
+//! Ported and adapted from truex_kernel genetic_discovery.rs
 //!
 //! Provides a generic genetic algorithm that works with any gene type
 //! that can be cloned and compared.

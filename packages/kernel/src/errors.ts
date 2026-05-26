@@ -20,7 +20,7 @@ import { diagnoseError } from './introspection/diagnostics.js';
    readonly context: Record<string, unknown>;
    readonly recoverable: boolean;
    readonly timestamp: Date;
-   readonly cause: Error | undefined;
+   override readonly cause: Error | undefined;
    readonly suggestions: string[];
 
    constructor(

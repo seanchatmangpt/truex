@@ -1,7 +1,7 @@
 //! Dispatch breed smoke tests: native (non-WASM) tests validating each breed
 //! routes correctly through the dispatch mechanism and produces non-empty traces.
 
-use wasm4pm_cognition::breeds::{
+use truex_kernel_cognition::breeds::{
     Candidate, Case, Fact, Goal, Rule, StateAtom, BreedInput, BreedId, dispatch_breed_test,
 };
 

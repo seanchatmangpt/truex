@@ -11,7 +11,7 @@ This document defines the final chronological sequence required to move the True
 ## Phase 1: Substrate Hardening (Tiers 0 - 2)
 **Objective:** Finalize the rebranding and secure the zero-variance execution loop.
 
-1.  **Operation Rename-Complete:** Perform the final search-and-replace sweep of `wasm4pm` -> `truex-kernel` and `truex_kernel_types` -> `truex_kernel_types` across all 10 Rust crates and their TS bridge files.
+1.  **Operation Rename-Complete:** Perform the final search-and-replace sweep of `truex-kernel` -> `truex-kernel` and `truex_kernel_types` -> `truex_kernel_types` across all 10 Rust crates and their TS bridge files.
 2.  **L1 Cryptographic Seal:** Fully integrate the Dual Signature mechanism (BLAKE3 + ML-DSA) into the `receipt-store.ts`. Ensure every receipt is quantum-hardened before it hits the SQLite `wal_deltas`.
 3.  **Branchless Refinement:** Refactor the remaining "branchy" logic in `src/invariants/` and `src/security/` using the `bcinr` calculus primitives to ensure constant-time admission.
 4.  **Consensus Stabilization:** Execute the first multi-node `GossipSync` across two local agent instances. Prove that a receipt minted on Agent A is legally recognized and "admitted" by Agent B without central coordination.

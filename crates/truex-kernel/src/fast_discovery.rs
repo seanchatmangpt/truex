@@ -14,7 +14,7 @@ pub fn discover_astar(
     max_iterations: usize,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.astar",
+        target: "truex_kernel.discovery.astar",
         algorithm = "astar",
         activity_key = activity_key,
         max_iterations = max_iterations,
@@ -25,7 +25,7 @@ pub fn discover_astar(
         get_or_init_state().with_object(eventlog_handle, |obj| match obj {
             Some(StoredObject::EventLog(log)) => {
                 tracing::info!(
-                    target: "wasm4pm.discovery.astar",
+                    target: "truex_kernel.discovery.astar",
                     checkpoint = "feature_extraction",
                     log_size = log.traces.len(),
                     activity_count = log.get_activities(activity_key).len(),
@@ -41,7 +41,7 @@ pub fn discover_astar(
     let edge_count = best_dfg.edges.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.astar",
+        target: "truex_kernel.discovery.astar",
         checkpoint = "result_generation",
         node_count = node_count,
         edge_count = edge_count,
@@ -69,7 +69,7 @@ pub fn discover_hill_climbing(
     activity_key: &str,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.hill_climbing",
+        target: "truex_kernel.discovery.hill_climbing",
         algorithm = "hill_climbing",
         activity_key = activity_key,
         "Hill Climbing discovery started"
@@ -78,7 +78,7 @@ pub fn discover_hill_climbing(
     let current_dfg = get_or_init_state().with_object(eventlog_handle, |obj| match obj {
         Some(StoredObject::EventLog(log)) => {
             tracing::info!(
-                target: "wasm4pm.discovery.hill_climbing",
+                target: "truex_kernel.discovery.hill_climbing",
                 checkpoint = "feature_extraction",
                 log_size = log.traces.len(),
                 activity_count = log.get_activities(activity_key).len(),
@@ -94,7 +94,7 @@ pub fn discover_hill_climbing(
     let edge_count = current_dfg.edges.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.hill_climbing",
+        target: "truex_kernel.discovery.hill_climbing",
         checkpoint = "result_generation",
         node_count = node_count,
         edge_count = edge_count,

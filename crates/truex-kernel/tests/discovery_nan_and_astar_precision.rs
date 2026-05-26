@@ -24,11 +24,11 @@
 //!        selected the full edge vocabulary, regardless of heuristic eta.
 
 use std::collections::HashMap;
-use wasm4pm::genetic_discovery::discover_aco_algorithm_from_log;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::discover_simulated_annealing_from_log;
-use wasm4pm::streaming::streaming_astar::StreamingAStarBuilder;
-use wasm4pm::streaming::StreamingAlgorithm;
+use truex_kernel::genetic_discovery::discover_aco_algorithm_from_log;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::discover_simulated_annealing_from_log;
+use truex_kernel::streaming::streaming_astar::StreamingAStarBuilder;
+use truex_kernel::streaming::StreamingAlgorithm;
 
 fn build_log(variants: &[(usize, &[&str])]) -> EventLog {
     let mut log = EventLog::new();

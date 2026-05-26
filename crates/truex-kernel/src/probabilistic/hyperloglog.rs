@@ -16,7 +16,7 @@ use std::mem;
 /// # Example
 ///
 /// ```no_run
-/// use wasm4pm::probabilistic::hyperloglog::HyperLogLog;
+/// use truex_kernel::probabilistic::hyperloglog::HyperLogLog;
 /// let mut hll: HyperLogLog<1024> = HyperLogLog::new();
 /// for i in 0..10000 { hll.add(i as u64); }
 /// let est = hll.estimate();

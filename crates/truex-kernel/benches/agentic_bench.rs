@@ -14,7 +14,7 @@
 use criterion::{criterion_group, criterion_main, Criterion};
 use std::collections::BTreeSet;
 use std::time::Duration;
-use wasm4pm::agentic::prelude::*;
+use truex_kernel::agentic::prelude::*;
 
 fn make_task_context(
     phase: WorkflowPhase,

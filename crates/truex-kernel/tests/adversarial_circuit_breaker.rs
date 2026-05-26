@@ -16,8 +16,8 @@
 //! Rank-1 oracle: mathematical invariant (state machine correctness).
 //! Rank-2 oracle: domain contract (reward function semantics).
 
-use wasm4pm::rl_orchestrator::compute_reward;
-use wasm4pm::self_healing::{
+use truex_kernel::rl_orchestrator::compute_reward;
+use truex_kernel::self_healing::{
     advance_clock, reset_clock, CircuitBreaker, CircuitBreakerConfig, CircuitState, CLOCK_LOCK,
 };
 

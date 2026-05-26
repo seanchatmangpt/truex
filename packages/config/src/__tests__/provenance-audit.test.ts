@@ -109,7 +109,7 @@ describe('Rank 1 — No provenance references unconsumed source', () => {
 
   it('when no config file is present, no provenance entry has source "toml" or "json"', async () => {
     const cfg = await resolveConfig({
-      configSearchPaths: [tmpDir], // empty directory — no wasm4pm.toml / .json
+      configSearchPaths: [tmpDir], // empty directory — no truex.toml / .json
       env: {},
     });
 
@@ -143,8 +143,8 @@ describe('Rank 2 — File-sourced provenance entries include `path`', () => {
   beforeEach(async () => { tmpDir = await makeTmpDir(); });
   afterEach(async () => { await fs.rm(tmpDir, { recursive: true, force: true }); });
 
-  it('TOML file-sourced provenance entries carry the absolute path to wasm4pm.toml', async () => {
-    const tomlPath = path.join(tmpDir, 'wasm4pm.toml');
+  it('TOML file-sourced provenance entries carry the absolute path to truex.toml', async () => {
+    const tomlPath = path.join(tmpDir, 'truex.toml');
     await fs.writeFile(
       tomlPath,
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "inductive_miner"\n'
@@ -162,7 +162,7 @@ describe('Rank 2 — File-sourced provenance entries include `path`', () => {
   });
 
   it('all TOML-sourced provenance entries carry the same file path', async () => {
-    const tomlPath = path.join(tmpDir, 'wasm4pm.toml');
+    const tomlPath = path.join(tmpDir, 'truex.toml');
     await fs.writeFile(
       tomlPath,
       'version = "26.4.5"\n[source]\nkind = "file"\n[execution]\nprofile = "quality"\ntimeout = 60000\n'
@@ -180,8 +180,8 @@ describe('Rank 2 — File-sourced provenance entries include `path`', () => {
     }
   });
 
-  it('JSON file-sourced provenance entries carry the absolute path to wasm4pm.json', async () => {
-    const jsonPath = path.join(tmpDir, 'wasm4pm.json');
+  it('JSON file-sourced provenance entries carry the absolute path to truex.json', async () => {
+    const jsonPath = path.join(tmpDir, 'truex.json');
     await fs.writeFile(
       jsonPath,
       JSON.stringify({

@@ -1,12 +1,12 @@
 /**
- * Unit tests for wasm4pm basic functionality
+ * Unit tests for truex-kernel basic functionality
  */
 
 import { describe, it, expect } from 'vitest';
-import * as wasm from '../pkg/wasm4pm.js';
+import * as wasm from '../pkg/truex_kernel.js';
 import { XES_MINIMAL } from './helpers/fixtures';
 
-describe('wasm4pm - Basic Functionality', () => {
+describe('truex-kernel - Basic Functionality', () => {
   it('should successfully import the WASM module', async () => {
     expect(wasm).toBeDefined();
     expect(typeof wasm.init).toBe('function');

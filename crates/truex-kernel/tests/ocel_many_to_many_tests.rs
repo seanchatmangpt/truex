@@ -15,10 +15,10 @@
 #[cfg(feature = "feature-ocel")]
 mod ocel_m2m_tests {
     use std::collections::HashMap;
-    use wasm4pm::models::{OCELEvent, OCELObject, OCEL};
-    use wasm4pm::ocel_flatten::measure_flattening_loss;
-    use wasm4pm::ocel_io::validate_ocel_object_lifecycles;
-    use wasm4pm::discovery::discover_ocel_dfg_pure;
+    use truex_kernel::models::{OCELEvent, OCELObject, OCEL};
+    use truex_kernel::ocel_flatten::measure_flattening_loss;
+    use truex_kernel::ocel_io::validate_ocel_object_lifecycles;
+    use truex_kernel::discovery::discover_ocel_dfg_pure;
 
     // -------------------------------------------------------------------------
     // Helpers

@@ -93,10 +93,10 @@ Live execution of the Antigravity Bridge wrapper verified:
 
 ## 11. Performance Summary
 Local OTP-equivalent concurrency benchmark throughput:
-- **Raw Hook Execution:** 1512859.304 ops/sec
-- **OTP Mailbox (Eval-Only):** 7005253.940 ops/sec
-- **Receipt-Backed OTP (Full Loop):** 29096.975 ops/sec
-- **Overhead Ratio:** 51.994x
+- **Raw Hook Execution:** 1561075.519 ops/sec
+- **OTP Mailbox (Eval-Only):** 6924440.505 ops/sec
+- **Receipt-Backed OTP (Full Loop):** 27537.904 ops/sec
+- **Overhead Ratio:** 56.688x
 
 ---
 

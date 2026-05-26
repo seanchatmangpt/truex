@@ -410,6 +410,7 @@ export interface HookedConsequenceAttempt {
   target: any;
   args: any[];
   timestamp: string;
+  outcome?: string;
 }
 
 export class PowlExecutionEngine {
@@ -417,6 +418,7 @@ export class PowlExecutionEngine {
   private nodeToIndex: Map<PowlNodeId, number> = new Map();
   private indexToNode: Map<number, PowlNode> = new Map();
   private transitionMatrix: bigint[] = [];
+  private nodeTransitions: Map<number, { toIdx: number, condition?: string }[]> = new Map();
   private verbToMask: Map<string, bigint> = new Map();
   private silentMask: bigint = 0n;
 
@@ -453,6 +455,11 @@ export class PowlExecutionEngine {
       for (const edge of node.edges) {
         const fromIdx = this.nodeToIndex.get(edge.from)!;
         const toIdx = this.nodeToIndex.get(edge.to)!;
+        
+        const trans = this.nodeTransitions.get(fromIdx) || [];
+        trans.push({ toIdx, condition: (edge as any).condition });
+        this.nodeTransitions.set(fromIdx, trans);
+        
         this.transitionMatrix[fromIdx] |= (1n << BigInt(toIdx));
       }
       for (const child of node.nodes) {
@@ -491,7 +498,26 @@ export class PowlExecutionEngine {
         const lsb = temp & -temp;
         const idx = this.getBitIndex(lsb);
         this.currentMask &= ~lsb;
-        this.currentMask |= this.transitionMatrix[idx];
+        
+        const transitions = this.nodeTransitions.get(idx) || [];
+        if (transitions.length > 0) {
+          let matched = false;
+          for (const trans of transitions) {
+            if (trans.condition === attempt.outcome) {
+              this.currentMask |= (1n << BigInt(trans.toIdx));
+              matched = true;
+            }
+          }
+          // If no outcome provided and no specific match, follow all unconditional edges
+          if (!matched && !attempt.outcome) {
+            for (const trans of transitions) {
+              if (!trans.condition) {
+                this.currentMask |= (1n << BigInt(trans.toIdx));
+              }
+            }
+          }
+        }
+        
         temp ^= lsb;
       }
       this.handleSilentTransitions();

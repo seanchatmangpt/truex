@@ -1,8 +1,8 @@
 #![cfg(feature = "poc_gate_validator")]
-use wasm4pm::autoprocess::AutoProcessAgent;
-use wasm4pm::pattern_dispatch::{PatternDispatcher, PatternContext, PatternType};
-use wasm4pm::gate_validator::{UnverifiedRun, VerifiedRun};
-use wasm4pm::proof_gate_registry::ProofGate;
+use truex_kernel::autoprocess::AutoProcessAgent;
+use truex_kernel::pattern_dispatch::{PatternDispatcher, PatternContext, PatternType};
+use truex_kernel::gate_validator::{UnverifiedRun, VerifiedRun};
+use truex_kernel::proof_gate_registry::ProofGate;
 
 #[cfg(test)]
 mod red_team {

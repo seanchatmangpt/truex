@@ -3,7 +3,7 @@
 //! classify as `MachineEvidence`.
 
 use proptest::prelude::*;
-use wasm4pm_cognition::authority::{classify, AuthorityKind};
+use truex_kernel_cognition::authority::{classify, AuthorityKind};
 
 proptest! {
     /// Any string containing a human marker AND a 64-hex digest classifies

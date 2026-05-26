@@ -1,6 +1,6 @@
 # Antigravity Artifact: Core Primitives
 
-> **Generated:** 2026-05-25T18:57:23.655Z
+> **Generated:** 2026-05-26T05:19:54.170Z
 > **Version:** 1.0.0
 
 ## Core Primitives
@@ -26,9 +26,9 @@
 | Metric | Value |
 | :--- | :--- |
 | totalFiles | 85 |
-| totalFunctions | 172 |
+| totalFunctions | 180 |
 | totalClasses | 51 |
-| totalExportedSymbols | 460 |
+| totalExportedSymbols | 468 |
 
 ## File Inventory
 
@@ -42,9 +42,9 @@
 | `packages/membrane/src/concurrency/wasm-worker-pool.ts` | 0 | 1 | 2 |
 | `packages/membrane/src/concurrency/wasm-worker.ts` | 0 | 0 | 0 |
 | `packages/membrane/src/concurrency.ts` | 3 | 0 | 5 |
-| `packages/membrane/src/context.ts` | 1 | 0 | 2 |
+| `packages/membrane/src/context.ts` | 2 | 0 | 3 |
 | `packages/membrane/src/hash.ts` | 0 | 0 | 0 |
-| `packages/membrane/src/hook-otp.gall.ts` | 7 | 0 | 14 |
+| `packages/membrane/src/hook-otp.gall.ts` | 14 | 0 | 21 |
 | `packages/membrane/src/hook.ts` | 0 | 1 | 1 |
 | `packages/membrane/src/index.ts` | 0 | 0 | 0 |
 | `packages/membrane/src/integration/autonomic-loop.ts` | 0 | 2 | 4 |

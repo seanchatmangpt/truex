@@ -1,4 +1,4 @@
-//! Route-Driven TDD substrate for `wasm4pm`.
+//! Route-Driven TDD substrate for `truex_kernel`.
 //!
 //! Proves not only that a test result is correct, but that the result was
 //! produced through a lawful POWL v2 route with exact conformance (1.0).
@@ -7,7 +7,7 @@
 //! # Public Surface
 //!
 //! ```
-//! use wasm4pm::testing::{
+//! use truex_kernel::testing::{
 //!     PowlTestHarness,
 //!     ExpectedConformance,
 //!     ReplayReport,

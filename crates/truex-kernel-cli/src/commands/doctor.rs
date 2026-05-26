@@ -1,5 +1,5 @@
 use colored::*;
-use wasm4pm_cli::io::Io;
+use truex_kernel_cli::io::Io;
 use std::path::Path;
 use std::process::Command;
 
@@ -50,11 +50,11 @@ pub fn run(verbose: bool) -> anyhow::Result<()> {
         all_pass = false;
     }
 
-    // 4. Check for presence of '.wasm4pm' directory
-    if Path::new(".wasm4pm").is_dir() {
-        println!("  [{}] .wasm4pm directory found", "PASS".green());
+    // 4. Check for presence of '.truex' directory
+    if Path::new(".truex").is_dir() {
+        println!("  [{}] .truex directory found", "PASS".green());
     } else {
-        println!("  [{}] .wasm4pm directory not found", "WARN".yellow());
+        println!("  [{}] .truex directory not found", "WARN".yellow());
     }
 
     println!("\nSummary:");

@@ -8,7 +8,7 @@
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
 use rand::rngs::StdRng;
 use rand::{Rng, SeedableRng};
-use wasm4pm::simd_inner_loops::*;
+use truex_kernel::simd_inner_loops::*;
 
 // ============================================================================
 // Scalar baseline implementations (for comparison)

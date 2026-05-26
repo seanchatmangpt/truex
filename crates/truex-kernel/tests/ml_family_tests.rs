@@ -1,8 +1,8 @@
-use wasm4pm::ml::regression::{regression_internal};
-use wasm4pm::ml::forecasting::{forecast_internal};
-use wasm4pm::ml::classification::{knn_internal, knn_internal_metrics};
-use wasm4pm::ml::pca::{pca_internal};
-use wasm4pm::ml::automl::{discover_automl_forecast_internal, discover_automl_classify_internal};
+use truex_kernel::ml::regression::{regression_internal};
+use truex_kernel::ml::forecasting::{forecast_internal};
+use truex_kernel::ml::classification::{knn_internal, knn_internal_metrics};
+use truex_kernel::ml::pca::{pca_internal};
+use truex_kernel::ml::automl::{discover_automl_forecast_internal, discover_automl_classify_internal};
 
 // --- 1. Regression Tests ---
 

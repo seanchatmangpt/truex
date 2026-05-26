@@ -34,8 +34,8 @@
 //! pm4py conformance proofs. No self-referential oracles (FM-5 clean).
 
 use std::collections::{HashMap, HashSet};
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::models::{
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::models::{
     AttributeValue, Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace,
     PetriNetTransition, Trace,
 };

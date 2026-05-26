@@ -1,7 +1,7 @@
 //! Keyed-BLAKE3 MAC fallback for environments without ed25519.
 //!
 //! The fallback derives a per-actor MAC key by hashing the actor's identity
-//! bytes under the `wasm4pm.identity.v2` domain. Signatures are produced as
+//! bytes under the `truex.identity.v2` domain. Signatures are produced as
 //! `BLAKE3_keyed(actor_key, msg)` and verified by re-deriving and comparing
 //! in constant time (subtle eq via `blake3::Hash`).
 

@@ -4,7 +4,7 @@
  */
 
 import { v4 as uuidv4 } from 'uuid';
-import { Receipt, ErrorInfo, ExecutionSummary, AlgorithmInfo, ModelInfo } from './receipt.js';
+import type { Receipt, ErrorInfo, ExecutionSummary, AlgorithmInfo, ModelInfo } from './receipt.js';
 import { hashData } from './hash.js';
 
 /**

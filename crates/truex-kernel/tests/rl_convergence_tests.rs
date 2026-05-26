@@ -14,8 +14,8 @@
 //! Oracle: Rank 4 (Statistical Property) — convergence trends over N trials.
 //! Strategy: Seeded RNG + multi-seed statistical assertions.
 
-use wasm4pm::rl_orchestrator::RlOrchestrator;
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::RlOrchestrator;
+use truex_kernel::RlState;
 
 /// Create a stable "healthy" state — no alerts, no drift, circuit closed.
 fn healthy_state() -> RlState {

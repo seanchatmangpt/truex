@@ -10,8 +10,8 @@
 //!
 //! Gap E: anti-leakage guards for the predictive process mining layer.
 
-use wasm4pm::prediction_additions::{calculate_rework_score, extract_prefix_features};
-use wasm4pm::prediction_resource::{
+use truex_kernel::prediction_additions::{calculate_rework_score, extract_prefix_features};
+use truex_kernel::prediction_resource::{
     BanditArm, BanditState, compute_queue_delay, compute_ucb1_selection,
 };
 

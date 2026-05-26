@@ -4,8 +4,8 @@
 //! are properly tracked and emitted in OTEL spans. Since internals are private,
 //! these tests focus on observable side effects of failure detection.
 
-use wasm4pm::rl_orchestrator::{RlOrchestrator, compute_reward};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{RlOrchestrator, compute_reward};
+use truex_kernel::RlState;
 
 fn make_state(health: u8, event_rate_q: u8) -> RlState {
     RlState {
@@ -145,7 +145,7 @@ fn orchestrator_survives_many_cycles() {
 #[test]
 fn health_state_computation_correct() {
     // Rank-1 oracle: health state computation must match specification
-    use wasm4pm::rl_orchestrator::compute_health_state;
+    use truex_kernel::rl_orchestrator::compute_health_state;
 
     assert_eq!(compute_health_state(0, 0, 0), 4); // Failed: empty
     assert_eq!(compute_health_state(10, 0, 3), 3); // Critical: no traces

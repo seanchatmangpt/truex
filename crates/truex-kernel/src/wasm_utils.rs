@@ -58,7 +58,7 @@ pub fn cache_stats() -> Result<JsValue, JsValue> {
 ///
 /// # Example
 /// ```
-/// use wasm4pm::wasm_utils::hash_xes_content;
+/// use truex_kernel::wasm_utils::hash_xes_content;
 /// let hash = hash_xes_content("<log></log>");
 /// assert_eq!(hash.len(), 16);
 /// ```
@@ -80,7 +80,7 @@ pub fn hash_xes_content(xes_content: &str) -> String {
 ///
 /// # Example
 /// ```
-/// use wasm4pm::wasm_utils::jaccard_distance;
+/// use truex_kernel::wasm_utils::jaccard_distance;
 /// let dist = jaccard_distance(r#"["A", "B"]"#, r#"["B", "C"]"#).unwrap();
 /// assert!((dist - 0.6666666666666667).abs() < 1e-10);
 /// ```
@@ -107,7 +107,7 @@ pub fn jaccard_distance(set1_json: &str, set2_json: &str) -> Result<f64, JsValue
 ///
 /// # Example
 /// ```
-/// use wasm4pm::wasm_utils::ewma_series;
+/// use truex_kernel::wasm_utils::ewma_series;
 /// let smoothed = ewma_series(r#"[1.0, 2.0, 3.0, 4.0, 5.0]"#, 0.5).unwrap();
 /// ```
 ///

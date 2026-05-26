@@ -963,7 +963,7 @@ export class ExecutionEngine {
       throw new Error(`Rollback failed: No rollback fixtures found for checkpoint ${checkpointId}`);
     }
 
-    const latestFixture = fixtures.at(-1);
+    const latestFixture = fixtures.at(-1)!;
     const fixtureDir = path.join(rollbackBaseDir, latestFixture);
     const logPath = path.join(fixtureDir, 'rollback-log.json');
     if (!fs.existsSync(logPath)) {

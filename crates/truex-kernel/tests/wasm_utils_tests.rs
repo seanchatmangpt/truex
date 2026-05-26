@@ -2,11 +2,11 @@
 //!
 //! Tests validate JSON serialization, edge cases, and interop with WASM boundary.
 
-extern crate wasm4pm;
+extern crate truex_kernel;
 
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::state::get_or_init_state;
-use wasm4pm::wasm_utils::*;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::state::get_or_init_state;
+use truex_kernel::wasm_utils::*;
 use std::collections::HashMap;
 
 /// Create a minimal test event log with configurable activities and traces.
@@ -243,7 +243,7 @@ fn test_ewma_series_invalid_json() {
 fn test_identify_high_variance_activities_basic() {
     let log = create_test_eventlog();
     let state = get_or_init_state();
-    let handle = state.store_object(wasm4pm::state::StoredObject::EventLog(log)).unwrap();
+    let handle = state.store_object(truex_kernel::state::StoredObject::EventLog(log)).unwrap();
 
     let result = identify_high_variance_activities(&handle, "concept:name", 0.5)
         .expect("identify_high_variance_activities should succeed");

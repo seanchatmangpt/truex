@@ -61,7 +61,7 @@ Emits the structured intent that eventually becomes the "Action" inside the OCEL
 ---
 
 ## 10. MISSING INVARIANTS
-*   DSPyGen currently optimizes for prompt accuracy. It needs to optimize for *Admissibility Acceptance Rate*—tuning the LLM based on whether `wasm4pm` rejected its proposed transition.
+*   DSPyGen currently optimizes for prompt accuracy. It needs to optimize for *Admissibility Acceptance Rate*—tuning the LLM based on whether `truex-kernel` rejected its proposed transition.
 
 ---
 

@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779772329419-pnysmq6",
+  "spanId": "span-unknown",
+  "startTime": 1779772329419,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779772330303,
+      "attributes": {
+        "primitive": "hook",
+        "status": "confirmed",
+        "executionTimeMs": 1,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779772330303,
+  "durationMs": 884
+}

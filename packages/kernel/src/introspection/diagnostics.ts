@@ -387,7 +387,7 @@ export function diagnoseError(error: unknown): DiagnosticError {
       suggestions: [
         'Run `cd wasm4pm && npm run build` to rebuild the WASM module',
         'Check `node --version` — minimum Node.js 18.0.0 required',
-        'Verify `@truex/kernel-wasm/pkg/wasm4pm_bg.wasm` exists after build',
+        'Verify `@truex/kernel-wasm/pkg/truex_kernel_bg.wasm` exists after build',
         'Run `wpm doctor` for a full 17-check environment diagnostic',
       ],
     };
@@ -414,12 +414,12 @@ export function diagnoseError(error: unknown): DiagnosticError {
     return {
       message: 'Configuration error',
       rootCauses: [
-        'wasm4pm.toml not found in the current directory',
+        'truex.toml not found in the current directory',
         'Required field missing from configuration file',
         'ENV variable override has invalid value',
       ],
       suggestions: [
-        'Run `wpm init` to create a default wasm4pm.toml in the current directory',
+        'Run `wpm init` to create a default truex.toml in the current directory',
         'Check that `source.path` points to an existing .xes file',
         'Validate configuration with `wpm validate`',
         'See ENV variable reference: WASM4PM_PROFILE, WASM4PM_ALGORITHM, WASM4PM_OUTPUT_FORMAT',
@@ -436,7 +436,7 @@ export function diagnoseError(error: unknown): DiagnosticError {
         'File permissions deny read access',
       ],
       suggestions: [
-        'Use an absolute path for source.path in wasm4pm.toml',
+        'Use an absolute path for source.path in truex.toml',
         'Run the command from the directory containing the .xes file',
         'Check file permissions with `ls -la <path>`',
         'Use `loadSampleDataset("simple")` for a built-in test log',

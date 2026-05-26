@@ -91,26 +91,26 @@ pub fn apply(
             let mut new_nodes = Vec::with_capacity(cg.graph.nodes.len());
             for n in cg.graph.nodes.clone().into_iter() {
                 match n {
-                    wasm4pm_types::ChoiceGraphNode::Start => {
-                        new_nodes.push(wasm4pm_types::ChoiceGraphNode::Start)
+                    truex_kernel_types::ChoiceGraphNode::Start => {
+                        new_nodes.push(truex_kernel_types::ChoiceGraphNode::Start)
                     }
-                    wasm4pm_types::ChoiceGraphNode::End => {
-                        new_nodes.push(wasm4pm_types::ChoiceGraphNode::End)
+                    truex_kernel_types::ChoiceGraphNode::End => {
+                        new_nodes.push(truex_kernel_types::ChoiceGraphNode::End)
                     }
-                    wasm4pm_types::ChoiceGraphNode::Activity(l) => {
+                    truex_kernel_types::ChoiceGraphNode::Activity(l) => {
                         let new_label = label_map
                             .get(l.as_str())
                             .cloned()
                             .unwrap_or(l);
-                        new_nodes.push(wasm4pm_types::ChoiceGraphNode::Activity(new_label))
+                        new_nodes.push(truex_kernel_types::ChoiceGraphNode::Activity(new_label))
                     }
-                    wasm4pm_types::ChoiceGraphNode::SubModel(child) => {
+                    truex_kernel_types::ChoiceGraphNode::SubModel(child) => {
                         let new_child = apply(arena, child, label_map, dest_arena);
-                        new_nodes.push(wasm4pm_types::ChoiceGraphNode::SubModel(new_child));
+                        new_nodes.push(truex_kernel_types::ChoiceGraphNode::SubModel(new_child));
                     }
                 }
             }
-            let new_graph = wasm4pm_types::ChoiceGraph {
+            let new_graph = truex_kernel_types::ChoiceGraph {
                 nodes: new_nodes,
                 edges: cg.graph.edges.clone(),
                 start_idx: cg.graph.start_idx,

@@ -16,7 +16,7 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::models::{AttributeValue, EventLog, NGramPredictor};
+use truex_kernel::models::{AttributeValue, EventLog, NGramPredictor};
 
 #[path = "helpers.rs"]
 mod helpers;

@@ -1,5 +1,5 @@
-# crates/wasm4pm-cognition/Makefile.toml
-# cargo-make task definitions for the wasm4pm-cognition crate.
+# crates/truex-kernel-cognition/Makefile.toml
+# cargo-make task definitions for the truex-kernel-cognition crate.
 # Run any task with: cargo make <task-name>
 # List all tasks:    cargo make --list-all-steps
 
@@ -14,29 +14,29 @@ alias = "verify"
 [tasks.check]
 description = "Native type-check (no codegen)"
 command = "cargo"
-args = ["check", "-p", "wasm4pm-cognition"]
+args = ["check", "-p", "truex-kernel-cognition"]
 
 [tasks.check-wasm]
 description = "WASM type-check (wasm32-unknown-unknown target)"
 command = "cargo"
-args = ["check", "-p", "wasm4pm-cognition", "--features", "wasm", "--target", "wasm32-unknown-unknown"]
+args = ["check", "-p", "truex-kernel-cognition", "--features", "wasm", "--target", "wasm32-unknown-unknown"]
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 
 [tasks.test-native]
 description = "Run native unit + integration tests"
 command = "cargo"
-args = ["test", "-p", "wasm4pm-cognition"]
+args = ["test", "-p", "truex-kernel-cognition"]
 
 [tasks.test-anti-fraud]
 description = "Run the anti-fraud gate (forbidden lexicon + structural scans)"
 command = "cargo"
-args = ["test", "-p", "wasm4pm-cognition", "--test", "anti_fraud_gate"]
+args = ["test", "-p", "truex-kernel-cognition", "--test", "anti_fraud_gate"]
 
 [tasks.test-adversarial]
 description = "Run the 8 adversarial bypass tests"
 command = "cargo"
-args = ["test", "-p", "wasm4pm-cognition", "--test", "adversarial_bypass"]
+args = ["test", "-p", "truex-kernel-cognition", "--test", "adversarial_bypass"]
 
 # ── WASM pack builds ───────────────────────────────────────────────────────────
 

@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import * as wasm from '../../pkg/wasm4pm.js';
+import * as wasm from '../../pkg/truex_kernel.js';
 import { XES_MINIMAL, OCEL_MINIMAL } from '../helpers/fixtures';
 
 describe('Type Wrapper - WasmEventLog', () => {

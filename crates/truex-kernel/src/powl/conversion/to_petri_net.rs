@@ -289,8 +289,8 @@ fn recursively_add_tree(
                 } else {
                     // SubModel(idx) (or Activity, but Activity is normalized away).
                     let sub_idx: u32 = match node {
-                        wasm4pm_types::ChoiceGraphNode::SubModel(i) => *i,
-                        wasm4pm_types::ChoiceGraphNode::Activity(_) => {
+                        truex_kernel_types::ChoiceGraphNode::SubModel(i) => *i,
+                        truex_kernel_types::ChoiceGraphNode::Activity(_) => {
                             // Defensive: should not occur (normalized in add_choice_graph).
                             // Skip with a silent transition to keep replay sound.
                             let p_in = new_place(net, counts);
@@ -310,8 +310,8 @@ fn recursively_add_tree(
                             }
                             continue;
                         }
-                        wasm4pm_types::ChoiceGraphNode::Start
-                        | wasm4pm_types::ChoiceGraphNode::End => unreachable!(),
+                        truex_kernel_types::ChoiceGraphNode::Start
+                        | truex_kernel_types::ChoiceGraphNode::End => unreachable!(),
                     };
                     let p_in = new_place(net, counts);
                     let p_out = new_place(net, counts);

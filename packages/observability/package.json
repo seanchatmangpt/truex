@@ -1,6 +1,6 @@
 {
   "name": "@truex/observability",
-  "version": "26.5.21",
+  "version": "26.5.25-CONVERGED",
   "description": "Optional non-blocking OTEL observability layer for wasm4pm",
   "type": "module",
   "main": "./dist/index.js",

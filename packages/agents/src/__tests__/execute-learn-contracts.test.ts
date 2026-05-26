@@ -83,7 +83,7 @@ describe('AgentOrchestrator.execute — core contracts', () => {
         {
           agent: 'config-drift-guardian',
           type: 'config_restoration',
-          target: 'wasm4pm.toml',
+          target: 'truex.toml',
           severity: 'warning',
           requires_approval: false,
         },

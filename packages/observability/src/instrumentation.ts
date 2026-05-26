@@ -46,7 +46,11 @@ export type EventType =
   | 'ConformanceCacheMiss'
   | 'DedupHit'
   // Feedback events
-  | 'FeedbackCaptured';
+  | 'FeedbackCaptured'
+  | 'RlRunCycle'
+  | 'SpcRuleViolation'
+  | 'CircuitBreaker'
+  | 'ProtectionActivation';
 
 /**
  * State change event
@@ -228,6 +232,65 @@ export interface RlAgentSwitchEvent {
   toAgent: string;
   ucbScore?: number;
   cycleCount?: number;
+  status: 'OK' | 'ERROR' | 'UNSET';
+  requiredAttrs: RequiredOtelAttributes;
+}
+
+/**
+ * RL run cycle event — emitted on every autonomic cycle.
+ *
+ * Span name: `rl.run_cycle`
+ * Span kind: INTERNAL
+ *
+ * Required attributes:
+ *   rl.update.td_error       — temporal difference error
+ */
+export interface RlRunCycleEvent {
+  type: 'RlRunCycle';
+  traceId: string;
+  spanId: string;
+  parentSpanId?: string;
+  runId: string;
+  tdError: number;
+  durationMs?: number;
+  status: 'OK' | 'ERROR' | 'UNSET';
+  requiredAttrs: RequiredOtelAttributes;
+}
+
+/**
+ * SPC rule violation event
+ */
+export interface SpcRuleViolationEvent {
+  type: 'SpcRuleViolation';
+  traceId: string;
+  spanId: string;
+  parentSpanId?: string;
+  runId: string;
+  ruleFired: 'rule_1_outlier' | 'rule_2_shift' | 'rule_3_trend' | 'rule_4_two_of_three';
+  metric: string;
+  durationMs?: number;
+  status: 'OK' | 'ERROR' | 'UNSET';
+  requiredAttrs: RequiredOtelAttributes;
+}
+
+/**
+ * Circuit breaker event — emitted when a circuit breaker state transitions
+ *
+ * Span name: `circuit.decision_impact_on_cycle`
+ * Span kind: INTERNAL
+ */
+export interface CircuitBreakerEvent {
+  type: 'CircuitBreaker';
+  traceId: string;
+  spanId: string;
+  parentSpanId?: string; // Causal link to parent autonomic.cycle / health span
+  runId: string;
+  algorithmName: string;
+  previousState: 'Closed' | 'HalfOpen' | 'Open';
+  nextState: 'Closed' | 'HalfOpen' | 'Open';
+  healthLevelBefore?: number;
+  healthLevelAfter?: number;
+  durationMs?: number;
   status: 'OK' | 'ERROR' | 'UNSET';
   requiredAttrs: RequiredOtelAttributes;
 }
@@ -1665,6 +1728,225 @@ export class Instrumentation {
         'feedback.execution_time_ms': executionTimeMs,
       },
     };
+  }
+
+  /**
+   * Create RL run cycle event carrying tdError.
+   * Span name: `rl.run_cycle`.
+   */
+  static createRlRunCycleEvent(
+    traceId: string,
+    tdError: number,
+    requiredAttrs: RequiredOtelAttributes,
+    options?: { parentSpanId?: string; durationMs?: number }
+  ): { event: RlRunCycleEvent; otelEvent: OtelEvent } {
+    const spanId = this.generateSpanId();
+    const now = Date.now() * 1000000;
+    const durationMs = options?.durationMs ?? 0;
+
+    const event: RlRunCycleEvent = {
+      type: 'RlRunCycle',
+      traceId,
+      spanId,
+      parentSpanId: options?.parentSpanId,
+      runId: requiredAttrs['run.id'],
+      tdError,
+      durationMs,
+      status: 'OK',
+      requiredAttrs,
+    };
+
+    const otelEvent: OtelEvent = {
+      trace_id: traceId,
+      span_id: spanId,
+      parent_span_id: options?.parentSpanId,
+      name: 'rl.run_cycle',
+      kind: 'INTERNAL',
+      start_time: now - durationMs * 1000000,
+      end_time: now,
+      status: { code: 'OK' },
+      attributes: {
+        'service.name': '@truex/kernel',
+        ...requiredAttrs,
+        'rl.update.td_error': tdError,
+        'td_error': tdError,
+      },
+    };
+
+    return { event, otelEvent };
+  }
+
+  /**
+   * Create SPC rule violation event.
+   * Span name: `spc.rule_violation_classified`.
+   */
+  static createSpcRuleViolationEvent(
+    traceId: string,
+    ruleFired: 'rule_1_outlier' | 'rule_2_shift' | 'rule_3_trend' | 'rule_4_two_of_three',
+    metric: string,
+    requiredAttrs: RequiredOtelAttributes,
+    options?: { parentSpanId?: string; durationMs?: number }
+  ): { event: SpcRuleViolationEvent; otelEvent: OtelEvent } {
+    const spanId = this.generateSpanId();
+    const now = Date.now() * 1000000;
+    const durationMs = options?.durationMs ?? 0;
+
+    const event: SpcRuleViolationEvent = {
+      type: 'SpcRuleViolation',
+      traceId,
+      spanId,
+      parentSpanId: options?.parentSpanId,
+      runId: requiredAttrs['run.id'],
+      ruleFired,
+      metric,
+      durationMs,
+      status: 'OK',
+      requiredAttrs,
+    };
+
+    const otelEvent: OtelEvent = {
+      trace_id: traceId,
+      span_id: spanId,
+      parent_span_id: options?.parentSpanId,
+      name: 'spc.rule_violation_classified',
+      kind: 'INTERNAL',
+      start_time: now - durationMs * 1000000,
+      end_time: now,
+      status: { code: 'ERROR' },
+      attributes: {
+        'service.name': '@truex/kernel',
+        ...requiredAttrs,
+        'spc_rule_type': ruleFired,
+        'spc_metric': metric,
+        'rule_fired': ruleFired,
+        'status': 'error',
+      },
+    };
+
+    return { event, otelEvent };
+  }
+
+  /**
+   * Create circuit breaker transition event.
+   * Span name: `circuit.decision_impact_on_cycle`.
+   */
+  static createCircuitBreakerEvent(
+    traceId: string,
+    algorithmName: string,
+    previousState: 'Closed' | 'HalfOpen' | 'Open',
+    nextState: 'Closed' | 'HalfOpen' | 'Open',
+    requiredAttrs: RequiredOtelAttributes,
+    options?: { parentSpanId?: string; durationMs?: number; healthLevelBefore?: number; healthLevelAfter?: number }
+  ): { event: CircuitBreakerEvent; otelEvent: OtelEvent } {
+    const spanId = this.generateSpanId();
+    const now = Date.now() * 1000000;
+    const durationMs = options?.durationMs ?? 0;
+
+    const event: CircuitBreakerEvent = {
+      type: 'CircuitBreaker',
+      traceId,
+      spanId,
+      parentSpanId: options?.parentSpanId,
+      runId: requiredAttrs['run.id'],
+      algorithmName,
+      previousState,
+      nextState,
+      healthLevelBefore: options?.healthLevelBefore,
+      healthLevelAfter: options?.healthLevelAfter,
+      durationMs,
+      status: 'OK',
+      requiredAttrs,
+    };
+
+    const otelEvent: OtelEvent = {
+      trace_id: traceId,
+      span_id: spanId,
+      parent_span_id: options?.parentSpanId,
+      name: 'circuit.decision_impact_on_cycle',
+      kind: 'INTERNAL',
+      start_time: now - durationMs * 1000000,
+      end_time: now,
+      status: { code: 'OK' },
+      attributes: {
+        'service.name': '@truex/kernel',
+        ...requiredAttrs,
+        'circuit.algorithm': algorithmName,
+        'circuit.state_transition': `${previousState} -> ${nextState}`,
+        'causal.parent_span_id': options?.parentSpanId || 'unspecified',
+        'causal.health_before': options?.healthLevelBefore ?? 0,
+        'causal.health_after': options?.healthLevelAfter ?? 0,
+      },
+    };
+
+    return { event, otelEvent };
+  }
+
+  /**
+   * Create protection activation event.
+   * Span name: `autonomic.protection.activation`.
+   */
+  static createProtectionActivationEvent(
+    traceId: string,
+    data: {
+      degradationLevel: 'NONE' | 'QUALITY' | 'PERFORMANCE' | 'AVAILABILITY';
+      triggerReasons: {
+        spcAlertsDetected: boolean;
+        circuitBreakerOpen: boolean;
+        resourceConstraint: boolean;
+        latencyViolation: boolean;
+      };
+      openCircuitBreakers: string[];
+      activeSpcAlerts: number;
+      degradationRationale: string;
+      durationMs?: number;
+    },
+    requiredAttrs: RequiredOtelAttributes,
+    options?: { parentSpanId?: string }
+  ): { event: ProtectionActivationEvent; otelEvent: OtelEvent } {
+    const spanId = this.generateSpanId();
+    const now = Date.now() * 1000000;
+    const durationMs = data.durationMs ?? 0;
+
+    const event: ProtectionActivationEvent = {
+      type: 'ProtectionActivationEvent',
+      traceId,
+      spanId,
+      parentSpanId: options?.parentSpanId,
+      runId: requiredAttrs['run.id'],
+      degradationLevel: data.degradationLevel,
+      triggerReasons: data.triggerReasons,
+      openCircuitBreakers: data.openCircuitBreakers,
+      activeSpcAlerts: data.activeSpcAlerts,
+      degradationRationale: data.degradationRationale,
+      durationMs,
+      status: 'OK',
+      requiredAttrs,
+    };
+
+    const otelEvent: OtelEvent = {
+      trace_id: traceId,
+      span_id: spanId,
+      parent_span_id: options?.parentSpanId,
+      name: 'autonomic.protection.activation',
+      kind: 'INTERNAL',
+      start_time: now - durationMs * 1000000,
+      end_time: now,
+      status: { code: 'OK' },
+      attributes: {
+        'service.name': '@truex/kernel',
+        ...requiredAttrs,
+        'protection.degradation_level': data.degradationLevel,
+        'protection.trigger_reasons.spc_alerts_detected': data.triggerReasons.spcAlertsDetected,
+        'protection.trigger_reasons.circuit_breaker_open': data.triggerReasons.circuitBreakerOpen,
+        'protection.trigger_reasons.resource_constraint': data.triggerReasons.resourceConstraint,
+        'protection.trigger_reasons.latency_violation': data.triggerReasons.latencyViolation,
+        'protection.open_circuit_breakers': data.openCircuitBreakers.join(','),
+        'protection.active_spc_alerts': data.activeSpcAlerts,
+        'protection.degradation_rationale': data.degradationRationale,
+      },
+    };
+
+    return { event, otelEvent };
   }
 
   // ─────────────────────────────────────────────────────────────────────

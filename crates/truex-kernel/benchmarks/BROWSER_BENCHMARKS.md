@@ -1,10 +1,10 @@
-# wasm4pm Browser Benchmarks
+# truex-kernel Browser Benchmarks
 
-Browser-based performance testing for wasm4pm algorithms using Vitest with headless Chromium and Playwright.
+Browser-based performance testing for truex-kernel algorithms using Vitest with headless Chromium and Playwright.
 
 ## Overview
 
-Browser benchmarks test wasm4pm algorithms in a browser environment (via headless Chromium), providing insights into:
+Browser benchmarks test truex-kernel algorithms in a browser environment (via headless Chromium), providing insights into:
 
 - **Real-world browser performance** — Actual JavaScript engine optimization patterns
 - **Environment differences** — Node.js vs browser WASM memory models
@@ -242,7 +242,7 @@ Parameters in `generateXES()`:
 npx playwright install
 ```
 
-### "Cannot find module 'pkg/wasm4pm.js'"
+### "Cannot find module 'pkg/truex_kernel.js'"
 
 ```bash
 npm run build:web

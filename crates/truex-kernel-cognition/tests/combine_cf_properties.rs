@@ -12,7 +12,7 @@
 //! the math.
 
 use proptest::prelude::*;
-use wasm4pm_cognition::breeds::production_rules::combine_cf;
+use truex_kernel_cognition::breeds::production_rules::combine_cf;
 
 const EPS: f32 = 1e-5;
 

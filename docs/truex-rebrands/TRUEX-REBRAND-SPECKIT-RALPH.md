@@ -19,7 +19,7 @@ Before the Truex 2030 vision, this was known as `speckit-ralph`. It was the "exe
 *   **Receipt Chain Maintenance:** Orchestrates the hash-linked provenance across multiple repositories.
 
 ## 4. O* (LAWFUL CLOSURE)
-Speckit-Ralph ensures that no artifact is admitted without a verifiable claim-and-evidence chain. It binds the output of the `mcpp` plant and the `wasm4pm` mining results into a single, unified authority.
+Speckit-Ralph ensures that no artifact is admitted without a verifiable claim-and-evidence chain. It binds the output of the `mcpp` plant and the `truex-kernel` mining results into a single, unified authority.
 
 ## 5. μ (DETERMINISTIC PROJECTION)
 The `PR-Ralph` loop acts as the deterministic projection, converting `tasks.md` and `ROADMAP.md` into physical commits, tests, and receipts.

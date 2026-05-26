@@ -4,7 +4,7 @@ use std::fmt::Display;
 use std::fs;
 use std::path::Path;
 
-/// IO Manager for wasm4pm (wpm) CLI
+/// IO Manager for truex_kernel (wpm) CLI
 pub struct Io {
     verbose: bool,
 }

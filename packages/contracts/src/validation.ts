@@ -3,7 +3,7 @@
  * Verifies cryptographic integrity of receipts
  */
 
-import { Receipt, isReceipt } from './receipt.js';
+import { type Receipt, isReceipt } from './receipt.js';
 import { verifyHash } from './hash.js';
 
 /**

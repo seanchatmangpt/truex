@@ -5,8 +5,8 @@
 //!
 //! Run: `cargo test --test powl_macro_tests --features browser`
 
-use wasm4pm::testing::{ActivityEvidence, ObjectEvidence};
-use wasm4pm_macros::{powl_activity, powl_test};
+use truex_kernel::testing::{ActivityEvidence, ObjectEvidence};
+use truex_kernel_macros::{powl_activity, powl_test};
 
 fn bh(data: &str) -> String {
     blake3::hash(data.as_bytes()).to_hex().to_string()

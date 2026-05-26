@@ -15,6 +15,7 @@
     "noImplicitOverride": true,
     "noEmit": true,
     "baseUrl": "./",
+    "skipLibCheck": true,
     "typeRoots": ["./types", "./node_modules/@types"]
   },
   "include": ["src", "types", "packages/**/*", "skills/**/*", "agents/**/*"]

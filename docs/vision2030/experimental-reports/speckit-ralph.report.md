@@ -161,15 +161,15 @@ _Generated 2026-05-18. Provenance receipt in .portfolio/chain.json._
 - **Tera template materialization (μ₃)**: Consumes SPARQL facts to generate artifacts. Example: `supabase-migration.tera` `[commit:a41cec8]`. Driven by `[ggen]`.
 - **Canonical runtime artifacts (μ₄ validate, μ₅ emit)**: Supabase migrations and Expo mobile threshold surfaces emitted directly into the `supabase/` and `packages/` directories `[commit:974ad35]`. Driven by `[ggen]`.
 - **Receipt emission**: `[snapshot:open-ontologies]` `.ggen/receipts` tracks 94 entries verified via EARL verifier. `mcpp` maintains `.mcpp/chain.jsonl` `[snapshot:mcpp]`. Driven by `[ggen]`/`[bash]`/`[cargo-make]` (e.g., `verify-receipts.sh` `[commit:68f3972]`).
-- **Conformance replay (wasm4pm)**: `mcpp ocel replay --global` evaluates OCEL logs against POWL v2 discovery `[memory:project_mcpp_wasm4pm_boundary]`. Driven by `[mcpp CLI]`/`[claude]`.
-- **Admission gates**: Evaluates conformance. Doctor classifies into `RouteConformanceFailed`, `MissingRouteActivity`, etc. `[memory:project_mcpp_wasm4pm_boundary]`. Driven by `[mcpp]`.
+- **Conformance replay (truex-kernel)**: `mcpp ocel replay --global` evaluates OCEL logs against POWL v2 discovery `[memory:project_mcpp_truex-kernel_boundary]`. Driven by `[mcpp CLI]`/`[claude]`.
+- **Admission gates**: Evaluates conformance. Doctor classifies into `RouteConformanceFailed`, `MissingRouteActivity`, etc. `[memory:project_mcpp_truex-kernel_boundary]`. Driven by `[mcpp]`.
 
 ## 3. Autonomic gap
 
 - **Legacy Gemini Invocation**: open-ontologies still shells out to `gemini -p ... --approval-mode yolo` `[transcript:ec324c5f-7e29-477c-b1bb-c394f10654d8]`. Needs patching to `npx -y @google/gemini-cli -p ... -y` to match speckit-ralph's recent CLI integration `[transcript:711d1ee0-e054-4566-9d11-ef8ef9673820]`.
 - **TTL Authoring Loop**: Ontology additions currently require Claude sessions. Smallest concrete change: A dedicated `tools/repo-state/reconcile/briefs/ontostar-authoring.yaml` brief to ingest natural-language domain needs and output `https://zoela.org/ontology/` namespaced TTL files.
 - **ggen sync execution & remediation**: `ggen sync` runs manually by Claude `[transcript:ecaa7798-621a-44dc-ab39-2dd04b553c35]`. Smallest concrete change: A cron loop driver (e.g., `bash tools/ggen-sync-loop.sh`) that pipes `pnpm validate:all` and `ggen sync` stderr into a Gemini remediation brief when they fail.
-- **Conformance Feedback Loop**: `mcpp ocel replay` and wasm4pm output `[memory:project_mcpp_wasm4pm_boundary]` are read by Claude. Smallest concrete change: A script extracting fitness/precision metrics from `bench_data/ocel20_example.jsonocel` `[snapshot:wasm4pm]` and routing them to Gemini via `gemini-do.sh` to self-correct the TTL/SPARQL mismatch.
+- **Conformance Feedback Loop**: `mcpp ocel replay` and truex-kernel output `[memory:project_mcpp_truex-kernel_boundary]` are read by Claude. Smallest concrete change: A script extracting fitness/precision metrics from `bench_data/ocel20_example.jsonocel` `[snapshot:truex-kernel]` and routing them to Gemini via `gemini-do.sh` to self-correct the TTL/SPARQL mismatch.
 
 ## 4. Dependencies and blockers
 

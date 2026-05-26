@@ -48,7 +48,7 @@ function validateReceipt(raw: unknown): CommandReceiptRow | null {
 }
 
 export async function listLocalCommandReceipts(
-  receiptsDir = '.wasm4pm/receipts'
+  receiptsDir = '.truex/receipts'
 ): Promise<CommandReceiptRow[]> {
   const dir = path.resolve(receiptsDir);
   let entries: string[];

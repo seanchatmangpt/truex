@@ -1,8 +1,8 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::time::Duration;
-use wasm4pm::testing::harness::TestEvent;
-use wasm4pm::testing::ocel_exporter::export_ocel;
-use wasm4pm::testing::proof_pack::ProofPackWriter;
+use truex_kernel::testing::harness::TestEvent;
+use truex_kernel::testing::ocel_exporter::export_ocel;
+use truex_kernel::testing::proof_pack::ProofPackWriter;
 use serde_json::Value;
 
 #[path = "helpers.rs"]

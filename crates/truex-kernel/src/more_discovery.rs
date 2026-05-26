@@ -37,7 +37,7 @@ pub fn discover_inductive_miner(
     activity_key: &str,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.inductive_miner",
+        target: "truex_kernel.discovery.inductive_miner",
         algorithm = "inductive_miner",
         activity_key = activity_key,
         "Inductive Miner discovery started"
@@ -49,7 +49,7 @@ pub fn discover_inductive_miner(
             let activity_count = activities.len();
 
             tracing::info!(
-                target: "wasm4pm.discovery.inductive_miner",
+                target: "truex_kernel.discovery.inductive_miner",
                 checkpoint = "feature_extraction",
                 log_size = log.traces.len(),
                 activity_count = activity_count,
@@ -68,7 +68,7 @@ pub fn discover_inductive_miner(
     let nodes = tree.count_nodes();
 
     tracing::info!(
-        target: "wasm4pm.discovery.inductive_miner",
+        target: "truex_kernel.discovery.inductive_miner",
         checkpoint = "result_generation",
         node_count = nodes,
         "Process tree constructed"
@@ -338,7 +338,7 @@ pub fn discover_simulated_annealing(
     cooling_rate: f64,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.simulated_annealing",
+        target: "truex_kernel.discovery.simulated_annealing",
         algorithm = "simulated_annealing",
         activity_key = activity_key,
         temperature = temperature,
@@ -350,7 +350,7 @@ pub fn discover_simulated_annealing(
         get_or_init_state().with_object(eventlog_handle, |obj| match obj {
             Some(StoredObject::EventLog(log)) => {
                 tracing::info!(
-                    target: "wasm4pm.discovery.simulated_annealing",
+                    target: "truex_kernel.discovery.simulated_annealing",
                     checkpoint = "feature_extraction",
                     log_size = log.traces.len(),
                     activity_count = log.get_activities(activity_key).len(),
@@ -371,7 +371,7 @@ pub fn discover_simulated_annealing(
     let edge_count = best_dfg.edges.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.simulated_annealing",
+        target: "truex_kernel.discovery.simulated_annealing",
         checkpoint = "result_generation",
         node_count = node_count,
         edge_count = edge_count,

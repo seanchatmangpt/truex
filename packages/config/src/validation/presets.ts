@@ -167,7 +167,7 @@ export function getExampleTomlWithComments(): string {
   return `# wasm4pm Configuration
 # Schema: v${SCHEMA_VERSION}
 # Documentation: https://github.com/seanchatmangpt/wasm4pm/wiki/Configuration
-# Place this file at: ./wasm4pm.toml or ~/.wasm4pm/wasm4pm.toml
+# Place this file at: ./truex.toml or ~/.truex/truex.toml
 
 schema_version = ${SCHEMA_VERSION}
 version = "26.4.5"
@@ -265,7 +265,7 @@ required = false
 [watch]
 enabled = false
 poll_interval = 1000   # How often to check for file changes (ms)
-# checkpoint_dir = "./.wasm4pm/checkpoints"  # Where to store intermediate state
+# checkpoint_dir = "./.truex/checkpoints"  # Where to store intermediate state
 
 # ==============================================================================
 # OUTPUT

@@ -12,8 +12,8 @@
 //! 6. Reward sensitivity: scaling and perturbation analysis
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion, BenchmarkId};
-use wasm4pm::rl_orchestrator::{RlOrchestrator, AgentType, compute_reward};
-use wasm4pm::{RlState, RlAction};
+use truex_kernel::rl_orchestrator::{RlOrchestrator, AgentType, compute_reward};
+use truex_kernel::{RlState, RlAction};
 
 // ============================================================================
 // Test Utilities

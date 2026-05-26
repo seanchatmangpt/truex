@@ -494,7 +494,7 @@ export const rlConfigSchema = z
  * identical consecutive rounds are required to declare convergence, and what
  * quorum fraction constitutes "consensus" when using checkConvergence().
  *
- * Example wasm4pm.toml section:
+ * Example truex.toml section:
  *
  *   [swarm]
  *   max_episodes = 5
@@ -546,7 +546,7 @@ export const membraneDriftSchema = z.object({
 
 export const membraneEnvelopesSchema = z.object({
   persist: z.boolean().default(true),
-  path:    z.string().default('.wasm4pm/envelopes'),
+  path:    z.string().default('.truex/envelopes'),
 }).describe('Envelope persistence configuration');
 
 export const membraneConfigSchema = z.object({

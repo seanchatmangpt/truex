@@ -136,7 +136,7 @@ describe('AgentOrchestrator.plan — corrective action contract', () => {
           process_mining_proof: null,
           timestamp: new Date().toISOString(),
           blocked_manufacturing: false,
-          target: 'wasm4pm.toml',
+          target: 'truex.toml',
         },
       ],
       critical_count: 1,
@@ -165,7 +165,7 @@ describe('AgentOrchestrator.plan — corrective action contract', () => {
           process_mining_proof: null,
           timestamp: new Date().toISOString(),
           blocked_manufacturing: false,
-          target: 'wasm4pm.toml',
+          target: 'truex.toml',
         },
         {
           agent_name: 'mock-interceptor',

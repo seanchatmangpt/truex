@@ -91,8 +91,8 @@ pub struct YawlExportResult {
 /// # Example
 ///
 /// ```no_run
-/// use wasm4pm::yawl_export::{powl_to_yawl, YawlExportConfig};
-/// # use wasm4pm::powl_arena::PowlArena;
+/// use truex_kernel::yawl_export::{powl_to_yawl, YawlExportConfig};
+/// # use truex_kernel::powl_arena::PowlArena;
 ///
 /// # let arena = PowlArena::new();
 /// # let root = 0;
@@ -204,7 +204,7 @@ impl<'a> YawlExporter<'a> {
             "      <title>{}</title>\n",
             escape_xml(&self.config.spec_name)
         ));
-        xml.push_str("      <creator>wasm4pm</creator>\n");
+        xml.push_str("      <creator>truex_kernel</creator>\n");
         xml.push_str("      <description>Exported from POWL model</description>\n");
         xml.push_str("    </meta>\n");
 

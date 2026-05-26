@@ -1,6 +1,6 @@
 //! Drift Detection (Concept Drift, Statistical Change Detection)
 //!
-//! Ported from wasm4pm prediction_drift.rs
+//! Ported from truex_kernel prediction_drift.rs
 //!
 //! Detects when the underlying data distribution changes over time.
 

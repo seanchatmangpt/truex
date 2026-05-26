@@ -1,10 +1,10 @@
-# wasm4pm — Process Mining for WebAssembly
+# truex-kernel — Process Mining for WebAssembly
 
 High-performance process mining algorithms compiled to WebAssembly for browsers and Node.js.
 
 ## Overview
 
-**wasm4pm** implements process discovery, conformance checking, and analysis entirely in Rust, compiled to a single WASM binary. No external services, no Python runtime — just `npm install`.
+**truex-kernel** implements process discovery, conformance checking, and analysis entirely in Rust, compiled to a single WASM binary. No external services, no Python runtime — just `npm install`.
 
 ## Features
 
@@ -62,7 +62,7 @@ Real Criterion benchmarks (Rust native binary), 4 dataset sizes (100–50K cases
 - ✅ **Fast execution** — most algorithms < 1ms @ 100 cases
 - ✅ **Reproducible results** — median of 7 runs per configuration
 
-**Full benchmark report:** [docs/REAL-BENCHMARK-RESULTS.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/docs/REAL-BENCHMARK-RESULTS.md)
+**Full benchmark report:** [docs/REAL-BENCHMARK-RESULTS.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/docs/REAL-BENCHMARK-RESULTS.md)
 
 ### ML Analysis Algorithms (Criterion measured)
 
@@ -78,12 +78,12 @@ Real Criterion benchmarks (Rust native binary), 4 dataset sizes (100–50K cases
 > Note: `ml_cluster` is implemented in `fast_discovery.rs` but has no `#[wasm_bindgen]`
 > export and is not callable from JavaScript or the CLI.
 
-**Full algorithm latency reference:** [docs/benchmarks.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/docs/benchmarks.md)
+**Full algorithm latency reference:** [docs/benchmarks.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/docs/benchmarks.md)
 
 ## Installation
 
 ```bash
-npm install wasm4pm
+npm install truex-kernel
 ```
 
 ## Quick Start
@@ -102,11 +102,11 @@ console.log(`${dfg.nodes.length} activities, ${dfg.edges.length} flows`);
 ### Browser
 
 ```html
-<script src="node_modules/@truex/kernel-wasm/pkg/wasm4pm.js"></script>
+<script src="node_modules/@truex/kernel-wasm/pkg/truex_kernel.js"></script>
 <script>
-  await wasm4pm.init();
-  const logHandle = wasm4pm.load_eventlog_from_xes(xesContent);
-  const dfg = JSON.parse(wasm4pm.discover_dfg(logHandle, 'concept:name'));
+  await truex-kernel.init();
+  const logHandle = truex-kernel.load_eventlog_from_xes(xesContent);
+  const dfg = JSON.parse(truex-kernel.discover_dfg(logHandle, 'concept:name'));
 </script>
 ```
 
@@ -144,14 +144,14 @@ console.log(`DFG: ${result.dfg_handle}  (${result.nodes} nodes, ${result.edges} 
 
 ## Documentation
 
-See [`docs/`](https://github.com/seanchatmangpt/wasm4pm/tree/main/docs) for full guides:
+See [`docs/`](https://github.com/seanchatmangpt/truex-kernel/tree/main/docs) for full guides:
 
-- [QUICKSTART.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/docs/QUICKSTART.md) — 5-minute setup
-- [TUTORIAL.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/docs/TUTORIAL.md) — real-world workflows (includes IoT streaming tutorial)
-- [API.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/wasm4pm/API.md) — complete function reference
-- [ALGORITHMS.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/wasm4pm/ALGORITHMS.md) — algorithm descriptions
-- [MCP.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/wasm4pm/MCP.md) — Claude integration
-- [FAQ.md](https://github.com/seanchatmangpt/wasm4pm/blob/main/docs/FAQ.md) — troubleshooting
+- [QUICKSTART.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/docs/QUICKSTART.md) — 5-minute setup
+- [TUTORIAL.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/docs/TUTORIAL.md) — real-world workflows (includes IoT streaming tutorial)
+- [API.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/truex-kernel/API.md) — complete function reference
+- [ALGORITHMS.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/truex-kernel/ALGORITHMS.md) — algorithm descriptions
+- [MCP.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/truex-kernel/MCP.md) — Claude integration
+- [FAQ.md](https://github.com/seanchatmangpt/truex-kernel/blob/main/docs/FAQ.md) — troubleshooting
 
 ## Status
 

@@ -5,9 +5,9 @@
 # Per architecture diagrams #11 (Phase 1 Tear-Down/Rebuild) and #12 (Rust-to-TS Build Pipeline).
 #
 # Usage:
-#   bash crates/wasm4pm-cognition/scripts/build-all.sh
-#   bash crates/wasm4pm-cognition/scripts/build-all.sh --skip-ts
-#   bash crates/wasm4pm-cognition/scripts/build-all.sh --skip-wasm-pack
+#   bash crates/truex-kernel-cognition/scripts/build-all.sh
+#   bash crates/truex-kernel-cognition/scripts/build-all.sh --skip-ts
+#   bash crates/truex-kernel-cognition/scripts/build-all.sh --skip-wasm-pack
 
 set -euo pipefail
 
@@ -21,12 +21,12 @@ echo
 
 # ── Step 1: Native type-check ─────────────────────────────────────────────────
 echo "[1/6] Native cargo check..."
-cargo check -p wasm4pm-cognition 2>&1 | sed 's/^/       /'
+cargo check -p truex-kernel-cognition 2>&1 | sed 's/^/       /'
 echo "      OK"
 
 # ── Step 2: WASM type-check ───────────────────────────────────────────────────
 echo "[2/6] WASM cargo check (wasm32-unknown-unknown)..."
-cargo check -p wasm4pm-cognition \
+cargo check -p truex-kernel-cognition \
     --features wasm \
     --target wasm32-unknown-unknown 2>&1 | sed 's/^/       /'
 echo "      OK"
@@ -36,7 +36,7 @@ if [ "$SKIP_WASM_PACK" = "--skip-wasm-pack" ]; then
     echo "[3/6] wasm-pack nodejs... SKIPPED (--skip-wasm-pack)"
 else
     echo "[3/6] wasm-pack build --target nodejs..."
-    (cd "$ROOT/crates/wasm4pm-cognition" && \
+    (cd "$ROOT/crates/truex-kernel-cognition" && \
         wasm-pack build --target nodejs --features wasm --out-dir pkg 2>&1 | sed 's/^/       /')
     echo "      OK — pkg/ written"
 fi
@@ -46,7 +46,7 @@ if [ "$SKIP_WASM_PACK" = "--skip-wasm-pack" ]; then
     echo "[4/6] wasm-pack bundler... SKIPPED (--skip-wasm-pack)"
 else
     echo "[4/6] wasm-pack build --target bundler..."
-    (cd "$ROOT/crates/wasm4pm-cognition" && \
+    (cd "$ROOT/crates/truex-kernel-cognition" && \
         wasm-pack build --target bundler --features wasm --out-dir pkg-bundler 2>&1 | sed 's/^/       /')
     echo "      OK — pkg-bundler/ written"
 fi
@@ -65,12 +65,12 @@ fi
 # ── Step 6: CLI build ─────────────────────────────────────────────────────────
 if [ "$SKIP_TS" = "--skip-ts" ]; then
     echo "[6/6] CLI build... SKIPPED (--skip-ts)"
-elif [ -f "$ROOT/apps/wasm4pm/package.json" ]; then
-    echo "[6/6] Building wpm CLI (apps/wasm4pm)..."
-    (cd "$ROOT/apps/wasm4pm" && pnpm build 2>&1 | sed 's/^/       /')
+elif [ -f "$ROOT/apps/truex-kernel/package.json" ]; then
+    echo "[6/6] Building wpm CLI (apps/truex-kernel)..."
+    (cd "$ROOT/apps/truex-kernel" && pnpm build 2>&1 | sed 's/^/       /')
     echo "      OK"
 else
-    echo "[6/6] CLI (apps/wasm4pm) not found — SKIP"
+    echo "[6/6] CLI (apps/truex-kernel) not found — SKIP"
 fi
 
 echo

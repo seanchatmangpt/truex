@@ -1,6 +1,6 @@
-# Deployment Profiles for wasm4pm
+# Deployment Profiles for truex-kernel
 
-wasm4pm supports 5 deployment profiles to optimize WASM binary size for different target environments. Each profile includes a specific set of algorithms and features tailored to the constraints of the deployment environment.
+truex-kernel supports 5 deployment profiles to optimize WASM binary size for different target environments. Each profile includes a specific set of algorithms and features tailored to the constraints of the deployment environment.
 
 ## Overview
 
@@ -44,7 +44,7 @@ wasm4pm supports 5 deployment profiles to optimize WASM binary size for differen
 **Build command:**
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 npm run build:mobile
 ```
 
@@ -77,7 +77,7 @@ npm run build:mobile
 **Build command:**
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 npm run build:edge
 ```
 
@@ -107,7 +107,7 @@ npm run build:edge
 **Build command:**
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 npm run build:fog
 ```
 
@@ -142,7 +142,7 @@ npm run build:fog
 **Build command:**
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 npm run build:iot
 ```
 
@@ -172,7 +172,7 @@ npm run build:iot
 **Build command:**
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 npm run build:browser
 # Or simply:
 npm run build
@@ -184,7 +184,7 @@ npm run build
 
 ```bash
 # Build with all features (browser profile - default)
-cd wasm4pm
+cd truex-kernel
 npm run build
 
 # Check binary size
@@ -195,29 +195,29 @@ npm run size:check
 
 ```bash
 # Build minimal profile for mobile apps
-cd wasm4pm
+cd truex-kernel
 npm run build:mobile
 
 # Expected output: ~500KB WASM binary
-ls -lh pkg/wasm4pm_bg.wasm
+ls -lh pkg/truex_kernel_bg.wasm
 ```
 
 ### Production Edge Deployment
 
 ```bash
 # Build with ML and advanced algorithms for edge servers
-cd wasm4pm
+cd truex-kernel
 npm run build:edge
 
 # Expected output: ~1.5MB WASM binary
-ls -lh pkg/wasm4pm_bg.wasm
+ls -lh pkg/truex_kernel_bg.wasm
 ```
 
 ### All Profiles (CI/CD)
 
 ```bash
 # Build all profiles for testing
-cd wasm4pm
+cd truex-kernel
 npm run build:all-profiles
 ```
 
@@ -230,10 +230,10 @@ Check the actual binary size after building:
 npm run build:mobile
 
 # Check size
-ls -lh pkg/wasm4pm_bg.wasm
+ls -lh pkg/truex_kernel_bg.wasm
 
 # Check gzip compressed size
-gzip -c pkg/wasm4pm_bg.wasm | wc -c
+gzip -c pkg/truex_kernel_bg.wasm | wc -c
 ```
 
 Expected sizes (uncompressed):
@@ -246,7 +246,7 @@ Expected sizes (uncompressed):
 
 ## Feature Flags
 
-The deployment profiles are implemented using Rust Cargo feature flags. See `wasm4pm/Cargo.toml` for the complete feature definition:
+The deployment profiles are implemented using Rust Cargo feature flags. See `truex-kernel/Cargo.toml` for the complete feature definition:
 
 ```toml
 [features]
@@ -346,7 +346,7 @@ All modules use `#[cfg(feature)]` gates to conditionally compile based on the ac
 Run the deployment profile tests:
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 npm test -- deployment-profiles.test.ts
 ```
 

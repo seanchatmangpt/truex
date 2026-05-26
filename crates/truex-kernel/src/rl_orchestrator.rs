@@ -165,6 +165,9 @@ pub struct CycleTelemetry {
     pub last_action_label: String,
     /// The number of SPC (Statistical Process Control) alerts detected in the last cycle.
     pub last_spc_alert_count: usize,
+    /// The SPC rule classification fired in the last cycle.
+    #[serde(default)]
+    pub last_spc_rule_fired: String,
     /// Whether the guard rules passed in the last cycle.
     pub last_guard_pass: bool,
     /// Whether the circuit breaker allowed the action in the last cycle.
@@ -188,6 +191,7 @@ impl Default for CycleTelemetry {
             last_health_state: 0,
             last_action_label: String::new(),
             last_spc_alert_count: 0,
+            last_spc_rule_fired: String::new(),
             last_guard_pass: false,
             last_circuit_allowed: false,
             cumulative_reward: 0.0,
@@ -214,7 +218,7 @@ impl Default for CycleTelemetry {
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::rl_orchestrator::compute_health_state;
+/// use truex_kernel::rl_orchestrator::compute_health_state;
 ///
 /// assert_eq!(compute_health_state(0, 0, 0), 4);   // Failed: empty log
 /// assert_eq!(compute_health_state(10, 0, 2), 3);  // Critical: no traces
@@ -263,7 +267,7 @@ pub fn compute_health_state(event_count: u64, trace_count: u64, unique_activitie
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::rl_orchestrator::compute_reward;
+/// use truex_kernel::rl_orchestrator::compute_reward;
 ///
 /// // Health improved, no SPC alerts, no rework → positive reward
 /// let r = compute_reward(2, 1, 0, true, true, false, 0);
@@ -402,7 +406,7 @@ pub fn compute_reward_with_momentum(params: RewardParameters) -> f32 {
 /// # Examples
 ///
 /// ```
-/// use wasm4pm::rl_orchestrator::learning_rate_schedule;
+/// use truex_kernel::rl_orchestrator::learning_rate_schedule;
 ///
 /// let alpha_0 = 0.1;
 /// assert!((learning_rate_schedule(alpha_0, 0) - 0.1).abs() < 1e-6);   // cycle 0 → no decay
@@ -598,7 +602,7 @@ impl Default for StateCoverage {
 
 /// The RL Orchestrator — persistent state hub for the autonomic loop.
 ///
-/// This is the central coordinator for reinforcement learning in `wasm4pm`.
+/// This is the central coordinator for reinforcement learning in `truex_kernel`.
 /// It manages multiple RL agents, selection logic (including LinUCB),
 /// reward computation, and telemetry persistence. It provides a polymorphic
 /// interface to different RL algorithms while maintaining a consistent state
@@ -615,6 +619,8 @@ pub struct RlOrchestrator {
     visited_states: HashSet<u32>,
     /// Rolling window of healing actions.
     action_history: ActionHistory,
+    /// Active SPC Western Electric rules violated in the current cycle.
+    active_spc_rules: Vec<String>,
 }
 
 impl Default for RlOrchestrator {
@@ -641,6 +647,7 @@ impl RlOrchestrator {
             use_linucb_for_selection: false,
             visited_states: HashSet::new(),
             action_history: ActionHistory::new(),
+            active_spc_rules: Vec::new(),
         }
     }
 
@@ -665,7 +672,13 @@ impl RlOrchestrator {
             use_linucb_for_selection: false,
             visited_states: HashSet::new(),
             action_history: ActionHistory::new(),
+            active_spc_rules: Vec::new(),
         }
+    }
+
+    /// Set active SPC rule classifications for the current cycle.
+    pub fn set_active_spc_rules(&mut self, rules: Vec<String>) {
+        self.active_spc_rules = rules;
     }
 
     /// Switch the active RL algorithm.
@@ -1163,6 +1176,10 @@ impl RlOrchestrator {
             convergence_status = convergence_status_value,
             service_name = "wpm",
             status = "ok",
+            td_error = tracing::field::Empty,
+            circuit_breaker_decision_prev = tracing::field::Empty,
+            cross_cycle_causality_link = tracing::field::Empty,
+            spc_rule_type = tracing::field::Empty,
         )
         .entered();
 
@@ -1318,6 +1335,23 @@ impl RlOrchestrator {
 
         // Update LinUCB and capture TD error for convergence diagnostics
         let td_error_linucb = self.linucb_update(features, reward);
+        _cycle_span.record("td_error", td_error_linucb);
+
+        // Record causality and rule classifications (OBS-GAP-2 and OBS-GAP-3)
+        _cycle_span.record("circuit_breaker_decision_prev", self.telemetry.last_circuit_allowed);
+        let link_id = format!(
+            "cycle-{}-breaker-{}-to-cycle-{}-health-{}",
+            self.telemetry.cycle_count.saturating_sub(1),
+            self.telemetry.last_circuit_allowed,
+            self.telemetry.cycle_count,
+            next_state.health_level
+        );
+        _cycle_span.record("cross_cycle_causality_link", link_id.as_str());
+
+        let spc_rules_str = self.active_spc_rules.join(",");
+        if !spc_rules_str.is_empty() {
+            _cycle_span.record("spc_rule_type", spc_rules_str.as_str());
+        }
 
         // Decay exploration
         self.decay_exploration();
@@ -1350,6 +1384,7 @@ impl RlOrchestrator {
         self.telemetry.last_action_label.clear();
         self.telemetry.last_action_label.push_str(action_label_str);
         self.telemetry.last_spc_alert_count = spc_alert_count;
+        self.telemetry.last_spc_rule_fired = spc_rules_str;
         self.telemetry.last_guard_pass = guard_pass;
         self.telemetry.last_circuit_allowed = circuit_allowed;
         self.telemetry.cumulative_reward += reward;
@@ -1439,6 +1474,8 @@ impl RlOrchestrator {
             service_name = "wpm",
             "rl.action_tracked"
         );
+
+        self.active_spc_rules.clear();
 
         (action_label_str.to_string(), final_reward)
     }
@@ -1531,6 +1568,7 @@ impl RlOrchestrator {
             last_health_state: snapshot.telemetry.last_health_state,
             last_action_label: snapshot.telemetry.last_action_label,
             last_spc_alert_count: snapshot.telemetry.last_spc_alert_count,
+            last_spc_rule_fired: snapshot.telemetry.last_spc_rule_fired.clone(),
             last_guard_pass: false,
             last_circuit_allowed: false,
             cumulative_reward: snapshot.telemetry.cumulative_reward as f32,

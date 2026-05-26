@@ -26,7 +26,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@truex/membrane', () => {
+vi.mock('@truex/kernel-wasm', () => {
   return {
     // WasmBackend.init() probes for an optional `init` export. Provide a noop.
     init: undefined,
@@ -39,7 +39,7 @@ vi.mock('@truex/membrane', () => {
   };
 });
 
-import * as wasm from '@truex/membrane';
+import * as wasm from '@truex/kernel-wasm';
 import { WasmBackend } from '../backends/wasm-backend.js';
 import type { EventLogIR, ModelIR, BudgetEnvelope } from '../mining-backend.js';
 

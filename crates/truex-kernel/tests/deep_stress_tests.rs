@@ -1,6 +1,6 @@
-use wasm4pm::state::{get_or_init_state, StoredObject};
-use wasm4pm::autoprocess::AutoProcessAgent;
-use wasm4pm_types::event_log::{EventLog, Trace, Event, AttributeValue, XESEditableAttribute};
+use truex_kernel::state::{get_or_init_state, StoredObject};
+use truex_kernel::autoprocess::AutoProcessAgent;
+use truex_kernel_types::event_log::{EventLog, Trace, Event, AttributeValue, XESEditableAttribute};
 use proptest::prelude::*;
 
 #[cfg(test)]
@@ -27,7 +27,7 @@ mod deep_adversarial {
     /// We test the underlying models to avoid wasm_bindgen JsValue panics in native tests.
     #[test]
     fn test_adversarial_discovery_logic_pure() {
-        use wasm4pm::models::EventLog as InternalEventLog;
+        use truex_kernel::models::EventLog as InternalEventLog;
 
         let empty_log = EventLog::new(vec![], Vec::new());
         let internal_log: InternalEventLog = empty_log.into();
@@ -48,7 +48,7 @@ mod deep_adversarial {
     /// Contract: Social Network Analysis must handle massive resource counts without overflow or hanging.
     #[test]
     fn test_adversarial_social_network_stress_pure() {
-        use wasm4pm::models::EventLog as InternalEventLog;
+        use truex_kernel::models::EventLog as InternalEventLog;
         
         let mut events = Vec::new();
         // 1000 unique resources in a single trace
@@ -90,7 +90,7 @@ mod deep_adversarial {
         /// Contract: Binary format parsing must never panic on random input.
         #[test]
         fn test_binary_parsing_contract(ref bytes in prop::collection::vec(any::<u8>(), 0..1024)) {
-            use wasm4pm::binary_format::BinaryLogView;
+            use truex_kernel::binary_format::BinaryLogView;
             // The view might return an error or be invalid, but it MUST NOT panic.
             let _ = BinaryLogView::from_bytes(bytes);
         }
@@ -100,7 +100,7 @@ mod deep_adversarial {
         fn test_adversarial_alpha_miner_scale_pure(
             activities in prop::collection::vec(any::<String>(), 0..20)
         ) {
-            use wasm4pm::models::EventLog as InternalEventLog;
+            use truex_kernel::models::EventLog as InternalEventLog;
             
             let mut events = Vec::new();
             for a in activities {

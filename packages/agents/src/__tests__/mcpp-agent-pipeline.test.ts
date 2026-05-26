@@ -28,7 +28,7 @@
  *
  *   GAP-3: No Prolog8 query path in this package — verification requires calling
  *          wasm4pm WASM's prolog8_query() with the compiled catalog. That call lives
- *          in wasm4pm, not @wasm4pm/agents.
+ *          in wasm4pm, not @truex/agents.
  *
  * WHAT PASSES:
  *   - MAPE-K cycle successfully processes a simulated CodeManufactory manufacturing route
@@ -418,7 +418,7 @@ describe('Agent AuditEntry → Rule8 catalog audit chain', () => {
         timestamp: '2026-05-18T10:08:00Z',
         agent_name: 'config-drift-guardian',
         correction_type: 'config_restoration',
-        violation: { agent_name: 'config-drift-guardian', violation_type: 'missing_config', severity: 'warning', evidence: {}, process_mining_proof: null, timestamp: '2026-05-18T10:08:00Z', blocked_manufacturing: false, target: 'wasm4pm.toml' },
+        violation: { agent_name: 'config-drift-guardian', violation_type: 'missing_config', severity: 'warning', evidence: {}, process_mining_proof: null, timestamp: '2026-05-18T10:08:00Z', blocked_manufacturing: false, target: 'truex.toml' },
         correction_action: 'config_restoration applied',
         correction_success: true,
         correction_details: {},

@@ -136,7 +136,7 @@ pub fn get_children(s: &str, arena_idx: u32) -> Result<JsValue, JsValue> {
             .nodes
             .iter()
             .filter_map(|n| match n {
-                wasm4pm_types::ChoiceGraphNode::SubModel(idx) => Some(*idx),
+                truex_kernel_types::ChoiceGraphNode::SubModel(idx) => Some(*idx),
                 _ => None,
             })
             .collect(),
@@ -215,10 +215,10 @@ pub fn node_info_json(s: &str, arena_idx: u32) -> Result<String, JsValue> {
                 .nodes
                 .iter()
                 .map(|n| match n {
-                    wasm4pm_types::ChoiceGraphNode::Start => "Start".into(),
-                    wasm4pm_types::ChoiceGraphNode::End => "End".into(),
-                    wasm4pm_types::ChoiceGraphNode::Activity(l) => format!("Activity({})", l),
-                    wasm4pm_types::ChoiceGraphNode::SubModel(i) => format!("SubModel({})", i),
+                    truex_kernel_types::ChoiceGraphNode::Start => "Start".into(),
+                    truex_kernel_types::ChoiceGraphNode::End => "End".into(),
+                    truex_kernel_types::ChoiceGraphNode::Activity(l) => format!("Activity({})", l),
+                    truex_kernel_types::ChoiceGraphNode::SubModel(i) => format!("SubModel({})", i),
                 })
                 .collect();
             serde_json::json!({
@@ -507,7 +507,7 @@ fn collect_freq_nodes(arena: &PowlArena, idx: u32, out: &mut Vec<serde_json::Val
                 .nodes
                 .iter()
                 .filter_map(|n| match n {
-                    wasm4pm_types::ChoiceGraphNode::SubModel(i) => Some(*i),
+                    truex_kernel_types::ChoiceGraphNode::SubModel(i) => Some(*i),
                     _ => None,
                 })
                 .collect();

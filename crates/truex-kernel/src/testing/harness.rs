@@ -7,8 +7,8 @@
 //! # Example
 //!
 //! ```
-//! use wasm4pm::testing::harness::PowlTestHarness;
-//! use wasm4pm::testing::conformance::ExpectedConformance;
+//! use truex_kernel::testing::harness::PowlTestHarness;
+//! use truex_kernel::testing::conformance::ExpectedConformance;
 //!
 //! let mut h = PowlTestHarness::new("example-route")
 //!     .expect(ExpectedConformance::exact());
@@ -179,7 +179,7 @@ impl PowlTestHarness {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::harness::PowlTestHarness;
+    /// use truex_kernel::testing::harness::PowlTestHarness;
     ///
     /// let h = PowlTestHarness::new("wrap-tool-to-part");
     /// assert_eq!(h.route_id(), "wrap-tool-to-part");
@@ -213,8 +213,8 @@ impl PowlTestHarness {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::harness::PowlTestHarness;
-    /// use wasm4pm::testing::conformance::ExpectedConformance;
+    /// use truex_kernel::testing::harness::PowlTestHarness;
+    /// use truex_kernel::testing::conformance::ExpectedConformance;
     ///
     /// let h = PowlTestHarness::new("route").expect(ExpectedConformance::exact());
     /// assert_eq!(h.route_id(), "route");
@@ -229,7 +229,7 @@ impl PowlTestHarness {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::harness::PowlTestHarness;
+    /// use truex_kernel::testing::harness::PowlTestHarness;
     ///
     /// let h = PowlTestHarness::new("route")
     ///     .model("routes/test-harness/test-run.powl.json");
@@ -245,7 +245,7 @@ impl PowlTestHarness {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::harness::PowlTestHarness;
+    /// use truex_kernel::testing::harness::PowlTestHarness;
     ///
     /// let mut h = PowlTestHarness::new("route");
     /// h.record_activity("fixture.created");
@@ -371,7 +371,7 @@ impl PowlTestHarness {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::harness::{PowlTestHarness, TestEvent};
+    /// use truex_kernel::testing::harness::{PowlTestHarness, TestEvent};
     ///
     /// let mut h = PowlTestHarness::new("route");
     /// h.record_activity("a");

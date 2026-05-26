@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-05-25T18:56:05.493Z",
+  "timestamp": "2026-05-26T05:20:11.662Z",
   "metrics": {
-    "inMemoryDurationMs": 21.667125,
-    "cliDurationMs": 805.635041,
+    "inMemoryDurationMs": 80.73350000000005,
+    "cliDurationMs": 810.4195000000001,
     "concurrencyLevel": 20,
-    "concurrentDurationMs": 327.82216700000004,
-    "averageConcurrentDurationMs": 16.391108350000003,
+    "concurrentDurationMs": 534.5034169999999,
+    "averageConcurrentDurationMs": 26.725170849999994,
     "repetitionsRun": 50,
-    "heapDiffMb": -21.238548278808594
+    "heapDiffMb": 41.77265167236328
   },
   "system": {
     "nodeVersion": "v24.15.0",

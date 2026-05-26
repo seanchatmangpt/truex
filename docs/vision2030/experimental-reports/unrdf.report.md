@@ -84,8 +84,8 @@
 - `unrdf/packages/v6-compat/package.json`
 - `unrdf/packages/v6-core/package.json`
 - `unrdf/packages/validation/package.json`
-- `unrdf/packages/wasm4pm/Makefile`
-- `unrdf/packages/wasm4pm/package.json`
+- `unrdf/packages/truex-kernel/Makefile`
+- `unrdf/packages/truex-kernel/package.json`
 - `unrdf/packages/zkp/package.json`
 - `unrdf/playground/hooks-showcase/package.json`
 - `unrdf/playground/package.json`

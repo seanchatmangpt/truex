@@ -32,8 +32,8 @@ Truex lifecycle iteration 50/50 completed.
 
  Test Files  226 passed (226)
       Tests  1346 passed (1346)
-   Start at  11:54:17
-   Duration  81.93s (transform 1.71s, setup 0ms, import 23.95s, tests 38.43s, environment 13ms)
+   Start at  15:27:35
+   Duration  97.67s (transform 2.34s, setup 0ms, import 26.86s, tests 49.60s, environment 14ms)
 
 ...
 ```

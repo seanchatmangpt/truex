@@ -1,9 +1,9 @@
 use anyhow::{Context, Result};
 use clap::{Args, Subcommand};
 use colored::Colorize;
-use wasm4pm_cli::io::{Io, Table};
-use wasm4pm_algos::{conformance, heuristic};
-use wasm4pm_types::{EventLog, DFG};
+use truex_kernel_cli::io::{Io, Table};
+use truex_kernel_algos::{conformance, heuristic};
+use truex_kernel_types::{EventLog, DFG};
 use std::fs;
 use std::path::PathBuf;
 

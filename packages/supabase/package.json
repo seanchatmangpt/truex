@@ -1,6 +1,6 @@
 {
-  "name": "@wasm4pm/supabase",
-  "version": "26.5.21",
+  "name": "@truex/supabase",
+  "version": "26.5.25-CONVERGED",
   "description": "Supabase integration for wasm4pm receipts, TrueX envelopes, and offline sync",
   "type": "module",
   "main": "./dist/index.js",

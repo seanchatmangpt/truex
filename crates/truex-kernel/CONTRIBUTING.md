@@ -1,6 +1,6 @@
-# Contributing to wasm4pm
+# Contributing to truex-kernel
 
-Thank you for your interest in contributing! This document provides guidelines for contributing to the WASM bindings of wasm4pm.
+Thank you for your interest in contributing! This document provides guidelines for contributing to the WASM bindings of truex-kernel.
 
 ## Table of Contents
 
@@ -30,11 +30,11 @@ Be respectful, inclusive, and professional in all interactions.
 ```bash
 # Fork the repository on GitHub
 # Clone your fork
-git clone https://github.com/your-username/wasm4pm.git
-cd wasm4pm
+git clone https://github.com/your-username/truex-kernel.git
+cd truex-kernel
 
 # Add upstream remote
-git remote add upstream https://github.com/seanchatmangpt/wasm4pm.git
+git remote add upstream https://github.com/seanchatmangpt/truex-kernel.git
 ```
 
 ## Development Setup
@@ -110,7 +110,7 @@ pub fn my_new_function(handle: String, param: f64) -> String {
 #### 2. Add Type Definition
 
 ```typescript
-// pkg/wasm4pm.d.ts (auto-generated after build)
+// pkg/truex_kernel.d.ts (auto-generated after build)
 export function my_new_function(handle: string, param: number): string;
 ```
 
@@ -345,4 +345,4 @@ Contributors are recognized in:
 - Release notes
 - Changelog
 
-Thank you for contributing to wasm4pm!
+Thank you for contributing to truex-kernel!

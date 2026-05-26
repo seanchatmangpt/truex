@@ -1,9 +1,9 @@
 use anyhow::Result;
 use clap::{Args, Subcommand};
 use colored::*;
-use wasm4pm_cli::io::{Io, Table};
-use wasm4pm::rl_orchestrator::AgentType;
-use wasm4pm::RL_ORCHESTRATOR;
+use truex_kernel_cli::io::{Io, Table};
+use truex_kernel::rl_orchestrator::AgentType;
+use truex_kernel::RL_ORCHESTRATOR;
 
 #[derive(Args, Debug)]
 pub struct AgentArgs {
@@ -150,7 +150,7 @@ fn switch_agent(index: u8, io: &Io) -> Result<()> {
 fn reset_agents(io: &Io) -> Result<()> {
     RL_ORCHESTRATOR.with(|orch_cell| {
         let mut orch = orch_cell.borrow_mut();
-        *orch = wasm4pm::rl_orchestrator::RlOrchestrator::new();
+        *orch = truex_kernel::rl_orchestrator::RlOrchestrator::new();
         io.success("RL orchestrator and all agents have been reset to initial state.");
         Ok(())
     })

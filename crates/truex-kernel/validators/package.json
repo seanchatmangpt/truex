@@ -1,7 +1,7 @@
 {
-  "name": "@wasm4pm/validators",
+  "name": "@truex/validators",
   "version": "26.4.9",
-  "description": "Validators for @wasm4pm/cli - CLI, HTTP, WebSocket, Observability, I/O, Performance",
+  "description": "Validators for @truex/cli - CLI, HTTP, WebSocket, Observability, I/O, Performance",
   "type": "module",
   "exports": {
     ".": "./index.mjs",
@@ -13,13 +13,13 @@
     "./performance": "./performance.mjs"
   },
   "bin": {
-    "wasm4pm-validate": "./index.mjs",
-    "wasm4pm-validate-cli": "./cli.mjs",
-    "wasm4pm-validate-http": "./http.mjs",
-    "wasm4pm-validate-ws": "./websocket.mjs",
-    "wasm4pm-validate-observability": "./observability.mjs",
-    "wasm4pm-validate-io": "./io.mjs",
-    "wasm4pm-validate-performance": "./performance.mjs"
+    "truex-validate": "./index.mjs",
+    "truex-validate-cli": "./cli.mjs",
+    "truex-validate-http": "./http.mjs",
+    "truex-validate-ws": "./websocket.mjs",
+    "truex-validate-observability": "./observability.mjs",
+    "truex-validate-io": "./io.mjs",
+    "truex-validate-performance": "./performance.mjs"
   },
   "scripts": {
     "validate": "node index.mjs",

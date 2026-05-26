@@ -11,7 +11,7 @@ import {
   type QualityMetrics,
 } from '../feedback-loop.js';
 
-const testFeedbackDir = path.join(process.cwd(), '.wasm4pm', 'algorithm-feedback');
+const testFeedbackDir = path.join(process.cwd(), '.truex', 'algorithm-feedback');
 
 describe('feedback-loop', () => {
   beforeEach(async () => {

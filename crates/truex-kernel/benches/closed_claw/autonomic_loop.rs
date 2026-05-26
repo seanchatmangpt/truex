@@ -12,15 +12,15 @@ use criterion::{black_box, BenchmarkId, Criterion, Throughput};
 use std::sync::atomic::AtomicU32;
 use std::time::Duration;
 
-use wasm4pm::guards::{
+use truex_kernel::guards::{
     ExecutionContext, Guard, GuardEvaluator, ObservationBuffer, ResourceState, StateFlags,
 };
-use wasm4pm::pattern_dispatch::{
+use truex_kernel::pattern_dispatch::{
     PatternConfig, PatternContext, PatternDispatcher, PatternFlags, PatternType,
 };
-use wasm4pm::reinforcement::{QLearning, WorkflowAction, WorkflowState};
-use wasm4pm::self_healing::{CircuitBreaker, HealthCheck, HealthStatus};
-use wasm4pm::spc::{check_western_electric_rules, ChartData, ProcessCapability};
+use truex_kernel::reinforcement::{QLearning, WorkflowAction, WorkflowState};
+use truex_kernel::self_healing::{CircuitBreaker, HealthCheck, HealthStatus};
+use truex_kernel::spc::{check_western_electric_rules, ChartData, ProcessCapability};
 
 // ---------------------------------------------------------------------------
 // RL types (same pattern as jtbd_benchmark.rs)
@@ -108,9 +108,9 @@ fn test_pattern_context(pt: PatternType) -> PatternContext {
 /// Compound guard: cpu >= 50 AND state initialized|running.
 fn compound_guard() -> Guard {
     Guard::and(vec![
-        Guard::resource(wasm4pm::guards::ResourceType::Cpu, 50),
+        Guard::resource(truex_kernel::guards::ResourceType::Cpu, 50),
         Guard::state(StateFlags::INITIALIZED | StateFlags::RUNNING),
-        Guard::predicate(wasm4pm::guards::Predicate::LessThan, 3, 20),
+        Guard::predicate(truex_kernel::guards::Predicate::LessThan, 3, 20),
     ])
 }
 

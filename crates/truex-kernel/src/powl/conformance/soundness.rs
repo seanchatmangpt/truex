@@ -227,7 +227,7 @@ pub fn check_soundness(net: &PetriNet, initial: &Marking, final_m: &Marking) -> 
 
 // ─── Choice Graph soundness (Definition 1, arXiv:2505.07052) ───────────────
 
-/// Soundness result for a `wasm4pm_types::ChoiceGraph`.
+/// Soundness result for a `truex_kernel_types::ChoiceGraph`.
 #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct ChoiceGraphSoundness {
     /// All Definition 1 invariants hold.
@@ -243,7 +243,7 @@ pub struct ChoiceGraphSoundness {
 /// Re-verifies the invariants that `ChoiceGraph::new` already enforces; useful
 /// after manual mutation or deserialization.
 pub fn check_choice_graph_soundness(
-    cg: &wasm4pm_types::ChoiceGraph,
+    cg: &truex_kernel_types::ChoiceGraph,
 ) -> ChoiceGraphSoundness {
     // Acyclicity: rebuild adj and run a BFS/DFS check.
     let n = cg.nodes.len();

@@ -1,5 +1,5 @@
 use std::collections::BTreeSet;
-use wasm4pm::agentic::prelude::*;
+use truex_kernel::agentic::prelude::*;
 
 fn make_task_context(
     title: &str,

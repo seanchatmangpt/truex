@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779771773618-hwbhfhm",
+  "spanId": "span-unknown",
+  "startTime": 1779771773618,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"ecosystem\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779771885716,
+      "attributes": {
+        "primitive": "ecosystem",
+        "status": "confirmed",
+        "executionTimeMs": 111041,
+        "invariantsCount": 5,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779771885715,
+  "durationMs": 112097
+}

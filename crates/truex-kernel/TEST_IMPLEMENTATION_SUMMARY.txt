@@ -85,7 +85,7 @@ Test Coverage Areas:
 ================================================================================
 
 1. Navigate to WASM project:
-   cd /home/user/wasm4pm
+   cd /home/user/truex-kernel
 
 2. Build WASM module:
    npm run build
@@ -176,22 +176,22 @@ The vitest tests comprehensively map to the Rust test files:
 ================================================================================
 
 Configuration:
-  /home/user/wasm4pm/vitest.config.ts
+  /home/user/truex-kernel/vitest.config.ts
 
 Test Modules:
-  /home/user/wasm4pm/__tests__/io.test.ts
-  /home/user/wasm4pm/__tests__/discovery.test.ts
-  /home/user/wasm4pm/__tests__/analysis.test.ts
-  /home/user/wasm4pm/__tests__/state.test.ts
-  /home/user/wasm4pm/__tests__/types.test.ts
+  /home/user/truex-kernel/__tests__/io.test.ts
+  /home/user/truex-kernel/__tests__/discovery.test.ts
+  /home/user/truex-kernel/__tests__/analysis.test.ts
+  /home/user/truex-kernel/__tests__/state.test.ts
+  /home/user/truex-kernel/__tests__/types.test.ts
 
 Documentation:
-  /home/user/wasm4pm/IMPLEMENTATION_CHECKLIST.md
-  /home/user/wasm4pm/TEST_IMPLEMENTATION_SUMMARY.txt
+  /home/user/truex-kernel/IMPLEMENTATION_CHECKLIST.md
+  /home/user/truex-kernel/TEST_IMPLEMENTATION_SUMMARY.txt
 
 Sample Data (Existing):
-  /home/user/wasm4pm/__tests__/fixtures/sample.xes
-  /home/user/wasm4pm/__tests__/fixtures/sample.json
+  /home/user/truex-kernel/__tests__/fixtures/sample.xes
+  /home/user/truex-kernel/__tests__/fixtures/sample.json
 
 ================================================================================
                           SUCCESS CRITERIA
@@ -220,7 +220,7 @@ All requirements met:
 ================================================================================
 
 Step 1: Build the WASM module (if not already built)
-  cd /home/user/wasm4pm
+  cd /home/user/truex-kernel
   npm run build
 
 Step 2: Run the test suite

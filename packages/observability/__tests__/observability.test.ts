@@ -27,18 +27,18 @@ describe('ObservabilityLayer', () => {
 
   it('should emit CLI events', () => {
     const observability = new ObservabilityLayer();
-    const consoleInfoSpy = vi.spyOn(console, 'info').mockImplementation(() => {});
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     observability.emitCli({
       level: 'info',
       message: 'Test message',
     });
 
-    expect(consoleInfoSpy).toHaveBeenCalledWith(
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
       expect.stringContaining('Test message')
     );
 
-    consoleInfoSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
   });
 
   it('should emit JSON events', async () => {
@@ -102,7 +102,7 @@ describe('ObservabilityLayer', () => {
       },
     });
 
-    const consoleInfoSpy = vi.spyOn(console, 'info').mockImplementation(() => {});
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
     observability.emit({
       cli: { level: 'info', message: 'Test message' },
@@ -120,12 +120,12 @@ describe('ObservabilityLayer', () => {
       },
     });
 
-    expect(consoleInfoSpy).toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalled();
 
     await new Promise((resolve) => setTimeout(resolve, 100));
     await observability.shutdown();
 
-    consoleInfoSpy.mockRestore();
+    consoleErrorSpy.mockRestore();
   });
 
   it('should handle missing layers gracefully', async () => {

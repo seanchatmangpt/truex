@@ -1,4 +1,4 @@
-use wasm4pm_types::ocel::OCEL;
+use truex_kernel_types::ocel::OCEL;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 

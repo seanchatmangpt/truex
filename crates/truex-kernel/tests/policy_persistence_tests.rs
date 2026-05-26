@@ -6,8 +6,8 @@
 use std::collections::HashMap;
 use tempfile::tempdir;
 
-// Re-export from wasm4pm crate
-use wasm4pm::policy_persistence::{ConvergenceMetrics, PolicyCheckpoint};
+// Re-export from truex_kernel crate
+use truex_kernel::policy_persistence::{ConvergenceMetrics, PolicyCheckpoint};
 
 #[test]
 fn test_save_load_roundtrip_with_real_q_table() {

@@ -38,7 +38,7 @@ describe('Violation severity ↔ blocked_manufacturing invariant', () => {
   });
 
   it('warning violations always set blocked_manufacturing = false (config-drift-guardian)', async () => {
-    // config-drift-guardian emits a warning when wasm4pm.toml is absent
+    // config-drift-guardian emits a warning when truex.toml is absent
     // In test context the file is absent, so we get a warning violation
     const orchestrator = new AgentOrchestrator();
     const result = await orchestrator.executeAgent('config-drift-guardian', {

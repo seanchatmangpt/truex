@@ -1,5 +1,5 @@
 use criterion::{criterion_group, criterion_main, Criterion};
-use wasm4pm::xes_format::load_eventlog_from_xes;
+use truex_kernel::xes_format::load_eventlog_from_xes;
 
 fn generate_xes(num_traces: usize) -> String {
     let mut xes = String::from("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<log>\n");

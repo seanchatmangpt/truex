@@ -4,8 +4,8 @@ fn check_working_directory() {
     println!("Working directory during test: {:?}", wd);
 
     let paths = vec![
-        "wasm4pm/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
-        "wasm4pm/wasm4pm/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
+        "truex_kernel/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
+        "truex_kernel/truex_kernel/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
         "tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
         "tests/fixtures/BPI_2020_Domestic_Declarations.xes",
         "./BPI_2020_Travel_Permits_Actual.xes",

@@ -1,6 +1,6 @@
-# Model Context Protocol (MCP) Integration for wasm4pm
+# Model Context Protocol (MCP) Integration for truex-kernel
 
-Exposes wasm4pm as an MCP server, enabling Claude and other MCP clients to use process mining capabilities.
+Exposes truex-kernel as an MCP server, enabling Claude and other MCP clients to use process mining capabilities.
 
 ## What is MCP?
 
@@ -11,9 +11,9 @@ Exposes wasm4pm as an MCP server, enabling Claude and other MCP clients to use p
 - Receive structured results
 - Handle errors gracefully
 
-## MCP Server for wasm4pm
+## MCP Server for truex-kernel
 
-The wasm4pm MCP server exposes 14 discovery algorithms, analysis functions, and visualization capabilities as MCP tools.
+The truex-kernel MCP server exposes 14 discovery algorithms, analysis functions, and visualization capabilities as MCP tools.
 
 ### Available MCP Tools
 
@@ -47,7 +47,7 @@ The wasm4pm MCP server exposes 14 discovery algorithms, analysis functions, and 
 
 ```bash
 npm install @modelcontextprotocol/sdk
-npm install @wasm4pm/cli
+npm install @truex/cli
 ```
 
 ### Setup
@@ -72,7 +72,7 @@ Add to your Claude configuration (e.g., in `.claude.json` or Claude desktop conf
     "@truex/kernel": {
       "command": "node",
       "args": ["dist/mcp_server.js"],
-      "cwd": "./path/to/wasm4pm"
+      "cwd": "./path/to/truex-kernel"
     }
   }
 }
@@ -268,7 +268,7 @@ Edit `~/.config/Claude/claude_desktop_config.json`:
   "mcpServers": {
     "@truex/kernel": {
       "command": "/usr/local/bin/node",
-      "args": ["/path/to/wasm4pm/dist/mcp_server.js"]
+      "args": ["/path/to/truex-kernel/dist/mcp_server.js"]
     }
   }
 }
@@ -285,7 +285,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
   "mcpServers": {
     "@truex/kernel": {
       "command": "node",
-      "args": ["C:\\path\\to\\wasm4pm\\dist\\mcp_server.js"]
+      "args": ["C:\\path\\to\\truex-kernel\\dist\\mcp_server.js"]
     }
   }
 }
@@ -294,7 +294,7 @@ Edit `%APPDATA%\Claude\claude_desktop_config.json`:
 ## Building the MCP Server
 
 ```bash
-cd wasm4pm
+cd truex-kernel
 
 # Install MCP SDK
 npm install @modelcontextprotocol/sdk
@@ -330,7 +330,7 @@ This opens a web interface where you can:
 
 ## Performance
 
-MCP tool execution time (measured on wasm4pm operations):
+MCP tool execution time (measured on truex-kernel operations):
 
 | Operation                                                 | Time      | Notes                 |
 | --------------------------------------------------------- | --------- | --------------------- |
@@ -383,7 +383,7 @@ Reduce algorithm complexity:
 }
 ```
 
-## Example: Using wasm4pm MCP from Claude
+## Example: Using truex-kernel MCP from Claude
 
 ```
 Human: I have an event log (BPI_2019.xes). Can you:
@@ -415,4 +415,4 @@ To add more MCP tools:
 - [MCP Protocol Specification](https://spec.modelcontextprotocol.io/)
 - [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
 - [Claude Integration Guide](https://claude.ai/docs)
-- [wasm4pm Documentation](./README.md)
+- [truex-kernel Documentation](./README.md)

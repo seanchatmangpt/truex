@@ -7,9 +7,9 @@
 #   3 — Hash drift detected or step failed
 #
 # Usage:
-#   bash crates/wasm4pm-cognition/scripts/cognition-replay-cycle.sh
-#   bash crates/wasm4pm-cognition/scripts/cognition-replay-cycle.sh --contract eliza
-#   bash crates/wasm4pm-cognition/scripts/cognition-replay-cycle.sh --contract eliza --input path/to/intent.json
+#   bash crates/truex-kernel-cognition/scripts/cognition-replay-cycle.sh
+#   bash crates/truex-kernel-cognition/scripts/cognition-replay-cycle.sh --contract eliza
+#   bash crates/truex-kernel-cognition/scripts/cognition-replay-cycle.sh --contract eliza --input path/to/intent.json
 
 set -uo pipefail
 
@@ -51,12 +51,12 @@ fi
 WPM_BIN=""
 if command -v wpm >/dev/null 2>&1; then
     WPM_BIN="wpm"
-elif [ -f "$ROOT/apps/wasm4pm/dist/bin/wpm.js" ]; then
-    WPM_BIN="node $ROOT/apps/wasm4pm/dist/bin/wpm.js"
-elif [ -f "$ROOT/apps/wasm4pm/dist/index.js" ]; then
-    WPM_BIN="node $ROOT/apps/wasm4pm/dist/index.js"
+elif [ -f "$ROOT/apps/truex-kernel/dist/bin/wpm.js" ]; then
+    WPM_BIN="node $ROOT/apps/truex-kernel/dist/bin/wpm.js"
+elif [ -f "$ROOT/apps/truex-kernel/dist/index.js" ]; then
+    WPM_BIN="node $ROOT/apps/truex-kernel/dist/index.js"
 else
-    echo "FAIL: wpm binary not found. Run 'cd apps/wasm4pm && pnpm build' first."
+    echo "FAIL: wpm binary not found. Run 'cd apps/truex-kernel && pnpm build' first."
     exit 3
 fi
 

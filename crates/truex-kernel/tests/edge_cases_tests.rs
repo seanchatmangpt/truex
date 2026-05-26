@@ -7,12 +7,12 @@
 //! - SPC history ring buffer overflow
 //! - Health score boundary conditions
 
-use wasm4pm::rl_orchestrator::{compute_health_state, compute_reward, RlOrchestrator};
-use wasm4pm::self_healing::{
+use truex_kernel::rl_orchestrator::{compute_health_state, compute_reward, RlOrchestrator};
+use truex_kernel::self_healing::{
     advance_clock, reset_clock, CircuitBreaker, CircuitBreakerConfig, CircuitState, CLOCK_LOCK,
 };
-use wasm4pm::spc_history::{RingBuffer, SpcHistory, SpcSnapshot};
-use wasm4pm::RlState;
+use truex_kernel::spc_history::{RingBuffer, SpcHistory, SpcSnapshot};
+use truex_kernel::RlState;
 
 /// RAII guard returned from `clock_setup()`. Acquires `CLOCK_LOCK` then
 /// resets `TIME_OFFSET_MS` so this test sees a clean clock without racing
@@ -53,14 +53,14 @@ fn test_corrupted_json_state_graceful_recovery() {
 
     for (idx, corrupted) in corrupted_jsons.iter().enumerate() {
         // Attempt to deserialize — should return error, not panic
-        let result: Result<wasm4pm::rl_orchestrator::CycleTelemetry, _> =
+        let result: Result<truex_kernel::rl_orchestrator::CycleTelemetry, _> =
             serde_json::from_str(corrupted);
 
         match result {
             Err(_e) => {
                 // Expected: deserialization failed gracefully
                 // System should recover by using default state
-                let fallback = wasm4pm::rl_orchestrator::CycleTelemetry::default();
+                let fallback = truex_kernel::rl_orchestrator::CycleTelemetry::default();
                 assert_eq!(
                     fallback.cycle_count, 0,
                     "Corrupted JSON #{}: fallback should be fresh state",
@@ -86,7 +86,7 @@ fn test_corrupted_circuit_breaker_state_json() {
 
     for json_str in corrupted {
         // Try to parse as CircuitBreakerStateJson — should fail gracefully
-        let result: Result<wasm4pm::self_healing::CircuitBreakerStateJson, _> =
+        let result: Result<truex_kernel::self_healing::CircuitBreakerStateJson, _> =
             serde_json::from_str(json_str);
 
         match result {
@@ -119,14 +119,14 @@ fn test_missing_state_file_fresh_start() {
     // (In real system, this would be a file I/O check first)
     let nonexistent_json = "";
 
-    let result: Result<wasm4pm::rl_orchestrator::CycleTelemetry, _> =
+    let result: Result<truex_kernel::rl_orchestrator::CycleTelemetry, _> =
         serde_json::from_str(nonexistent_json);
 
     // Should fail gracefully
     match result {
         Err(_) => {
             // Expected: cannot deserialize empty string
-            let fresh_state = wasm4pm::rl_orchestrator::CycleTelemetry::default();
+            let fresh_state = truex_kernel::rl_orchestrator::CycleTelemetry::default();
             assert_eq!(fresh_state.cycle_count, 0);
             assert_eq!(fresh_state.last_health_state, 0);
         }

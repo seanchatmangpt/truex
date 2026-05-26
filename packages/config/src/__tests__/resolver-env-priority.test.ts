@@ -45,7 +45,7 @@ describe('Rank 1 — Strict total order: multi-field simultaneous precedence', (
   it('TOML wins over ENV for algorithm.name, and ENV wins for unrelated fields not in TOML', async () => {
     // TOML sets algorithm.name; ENV sets profile; neither sets output.format
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "inductive_miner"\n'
     );
     const cfg = await resolveConfig({
@@ -68,7 +68,7 @@ describe('Rank 1 — Strict total order: multi-field simultaneous precedence', (
 
   it('CLI wins over TOML for algorithm.name, TOML wins over ENV for profile', async () => {
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "heuristic_miner"\n[execution]\nprofile = "quality"\n'
     );
     const cfg = await resolveConfig({
@@ -88,7 +88,7 @@ describe('Rank 1 — Strict total order: multi-field simultaneous precedence', (
 
   it('all three layers active: CLI beats TOML beats ENV on the same field (algorithm.name)', async () => {
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "inductive_miner"\n'
     );
     const cfg = await resolveConfig({
@@ -106,7 +106,7 @@ describe('Rank 1 — Strict total order: multi-field simultaneous precedence', (
     // Test the invariant: provenance.source reflects the layer that actually won,
     // and provenance.value equals the resolved config value.
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "aco"\n[execution]\nprofile = "stream"\n'
     );
     const cfg = await resolveConfig({
@@ -136,7 +136,7 @@ describe('Rank 1 — Strict total order: multi-field simultaneous precedence', (
 
   it('JSON file wins over ENV; CLI wins over JSON — triple layer on profile', async () => {
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.json'),
+      path.join(tmp, 'truex.json'),
       JSON.stringify({
         version: '26.4.5',
         source: { kind: 'file' },
@@ -218,7 +218,7 @@ describe('Rank 2 — Provenance structure invariants', () => {
   });
 
   it('TOML-sourced provenance entries have a `path` that is an absolute filesystem path', async () => {
-    const tomlPath = path.join(tmp, 'wasm4pm.toml');
+    const tomlPath = path.join(tmp, 'truex.toml');
     await fs.writeFile(
       tomlPath,
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "alpha_plus_plus"\n[execution]\nprofile = "quality"\n'
@@ -261,7 +261,7 @@ describe('Rank 2 — Provenance structure invariants', () => {
   it('all provenance entry `source` values are from the allowed enum', async () => {
     const allowed = new Set(['cli', 'toml', 'json', 'env', 'default']);
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "dfg"\n'
     );
     const cfg = await resolveConfig({

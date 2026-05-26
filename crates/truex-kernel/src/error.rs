@@ -12,7 +12,7 @@
 
 use wasm_bindgen::prelude::*;
 
-/// Typed error enum for wasm4pm public APIs.
+/// Typed error enum for truex_kernel public APIs.
 ///
 /// All `Result<T, String>` public functions should convert to this type at
 /// the public boundary using `.map_err(Wasm4pmError::Parse)` etc.
@@ -43,7 +43,7 @@ impl Wasm4pmError {
     /// # Examples
     ///
     /// ```
-    /// use wasm4pm::error::Wasm4pmError;
+    /// use truex_kernel::error::Wasm4pmError;
     ///
     /// assert_eq!(Wasm4pmError::Parse("bad XES".into()).code(), "PARSE_ERROR");
     /// assert_eq!(
@@ -69,7 +69,7 @@ impl Wasm4pmError {
     /// # Examples
     ///
     /// ```
-    /// use wasm4pm::error::Wasm4pmError;
+    /// use truex_kernel::error::Wasm4pmError;
     ///
     /// // Parse errors include fix guidance
     /// assert!(Wasm4pmError::Parse("x".into()).remediation().is_some());

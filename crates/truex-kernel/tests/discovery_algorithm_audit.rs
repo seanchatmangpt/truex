@@ -24,14 +24,14 @@
 //! - Consistency guards for output schema validation
 
 use std::collections::HashMap;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::genetic_discovery::{
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::genetic_discovery::{
     discover_aco_algorithm_from_log, discover_genetic_algorithm_from_log,
     discover_pso_algorithm_from_log,
 };
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::{
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::{
     discover_inductive_miner_from_log, discover_simulated_annealing_from_log,
 };
 

@@ -1,0 +1,10 @@
+{
+  "receiptHash": "c6f389abff67b61669a42b574581046850edfe88c4b756dd7f22fa35e6cb62fd",
+  "projectPath": "/tmp/operation2030",
+  "verb": "plan",
+  "status": "succeeded",
+  "startedAt": "2026-05-26T05:12:23.707Z",
+  "completedAt": "2026-05-26T05:12:23.714Z",
+  "reportPath": ".truex/checkpoints/checkpoint-registry.json",
+  "details": "Checkpoint registry generated. Hash: ba1f36ddf100a26d41b9fce198ed492da81a1d38e206bc8531c028a55eafbf5e"
+}

@@ -1,86 +1,86 @@
 {
   "case": "reactive-lifecycle-leak-audit",
   "status": "passed",
-  "timestamp": "2026-05-25T18:56:11.274Z",
+  "timestamp": "2026-05-26T05:20:26.372Z",
   "iterations": 50,
   "memory": {
     "start": {
-      "rssMb": 127.578125,
-      "heapTotalMb": 65.8125,
-      "heapUsedMb": 37.486358642578125
+      "rssMb": 84.53125,
+      "heapTotalMb": 31.21875,
+      "heapUsedMb": 16.394012451171875
     },
     "end": {
-      "rssMb": 135.53125,
-      "heapTotalMb": 67.5625,
-      "heapUsedMb": 42.967185974121094
+      "rssMb": 89.78125,
+      "heapTotalMb": 32.21875,
+      "heapUsedMb": 18.353981018066406
     },
-    "peakHeapUsedMb": 50.19666290283203,
-    "deltaHeapUsedMb": 5.480827331542969,
-    "deltaRssMb": 7.953125,
+    "peakHeapUsedMb": 21.51197052001953,
+    "deltaHeapUsedMb": 1.9599685668945312,
+    "deltaRssMb": 5.25,
     "growthReport": {
-      "warmupHeapUsedMb": 43.20305633544922,
-      "finalHeapUsedMb": 42.9656982421875,
-      "stableDeltaMb": -0.23735809326171875
+      "warmupHeapUsedMb": 15.494575500488281,
+      "finalHeapUsedMb": 18.352493286132812,
+      "stableDeltaMb": 2.8579177856445312
     }
   },
   "timings": {
     "verbs": {
       "init": {
-        "totalMs": 224.7313349999996,
-        "averageMs": 4.494626699999992,
-        "minMs": 1.4205839999999625,
-        "maxMs": 141.0899589999999
+        "totalMs": 101.63333199999963,
+        "averageMs": 2.0326666399999924,
+        "minMs": 1.3306250000000546,
+        "maxMs": 12.447082999999992
       },
       "map": {
-        "totalMs": 69.91158200000024,
-        "averageMs": 1.3982316400000048,
-        "minMs": 1.103917000000024,
-        "maxMs": 2.9547079999999823
+        "totalMs": 99.2066730000002,
+        "averageMs": 1.9841334600000038,
+        "minMs": 1.1670000000001437,
+        "maxMs": 22.142666999999847
       },
       "plan": {
-        "totalMs": 99.78762799999862,
-        "averageMs": 1.9957525599999724,
-        "minMs": 1.282457999999906,
-        "maxMs": 21.99558300000001
+        "totalMs": 90.47733199999936,
+        "averageMs": 1.8095466399999873,
+        "minMs": 1.3170420000001286,
+        "maxMs": 3.4485420000000886
       },
       "forge": {
-        "totalMs": 74.65683000000075,
-        "averageMs": 1.493136600000015,
-        "minMs": 0.9105420000000777,
-        "maxMs": 21.557250000000067
+        "totalMs": 81.61308399999916,
+        "averageMs": 1.6322616799999832,
+        "minMs": 0.8880830000000515,
+        "maxMs": 24.10749999999996
       },
       "bind": {
-        "totalMs": 99.34033100000039,
-        "averageMs": 1.9868066200000079,
-        "minMs": 1.6790419999999813,
-        "maxMs": 2.524499999999989
+        "totalMs": 113.12704099999945,
+        "averageMs": 2.2625408199999892,
+        "minMs": 1.711999999999989,
+        "maxMs": 4.460874999999987
       },
       "prove": {
-        "totalMs": 292.0483780000003,
-        "averageMs": 5.840967560000006,
-        "minMs": 4.588333000000034,
-        "maxMs": 25.651916999999912
+        "totalMs": 325.0622850000013,
+        "averageMs": 6.501245700000026,
+        "minMs": 4.742500000000064,
+        "maxMs": 34.111541999999986
       },
       "harden": {
-        "totalMs": 44.57945200000137,
-        "averageMs": 0.8915890400000274,
-        "minMs": 0.37341700000001765,
-        "maxMs": 21.24350000000004
+        "totalMs": 46.54262200000045,
+        "averageMs": 0.930852440000009,
+        "minMs": 0.3899170000000822,
+        "maxMs": 18.796957999999904
       },
       "handoff": {
-        "totalMs": 53.49732999999969,
-        "averageMs": 1.0699465999999938,
-        "minMs": 0.8443750000000136,
-        "maxMs": 1.4872499999999036
+        "totalMs": 61.016624999999465,
+        "averageMs": 1.2203324999999894,
+        "minMs": 0.8724999999999454,
+        "maxMs": 3.470542000000023
       }
     },
     "examples": {
-      "totalMs": 338.9070409999989,
-      "averageMs": 6.778140819999979
+      "totalMs": 353.11887300000063,
+      "averageMs": 7.062377460000013
     },
     "overall": {
-      "totalMs": 1631.7915419999993,
-      "averageMsPerLifecycle": 32.63583083999998
+      "totalMs": 1570.7047050000003,
+      "averageMsPerLifecycle": 31.414094100000007
     }
   },
   "invariants": [
@@ -94,5 +94,5 @@
     "platform": "darwin",
     "arch": "arm64"
   },
-  "reportHash": "594b2e2f7c9a72951dbcf0e7558bf26f16f40d2b9d54d67d49ad7788102c283b"
+  "reportHash": "565612a4595dda9b1d8c5b51616cbf63697803e8d470394bd0c5144dbabeb85b"
 }

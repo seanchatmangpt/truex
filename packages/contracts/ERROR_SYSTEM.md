@@ -25,8 +25,8 @@ The error system provides **typed, structured error handling** with **mandatory 
 
 **Example:**
 ```ts
-const error = createError('CONFIG_MISSING', 'wasm4pm.toml not found in current directory');
-// Remediation: "Configuration file not found. Create wasm4pm.toml..."
+const error = createError('CONFIG_MISSING', 'truex.toml not found in current directory');
+// Remediation: "Configuration file not found. Create truex.toml..."
 // Exit code: 201
 ```
 
@@ -177,7 +177,7 @@ import { createError } from '@truex/contracts';
 
 // Create error result
 function loadConfig(): Result<Config> {
-  const configError = createError('CONFIG_MISSING', 'wasm4pm.toml not found');
+  const configError = createError('CONFIG_MISSING', 'truex.toml not found');
   return error(configError);
 }
 
@@ -282,8 +282,8 @@ Every error **must** include a clear "how to fix this" message. Users should nev
 
 ```ts
 // ✓ Good
-createError('CONFIG_MISSING', 'wasm4pm.toml not found');
-// Includes: "Create wasm4pm.toml in your project root or run: wpm init"
+createError('CONFIG_MISSING', 'truex.toml not found');
+// Includes: "Create truex.toml in your project root or run: wpm init"
 
 // ✗ Wrong - would need remediation
 createError('UNKNOWN_ERROR', 'Something went wrong');

@@ -60,7 +60,7 @@ It sits beneath the applications and the agents, silently hashing the execution 
 ---
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
-*   **Upstream:** Used by `cns` and `wasm4pm` to anchor their execution.
+*   **Upstream:** Used by `cns` and `truex-kernel` to anchor their execution.
 *   **Downstream:** N/A. It is the bottom layer.
 
 ---

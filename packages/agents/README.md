@@ -1,4 +1,4 @@
-# @wasm4pm/agents
+# @truex/agents
 
 Van der Aalst process mining agents — autonomous adversarial validation
 
@@ -16,7 +16,7 @@ This package implements autonomous process mining agents based on van der Aalst'
 ## Usage
 
 ```typescript
-import { createAgent, AgentType } from '@wasm4pm/agents';
+import { createAgent, AgentType } from '@truex/agents';
 
 const agent = createAgent(AgentType.Discovery);
 const results = await agent.analyze(eventLog, config);
@@ -48,6 +48,6 @@ npm test
 
 ## See Also
 
-- [@wasm4pm/kernel](../kernel) — WASM algorithm facade
+- [@truex/kernel](../kernel) — WASM algorithm facade
 - [@truex/testing](../testing) — Test harnesses and oracles
 - [@truex/ml](../ml) — Machine learning process mining

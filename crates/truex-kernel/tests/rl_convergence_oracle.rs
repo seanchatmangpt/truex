@@ -9,7 +9,7 @@
 //! 3. Learning Rate Decay: α_t = α_0 × (0.9999 ^ cycle)
 //! 4. Weight Norm Learning: linucb_weight_delta > 0 during learning
 
-use wasm4pm::rl_orchestrator::{
+use truex_kernel::rl_orchestrator::{
     RlOrchestrator, RlState, learning_rate_schedule,
 };
 use fastrand::Rng;

@@ -1,7 +1,7 @@
 //! # Optimization and Prediction Algorithms
 //!
 //! This module provides metaheuristic optimization and prediction algorithms ported from
-//! wasm4pm (WebAssembly Process Mining) and adapted for general ML use cases.
+//! truex_kernel (WebAssembly Process Mining) and adapted for general ML use cases.
 //!
 //! ## Optimization Algorithms
 //!
@@ -51,14 +51,14 @@
 //!
 //! ## Ported From
 //!
-//! - `wasm4pm/wasm4pm/src/genetic_discovery.rs` (GA, PSO)
-//! - `wasm4pm/wasm4pm/src/more_discovery.rs` (Simulated Annealing)
-//! - `wasm4pm/wasm4pm/src/utilities.rs` (Fitness evaluation)
-//! - `wasm4pm/wasm4pm/src/feature_importance.rs` (Feature importance)
-//! - `wasm4pm/wasm4pm/src/anomaly.rs` (Anomaly detection)
-//! - `wasm4pm/wasm4pm/src/prediction_additions.rs` (Markov, beam search, EWMA)
-//! - `wasm4pm/wasm4pm/src/prediction_drift.rs` (Drift detection)
-//! - `wasm4pm/wasm4pm/src/prediction_resource.rs` (UCB1 bandit, queue delay)
+//! - `truex_kernel/truex_kernel/src/genetic_discovery.rs` (GA, PSO)
+//! - `truex_kernel/truex_kernel/src/more_discovery.rs` (Simulated Annealing)
+//! - `truex_kernel/truex_kernel/src/utilities.rs` (Fitness evaluation)
+//! - `truex_kernel/truex_kernel/src/feature_importance.rs` (Feature importance)
+//! - `truex_kernel/truex_kernel/src/anomaly.rs` (Anomaly detection)
+//! - `truex_kernel/truex_kernel/src/prediction_additions.rs` (Markov, beam search, EWMA)
+//! - `truex_kernel/truex_kernel/src/prediction_drift.rs` (Drift detection)
+//! - `truex_kernel/truex_kernel/src/prediction_resource.rs` (UCB1 bandit, queue delay)
 
 mod types;
 mod fitness;

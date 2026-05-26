@@ -10,7 +10,7 @@
 //! Run with: `cargo test --features cloud --test agentic_wasm_export_tests`
 
 use std::collections::BTreeSet;
-use wasm4pm::agentic::prelude::*;
+use truex_kernel::agentic::prelude::*;
 
 // ---------------------------------------------------------------------------
 // Helper — build a minimal valid TaskContext as JSON

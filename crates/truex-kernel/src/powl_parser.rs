@@ -242,7 +242,7 @@ fn parse_choice_graph(s: &str, arena: &mut PowlArena) -> Result<u32, String> {
 
     // Each node is `nID=<spec>`; record (id_str, ChoiceGraphNode).
     let mut id_to_idx: Vec<(String, usize)> = Vec::new();
-    let mut nodes: Vec<wasm4pm_types::ChoiceGraphNode> = Vec::new();
+    let mut nodes: Vec<truex_kernel_types::ChoiceGraphNode> = Vec::new();
 
     for tok in &raw_node_tokens {
         let (id_str, spec) = match tok.find('=') {
@@ -289,7 +289,7 @@ fn parse_choice_graph(s: &str, arena: &mut PowlArena) -> Result<u32, String> {
         }
     }
 
-    let cg = wasm4pm_types::ChoiceGraph::new(nodes, edges)
+    let cg = truex_kernel_types::ChoiceGraph::new(nodes, edges)
         .map_err(|e| format!("invalid CG: {}", e))?;
     Ok(arena.add_choice_graph(cg))
 }
@@ -297,23 +297,23 @@ fn parse_choice_graph(s: &str, arena: &mut PowlArena) -> Result<u32, String> {
 fn parse_choice_graph_node_spec(
     spec: &str,
     arena: &mut PowlArena,
-) -> Result<wasm4pm_types::ChoiceGraphNode, String> {
+) -> Result<truex_kernel_types::ChoiceGraphNode, String> {
     let s = spec.trim();
     if s == "Start" {
-        return Ok(wasm4pm_types::ChoiceGraphNode::Start);
+        return Ok(truex_kernel_types::ChoiceGraphNode::Start);
     }
     if s == "End" {
-        return Ok(wasm4pm_types::ChoiceGraphNode::End);
+        return Ok(truex_kernel_types::ChoiceGraphNode::End);
     }
     if let Some(rest) = s.strip_prefix("Activity(") {
         let inner = rest
             .strip_suffix(')')
             .ok_or_else(|| format!("Activity(...) missing ')': '{}'", s))?;
-        return Ok(wasm4pm_types::ChoiceGraphNode::Activity(inner.trim().to_string()));
+        return Ok(truex_kernel_types::ChoiceGraphNode::Activity(inner.trim().to_string()));
     }
     // Fallback: parse as nested POWL sub-model.
     let sub_idx = parse_powl_model_string(s, arena).map_err(|e| e.to_string())?;
-    Ok(wasm4pm_types::ChoiceGraphNode::SubModel(sub_idx))
+    Ok(truex_kernel_types::ChoiceGraphNode::SubModel(sub_idx))
 }
 
 fn extract_bracketed_content<'a>(s: &'a str, key: &str) -> Result<&'a str, String> {

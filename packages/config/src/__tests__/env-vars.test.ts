@@ -182,7 +182,7 @@ describe('ENV: WASM4PM_OTEL_ENABLED and WASM4PM_OTEL_ENDPOINT', () => {
 
   it('OTEL endpoint from ENV is overridden by TOML file', async () => {
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "1.0.0"\n[source]\nkind = "file"\n[observability.otel]\nenabled = true\nexporter = "otlp"\nendpoint = "http://toml-collector:4318"\n'
     );
     const cfg = await resolveConfig({

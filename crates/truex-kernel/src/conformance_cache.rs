@@ -176,7 +176,7 @@ pub fn conformance_cache_get(
             match result {
                 Some(r) => serde_wasm_bindgen::to_value(&r)
                     .map_err(|e| crate::error::js_val(&e.to_string())),
-                None => Ok(JsValue::NULL), // wasm4pm-s2-exclude: documented cache-miss return
+                None => Ok(JsValue::NULL), // truex_kernel-s2-exclude: documented cache-miss return
             }
         }
         Some(_) => Err(crate::error::js_val("Object is not a ConformanceCache")),

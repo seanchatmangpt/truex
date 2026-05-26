@@ -1,8 +1,8 @@
 /**
- * MCP Server Integration for wasm4pm
+ * MCP Server Integration for truex-kernel
  *
- * Exposes wasm4pm process mining capabilities as Model Context Protocol (MCP) tools.
- * Enables Claude and other MCP clients to use wasm4pm for process discovery, analysis, and visualization.
+ * Exposes truex-kernel process mining capabilities as Model Context Protocol (MCP) tools.
+ * Enables Claude and other MCP clients to use truex-kernel for process discovery, analysis, and visualization.
  *
  * Usage:
  *   const server = new Wasm4pmMCPServer();
@@ -16,16 +16,16 @@ import {
   type CallToolResult,
 } from '@modelcontextprotocol/sdk/types.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import * as wasm from '../pkg/wasm4pm.js';
+import * as wasm from '../pkg/truex_kernel.js';
 
 interface ToolInput {
   [key: string]: unknown;
 }
 
 /**
- * wasm4pm MCP Server
+ * truex-kernel MCP Server
  *
- * Provides MCP interface to wasm4pm functionality including:
+ * Provides MCP interface to truex-kernel functionality including:
  * - Process discovery (18 algorithms)
  * - Conformance checking
  * - Process analysis and visualization
@@ -946,7 +946,7 @@ export class Wasm4pmMCPServer {
       // Registry
       {
         name: 'get_capability_registry',
-        description: 'Get the complete catalog of all wasm4pm functions organized by category.',
+        description: 'Get the complete catalog of all truex-kernel functions organized by category.',
         inputSchema: {
           type: 'object' as const,
           properties: {},
@@ -2303,7 +2303,7 @@ export class Wasm4pmMCPServer {
    */
   async start(): Promise<void> {
     this.server.connect(this.transport);
-    console.error('wasm4pm MCP server started');
+    console.error('truex-kernel MCP server started');
   }
 }
 

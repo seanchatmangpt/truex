@@ -1,0 +1,41 @@
+{
+  "projectRoot": "/Users/sac/truex/operation2030",
+  "timestamp": "2026-05-26T05:12:34.309Z",
+  "inventory": {
+    "totalFiles": 18,
+    "source": [],
+    "test": [
+      "packages/membrane/test/project-wizard/project-wizard-cli.test.ts"
+    ],
+    "docs": [
+      ".truex/checkpoints/checkpoint-registry.md",
+      ".truex/reports/project-topology.md",
+      "docs/project-c4-container.mmd",
+      "docs/project-c4-context.mmd"
+    ],
+    "config": [
+      ".truex/checkpoints/checkpoint-registry.json",
+      ".truex/checkpoints/checkpoint-registry.md",
+      ".truex/mission/heartbeat.json",
+      ".truex/mission/start.json",
+      ".truex/project.json",
+      ".truex/receipts/receipt-forge-1779772351909.json",
+      ".truex/receipts/receipt-init-1779772298289.json",
+      ".truex/receipts/receipt-map-1779772341355.json",
+      ".truex/receipts/receipt-plan-1779772343715.json",
+      ".truex/reports/accounting.json",
+      ".truex/reports/execution-ledger.json",
+      ".truex/reports/project-topology.json",
+      ".truex/reports/project-topology.md",
+      ".truex/rollback/rollback-cp-cli-contract-1779772351907/rollback-log.json"
+    ],
+    "scripts": [
+      "scripts/truex.ts"
+    ],
+    "package": [],
+    "binaries": [],
+    "largeFiles": [],
+    "orphans": []
+  },
+  "dependencies": []
+}

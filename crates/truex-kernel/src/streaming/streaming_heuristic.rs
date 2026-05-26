@@ -33,8 +33,8 @@ use std::collections::HashMap;
 /// # Example
 ///
 /// ```rust
-/// use wasm4pm::streaming::StreamingHeuristicBuilder;
-/// use wasm4pm::streaming::StreamingAlgorithm;
+/// use truex_kernel::streaming::StreamingHeuristicBuilder;
+/// use truex_kernel::streaming::StreamingAlgorithm;
 ///
 /// let mut stream = StreamingHeuristicBuilder::with_dependency_threshold(0.8);
 ///

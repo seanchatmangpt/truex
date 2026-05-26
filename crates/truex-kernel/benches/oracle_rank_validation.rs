@@ -15,13 +15,13 @@ use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Through
 use rustc_hash::FxHashMap;
 use std::collections::{HashMap, HashSet};
 use std::time::Duration;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::models::{
+use truex_kernel::advanced_algorithms::discover_heuristic_miner;
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::models::{
     AttributeValue, ColumnarLog, DFGNode, DirectlyFollowsGraph, DirectlyFollowsRelation,
     Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition, Trace,
 };
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
 
 #[path = "helpers.rs"]
 mod helpers;

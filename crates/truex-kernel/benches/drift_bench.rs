@@ -9,7 +9,7 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::collections::HashSet;
 use std::time::Duration;
-use wasm4pm::prediction_drift::{ewma_series, jaccard_distance};
+use truex_kernel::prediction_drift::{ewma_series, jaccard_distance};
 
 #[path = "helpers.rs"]
 mod helpers;
@@ -69,7 +69,7 @@ fn bench_jaccard(c: &mut Criterion) {
 // ---------------------------------------------------------------------------
 
 fn bench_detect_drift(c: &mut Criterion) {
-    use wasm4pm::prediction_drift::detect_drift;
+    use truex_kernel::prediction_drift::detect_drift;
 
     let mut group = c.benchmark_group("drift/detect_drift");
     group.measurement_time(Duration::from_secs(5));

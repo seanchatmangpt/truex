@@ -7,7 +7,7 @@
 //! 4. Failure modes from previous test campaigns
 //! 5. End-to-end trace and receipt validation
 
-use wasm4pm_cognition::breeds::*;
+use truex_kernel_cognition::breeds::*;
 
 // =============================================================================
 // LEVEL 10: SCALE TESTS (100x previous scale)

@@ -8,7 +8,7 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::models::EventLog;
+use truex_kernel::models::EventLog;
 
 const FIXTURES_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures");
 
@@ -27,7 +27,7 @@ fn compute_activity_bottleneck_scores(log: &EventLog, activity_key: &str) -> Vec
 
     for trace in &log.traces {
         for event in &trace.events {
-            if let Some(wasm4pm::models::AttributeValue::String(name)) =
+            if let Some(truex_kernel::models::AttributeValue::String(name)) =
                 event.attributes.get(activity_key)
             {
                 *activity_counts.entry(name.clone()).or_insert(0) += 1;
@@ -60,14 +60,14 @@ fn compute_activity_gap_bottleneck(
 
         for event in &trace.events {
             let activity_name = event.attributes.get(activity_key).and_then(|v| match v {
-                wasm4pm::models::AttributeValue::String(s) => Some(s.clone()),
+                truex_kernel::models::AttributeValue::String(s) => Some(s.clone()),
                 _ => None,
             });
 
             let ts = event.attributes.get(timestamp_key).and_then(|v| match v {
-                wasm4pm::models::AttributeValue::Date(s) => parse_timestamp_ms(s),
-                wasm4pm::models::AttributeValue::String(s) => parse_timestamp_ms(s),
-                wasm4pm::models::AttributeValue::Int(i) => Some(*i as u64),
+                truex_kernel::models::AttributeValue::Date(s) => parse_timestamp_ms(s),
+                truex_kernel::models::AttributeValue::String(s) => parse_timestamp_ms(s),
+                truex_kernel::models::AttributeValue::Int(i) => Some(*i as u64),
                 _ => None,
             });
 
@@ -179,7 +179,7 @@ fn test_real_log_all_activities_scored() {
     let mut activities: std::collections::HashSet<String> = std::collections::HashSet::new();
     for trace in &log.traces {
         for event in &trace.events {
-            if let Some(wasm4pm::models::AttributeValue::String(name)) =
+            if let Some(truex_kernel::models::AttributeValue::String(name)) =
                 event.attributes.get("activity")
             {
                 activities.insert(name.clone());

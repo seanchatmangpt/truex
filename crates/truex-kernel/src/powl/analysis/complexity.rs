@@ -157,7 +157,7 @@ fn visit(arena: &PowlArena, idx: u32, depth: usize, col: &mut Collector) -> usiz
         Some(PowlNode::ChoiceGraph(cg)) => {
             let mut sub_indices: Vec<u32> = Vec::new();
             for n in &cg.graph.nodes {
-                if let wasm4pm_types::ChoiceGraphNode::SubModel(idx) = n {
+                if let truex_kernel_types::ChoiceGraphNode::SubModel(idx) = n {
                     sub_indices.push(*idx);
                 }
             }

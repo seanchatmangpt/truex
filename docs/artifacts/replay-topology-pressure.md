@@ -1,13 +1,13 @@
 # Antigravity Artifact: Replay Topology Pressure
 
-> **Generated:** 2026-05-25T18:57:23.718Z
+> **Generated:** 2026-05-26T05:19:54.235Z
 
 ## Data Summary
 
 ```json
 {
   "replayPerformance": {
-    "opsPerSec": 33690.81534468344,
+    "opsPerSec": 20583.187570059967,
     "convergencePct": 100,
     "tamperDetectionPct": 100
   },
@@ -25,7 +25,7 @@
   "_metadata": {
     "emitter": "Replay/Topology Pressure Facts Emitter",
     "description": "Extracts performance boundaries for receipt replay, depth, and cycle prevention",
-    "timestamp": "2026-05-25T18:57:23.718Z"
+    "timestamp": "2026-05-26T05:19:54.235Z"
   }
 }
 ```

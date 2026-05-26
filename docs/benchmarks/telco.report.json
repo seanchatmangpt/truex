@@ -6,10 +6,10 @@
     "transitionsIngested": 1000,
     "validEnvelopesSigned": 1000,
     "invalidEnvelopesRejected": 3,
-    "ingestDurationMs": 131.89687499999945,
-    "verifyDurationMs": 30.679959000000053,
-    "ingestOpsPerSecond": 7581.680763854369,
-    "verifyOpsPerSecond": 32594.567678529107
+    "ingestDurationMs": 135.50208399999974,
+    "verifyDurationMs": 30.463917000000038,
+    "ingestOpsPerSecond": 7379.960296404016,
+    "verifyOpsPerSecond": 32825.719686670585
   },
   "invariants": [
     "valid ingested transition creates conforming signed envelope",
@@ -17,5 +17,5 @@
     "tampered ocelBatchHash fails validation (tamper resistance proof)",
     "tampered receiptHash fails validation (tamper resistance proof)"
   ],
-  "reportHash": "61f340a167798d4168103618ae72c044c2905ff4800a4d94dbc8fe416d281a44"
+  "reportHash": "40b750ea3581e3d401777a859a61060ed9ea3de764c83188ad462373dda35d44"
 }

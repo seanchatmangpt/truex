@@ -47,7 +47,7 @@ fn test_wizard() {
         .success()
         .stdout(predicate::str::contains("Success! Your project is ready."));
 
-    let config_path = temp_dir.path().join(".wasm4pm").join("config.json");
+    let config_path = temp_dir.path().join(".truex").join("config.json");
     assert!(config_path.exists());
 
     let content = fs::read_to_string(config_path).expect("Failed to read config.json");

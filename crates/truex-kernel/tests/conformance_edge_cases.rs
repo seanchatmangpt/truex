@@ -12,8 +12,8 @@
 //! With clamp(0.0, 1.0) and guard against division-by-zero via max(1, denominator)
 
 use std::collections::HashMap;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::models::{AttributeValue, Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition, Trace};
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::models::{AttributeValue, Event, EventLog, PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition, Trace};
 
 // Helpers
 fn make_log(traces: &[&[&str]]) -> EventLog {

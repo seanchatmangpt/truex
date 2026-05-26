@@ -12,7 +12,7 @@
 ---
 
 ## 2. ORIGINAL PURPOSE
-Managing and querying large process models requires strict algorithmic control. `pictl` (Process Intelligence Control) was built to evaluate process trees, validate their structural soundness, and compute process metrics (like fitness and precision) mathematically, separate from the main `wasm4pm` execution context.
+Managing and querying large process models requires strict algorithmic control. `pictl` (Process Intelligence Control) was built to evaluate process trees, validate their structural soundness, and compute process metrics (like fitness and precision) mathematically, separate from the main `truex-kernel` execution context.
 
 ---
 
@@ -55,13 +55,13 @@ Provides the deep mathematical algorithms that prove a process model is structur
 ---
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
-*   **Upstream:** Receives YAWL/POWL models from `wasm4pm`.
+*   **Upstream:** Receives YAWL/POWL models from `truex-kernel`.
 *   **Downstream:** Provides mathematical confidence back to the runtime.
 
 ---
 
 ## 10. MISSING INVARIANTS
-*   Needs to be natively merged into the \`wasm4pm\` kernel to reduce context switching during live conformance checks.
+*   Needs to be natively merged into the \`truex-kernel\` kernel to reduce context switching during live conformance checks.
 
 ---
 

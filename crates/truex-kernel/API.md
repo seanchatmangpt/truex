@@ -1,10 +1,10 @@
-# wasm4pm API Reference
+# truex-kernel API Reference
 
 All functions are exported from the WASM module. Import the module before calling any function.
 
 ```javascript
-const pm = require('@wasm4pm/cli'); // Node.js (CommonJS)
-import * as pm from '@wasm4pm/cli'; // ES modules
+const pm = require('@truex/cli'); // Node.js (CommonJS)
+import * as pm from '@truex/cli'; // ES modules
 ```
 
 **Return value convention.** Functions that return complex objects return a JSON-encoded `string`. Callers must parse the result with `JSON.parse()`. Functions that return a handle return a plain `string` (do not parse). Primitive return types (`number`, `boolean`) are returned directly. Every function that can fail throws a JavaScript `Error`.
@@ -39,14 +39,14 @@ pm.init(): string
 
 **Parameters** — none
 
-**Returns** `string` — `"wasm4pm WASM initialized successfully"`
+**Returns** `string` — `"truex-kernel WASM initialized successfully"`
 
 **Throws** — never
 
 **Example**
 
 ```javascript
-const pm = require('@wasm4pm/cli');
+const pm = require('@truex/cli');
 pm.init();
 ```
 

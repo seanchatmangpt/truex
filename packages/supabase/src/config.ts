@@ -73,7 +73,7 @@ export function resolveSupabaseConfig(options?: {
     throw new SupabaseIntegrationError(
       'SUPABASE_CREDENTIALS_MISSING',
       'Supabase URL and anon key are required. Set WASM4PM_SUPABASE_URL and WASM4PM_SUPABASE_ANON_KEY ' +
-        '(or SUPABASE_URL / SUPABASE_ANON_KEY), or add [integrations.supabase] to wasm4pm.toml.'
+        '(or SUPABASE_URL / SUPABASE_ANON_KEY), or add [integrations.supabase] to truex.toml.'
     );
   }
 

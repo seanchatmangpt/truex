@@ -1,5 +1,5 @@
 /**
- * wasm4pm WASM benchmark runner.
+ * truex-kernel WASM benchmark runner.
  *
  * Spawns one Node.js Worker per algorithm group so all groups run simultaneously.
  * Each worker owns its own WASM linear memory — true parallelism.
@@ -159,7 +159,7 @@ function printTable(results) {
 // ── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
-  console.log(`wasm4pm WASM Benchmark Runner`);
+  console.log(`truex-kernel WASM Benchmark Runner`);
   console.log(`Mode: ${CI_MODE ? 'CI (reduced iterations)' : 'Full'}`);
   console.log(`Workers: ${ALGORITHM_GROUPS.length} parallel groups`);
   console.log('Starting...\n');

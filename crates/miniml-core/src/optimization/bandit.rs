@@ -1,6 +1,6 @@
 //! Multi-Armed Bandit Algorithms (UCB1)
 //!
-//! Ported from wasm4pm prediction_resource.rs
+//! Ported from truex_kernel prediction_resource.rs
 //!
 //! Provides reinforcement learning algorithms for sequential
 //! decision-making under uncertainty.

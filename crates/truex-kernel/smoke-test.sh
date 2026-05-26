@@ -1,7 +1,7 @@
 #!/bin/bash
 # Standalone npm install smoke test
 # Catches packaging failures before they reach npm publish.
-# Run from wasm4pm/ subdirectory.
+# Run from truex-kernel/ subdirectory.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -23,7 +23,7 @@ rm -f pkg/.gitignore
 echo ""
 echo "=== Packing tarball ==="
 npm pack
-TARBALL=$(ls -t wasm4pm-*.tgz | head -1)
+TARBALL=$(ls -t truex-kernel-*.tgz | head -1)
 echo "Tarball: $TARBALL"
 
 echo ""
@@ -91,5 +91,5 @@ node -e "
   console.log('=== ALL SMOKE TESTS PASSED ===');
 "
 
-# Clean up tarball from wasm4pm dir
+# Clean up tarball from truex-kernel dir
 rm -f "$SCRIPT_DIR/$TARBALL"

@@ -1,6 +1,6 @@
 //! Anomaly Detection (Frequency-based, Statistical)
 //!
-//! Ported from wasm4pm anomaly.rs
+//! Ported from truex_kernel anomaly.rs
 //!
 //! Provides anomaly scoring for sequences and data points.
 //! Answers: "Is this sequence/data point unusual compared to reference?"

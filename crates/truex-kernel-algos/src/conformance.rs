@@ -1,4 +1,4 @@
-use wasm4pm_types::*;
+use truex_kernel_types::*;
 use std::cmp::Reverse;
 use std::collections::{BinaryHeap, HashMap, HashSet};
 

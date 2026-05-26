@@ -9,13 +9,13 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::algorithms::discover_alpha_plus_plus_from_log;
-use wasm4pm::batches::discover_batches;
-use wasm4pm::correlation_miner::{mine_correlation, CorrelationConfig};
-use wasm4pm::ilp_discovery::discover_optimized_dfg_from_log;
-use wasm4pm::log_to_trie::discover_prefix_tree_inner;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::transition_system::discover_transition_system;
+use truex_kernel::algorithms::discover_alpha_plus_plus_from_log;
+use truex_kernel::batches::discover_batches;
+use truex_kernel::correlation_miner::{mine_correlation, CorrelationConfig};
+use truex_kernel::ilp_discovery::discover_optimized_dfg_from_log;
+use truex_kernel::log_to_trie::discover_prefix_tree_inner;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::transition_system::discover_transition_system;
 
 // ---------------------------------------------------------------------------
 // Inline XES parser (same pattern as real_data_algo_validation.rs)
@@ -116,7 +116,7 @@ fn alpha_plus_plus_roadtraffic_produces_petri_net() {
 fn alpha_plus_plus_running_example_produces_sound_petri_net() {
     let log = require_log!(
         &["~/chatmangpt/pm4py/tests/input_data/running-example.xes",
-          "~/chatmangpt/wasm4pm/tests/fixtures/running-example.xes"],
+          "~/chatmangpt/truex_kernel/tests/fixtures/running-example.xes"],
         "running-example for alpha++"
     );
     let result = discover_alpha_plus_plus_from_log(&log, "concept:name", 0.0);
@@ -153,7 +153,7 @@ fn optimized_dfg_roadtraffic_reduces_noise() {
 fn optimized_dfg_bpi2020_large_scale_non_degenerate() {
     let log = require_log!(
         &["bench_data/bpi2020_travel.xes",
-          "~/chatmangpt/wasm4pm/bench_data/bpi2020_travel.xes"],
+          "~/chatmangpt/truex_kernel/bench_data/bpi2020_travel.xes"],
         "bpi2020 for optimized_dfg"
     );
     let dfg = discover_optimized_dfg_from_log(&log, "concept:name", 0.6, 0.4);

@@ -1,6 +1,6 @@
-# @wasm4pm/validators
+# @truex-kernel/validators
 
-Comprehensive validation suite for @wasm4pm/cli v26.4.9.
+Comprehensive validation suite for @truex/cli v26.4.9.
 
 ## Overview
 
@@ -8,7 +8,7 @@ Six independent JavaScript/MJS validators that test different execution surfaces
 
 | Validator         | Tests | Use Case                                  |
 | ----------------- | ----- | ----------------------------------------- |
-| **CLI**           | 5     | wasm4pm command-line interface validation |
+| **CLI**           | 5     | truex-kernel command-line interface validation |
 | **HTTP**          | 9     | REST API endpoints and status codes       |
 | **WebSocket**     | 4     | Real-time streaming and connections       |
 | **Observability** | 8     | Logging, tracing, and monitoring          |
@@ -19,7 +19,7 @@ Six independent JavaScript/MJS validators that test different execution surfaces
 ## Installation
 
 ```bash
-npm install @wasm4pm/validators
+npm install @truex-kernel/validators
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ npm install @wasm4pm/validators
 ### Run All Validators
 
 ```bash
-npx wasm4pm-validate
+npx truex-kernel-validate
 # or
 node validators/index.mjs
 ```
@@ -36,27 +36,27 @@ node validators/index.mjs
 
 ```bash
 # CLI validation
-npx wasm4pm-validate-cli
+npx truex-kernel-validate-cli
 node validators/cli.mjs
 
 # HTTP API (requires service running)
-npx wasm4pm-validate-http http://localhost:3000
+npx truex-kernel-validate-http http://localhost:3000
 node validators/http.mjs
 
 # WebSocket (requires service running)
-npx wasm4pm-validate-ws ws://localhost:3000
+npx truex-kernel-validate-ws ws://localhost:3000
 node validators/websocket.mjs
 
 # Observability
-npx wasm4pm-validate-observability
+npx truex-kernel-validate-observability
 node validators/observability.mjs
 
 # I/O Format Support
-npx wasm4pm-validate-io
+npx truex-kernel-validate-io
 node validators/io.mjs
 
 # Performance Characteristics
-npx wasm4pm-validate-performance
+npx truex-kernel-validate-performance
 node validators/performance.mjs
 ```
 
@@ -76,7 +76,7 @@ node validators/index.mjs --ws ws://custom-host:3000 --output report.json
 ## As a Module
 
 ```javascript
-import { runAllValidators } from '@wasm4pm/validators';
+import { runAllValidators } from '@truex-kernel/validators';
 
 const results = await runAllValidators({
   httpBaseUrl: 'http://localhost:3000',
@@ -89,9 +89,9 @@ console.log(`Passed: ${results.summary.passed}/${results.summary.total}`);
 
 ```javascript
 // Individual validators
-import { validateCLI } from '@wasm4pm/validators/cli';
-import { validateHTTP } from '@wasm4pm/validators/http';
-import { validateIO } from '@wasm4pm/validators/io';
+import { validateCLI } from '@truex-kernel/validators/cli';
+import { validateHTTP } from '@truex-kernel/validators/http';
+import { validateIO } from '@truex-kernel/validators/io';
 
 const cli = await validateCLI();
 const http = await validateHTTP('http://localhost:3000');
@@ -208,9 +208,9 @@ These validators are called by the `/lab/` post-publication validation system to
 ## Requirements
 
 - **Node.js**: 18+ (16+ minimum)
-- **@wasm4pm/cli**: Published npm package or local build
+- **@truex/cli**: Published npm package or local build
 - **HTTP Service** (optional): For HTTP/WebSocket tests
-- **wasm4pm CLI** (optional): For CLI tests
+- **truex-kernel CLI** (optional): For CLI tests
 
 ## Exit Codes
 
@@ -233,7 +233,7 @@ A: Start the HTTP service: `npm run start:service` in another terminal
 A: Ensure the HTTP service is running with WebSocket support enabled
 
 **Q: CLI tests fail with "command not found"**  
-A: Install wasm4pm or link the local version: `npm link @wasm4pm/cli`
+A: Install truex-kernel or link the local version: `npm link @truex/cli`
 
 **Q: How do I generate a conformance report?**  
 A: Run `node validators/index.mjs --output report.json`

@@ -240,7 +240,7 @@ describe('ingestTruexEnvelope', () => {
 describe('SyncQueue', () => {
   it('enqueue and ack items', async () => {
     const { SyncQueue } = await import('../sync-queue.js');
-    const tmp = `.wasm4pm/test-sync-queue-${Date.now()}.json`;
+    const tmp = `.truex/test-sync-queue-${Date.now()}.json`;
     const queue = new SyncQueue(tmp);
     queue.enqueue({ id: '1', kind: 'command_receipt', payload: { run_id: 'r1' } });
     expect(queue.peek()).toHaveLength(1);

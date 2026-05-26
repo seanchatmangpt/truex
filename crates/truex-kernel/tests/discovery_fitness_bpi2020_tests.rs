@@ -24,11 +24,11 @@ use std::collections::HashMap;
 use std::fs;
 use std::sync::Mutex;
 
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::ilp_discovery::discover_ilp_petri_net_from_log;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::genetic_discovery::discover_genetic_algorithm_from_log;
-use wasm4pm::models::{AttributeValue, Event, EventLog, PetriNet, Trace};
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::ilp_discovery::discover_ilp_petri_net_from_log;
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::genetic_discovery::discover_genetic_algorithm_from_log;
+use truex_kernel::models::{AttributeValue, Event, EventLog, PetriNet, Trace};
 
 // ---------------------------------------------------------------------------
 // Module-level static: Load BPI 2020 once, share across all tests
@@ -46,7 +46,7 @@ fn get_bpi2020_log() -> EventLog {
 
     // Search for BPI 2020 in multiple locations
     let candidates = &[
-        "/Users/sac/wasm4pm/bench_data/bpi2020_travel.xes",
+        "/Users/sac/truex_kernel/bench_data/bpi2020_travel.xes",
         "bench_data/bpi2020_travel.xes",
         "./bench_data/bpi2020_travel.xes",
     ];
@@ -159,7 +159,7 @@ fn evaluate_fitness_from_petri(log: &EventLog, model: &PetriNet, activity_key: &
 
 /// Evaluate fitness of an EventLog against a DFG edge set.
 /// Fitness = average ratio of directly-follows pairs in each trace that appear in the DFG.
-fn evaluate_fitness_from_dfg(log: &EventLog, dfg: &wasm4pm::models::DirectlyFollowsGraph, activity_key: &str) -> f64 {
+fn evaluate_fitness_from_dfg(log: &EventLog, dfg: &truex_kernel::models::DirectlyFollowsGraph, activity_key: &str) -> f64 {
     use std::collections::HashSet;
 
     // Build edge set from DFG
@@ -262,7 +262,7 @@ fn test_discovery_hill_climbing_fitness_bpi2020() {
 fn test_discovery_alpha_plus_plus_fitness_bpi2020() {
     let log = get_bpi2020_log();
     // alpha_plus_plus requires fitness threshold parameter
-    let result = wasm4pm::algorithms::discover_alpha_plus_plus_from_log(&log, "concept:name", 0.5);
+    let result = truex_kernel::algorithms::discover_alpha_plus_plus_from_log(&log, "concept:name", 0.5);
     match result {
         Ok(model) => {
             let fitness = evaluate_fitness_from_petri(&log, &model, "concept:name");
@@ -437,7 +437,7 @@ fn test_fitness_summary_report() {
 
     // Run the tests
     eprintln!("Testing alpha_plus_plus:");
-    let result = wasm4pm::algorithms::discover_alpha_plus_plus_from_log(&log, "concept:name", 0.5);
+    let result = truex_kernel::algorithms::discover_alpha_plus_plus_from_log(&log, "concept:name", 0.5);
     match result {
         Ok(model) => {
             let fitness = evaluate_fitness_from_petri(&log, &model, "concept:name");

@@ -1,6 +1,6 @@
 #![cfg(target_arch = "wasm32")]
 
-//! Real Data Benchmarking for wasm4pm
+//! Real Data Benchmarking for truex_kernel
 //!
 //! This module runs 35 capability tests against real event logs from the BPI Challenge
 //! series (Business Process Intelligence Challenge). Datasets are curated from public
@@ -23,47 +23,47 @@ use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
 use std::time::Instant;
-use wasm4pm::advanced_algorithms::{
+use truex_kernel::advanced_algorithms::{
     analyze_infrequent_paths, compute_model_metrics, detect_bottlenecks, detect_rework,
     discover_heuristic_miner,
 };
-use wasm4pm::analysis::{analyze_case_duration, analyze_dotted_chart, analyze_event_statistics};
-use wasm4pm::conformance::check_token_based_replay;
-use wasm4pm::discovery::{discover_declare, discover_dfg};
-use wasm4pm::fast_discovery::{
+use truex_kernel::analysis::{analyze_case_duration, analyze_dotted_chart, analyze_event_statistics};
+use truex_kernel::conformance::check_token_based_replay;
+use truex_kernel::discovery::{discover_declare, discover_dfg};
+use truex_kernel::fast_discovery::{
     analyze_activity_cooccurrence, analyze_start_end_activities, analyze_trace_variants,
     cluster_traces, detect_concept_drift, discover_astar, discover_hill_climbing,
     mine_sequential_patterns,
 };
-use wasm4pm::final_analytics::{
+use truex_kernel::final_analytics::{
     analyze_process_speedup, analyze_temporal_bottlenecks, analyze_variant_complexity,
     compute_activity_transition_matrix, compute_trace_similarity_matrix, extract_activity_ordering,
 };
-use wasm4pm::genetic_discovery::{discover_genetic_algorithm, discover_pso_algorithm};
-use wasm4pm::ilp_discovery::{discover_ilp_petri_net, discover_optimized_dfg};
-use wasm4pm::incremental_dfg::{IncrementalDFG, StreamingDFG};
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::{
+use truex_kernel::genetic_discovery::{discover_genetic_algorithm, discover_pso_algorithm};
+use truex_kernel::ilp_discovery::{discover_ilp_petri_net, discover_optimized_dfg};
+use truex_kernel::incremental_dfg::{IncrementalDFG, StreamingDFG};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::{
     analyze_activity_dependencies, analyze_case_attributes, discover_ant_colony,
     discover_inductive_miner, discover_simulated_annealing, extract_process_skeleton,
 };
-use wasm4pm::state::{get_or_init_state, StoredObject};
-use wasm4pm::streaming::streaming_alpha::StreamingAlphaPlusBuilder;
-use wasm4pm::streaming::streaming_astar::StreamingAStarBuilder;
-use wasm4pm::streaming::streaming_declare::StreamingDeclareBuilder;
-use wasm4pm::streaming::streaming_hill_climbing::StreamingHillClimbingBuilder;
-use wasm4pm::streaming::streaming_inductive::StreamingInductiveBuilder;
-use wasm4pm::streaming::StreamingAlgorithm;
+use truex_kernel::state::{get_or_init_state, StoredObject};
+use truex_kernel::streaming::streaming_alpha::StreamingAlphaPlusBuilder;
+use truex_kernel::streaming::streaming_astar::StreamingAStarBuilder;
+use truex_kernel::streaming::streaming_declare::StreamingDeclareBuilder;
+use truex_kernel::streaming::streaming_hill_climbing::StreamingHillClimbingBuilder;
+use truex_kernel::streaming::streaming_inductive::StreamingInductiveBuilder;
+use truex_kernel::streaming::StreamingAlgorithm;
 
 // ── Data Source & Tier Detection ──────────────────────────────────────────
 
 fn get_benchmark_sizes() -> Vec<usize> {
     // Check if real BPI 2020 data exists (gemba: observe actual file system)
     // Try multiple path resolutions since test working directory varies
-    let bpi2020_exists = Path::new("wasm4pm/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes")
+    let bpi2020_exists = Path::new("truex_kernel/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes")
         .exists()
         || Path::new("tests/fixtures/BPI_2020_Travel_Permits_Actual.xes").exists()
-        || Path::new("../wasm4pm/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes").exists();
+        || Path::new("../truex_kernel/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes").exists();
 
     if bpi2020_exists {
         vec![7_065] // Real BPI 2020 size
@@ -232,44 +232,44 @@ fn load_real_dataset(dataset: &str) -> Option<EventLog> {
     // Try to load real datasets from fixtures
     let fixture_paths = match dataset {
         "sepsis" => vec![
-            "wasm4pm/tests/fixtures/Sepsis_Cases_Event_Log.xes",
+            "truex_kernel/tests/fixtures/Sepsis_Cases_Event_Log.xes",
             "tests/fixtures/Sepsis_Cases_Event_Log.xes",
             "./Sepsis_Cases_Event_Log.xes",
         ],
         "bpi2020" => vec![
-            "wasm4pm/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
-            "wasm4pm/wasm4pm/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
+            "truex_kernel/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
+            "truex_kernel/truex_kernel/tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
             "tests/fixtures/BPI_2020_Travel_Permits_Actual.xes",
             "tests/fixtures/BPI_2020_Domestic_Declarations.xes",
             "./BPI_2020_Travel_Permits_Actual.xes",
         ],
         "bpi2013" => vec![
-            "wasm4pm/tests/fixtures/BPI_2013_Incidents.xes",
+            "truex_kernel/tests/fixtures/BPI_2013_Incidents.xes",
             "tests/fixtures/BPI_2013_Incidents.xes",
             "./BPI_2013_Incidents.xes",
         ],
         "bpi2012" => vec![
-            "wasm4pm/tests/fixtures/BPI_Challenge_2012.xes",
+            "truex_kernel/tests/fixtures/BPI_Challenge_2012.xes",
             "tests/fixtures/BPI_Challenge_2012.xes",
             "./BPI_Challenge_2012.xes",
         ],
         "bpi2015" => vec![
-            "wasm4pm/tests/fixtures/BPI_2015_Building_Permits.xes",
+            "truex_kernel/tests/fixtures/BPI_2015_Building_Permits.xes",
             "tests/fixtures/BPI_2015_Building_Permits.xes",
             "./BPI_2015_Building_Permits.xes",
         ],
         "bpi2017" => vec![
-            "wasm4pm/tests/fixtures/BPI_Challenge_2017.xes",
+            "truex_kernel/tests/fixtures/BPI_Challenge_2017.xes",
             "tests/fixtures/BPI_Challenge_2017.xes",
             "./BPI_Challenge_2017.xes",
         ],
         "road_traffic" => vec![
-            "wasm4pm/tests/fixtures/Road_Traffic_Fine_Management.xes",
+            "truex_kernel/tests/fixtures/Road_Traffic_Fine_Management.xes",
             "tests/fixtures/Road_Traffic_Fine_Management.xes",
             "./Road_Traffic_Fine_Management.xes",
         ],
         "bpi2019" => vec![
-            "wasm4pm/tests/fixtures/BPI_2019_Invoice_Purchase_to_Pay.xes",
+            "truex_kernel/tests/fixtures/BPI_2019_Invoice_Purchase_to_Pay.xes",
             "tests/fixtures/BPI_2019_Invoice_Purchase_to_Pay.xes",
             "./BPI_2019_Invoice_Purchase_to_Pay.xes",
         ],
@@ -383,7 +383,7 @@ fn make_log(cases: usize) -> String {
          \n\
          Steps:\n\
          1. Download datasets from: https://data.4tu.nl/collections/BPI_Challenge_2020/5065541\n\
-         2. Place .xes files in: wasm4pm/tests/fixtures/\n\
+         2. Place .xes files in: truex_kernel/tests/fixtures/\n\
          3. Run: cargo test --release -- bench_tier_1_essential --nocapture --ignored\n\
          \n\
          See: BENCHMARK-TIERS-USAGE.md"
@@ -397,7 +397,7 @@ static HEADER_PRINTED: std::sync::atomic::AtomicBool = std::sync::atomic::Atomic
 fn print_benchmark_header() {
     if !HEADER_PRINTED.swap(true, std::sync::atomic::Ordering::SeqCst) {
         println!("\n{}", "=".repeat(70));
-        println!("wasm4pm BENCHMARKS — REAL DATA VALIDATION");
+        println!("truex_kernel BENCHMARKS — REAL DATA VALIDATION");
 
         if let Some(tier) = get_benchmark_tier() {
             let config = get_tier_config(tier).unwrap_or(TierConfig {
@@ -1057,7 +1057,7 @@ fn bench_activity_ordering() {
 // ── CONFORMANCE CHECKING (1 test) ─────────────────────────────────────────────
 
 #[test]
-#[ignore] // Requires real BPI datasets in wasm4pm/tests/fixtures/
+#[ignore] // Requires real BPI datasets in truex_kernel/tests/fixtures/
 fn bench_token_based_replay() {
     print_benchmark_header();
     let ak = "concept:name";

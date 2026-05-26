@@ -16,8 +16,8 @@ import type { BaseConfig, Config, CliOverrides, LoadConfigOptions } from './type
 /**
  * Resolution order (highest to lowest priority):
  *  1. CLI arguments
- *  2. TOML config file (wasm4pm.toml)
- *  3. JSON config file (wasm4pm.json)
+ *  2. TOML config file (truex.toml)
+ *  3. JSON config file (truex.json)
  *  4. Environment variables (WASM4PM_* prefix)
  *  5. Defaults
  */
@@ -41,7 +41,7 @@ export async function resolveConfig(options?: LoadConfigOptions): Promise<Config
 
   for (const dir of searchPaths) {
     // Try TOML first (higher priority)
-    const tomlPath = path.join(dir, 'wasm4pm.toml');
+    const tomlPath = path.join(dir, 'truex.toml');
     if (existsSync(tomlPath)) {
       try {
         const content = await fs.readFile(tomlPath, 'utf-8');
@@ -55,7 +55,7 @@ export async function resolveConfig(options?: LoadConfigOptions): Promise<Config
     }
 
     // Fall back to JSON
-    const jsonPath = path.join(dir, 'wasm4pm.json');
+    const jsonPath = path.join(dir, 'truex.json');
     if (existsSync(jsonPath)) {
       try {
         const content = await fs.readFile(jsonPath, 'utf-8');
@@ -133,7 +133,7 @@ export async function resolveConfig(options?: LoadConfigOptions): Promise<Config
 
 function getDefaultSearchPaths(): string[] {
   const home = process.env.HOME || process.env.USERPROFILE || '';
-  return [process.cwd(), path.join(home, '.wasm4pm')].filter(Boolean);
+  return [process.cwd(), path.join(home, '.truex')].filter(Boolean);
 }
 
 function getDefaults(): Record<string, unknown> {
@@ -666,7 +666,7 @@ export function checkConfigWarnings(
  */
 export function getExampleTomlConfig(): string {
   return `# wasm4pm Configuration
-# Place at: ./wasm4pm.toml or ~/.wasm4pm/wasm4pm.toml
+# Place at: ./truex.toml or ~/.truex/truex.toml
 
 schema_version = ${SCHEMA_VERSION}
 version = "26.4.5"
@@ -702,7 +702,7 @@ required = false
 [watch]
 enabled = false
 poll_interval = 1000   # ms
-# checkpoint_dir = "./.wasm4pm/checkpoints"
+# checkpoint_dir = "./.truex/checkpoints"
 
 [output]
 format = "human"       # human | json
@@ -801,7 +801,7 @@ ucb1_exploration = 1.4142  # √2
 #
 # [membrane.envelopes]
 # persist = true
-# path    = ".wasm4pm/envelopes"
+# path    = ".truex/envelopes"
 `;
 }
 
@@ -811,9 +811,9 @@ ucb1_exploration = 1.4142  # √2
 export function getExampleEnvFile(): string {
   return `# wasm4pm environment variables (.env)
 # Copy this file to .env and adjust values as needed.
-# Place at: ./.env or ~/.wasm4pm/.env
+# Place at: ./.env or ~/.truex/.env
 #
-# Precedence: CLI args > wasm4pm.toml > wasm4pm.json > ENV vars > defaults
+# Precedence: CLI args > truex.toml > truex.json > ENV vars > defaults
 
 # ==============================================================================
 # CORE
@@ -869,7 +869,7 @@ WASM4PM_RL_EPSILON=0.1                # ε-greedy exploration in [0, 1]
 WASM4PM_MEMBRANE_ENABLED=false
 # WASM4PM_MEMBRANE_CUSTODY_ACTIONS=approve,release,transfer
 # WASM4PM_MEMBRANE_PERSIST=false
-# WASM4PM_MEMBRANE_PATH=.wasm4pm/envelopes
+# WASM4PM_MEMBRANE_PATH=.truex/envelopes
 # WASM4PM_MEMBRANE_ACTOR_ESCALATE=0.7   # anomaly score above which actor layer escalates
 # WASM4PM_MEMBRANE_AUTOML_ESCALATE=0.9  # score above which automl layer escalates
 `;
@@ -1212,7 +1212,7 @@ enabled = false
       return `# wasm4pm — "streaming" preset
 # Purpose: real-time process monitoring on high-volume event streams.
 # Uses SIMD-accelerated streaming DFG + EWMA drift detection.
-# Run: wpm run --config wasm4pm.toml --watch
+# Run: wpm run --config truex.toml --watch
 schema_version = ${SCHEMA_VERSION}
 version = "26.4.5"
 
@@ -1243,7 +1243,7 @@ required = false
 [watch]
 enabled = true         # re-run model update when config changes
 poll_interval = 500    # poll every 500ms (aggressive for streaming scenarios)
-# checkpoint_dir = "./.wasm4pm/checkpoints"
+# checkpoint_dir = "./.truex/checkpoints"
 
 [output]
 format = "json"        # machine-parseable — useful for downstream consumers

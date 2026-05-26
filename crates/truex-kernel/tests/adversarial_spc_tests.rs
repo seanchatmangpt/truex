@@ -23,11 +23,11 @@
 //!   - Expected values are derived from Western Electric rule definitions.
 //!   - No FM-5 assertions — expected values not derived from implementation.
 
-use wasm4pm::spc::{
+use truex_kernel::spc::{
     check_western_electric_rules, ChartData, ShiftDirection, SpecialCause, TrendDirection,
 };
 // Rule 4 (TwoOfThree) uses ShiftDirection — already imported above.
-use wasm4pm::spc_history::{SpcHistory, SpcSnapshot};
+use truex_kernel::spc_history::{SpcHistory, SpcSnapshot};
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -1,4 +1,4 @@
-# @wasm4pm/kernel
+# @truex/kernel
 
 Core kernel for algorithm registration and step execution in the wasm4pm process mining pipeline.
 
@@ -16,7 +16,7 @@ The kernel package provides:
 The `AlgorithmRegistry` now supports deployment profile filtering:
 
 ```typescript
-import { getRegistry } from '@wasm4pm/kernel';
+import { getRegistry } from '@truex/kernel';
 
 const registry = getRegistry();
 
@@ -79,7 +79,7 @@ WASM Layer (wasm4pm)
 The `AlgorithmRegistry` maintains metadata for all discovery algorithms:
 
 ```typescript
-import { getRegistry } from '@wasm4pm/kernel';
+import { getRegistry } from '@truex/kernel';
 
 const registry = getRegistry();
 
@@ -130,7 +130,7 @@ Four execution profiles balance speed vs quality:
 The handler executes algorithm steps:
 
 ```typescript
-import { implementAlgorithmStep } from '@wasm4pm/kernel';
+import { implementAlgorithmStep } from '@truex/kernel';
 import { PlanStepType, type PlanStep } from '@truex/planner';
 
 const step: PlanStep = {
@@ -177,7 +177,7 @@ const output = await implementAlgorithmStep(step, wasmModule, eventLogHandle);
 Validate parameters before execution:
 
 ```typescript
-import { validateAlgorithmParameters } from '@wasm4pm/kernel';
+import { validateAlgorithmParameters } from '@truex/kernel';
 
 const result = validateAlgorithmParameters('genetic_algorithm', {
   activity_key: 'concept:name',
@@ -197,13 +197,13 @@ if (result.valid) {
 ### Install
 
 ```bash
-pnpm install @wasm4pm/kernel
+pnpm install @truex/kernel
 ```
 
 ### Registry Usage
 
 ```typescript
-import { getRegistry } from '@wasm4pm/kernel';
+import { getRegistry } from '@truex/kernel';
 
 const registry = getRegistry();
 
@@ -224,7 +224,7 @@ for (const algo of registry.list()) {
 ### Handler Usage
 
 ```typescript
-import { implementAlgorithmStep } from '@wasm4pm/kernel';
+import { implementAlgorithmStep } from '@truex/kernel';
 import { PlanStepType, type PlanStep } from '@truex/planner';
 
 // Initialize WASM module (from wasm4pm)
@@ -259,7 +259,7 @@ try {
 ### Profile-Based Selection
 
 ```typescript
-import { getRegistry } from '@wasm4pm/kernel';
+import { getRegistry } from '@truex/kernel';
 
 const registry = getRegistry();
 

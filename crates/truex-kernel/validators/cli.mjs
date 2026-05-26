@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * CLI Validator Module
- * Validates wasm4pm command-line interface
+ * Validates truex-kernel command-line interface
  *
  * Usage:
  *   import { validateCLI } from './cli.mjs';
@@ -30,41 +30,41 @@ export async function validateCLI() {
   const tests = [];
 
   // Test 1: Help command
-  const help = runCmd('wasm4pm --help');
+  const help = runCmd('truex-kernel --help');
   tests.push({
-    name: 'wasm4pm --help works',
+    name: 'truex-kernel --help works',
     pass: help.code === 0,
     code: help.code,
   });
 
   // Test 2: Version command
-  const version = runCmd('wasm4pm --version');
+  const version = runCmd('truex-kernel --version');
   tests.push({
-    name: 'wasm4pm --version returns version',
+    name: 'truex-kernel --version returns version',
     pass: version.code === 0 && version.output.includes('26.4.5'),
     code: version.code,
   });
 
   // Test 3: List algorithms
-  const list = runCmd('wasm4pm list-algorithms');
+  const list = runCmd('truex-kernel list-algorithms');
   tests.push({
-    name: 'wasm4pm list-algorithms shows algorithms',
+    name: 'truex-kernel list-algorithms shows algorithms',
     pass: list.code === 0,
     code: list.code,
   });
 
   // Test 4: Explain algorithm
-  const explain = runCmd('wasm4pm explain dfg');
+  const explain = runCmd('truex-kernel explain dfg');
   tests.push({
-    name: 'wasm4pm explain <algorithm> works',
+    name: 'truex-kernel explain <algorithm> works',
     pass: explain.code === 0,
     code: explain.code,
   });
 
   // Test 5: Exit codes
-  const notFound = runCmd('wasm4pm run /nonexistent/file.xes');
+  const notFound = runCmd('truex-kernel run /nonexistent/file.xes');
   tests.push({
-    name: 'wasm4pm returns exit code 2 for missing file',
+    name: 'truex-kernel returns exit code 2 for missing file',
     pass: notFound.code === 2,
     code: notFound.code,
   });

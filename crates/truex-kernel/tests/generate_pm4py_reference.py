@@ -3,11 +3,11 @@
 Generate pm4py reference outputs for comprehensive parity testing.
 
 This script uses pm4py to discover models and generate reference outputs
-that can be compared against wasm4pm's outputs.
+that can be compared against truex-kernel's outputs.
 
 Usage:
-    cd /Users/sac/chatmangpt/wasm4pm
-    python3 wasm4pm/tests/generate_pm4py_reference.py
+    cd /Users/sac/chatmangpt/truex-kernel
+    python3 truex-kernel/tests/generate_pm4py_reference.py
 """
 
 import pm4py
@@ -17,7 +17,7 @@ from pm4py.algo.evaluation.generalization import algorithm as generalization
 from pm4py.algo.evaluation.simplicity import algorithm as simplicity
 
 # Fixtures directory
-FIXTURES_DIR = Path("wasm4pm/tests/fixtures")
+FIXTURES_DIR = Path("truex-kernel/tests/fixtures")
 OUTPUT_DIR = FIXTURES_DIR
 
 def load_running_example():
@@ -26,7 +26,7 @@ def load_running_example():
     return pm4py.read_xes(str(xes_path))
 
 def save_event_log_json(log, output_path):
-    """Save event log as JSON for wasm4pm to load."""
+    """Save event log as JSON for truex-kernel to load."""
     output = {
         "attributes": {},
         "traces": []
@@ -125,7 +125,7 @@ def discover_and_save_dfg(log, output_path):
         all_activities.add(a)
         all_activities.add(b)
 
-    # Convert to wasm4pm-compatible format
+    # Convert to truex-kernel-compatible format
     output = {
         "activities": sorted(list(all_activities)),
         "edges": [
@@ -391,7 +391,7 @@ def main():
     print("Generating pm4py reference outputs...")
     print("="*60)
 
-    # Save event log as JSON for wasm4pm
+    # Save event log as JSON for truex-kernel
     print("\n1. Saving event log as JSON...")
     save_event_log_json(log, OUTPUT_DIR / "running-example.json")
 
@@ -430,9 +430,9 @@ def main():
     print("\n" + "="*60)
     print("Done! All reference outputs generated.")
     print("="*60)
-    print("\nYou can now run the wasm4pm parity tests:")
-    print("  cd wasm4pm")
-    print("  cargo test --package wasm4pm --test parity_tests")
+    print("\nYou can now run the truex-kernel parity tests:")
+    print("  cd truex-kernel")
+    print("  cargo test --package truex-kernel --test parity_tests")
 
 if __name__ == "__main__":
     main()

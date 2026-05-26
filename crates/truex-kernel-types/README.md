@@ -1,8 +1,8 @@
-# wasm4pm-types
+# truex-kernel-types
 
-Binary data structures for the wasm4pm process mining platform.
+Binary data structures for the truex-kernel process mining platform.
 
-This crate defines the canonical types used throughout the wasm4pm ecosystem, including event logs, process models, and conformance results.
+This crate defines the canonical types used throughout the truex-kernel ecosystem, including event logs, process models, and conformance results.
 
 ## Key Types
 
@@ -14,7 +14,7 @@ This crate defines the canonical types used throughout the wasm4pm ecosystem, in
 ## Usage
 
 ```rust
-use wasm4pm_types::{EventLog, Trace, Event, Attributes};
+use truex_kernel_types::{EventLog, Trace, Event, Attributes};
 
 // Create a simple event log
 let mut log = EventLog {
@@ -28,7 +28,7 @@ let mut log = EventLog {
 
 Licensed under either of
 
- * Apache License, Version 2.0 ([LICENSE-APACHE](https://github.com/seanchatmangpt/wasm4pm/blob/main/LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](https://github.com/seanchatmangpt/wasm4pm/blob/main/LICENSE-MIT) or http://opensource.org/licenses/MIT)
+ * Apache License, Version 2.0 ([LICENSE-APACHE](https://github.com/seanchatmangpt/truex-kernel/blob/main/LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](https://github.com/seanchatmangpt/truex-kernel/blob/main/LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.

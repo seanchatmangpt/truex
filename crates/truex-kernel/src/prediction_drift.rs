@@ -84,7 +84,7 @@ pub const TREND_STABILITY_FRACTION: f64 = 0.05;
 ///
 /// ```
 /// # use std::collections::HashSet;
-/// use wasm4pm::prediction_drift::jaccard_distance;
+/// use truex_kernel::prediction_drift::jaccard_distance;
 ///
 /// // Identical sets → distance 0 (Rank 1: J(A,A) = 1 → distance = 0)
 /// let a: HashSet<String> = ["A", "B"].iter().map(|s| s.to_string()).collect();
@@ -117,7 +117,7 @@ pub fn jaccard_distance(a: &HashSet<String>, b: &HashSet<String>) -> f64 {
 /// # Example
 ///
 /// ```
-/// use wasm4pm::prediction_drift::ewma_series;
+/// use truex_kernel::prediction_drift::ewma_series;
 ///
 /// // Constant series → EWMA equals that constant (for any valid alpha)
 /// let result = ewma_series(&[3.0, 3.0, 3.0, 3.0], 0.5);
@@ -150,7 +150,7 @@ pub fn ewma_series(values: &[f64], alpha: f64) -> Vec<f64> {
 /// # Example
 ///
 /// ```
-/// use wasm4pm::prediction_drift::{ewma_series, classify_trend};
+/// use truex_kernel::prediction_drift::{ewma_series, classify_trend};
 ///
 /// // Rising trend (Rank 1: monotone input → classify must return "rising")
 /// let rising = ewma_series(&[1.0, 2.0, 3.0, 4.0, 5.0], 0.9);

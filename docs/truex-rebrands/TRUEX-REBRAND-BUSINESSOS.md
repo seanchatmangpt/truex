@@ -59,7 +59,7 @@ Consumes OCEL 2.0 and Replay data to render "Time Travel" UIs and compliance das
 ---
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
-*   **Upstream:** Consumes `proxyable` (Membrane) and `wasm4pm` outputs.
+*   **Upstream:** Consumes `proxyable` (Membrane) and `truex-kernel` outputs.
 *   **Downstream:** Serves end-users and hosts `DesktopCommanderMCP`.
 
 ---

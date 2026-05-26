@@ -1,0 +1,22 @@
+{
+  "cp-cli-contract": {
+    "checkpointId": "cp-cli-contract",
+    "forgedArtifacts": [
+      "scripts/truex.ts"
+    ],
+    "tests": [
+      "packages/membrane/test/project-wizard/project-wizard-cli.test.ts"
+    ],
+    "docs": [
+      "docs/reports/12h-agent-1-wizard-cli.md"
+    ],
+    "doctorTargets": [
+      "wizard",
+      "wizard-contracts"
+    ]
+  },
+  "_unboundFiles": [
+    "docs/project-c4-container.mmd",
+    "docs/project-c4-context.mmd"
+  ]
+}

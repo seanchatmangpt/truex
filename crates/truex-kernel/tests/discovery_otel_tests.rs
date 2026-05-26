@@ -16,30 +16,30 @@
 //! - Feature extraction checkpoint: log_size, activity_count
 //! - Result generation checkpoint: node_count, edge_count, fitness/complexity/iterations
 //!
-//! Spans use target format "wasm4pm.discovery.<algorithm>" for consistency.
+//! Spans use target format "truex_kernel.discovery.<algorithm>" for consistency.
 
 #[test]
 fn test_discovery_span_names() {
-    // Verify that span target names follow the pattern "wasm4pm.discovery.<algorithm>"
+    // Verify that span target names follow the pattern "truex_kernel.discovery.<algorithm>"
     // This test documents the expected span naming convention
 
     let expected_targets = vec![
-        "wasm4pm.discovery.dfg",
-        "wasm4pm.discovery.alpha_plus_plus",
-        "wasm4pm.discovery.heuristic_miner",
-        "wasm4pm.discovery.hill_climbing",
-        "wasm4pm.discovery.declare",
-        "wasm4pm.discovery.simulated_annealing",
-        "wasm4pm.discovery.astar",
-        "wasm4pm.discovery.genetic_algorithm",
-        "wasm4pm.discovery.inductive_miner",
+        "truex_kernel.discovery.dfg",
+        "truex_kernel.discovery.alpha_plus_plus",
+        "truex_kernel.discovery.heuristic_miner",
+        "truex_kernel.discovery.hill_climbing",
+        "truex_kernel.discovery.declare",
+        "truex_kernel.discovery.simulated_annealing",
+        "truex_kernel.discovery.astar",
+        "truex_kernel.discovery.genetic_algorithm",
+        "truex_kernel.discovery.inductive_miner",
     ];
 
     // This is a documentation test that verifies the naming convention
     for target in expected_targets {
-        assert!(target.starts_with("wasm4pm.discovery."),
+        assert!(target.starts_with("truex_kernel.discovery."),
                 "Target {} should follow naming convention", target);
-        assert!(target.len() > "wasm4pm.discovery.".len(),
+        assert!(target.len() > "truex_kernel.discovery.".len(),
                 "Target {} should have algorithm name", target);
     }
 }

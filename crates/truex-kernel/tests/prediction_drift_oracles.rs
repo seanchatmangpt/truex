@@ -13,7 +13,7 @@
 //!   perturbation.
 
 use std::collections::HashSet;
-use wasm4pm::prediction_drift::{
+use truex_kernel::prediction_drift::{
     classify_trend, ewma_series, jaccard_distance, DEFAULT_DRIFT_THRESHOLD,
 };
 

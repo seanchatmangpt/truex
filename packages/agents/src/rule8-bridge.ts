@@ -19,7 +19,7 @@
  * ## Usage
  *
  * ```ts
- * import { auditEntriesToCatalog } from '@wasm4pm/agents';
+ * import { auditEntriesToCatalog } from '@truex/agents';
  *
  * const { catalog, facts, internTable } = auditEntriesToCatalog(entries);
  * // Pass catalog + facts to prolog8_query via wasm4pm

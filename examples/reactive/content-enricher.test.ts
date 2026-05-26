@@ -7,8 +7,12 @@ describe('Content Enricher Pattern', () => {
 
     await run();
 
-    // The enricher delta is malformed so the message is refused and nothing is logged.
-    expect(consoleSpy.mock.calls).toEqual([]);
+    // The enricher processes the message and logs its progress.
+    expect(consoleSpy.mock.calls).toEqual([
+      ["[ContentEnricher] Received sparse message: msg-sparse-1"],
+      ["[ContentEnricher] Hydrated payload: user:id:12345 + ENRICHED_WITH_(DATABASE_USER_RECORD)"],
+      ["[ContentEnricher] Forwarding enriched payload to: enriched-substrate"]
+    ]);
 
     consoleSpy.mockRestore();
   });

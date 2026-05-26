@@ -11,8 +11,8 @@
 
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::time::Duration;
-use wasm4pm::autoprocess::AutoProcessAgent;
-use wasm4pm::RlState;
+use truex_kernel::autoprocess::AutoProcessAgent;
+use truex_kernel::RlState;
 
 // =========================================================================
 // Benchmark: Perception (Encode 8D state to state_id)
@@ -110,7 +110,7 @@ fn bench_protection_guard_eval(c: &mut Criterion) {
         cycle_phase: 1,
     };
 
-    let action = wasm4pm::RlAction::Continue;
+    let action = truex_kernel::RlAction::Continue;
 
     group.bench_function("evaluate_guard_branchless", |b| {
         b.iter(|| agent.evaluate_guard(black_box(&state), black_box(action), black_box(2u8)))

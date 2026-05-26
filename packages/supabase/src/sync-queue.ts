@@ -14,7 +14,7 @@ export interface SyncQueueFile {
   pending: SyncQueueItem[];
 }
 
-const DEFAULT_QUEUE_PATH = '.wasm4pm/sync-queue.json';
+const DEFAULT_QUEUE_PATH = '.truex/sync-queue.json';
 
 export class SyncQueue {
   private filepath: string;

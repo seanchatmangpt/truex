@@ -7,7 +7,7 @@
 #   3 — One or more gates failed (matches execution_error exit code)
 #
 # Usage:
-#   bash crates/wasm4pm-cognition/scripts/cognition-verify-gate.sh
+#   bash crates/truex-kernel-cognition/scripts/cognition-verify-gate.sh
 
 set -uo pipefail
 
@@ -19,7 +19,7 @@ V_STATUS=()
 # ── V1: Breed registry complete ───────────────────────────────────────────────
 # 9 breeds required: frame cbr dendral strips prolog production_rules gps soar hearsay
 BREED_COUNT=0
-BREED_DIR="crates/wasm4pm-cognition/src/breeds"
+BREED_DIR="crates/truex-kernel-cognition/src/breeds"
 REQUIRED_BREEDS=(frame cbr dendral strips prolog production_rules gps soar hearsay)
 for breed in "${REQUIRED_BREEDS[@]}"; do
     if [ -s "${BREED_DIR}/${breed}.rs" ] || \
@@ -34,7 +34,7 @@ else
 fi
 
 # ── V2: Runtime WASM exports probed ──────────────────────────────────────────
-WASM_RS="crates/wasm4pm-cognition/src/wasm.rs"
+WASM_RS="crates/truex-kernel-cognition/src/wasm.rs"
 if [ -f "$WASM_RS" ]; then
     EXPORT_COUNT=$(grep -c "#\[wasm_bindgen\]" "$WASM_RS" 2>/dev/null || echo 0)
     if [ "$EXPORT_COUNT" -gt 0 ]; then
@@ -49,7 +49,7 @@ fi
 # ── V3: No forbidden placeholder tokens ──────────────────────────────────────
 # Scan src/ for forbidden lexicon: stub, placeholder, mock, todo!, fake
 # Exemptions: test files (tests/ dirs, _test.rs files), doc comments
-FORBIDDEN_SCAN_DIR="crates/wasm4pm-cognition/src"
+FORBIDDEN_SCAN_DIR="crates/truex-kernel-cognition/src"
 if [ -d "$FORBIDDEN_SCAN_DIR" ]; then
     FORBIDDEN_HITS=$(grep -rn \
         --include="*.rs" \
@@ -97,14 +97,14 @@ else
 fi
 
 # ── V5: Native cargo check passes ────────────────────────────────────────────
-if cargo check -p wasm4pm-cognition >/dev/null 2>&1; then
+if cargo check -p truex-kernel-cognition >/dev/null 2>&1; then
     V_STATUS["V5"]="PASS (native cargo check passes)"
 else
     V_STATUS["V5"]="FAIL (native cargo check failed)"
 fi
 
 # ── V6: WASM cargo check passes ──────────────────────────────────────────────
-if cargo check -p wasm4pm-cognition --features wasm --target wasm32-unknown-unknown >/dev/null 2>&1; then
+if cargo check -p truex-kernel-cognition --features wasm --target wasm32-unknown-unknown >/dev/null 2>&1; then
     V_STATUS["V6"]="PASS (WASM cargo check passes)"
 else
     V_STATUS["V6"]="FAIL (WASM cargo check failed for wasm32-unknown-unknown)"
@@ -125,7 +125,7 @@ else
 fi
 
 # ── V8: CLI command present and wired to compiled WASM ───────────────────────
-CLI_CMD="apps/wasm4pm/src/commands/cognition.ts"
+CLI_CMD="apps/truex-kernel/src/commands/cognition.ts"
 if [ -f "$CLI_CMD" ]; then
     # Check for stub markers
     if grep -q "(stub)\|console\.log.*TODO\|not yet implemented" "$CLI_CMD" 2>/dev/null; then

@@ -1,4 +1,4 @@
-# Package: @wasm4pm/agents
+# Package: @truex/agents
 
 > **Path:** `packages/agents/`
 > **Gall Classification:** S₅ - Autonomic Manufacturing
@@ -28,5 +28,5 @@ The Agents package refuses execution if:
 ## 5. Proof Command
 
 ```bash
-pnpm --filter @wasm4pm/agents test
+pnpm --filter @truex/agents test
 ```

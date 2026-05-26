@@ -1,0 +1,24 @@
+{
+  "traceId": "trace-1779771625641-tfk2dwe",
+  "spanId": "span-unknown",
+  "startTime": 1779771625641,
+  "attributes": {
+    "command": "unknown",
+    "args": "{\"_\":[\"prove\",\"hook-otp\"]}"
+  },
+  "events": [
+    {
+      "name": "doctor.proof.evaluated",
+      "timestamp": 1779771626678,
+      "attributes": {
+        "primitive": "hook-otp",
+        "status": "confirmed",
+        "executionTimeMs": 30,
+        "invariantsCount": 6,
+        "failuresCount": 0
+      }
+    }
+  ],
+  "endTime": 1779771626678,
+  "durationMs": 1037
+}

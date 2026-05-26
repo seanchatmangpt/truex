@@ -1,0 +1,12 @@
+{
+  "checkpointId": "cp-cli-contract",
+  "timestamp": 1779772351908,
+  "log": {
+    "scripts/truex.ts": {
+      "type": "created"
+    },
+    "packages/membrane/test/project-wizard/project-wizard-cli.test.ts": {
+      "type": "created"
+    }
+  }
+}

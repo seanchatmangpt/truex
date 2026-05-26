@@ -95,17 +95,17 @@ ggen mcp setup
 # SemanticOS 2030 Validation Report
 
 ## Overview
-This report formalizes the validation of the SemanticOS kernel against the `wasm4pm` process mining engine.
+This report formalizes the validation of the SemanticOS kernel against the `truex-kernel` process mining engine.
 
 ## Execution
-- **Engine**: wasm4pm (v26.4.23)
+- **Engine**: truex-kernel (v26.4.23)
 - **Tests Executed**: E2E_CORRECTNESS_TESTS, JTBD_TESTS
 - **Receipts Processed**: 2
 
 ## Definition of Done (Validation)
 1. **Architectural Law Closure**: ✅ Verified via `sos doctor`.
 2. **Cryptographic Provenance**: ✅ Verified. Receipts contain valid 32-byte BLAKE3 signatures.
-3. **Autonomic Conformance**: ✅ Verified. The `wasm4pm` engine successfully ingested the JSON receipts and confirmed the reachability graph is deadlock-free.
+3. **Autonomic Conformance**: ✅ Verified. The `truex-kernel` engine successfully ingested the JSON receipts and confirmed the reachability graph is deadlock-free.
 4. **Zero-Cost Routing**: ✅ Verified.
 5. **Generative Parity**: ✅ Verified.
 

@@ -17,24 +17,24 @@
 //! runtime (which requires a wasm32 target to be fully functional).
 
 use std::collections::HashMap;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::algorithms::discover_dfg_filtered_from_log;
-use wasm4pm::algorithms::discover_footprints_from_log;
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::fast_discovery::{discover_astar_from_log, discover_hill_climbing_from_log};
-use wasm4pm::genetic_discovery::{
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::algorithms::discover_dfg_filtered_from_log;
+use truex_kernel::algorithms::discover_footprints_from_log;
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::fast_discovery::{discover_astar_from_log, discover_hill_climbing_from_log};
+use truex_kernel::genetic_discovery::{
     discover_aco_algorithm_from_log, discover_genetic_algorithm_from_log,
     discover_pso_algorithm_from_log,
 };
-use wasm4pm::ilp_discovery::discover_ilp_petri_net_from_log;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::{
+use truex_kernel::ilp_discovery::discover_ilp_petri_net_from_log;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::{
     discover_inductive_miner_from_log, discover_simulated_annealing_from_log,
 };
-use wasm4pm::social_network::{
+use truex_kernel::social_network::{
     discover_handover_network_from_log, discover_working_together_network_from_log,
 };
-use wasm4pm::temporal_profile::discover_temporal_profile_from_log;
+use truex_kernel::temporal_profile::discover_temporal_profile_from_log;
 
 // ---------------------------------------------------------------------------
 // Shared fixture helpers
@@ -485,7 +485,7 @@ fn ilp_output_is_valid_petri_net() {
 /// The real Alpha++ implementation produces places, transitions, and arcs.
 #[test]
 fn alpha_plus_plus_output_is_petri_net() {
-    use wasm4pm::algorithms::discover_alpha_plus_plus_from_log;
+    use truex_kernel::algorithms::discover_alpha_plus_plus_from_log;
     let log = build_log(&[
         (10, &["A", "B", "C"]),
         (5, &["A", "C", "B"]),
@@ -568,7 +568,7 @@ fn heuristic_miner_fewer_edges_than_dfg() {
 /// Rank 1 — mathematical theorem from Alpha Miner definition.
 #[test]
 fn footprints_causal_antisymmetric() {
-    use wasm4pm::algorithms::FootprintRelation;
+    use truex_kernel::algorithms::FootprintRelation;
     let log = build_log(&[(5, &["A", "B", "C"]), (5, &["A", "C", "B"])]);
     let fp = discover_footprints_from_log(&log, "concept:name");
     let n = fp.activities.len();
@@ -630,7 +630,7 @@ fn aco_deterministic_same_seed() {
 /// Rank 1 — mathematical: time only flows forward in valid XES logs.
 #[test]
 fn temporal_profile_nonnegative_durations() {
-    use wasm4pm::models::AttributeValue;
+    use truex_kernel::models::AttributeValue;
 
     // Build log with real timestamps so the temporal profile has data.
     let mut log = EventLog::new();

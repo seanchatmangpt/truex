@@ -23,12 +23,12 @@
 //! Algorithm family: Reinforcement Learning
 //! Modules tested: reinforcement, rl_orchestrator
 
-use wasm4pm::reinforcement::{
+use truex_kernel::reinforcement::{
     Agent, DoubleQLearning, ExpectedSARSAAgent, QLearning, ReinforceAgent, SARSAAgent,
     WorkflowAction, WorkflowState,
 };
-use wasm4pm::rl_orchestrator::{compute_health_state, compute_reward, AgentType, RlOrchestrator};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{compute_health_state, compute_reward, AgentType, RlOrchestrator};
+use truex_kernel::RlState;
 
 // ---------------------------------------------------------------------------
 // Shared test types (mirrors RlAction/RlState but with minimal action space)

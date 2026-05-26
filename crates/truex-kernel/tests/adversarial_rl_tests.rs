@@ -24,9 +24,9 @@
 //!   - Expected values derived from Bellman equation, NOT from the implementation.
 //!   - No FM-5 self-referential assertions.
 
-use wasm4pm::reinforcement::{Agent, DoubleQLearning, ExpectedSARSAAgent, QLearning, SARSAAgent};
-use wasm4pm::rl_orchestrator::{compute_reward, RlOrchestrator};
-use wasm4pm::{create_rl_state, RlAction, RlState};
+use truex_kernel::reinforcement::{Agent, DoubleQLearning, ExpectedSARSAAgent, QLearning, SARSAAgent};
+use truex_kernel::rl_orchestrator::{compute_reward, RlOrchestrator};
+use truex_kernel::{create_rl_state, RlAction, RlState};
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -13,17 +13,17 @@
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::models::*;
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::models::*;
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 #[path = "helpers.rs"]
 mod helpers;
 use helpers::{generate_event_log, LogShape, ACTIVITY_KEY};
 
 // Internal modules for benchmarking
-use wasm4pm::conformance;
-use wasm4pm::etconformance_precision;
-use wasm4pm::simd_token_replay::SimdPetriNet;
+use truex_kernel::conformance;
+use truex_kernel::etconformance_precision;
+use truex_kernel::simd_token_replay::SimdPetriNet;
 
 // ---------------------------------------------------------------------------
 // Synthetic Petri Net Builders

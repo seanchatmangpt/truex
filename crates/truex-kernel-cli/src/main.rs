@@ -2,7 +2,7 @@
 mod commands;
 
 use clap::{CommandFactory, Parser, Subcommand};
-use wasm4pm_cli::errors::Report;
+use truex_kernel_cli::errors::Report;
 use std::path::PathBuf;
 
 #[derive(Parser)]
@@ -10,8 +10,8 @@ use std::path::PathBuf;
 #[command(
     author,
     version,
-    about = "wasm4pm: High-performance process mining CLI",
-    long_about = "wasm4pm (wpm) is a high-performance command-line interface for process mining, focusing on nanosecond-latency event routing and analysis. It is part of the Vision 2030 architecture for real-time process intelligence."
+    about = "truex_kernel: High-performance process mining CLI",
+    long_about = "truex_kernel (wpm) is a high-performance command-line interface for process mining, focusing on nanosecond-latency event routing and analysis. It is part of the Vision 2030 architecture for real-time process intelligence."
 )]
 #[command(propagate_version = true)]
 struct Cli {

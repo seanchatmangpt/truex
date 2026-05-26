@@ -271,7 +271,7 @@ Unit Tests:
 ```typescript
 // packages/kernel/__tests__/integration.test.ts
 import { describe, it, expect } from 'vitest';
-import { Kernel } from '@wasm4pm/kernel';
+import { Kernel } from '@truex/kernel';
 import { MINIMAL_XES } from '@truex/testing/fixtures';
 
 describe('Kernel Integration', () => {

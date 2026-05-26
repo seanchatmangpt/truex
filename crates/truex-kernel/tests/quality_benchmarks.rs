@@ -18,10 +18,10 @@
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::etconformance_precision::compute_precision;
-use wasm4pm::ilp_discovery::{compute_simplicity, discover_ilp_petri_net_from_log};
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::etconformance_precision::compute_precision;
+use truex_kernel::ilp_discovery::{compute_simplicity, discover_ilp_petri_net_from_log};
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
 
 // ---------------------------------------------------------------------------
 // Fixture loading (mirrors benchmarks.rs pattern)
@@ -31,8 +31,8 @@ use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
 fn find_fixture(name: &str) -> Option<std::path::PathBuf> {
     let candidates = [
         format!("tests/fixtures/{}", name),
-        format!("wasm4pm/tests/fixtures/{}", name),
-        format!("../wasm4pm/tests/fixtures/{}", name),
+        format!("truex_kernel/tests/fixtures/{}", name),
+        format!("../truex_kernel/tests/fixtures/{}", name),
     ];
     for p in &candidates {
         let path = Path::new(p);
@@ -480,13 +480,13 @@ fn quality_etconformance_precision_above_threshold() {
     let (petri_net, _, _) = discover_ilp_petri_net_from_log(&log, ak);
 
     // Build initial and final markings for ETConformance
-    let initial_marking: wasm4pm::etconformance_precision::Marking = petri_net
+    let initial_marking: truex_kernel::etconformance_precision::Marking = petri_net
         .places
         .iter()
         .filter_map(|p| p.marking.map(|m| (p.id.clone(), m)))
         .collect();
 
-    let final_marking: wasm4pm::etconformance_precision::Marking = petri_net
+    let final_marking: truex_kernel::etconformance_precision::Marking = petri_net
         .final_markings
         .first()
         .cloned()

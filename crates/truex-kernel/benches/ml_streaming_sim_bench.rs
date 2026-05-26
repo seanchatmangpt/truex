@@ -13,12 +13,12 @@
 use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Throughput};
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::models::{
+use truex_kernel::models::{
     AttributeValue, Event, EventLog, NGramPredictor, OCELEvent, OCELObject, Trace, OCEL,
 };
-use wasm4pm::montecarlo::{run_monte_carlo_simulation, MonteCarloConfig};
-use wasm4pm::state::{get_or_init_state, StoredObject};
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder, StreamingSkeletonBuilder};
+use truex_kernel::montecarlo::{run_monte_carlo_simulation, MonteCarloConfig};
+use truex_kernel::state::{get_or_init_state, StoredObject};
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder, StreamingSkeletonBuilder};
 
 #[path = "helpers.rs"]
 mod helpers;
@@ -228,9 +228,9 @@ fn build_ngram_predictor_internal(log: &EventLog, activity_key: &str, n: usize) 
 }
 
 /// Build a DFG from an event log (internal version).
-fn build_dfg_internal(log: &EventLog, activity_key: &str) -> wasm4pm::models::DirectlyFollowsGraph {
+fn build_dfg_internal(log: &EventLog, activity_key: &str) -> truex_kernel::models::DirectlyFollowsGraph {
     use std::collections::HashMap;
-    use wasm4pm::models::{DFGNode, DirectlyFollowsRelation};
+    use truex_kernel::models::{DFGNode, DirectlyFollowsRelation};
 
     let mut node_counts: HashMap<String, usize> = HashMap::new();
     let mut edge_counts: HashMap<(String, String), usize> = HashMap::new();
@@ -271,7 +271,7 @@ fn build_dfg_internal(log: &EventLog, activity_key: &str) -> wasm4pm::models::Di
         }
     }
 
-    let mut dfg = wasm4pm::models::DirectlyFollowsGraph::new();
+    let mut dfg = truex_kernel::models::DirectlyFollowsGraph::new();
     dfg.nodes = node_counts
         .into_iter()
         .map(|(id, freq)| DFGNode {

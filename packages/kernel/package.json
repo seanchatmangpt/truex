@@ -1,6 +1,6 @@
 {
   "name": "@truex/kernel",
-  "version": "26.5.21",
+  "version": "26.5.25-CONVERGED",
   "description": "Core kernel and runtime utilities",
   "type": "module",
   "main": "./dist/index.js",
@@ -26,8 +26,10 @@
   "dependencies": {
     "@truex/contracts": "workspace:*",
     "@truex/membrane": "workspace:*",
+    "@truex/kernel-wasm": "workspace:*",
     "@truex/ml": "workspace:*",
-    "@truex/planner": "workspace:*"
+    "@truex/planner": "workspace:*",
+    "blake3": "^2.1.4"
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^1.6.0",

@@ -13,7 +13,7 @@
  */
 
 import { describe, it, expect, beforeAll } from 'vitest';
-import * as wasm from '../pkg/wasm4pm.js';
+import * as wasm from '../pkg/truex_kernel.js';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as os from 'node:os';
@@ -40,11 +40,11 @@ function resolveFile(candidates: string[]): string | null {
 const PATHS = {
   bpi2020: resolveFile([
     `${REPO_BENCH}/bpi2020_travel.xes`,
-    `${HOME}/chatmangpt/wasm4pm/bench_data/bpi2020_travel.xes`,
+    `${HOME}/chatmangpt/truex-kernel/bench_data/bpi2020_travel.xes`,
   ]),
   runningExample: resolveFile([
     `${PM4PY_DATA}/running-example.xes`,
-    `${HOME}/chatmangpt/wasm4pm/tests/fixtures/running-example.xes`,
+    `${HOME}/chatmangpt/truex-kernel/tests/fixtures/running-example.xes`,
   ]),
   roadtraffic: resolveFile([
     `${PM4PY_DATA}/roadtraffic100traces.xes`,

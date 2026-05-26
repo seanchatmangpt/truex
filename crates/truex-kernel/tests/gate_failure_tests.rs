@@ -11,12 +11,12 @@
 //! Gap: D (gate failure / negative quality)
 
 use std::collections::HashMap;
-use wasm4pm::conformance::token_replay_pure;
-use wasm4pm::models::{
+use truex_kernel::conformance::token_replay_pure;
+use truex_kernel::models::{
     AttributeValue, DirectlyFollowsGraph, Event, EventLog,
     PetriNet, PetriNetArc, PetriNetPlace, PetriNetTransition, Trace,
 };
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
 
 // ---------------------------------------------------------------------------
 // Helpers

@@ -59,7 +59,7 @@ describe('Gap 1 — Empty string ENV falls through to lower-priority layer', () 
 
   it('WASM4PM_ALGORITHM="" does not override a TOML-set algorithm', async () => {
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n[algorithm]\nname = "ilp"\n'
     );
     const cfg = await resolveConfig({
@@ -261,7 +261,7 @@ describe('Gap 4 — deepMerge skips null values: null cannot clear a lower-prior
     // We exercise this by checking that ENV algorithm survives a file
     // that does not set algorithm at all (undefined → skipped → ENV wins)
     await fs.writeFile(
-      path.join(tmp, 'wasm4pm.toml'),
+      path.join(tmp, 'truex.toml'),
       'version = "26.4.5"\n[source]\nkind = "file"\n'
       // No [algorithm] section → file layer has no algorithm key
     );

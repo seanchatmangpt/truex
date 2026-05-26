@@ -1,9 +1,9 @@
 /**
- * Error Model for wasm4pm Engine
+ * Error Model for truex-kernel Engine
  * Provides comprehensive error handling with classification, context, and recovery guidance
  */
 /**
- * Error codes for wasm4pm operations
+ * Error codes for truex-kernel operations
  * Used to classify and handle errors consistently across the engine
  */
 export declare enum ErrorCode {
@@ -37,7 +37,7 @@ export declare enum ErrorRecovery {
   CONTACT_SUPPORT = 'CONTACT_SUPPORT',
 }
 /**
- * Enhanced error class with structured context for wasm4pm operations
+ * Enhanced error class with structured context for truex-kernel operations
  * Extends Error with error classification, root cause tracking, and recovery guidance
  */
 export declare class Wasm4pmError extends Error {

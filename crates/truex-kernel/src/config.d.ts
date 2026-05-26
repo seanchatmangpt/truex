@@ -1,5 +1,5 @@
 /**
- * Configuration Schema for wasm4pm Engine
+ * Configuration Schema for truex-kernel Engine
  * Defines all configuration structures, validation, and execution profiles
  */
 /**
@@ -128,7 +128,7 @@ export interface PipelineStep {
   parallelizable?: boolean;
 }
 /**
- * Top-level configuration for the wasm4pm engine
+ * Top-level configuration for the truex-kernel engine
  */
 export interface Wasm4pmConfig {
   /** Version of the configuration schema */

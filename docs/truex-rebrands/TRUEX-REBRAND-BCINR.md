@@ -27,7 +27,7 @@ Modern CPUs use branch prediction. In high-security, high-frequency environments
 
 ## 4. TRUEX EXECUTION ROLE
 `Admission → Consequence`
-Provides the math that powers the admission gates deep within `wasm4pm` and `cns`.
+Provides the math that powers the admission gates deep within `truex-kernel` and `cns`.
 
 ---
 
@@ -56,7 +56,7 @@ Does not emit JSON. Its "receipt" is the mathematical proof of O(1) execution ti
 ---
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
-*   **Upstream:** Consumed by `wasm4pm` and `unibit` to execute fast cryptography and graph math.
+*   **Upstream:** Consumed by `truex-kernel` and `unibit` to execute fast cryptography and graph math.
 
 ---
 

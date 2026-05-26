@@ -3,8 +3,8 @@
 //! Tests the action dispatch layer that converts RL action labels to
 //! executable operations.
 
-use wasm4pm::action_dispatch::{dispatch_action, DispatchError, DispatchOutcome, ExecutionContext};
-use wasm4pm::RlAction;
+use truex_kernel::action_dispatch::{dispatch_action, DispatchError, DispatchOutcome, ExecutionContext};
+use truex_kernel::RlAction;
 
 #[test]
 fn test_action_continue_integration() {

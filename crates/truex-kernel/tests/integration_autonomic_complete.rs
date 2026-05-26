@@ -10,8 +10,8 @@
 //! without testing every edge case.
 
 use std::collections::HashSet;
-use wasm4pm::rl_orchestrator::{compute_health_state, compute_reward, RlOrchestrator};
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{compute_health_state, compute_reward, RlOrchestrator};
+use truex_kernel::RlState;
 
 /// Helper to create test RlState with reasonable defaults
 fn make_test_state(health_level: u8) -> RlState {
@@ -312,7 +312,7 @@ fn e2e_health_state_computation_edge_cases() {
 /// Test RL orchestrator with all 5 agent types
 #[test]
 fn e2e_rl_orchestrator_all_agent_types() {
-    use wasm4pm::rl_orchestrator::AgentType;
+    use truex_kernel::rl_orchestrator::AgentType;
 
     let features = [0.5, 0.3, 0.2, 0.0, 0.0, 0.0, 0.5, 0.0];
     let state = make_test_state(1);

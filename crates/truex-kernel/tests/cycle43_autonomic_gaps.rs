@@ -6,10 +6,10 @@
 //! 3. SPC-to-RL causality chain validation (causal proof across 3 span types)
 
 #![allow(unused)]
-use wasm4pm::*;
-use wasm4pm::models;
-use wasm4pm::rl_orchestrator;
-use wasm4pm::spc;
+use truex_kernel::*;
+use truex_kernel::models;
+use truex_kernel::rl_orchestrator;
+use truex_kernel::spc;
 use std::collections::HashMap;
 
 #[test]

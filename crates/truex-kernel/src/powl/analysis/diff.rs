@@ -85,7 +85,7 @@ fn cg_submodel_children(cg: &crate::powl_arena::ChoiceGraphPowlNode) -> Vec<u32>
         .nodes
         .iter()
         .filter_map(|n| match n {
-            wasm4pm_types::ChoiceGraphNode::SubModel(idx) => Some(*idx),
+            truex_kernel_types::ChoiceGraphNode::SubModel(idx) => Some(*idx),
             _ => None,
         })
         .collect()

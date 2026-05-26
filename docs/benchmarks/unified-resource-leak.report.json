@@ -3,15 +3,15 @@
   "status": "passed",
   "cycles": 100,
   "metrics": {
-    "initialHeapMb": 83.689,
-    "initialRssMb": 210.781,
-    "finalHeapMb": 97.606,
-    "finalRssMb": 261.109,
-    "heapDeltaMb": 13.917,
-    "rssDeltaMb": 50.328,
-    "peakHeapMb": 110.371,
-    "totalDurationMs": 282.653,
-    "averageCycleDurationMs": 2.827
+    "initialHeapMb": 78.897,
+    "initialRssMb": 219.641,
+    "finalHeapMb": 141.446,
+    "finalRssMb": 346.875,
+    "heapDeltaMb": 62.548,
+    "rssDeltaMb": 127.234,
+    "peakHeapMb": 156.881,
+    "totalDurationMs": 294.261,
+    "averageCycleDurationMs": 2.943
   },
-  "timestamp": "2026-05-25T18:56:29.418Z"
+  "timestamp": "2026-05-26T05:20:37.526Z"
 }

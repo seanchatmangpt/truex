@@ -367,7 +367,7 @@ describe('secret-redaction — path redaction contracts', () => {
 
   const safePaths = [
     'config.json', 'data/events.xes', '/var/log/app.log',
-    'wasm4pm.toml', 'results/discovery.json',
+    'truex.toml', 'results/discovery.json',
   ];
 
   for (const p of sensitivePaths) {

@@ -8,23 +8,23 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::advanced_algorithms::discover_heuristic_miner_from_log;
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::fast_discovery::{discover_astar_from_log, discover_hill_climbing_from_log};
-use wasm4pm::genetic_discovery::{
+use truex_kernel::advanced_algorithms::discover_heuristic_miner_from_log;
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::fast_discovery::{discover_astar_from_log, discover_hill_climbing_from_log};
+use truex_kernel::genetic_discovery::{
     discover_aco_algorithm_from_log, discover_genetic_algorithm_from_log,
     discover_pso_algorithm_from_log,
 };
-use wasm4pm::ilp_discovery::discover_ilp_petri_net_from_log;
-use wasm4pm::ml::classification::extract_features;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::more_discovery::{
+use truex_kernel::ilp_discovery::discover_ilp_petri_net_from_log;
+use truex_kernel::ml::classification::extract_features;
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::more_discovery::{
     discover_inductive_miner_from_log, discover_simulated_annealing_from_log,
 };
-use wasm4pm::social_network::discover_handover_network_from_log;
-use wasm4pm::temporal_profile::discover_temporal_profile_from_log;
+use truex_kernel::social_network::discover_handover_network_from_log;
+use truex_kernel::temporal_profile::discover_temporal_profile_from_log;
 #[cfg(feature = "cloud")]
-use wasm4pm::spc::{check_western_electric_rules, ChartData};
+use truex_kernel::spc::{check_western_electric_rules, ChartData};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser — integration tests cannot use wasm_bindgen wrappers.
@@ -118,7 +118,7 @@ macro_rules! require_log {
 
 const RUNNING_EXAMPLE: &[&str] = &[
     "/Users/sac/chatmangpt/pm4py/tests/input_data/running-example.xes",
-    "/Users/sac/chatmangpt/wasm4pm/tests/fixtures/running-example.xes",
+    "/Users/sac/chatmangpt/truex_kernel/tests/fixtures/running-example.xes",
     "tests/fixtures/running-example.xes",
 ];
 
@@ -136,7 +136,7 @@ const RECEIPT: &[&str] = &[
 const BPI2020: &[&str] = &[
     "bench_data/bpi2020_travel.xes",
     "../bench_data/bpi2020_travel.xes",
-    "/Users/sac/chatmangpt/wasm4pm/bench_data/bpi2020_travel.xes",
+    "/Users/sac/chatmangpt/truex_kernel/bench_data/bpi2020_travel.xes",
 ];
 
 // ---------------------------------------------------------------------------
@@ -339,7 +339,7 @@ fn ml_features_from_roadtraffic_are_finite() {
 
 #[test]
 fn knn_accuracy_on_roadtraffic_is_in_range() {
-    use wasm4pm::ml::classification::knn_internal;
+    use truex_kernel::ml::classification::knn_internal;
 
     let log = require_log!(ROADTRAFFIC, "roadtraffic");
     let (features, labels) = extract_features(&log, "concept:name");
@@ -427,7 +427,7 @@ fn spc_western_electric_runs_on_bpi2020_trace_lengths() {
 
 #[test]
 fn performance_dfg_roadtraffic_produces_non_zero_durations() {
-    use wasm4pm::performance_dfg::discover_performance_dfg_from_log;
+    use truex_kernel::performance_dfg::discover_performance_dfg_from_log;
 
     let log = require_log!(ROADTRAFFIC, "roadtraffic");
     let json = discover_performance_dfg_from_log(&log, "concept:name", "time:timestamp");
@@ -460,7 +460,7 @@ fn performance_dfg_roadtraffic_produces_non_zero_durations() {
 
 #[test]
 fn working_together_network_bpi2020_does_not_panic() {
-    use wasm4pm::social_network::discover_working_together_network_from_log;
+    use truex_kernel::social_network::discover_working_together_network_from_log;
 
     let log = require_log!(BPI2020, "bpi2020-travel");
     let net = discover_working_together_network_from_log(&log, "org:resource");

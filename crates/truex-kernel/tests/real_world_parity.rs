@@ -1,9 +1,9 @@
-use wasm4pm::advanced::alphappp::{discover_alpha_ppp, AlphaPPPConfig};
-use wasm4pm::advanced::oc_declare::{discover_oc_declare, OCDeclareOptions};
-use wasm4pm::advanced::ocdfg::OCDirectlyFollowsGraph;
-use wasm4pm::advanced::ocla::OCLanguageAbstraction;
-use wasm4pm::models::{OCEL, EventLog};
-use wasm4pm::xes_format::validate_and_parse_xes;
+use truex_kernel::advanced::alphappp::{discover_alpha_ppp, AlphaPPPConfig};
+use truex_kernel::advanced::oc_declare::{discover_oc_declare, OCDeclareOptions};
+use truex_kernel::advanced::ocdfg::OCDirectlyFollowsGraph;
+use truex_kernel::advanced::ocla::OCLanguageAbstraction;
+use truex_kernel::models::{OCEL, EventLog};
+use truex_kernel::xes_format::validate_and_parse_xes;
 use std::fs;
 
 #[test]

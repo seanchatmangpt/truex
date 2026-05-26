@@ -1,4 +1,4 @@
-//! State Invariant Audit — wasm4pm RL Autonomic System
+//! State Invariant Audit — truex_kernel RL Autonomic System
 //!
 //! Validates that state transitions respect fundamental invariants:
 //! 1. Health levels only transition within valid bounds [0-4]
@@ -12,8 +12,8 @@
 //!
 //! Identifies 5 critical invalid state transition patterns that could occur due to bugs.
 
-use wasm4pm::RlState;
-use wasm4pm::self_healing::{CircuitBreaker, CircuitState, CircuitBreakerConfig};
+use truex_kernel::RlState;
+use truex_kernel::self_healing::{CircuitBreaker, CircuitState, CircuitBreakerConfig};
 
 // ============================================================================
 // INVALID STATE TRANSITION PATTERNS (5 Critical Bugs)
@@ -184,7 +184,7 @@ fn test_invalid_p4_health_exceeds_max_bound() {
 /// **Detection:** Verify Open state rejects requests until timeout expires
 #[test]
 fn test_invalid_p5_circuit_open_allows_without_timeout() {
-    use wasm4pm::self_healing::{reset_clock, advance_clock};
+    use truex_kernel::self_healing::{reset_clock, advance_clock};
 
     reset_clock();
 
@@ -407,7 +407,7 @@ fn test_health_transitions_respect_monotonicity() {
 
 #[test]
 fn test_circuit_breaker_timeout_logic_integrity() {
-    use wasm4pm::self_healing::{reset_clock, advance_clock};
+    use truex_kernel::self_healing::{reset_clock, advance_clock};
 
     reset_clock();
 

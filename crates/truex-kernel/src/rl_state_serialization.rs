@@ -97,6 +97,9 @@ pub struct RlTelemetry {
     pub last_spc_alert_count: usize,
     /// Cumulative reward across all cycles (bounded ~[-3.5, +1.1] per cycle)
     pub cumulative_reward: f64,
+    /// SPC rule classification fired in last cycle
+    #[serde(default)]
+    pub last_spc_rule_fired: String,
 }
 
 #[cfg(test)]
@@ -146,6 +149,7 @@ mod tests {
                 last_action_label: "ADAPT_TIMEOUT".to_string(),
                 last_spc_alert_count: 1,
                 cumulative_reward: -3.5,
+                last_spc_rule_fired: "rule_1_outlier".to_string(),
             },
             active_agent: 0,
             linucb_enabled: true,
@@ -160,6 +164,7 @@ mod tests {
         assert_eq!(restored.telemetry.last_action_label, "ADAPT_TIMEOUT");
         assert_eq!(restored.telemetry.last_spc_alert_count, 1);
         assert_eq!(restored.telemetry.cumulative_reward, -3.5);
+        assert_eq!(restored.telemetry.last_spc_rule_fired, "rule_1_outlier");
         assert_eq!(restored.active_agent, 0);
         assert_eq!(restored.linucb_enabled, true);
         assert_eq!(restored.agent_q_tables.len(), 0);
@@ -173,6 +178,7 @@ mod tests {
             last_action_label: "REDUCE_CONCURRENCY".to_string(),
             last_spc_alert_count: 0,
             cumulative_reward: 15.7,
+            last_spc_rule_fired: String::new(),
         };
 
         let json = serde_json::to_string(&telemetry).unwrap();

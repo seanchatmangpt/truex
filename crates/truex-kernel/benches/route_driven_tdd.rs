@@ -1,5 +1,5 @@
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
-use wasm4pm::testing::{ActivityEvidence, ObjectEvidence, PowlTestHarness};
+use truex_kernel::testing::{ActivityEvidence, ObjectEvidence, PowlTestHarness};
 use std::path::PathBuf;
 use std::fs;
 

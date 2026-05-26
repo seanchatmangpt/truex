@@ -22,8 +22,8 @@
 //!
 //! Two BLAKE3 derived keys partition the cryptographic surface:
 //!
-//! - `wasm4pm.recpt.v2.link` — link-hash MAC.
-//! - `wasm4pm.identity.v2`   — actor identity binding.
+//! - `truex.recpt.v2.link` — link-hash MAC.
+//! - `truex.identity.v2`   — actor identity binding.
 //!
 //! ## Actor identity
 //!
@@ -40,16 +40,16 @@ pub mod keyed_mac;
 pub use ledger::{LedgerError, LedgerTelemetry, ReceiptLedger};
 
 /// Domain tag prefix for v2 receipt links.
-pub const DOMAIN_RECEIPT_V2: &[u8; 16] = b"wasm4pm.recpt.v2";
+pub const DOMAIN_RECEIPT_V2: &[u8] = b"truex.recpt.v2";
 /// Receipt format version (little-endian u32).
 pub const RECEIPT_VERSION: u32 = 2;
 
 fn link_domain_key() -> [u8; 32] {
-    blake3::derive_key("wasm4pm.recpt.v2.link", b"")
+    blake3::derive_key("truex.recpt.v2.link", b"")
 }
 
 fn identity_domain_key() -> [u8; 32] {
-    blake3::derive_key("wasm4pm.identity.v2", b"")
+    blake3::derive_key("truex.identity.v2", b"")
 }
 
 /// Public access to the identity domain key (used by the MAC fallback).
@@ -502,8 +502,8 @@ mod tests {
     #[test]
     fn domain_separation_yields_distinct_hashes() {
         let body = b"shared body";
-        let k1 = blake3::derive_key("wasm4pm.recpt.v2.link", b"");
-        let k2 = blake3::derive_key("wasm4pm.identity.v2", b"");
+        let k1 = blake3::derive_key("truex.recpt.v2.link", b"");
+        let k2 = blake3::derive_key("truex.identity.v2", b"");
         let h1 = blake3::keyed_hash(&k1, body).to_hex().to_string();
         let h2 = blake3::keyed_hash(&k2, body).to_hex().to_string();
         assert_ne!(h1, h2);

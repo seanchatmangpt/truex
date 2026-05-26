@@ -30,7 +30,7 @@ In accordance with the Truex Rebrand Migration Plan, this matrix consolidates th
 *   **PROLOG8:** Will serve as the translation target for `dspygen`. LLMs will translate natural language business policies into `prolog8` rules, which will then be strictly enforced at runtime.
 
 ## Tier 1: Process Geometry & Concurrency
-*   **wasm4pm:** Will evolve from an "analysis" tool into a strict "compiler." Organizations will compile their operational law into a WASM binary using this kernel, and that binary will physically dictate what the database is allowed to store.
+*   **truex-kernel:** Will evolve from an "analysis" tool into a strict "compiler." Organizations will compile their operational law into a WASM binary using this kernel, and that binary will physically dictate what the database is allowed to store.
 *   **BitActor:** Will become the standard compilation target for all POWL-defined operational geometries. Agents won't interact with "services"; they will interact with "Truex Actors."
 *   **PICTL:** Will act as the static analyzer for Truex. Just as a compiler checks types, `pictl` will check organizational law for deadlocks before allowing deployment.
 

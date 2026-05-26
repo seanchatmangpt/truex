@@ -1,6 +1,6 @@
-# wasm4pm-algos
+# truex-kernel-algos
 
-High-performance, branchless algorithm implementations for the wasm4pm process mining platform.
+High-performance, branchless algorithm implementations for the truex-kernel process mining platform.
 
 This crate provides the core algorithms for process discovery and conformance checking, optimized for speed and predictable latency.
 
@@ -14,8 +14,8 @@ This crate provides the core algorithms for process discovery and conformance ch
 ## Usage
 
 ```rust
-use wasm4pm_algos::dfg;
-use wasm4pm_types::EventLog;
+use truex_kernel_algos::dfg;
+use truex_kernel_types::EventLog;
 
 // Discover a DFG from an event log
 // let log = ...;
@@ -26,7 +26,7 @@ use wasm4pm_types::EventLog;
 
 Licensed under either of
 
- * Apache License, Version 2.0 ([LICENSE-APACHE](https://github.com/seanchatmangpt/wasm4pm/blob/main/LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
- * MIT license ([LICENSE-MIT](https://github.com/seanchatmangpt/wasm4pm/blob/main/LICENSE-MIT) or http://opensource.org/licenses/MIT)
+ * Apache License, Version 2.0 ([LICENSE-APACHE](https://github.com/seanchatmangpt/truex-kernel/blob/main/LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](https://github.com/seanchatmangpt/truex-kernel/blob/main/LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 at your option.

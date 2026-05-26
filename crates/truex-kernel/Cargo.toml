@@ -56,8 +56,9 @@ statrs = { version = "0.17", default-features = false, optional = true }
 bcinr = { workspace = true, optional = true }
 blake3 = "1"
 sha2 = { workspace = true }
-truex-kernel-cognition = { version = "26.5.21", path = "../truex-kernel-cognition", default-features = false, optional = true }
+truex-kernel-cognition = { workspace = true, optional = true }
 miniml = { workspace = true, optional = true }
+
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 uuid = { version = "1.16.0", features = ["v4", "js"] }
@@ -77,8 +78,9 @@ wasm-bindgen-test = "0.3"
 tempfile = { workspace = true }
 regex = "1"
 naga = { version = "0.19", features = ["wgsl-in"] }
-truex-kernel-macros = { version = "26.5.21", path = "../truex-kernel-macros" }
+truex-kernel-macros = { workspace = true }
 quick-xml = "0.37"
+
 miniml = { workspace = true }
 
 [[bench]]

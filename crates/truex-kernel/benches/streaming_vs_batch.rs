@@ -15,13 +15,13 @@ use criterion::{criterion_group, criterion_main, BenchmarkId, Criterion, Through
 use rustc_hash::FxHashMap;
 use std::collections::HashMap;
 use std::time::Duration;
-use wasm4pm::discovery::discover_dfg;
-use wasm4pm::models::{
+use truex_kernel::discovery::discover_dfg;
+use truex_kernel::models::{
     AttributeValue, ColumnarLog, DFGNode, DirectlyFollowsGraph, DirectlyFollowsRelation,
     Event, EventLog, Trace,
 };
-use wasm4pm::simd_streaming_dfg::SimdStreamingDfg;
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
+use truex_kernel::simd_streaming_dfg::SimdStreamingDfg;
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
 
 #[path = "helpers.rs"]
 mod helpers;

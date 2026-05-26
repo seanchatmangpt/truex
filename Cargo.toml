@@ -15,7 +15,7 @@ members = [
 ]
 
 [workspace.package]
-version = "26.5.21"
+version = "26.5.25-CONVERGED"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 authors = ["Sean Chatman <info@chatmangpt.com>"]
@@ -33,13 +33,13 @@ rustc-hash = "2"
 blake3 = "1.5"
 sha2 = "0.10.8"
 bcinr = { version = "26.4.22" }
-truex-kernel-types = { version = "26.5.21", path = "crates/truex-kernel-types" }
-truex-kernel-algos = { version = "26.5.21", path = "crates/truex-kernel-algos" }
-truex-kernel-utils = { version = "26.5.21", path = "crates/truex-kernel-utils" }
-truex-kernel-cognition = { version = "26.5.21", path = "crates/truex-kernel-cognition" }
-truex-kernel-macros = { version = "26.5.21", path = "crates/truex-kernel-macros" }
-prolog8 = { version = "26.5.21", path = "crates/prolog8" }
-miniml = { version = "26.5.21", path = "crates/miniml-core" }
+truex-kernel-types = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-types" }
+truex-kernel-algos = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-algos" }
+truex-kernel-utils = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-utils" }
+truex-kernel-cognition = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-cognition" }
+truex-kernel-macros = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-macros" }
+prolog8 = { version = "26.5.25-CONVERGED", path = "crates/prolog8" }
+miniml = { version = "26.5.25-CONVERGED", path = "crates/miniml-core" }
 fake = "2.9"
 proptest = "1.4"
 tempfile = "3.8"

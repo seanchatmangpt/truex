@@ -108,7 +108,7 @@ result.avg_fitness = conformance_guards::guard_empty_log(result.total_cases, tot
 | **Guard 5** | Degenerate model fitness bounds       | ✅ Documented  |
 | **Guard 6** | Cumulative fitness NaN handling       | ✅ Implemented |
 
-**Location:** `/Users/sac/wasm4pm/wasm4pm/src/conformance_guards.rs` (173 lines)
+**Location:** `/Users/sac/truex-kernel/truex-kernel/src/conformance_guards.rs` (173 lines)
 
 ### 2. Integration Points
 
@@ -119,7 +119,7 @@ result.avg_fitness = conformance_guards::guard_empty_log(result.total_cases, tot
 
 #### Edge Case Tests (10 tests, ALL PASSING)
 
-**File:** `wasm4pm/tests/conformance_edge_cases.rs` (493 lines)
+**File:** `truex-kernel/tests/conformance_edge_cases.rs` (493 lines)
 
 | Test                                       | Edge Case                         | Status  |
 | ------------------------------------------ | --------------------------------- | ------- |
@@ -224,10 +224,10 @@ result.avg_fitness = conformance_guards::guard_empty_log(result.total_cases, tot
 
 | File                                      | Status   | Lines                    |
 | ----------------------------------------- | -------- | ------------------------ |
-| `wasm4pm/src/conformance_guards.rs`       | NEW      | 173                      |
-| `wasm4pm/src/conformance.rs`              | MODIFIED | +1 (Guard 1 integration) |
-| `wasm4pm/src/lib.rs`                      | MODIFIED | +2 (module export)       |
-| `wasm4pm/tests/conformance_edge_cases.rs` | NEW      | 493                      |
+| `truex-kernel/src/conformance_guards.rs`       | NEW      | 173                      |
+| `truex-kernel/src/conformance.rs`              | MODIFIED | +1 (Guard 1 integration) |
+| `truex-kernel/src/lib.rs`                      | MODIFIED | +2 (module export)       |
+| `truex-kernel/tests/conformance_edge_cases.rs` | NEW      | 493                      |
 
 **Total:** 3 files, 668 lines of code + tests
 

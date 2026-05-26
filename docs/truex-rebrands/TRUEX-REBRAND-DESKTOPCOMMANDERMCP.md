@@ -57,12 +57,12 @@ It is the execution pipeline for the autonomous actors.
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
 *   **Upstream:** Commanded by `BusinessOS` agents and `ggen` pipelines.
-*   **Downstream:** Executes commands that trigger `cns`, `wasm4pm`, etc.
+*   **Downstream:** Executes commands that trigger `cns`, `truex-kernel`, etc.
 
 ---
 
 ## 10. MISSING INVARIANTS
-*   **CRITICAL FLAW:** `DesktopCommanderMCP` currently lacks the Truex Membrane (`proxyable`). Every file write or shell execution triggered by the agent *must* be intercepted, evaluated for admissibility against a local `wasm4pm` policy, and receipted before execution.
+*   **CRITICAL FLAW:** `DesktopCommanderMCP` currently lacks the Truex Membrane (`proxyable`). Every file write or shell execution triggered by the agent *must* be intercepted, evaluated for admissibility against a local `truex-kernel` policy, and receipted before execution.
 
 ---
 

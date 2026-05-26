@@ -118,7 +118,7 @@ fn dispatch(count: usize) -> Result<()> {
     );
 
     for i in 0..count {
-        // In a real implementation, this would be where we call wasm4pm-algos
+        // In a real implementation, this would be where we call truex_kernel-algos
         // For now, we simulate the processing with a small delay for visualization
         // but report the theoretical nanosecond timing.
 

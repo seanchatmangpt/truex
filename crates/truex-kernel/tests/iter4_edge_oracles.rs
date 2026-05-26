@@ -17,11 +17,11 @@
 #![cfg(feature = "cloud")]
 
 use std::sync::Mutex;
-use wasm4pm::ml::linucb::{LinUCBAgent, N_ACTIONS, N_FEATURES};
-use wasm4pm::self_healing::{
+use truex_kernel::ml::linucb::{LinUCBAgent, N_ACTIONS, N_FEATURES};
+use truex_kernel::self_healing::{
     advance_clock, now_ms, reset_clock, CircuitBreaker, CircuitBreakerConfig, CircuitState,
 };
-use wasm4pm::spc_history::{RingBuffer, SpcHistory, SpcSnapshot};
+use truex_kernel::spc_history::{RingBuffer, SpcHistory, SpcSnapshot};
 
 /// Serialises access to the global `TIME_OFFSET_MS` static used by
 /// `now_ms / advance_clock / reset_clock`. cargo runs tests in parallel by
@@ -153,8 +153,8 @@ fn circuit_breaker_handles_clock_skew_after_state_restore() {
     reset_clock();
     let base = now_ms();
     // Build a state JSON whose timestamp is FAR in the future relative to now.
-    let json_state = wasm4pm::self_healing::CircuitBreakerStateJson {
-        config: wasm4pm::self_healing::CircuitBreakerConfigJson {
+    let json_state = truex_kernel::self_healing::CircuitBreakerStateJson {
+        config: truex_kernel::self_healing::CircuitBreakerConfigJson {
             failure_threshold: 5,
             success_threshold: 2,
             open_timeout_ms: 1_000,
@@ -192,8 +192,8 @@ fn circuit_breaker_handles_clock_skew_after_state_restore() {
 fn circuit_breaker_open_to_half_open_at_exact_timeout() {
     let _guard = CLOCK_LOCK.lock().unwrap();
     reset_clock();
-    let json_state = wasm4pm::self_healing::CircuitBreakerStateJson {
-        config: wasm4pm::self_healing::CircuitBreakerConfigJson {
+    let json_state = truex_kernel::self_healing::CircuitBreakerStateJson {
+        config: truex_kernel::self_healing::CircuitBreakerConfigJson {
             failure_threshold: 5,
             success_threshold: 2,
             open_timeout_ms: 1_000,

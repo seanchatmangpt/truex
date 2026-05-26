@@ -6,7 +6,7 @@
 //! Full DECLARE conformance checking via the WASM boundary is tested in the
 //! Node.js test suite in `packages/kernel/__tests__/`.
 
-use wasm4pm::models::{EventLog, Trace, Event, AttributeValue};
+use truex_kernel::models::{EventLog, Trace, Event, AttributeValue};
 use std::collections::HashMap;
 
 fn make_trace(activities: Vec<&str>) -> Trace {

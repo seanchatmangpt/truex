@@ -63,7 +63,7 @@ Stabilizes the operational field across physical boundaries.
 ---
 
 ## 10. MISSING INVARIANTS
-*   Needs formal proofs linking its consensus mechanism to the `wasm4pm` POWL geometry, ensuring that the consensus protocol natively understands process deadlocks, not just byte matching.
+*   Needs formal proofs linking its consensus mechanism to the `truex-kernel` POWL geometry, ensuring that the consensus protocol natively understands process deadlocks, not just byte matching.
 
 ---
 

@@ -14,7 +14,7 @@ The **kernel** is the zero-variance execution loop of the Truex Operating System
 The kernel serves as the **Adjudication Layer**. it receives effect sets from the **Engine** (Tier 1) and writes them to the **SQLite WAL** (Tier 0) while issuing the receipts that the **Swarm** (Tier 4) uses for consensus.
 
 ## Final Execution Path
-- **Phase 1: Operation Rename-Complete:** Finalizing the rebrand from `wasm4pm` to `truex-kernel` across all Rust crates and TS bridge files to establish the 2030 namespace.
+- **Phase 1: Operation Rename-Complete:** Finalizing the rebrand from `truex-kernel` to `truex-kernel` across all Rust crates and TS bridge files to establish the 2030 namespace.
 
 ## Jidoka Status
 Any detected tampering with the receipt chain or the underlying WAL results in an immediate **Integrity Refusal**. The kernel refuses to boot or admit new transitions if the cryptographic lineage is broken.

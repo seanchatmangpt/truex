@@ -24,19 +24,19 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::algorithms::{discover_footprints_from_log, FootprintRelation};
-use wasm4pm::discovery::discover_dfg_from_log;
-use wasm4pm::models::{AttributeValue, Event, EventLog, StreamingConformanceChecker, Trace};
-use wasm4pm::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
+use truex_kernel::algorithms::{discover_footprints_from_log, FootprintRelation};
+use truex_kernel::discovery::discover_dfg_from_log;
+use truex_kernel::models::{AttributeValue, Event, EventLog, StreamingConformanceChecker, Trace};
+use truex_kernel::streaming::{StreamingAlgorithm, StreamingDfgBuilder};
 
 #[cfg(feature = "conformance_full")]
-use wasm4pm::petri_net_reduction::{count_reducible_elements, reduce_petri_net};
+use truex_kernel::petri_net_reduction::{count_reducible_elements, reduce_petri_net};
 
 #[cfg(feature = "petri_net_playout")]
-use wasm4pm::playout::{play_out_dfg_core, PlayOutParameters};
+use truex_kernel::playout::{play_out_dfg_core, PlayOutParameters};
 
 #[cfg(feature = "discovery_advanced")]
-use wasm4pm::ilp_discovery::discover_ilp_petri_net_from_log;
+use truex_kernel::ilp_discovery::discover_ilp_petri_net_from_log;
 
 // ---------------------------------------------------------------------------
 // Inline XES parser

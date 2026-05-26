@@ -149,7 +149,7 @@ export interface ExecutionPlan {
  */
 /**
  * Returns the profile's primary discovery step types + standard analysis steps.
- * Discovery algorithm IDs come from @wasm4pm/generated (ontology-derived).
+ * Discovery algorithm IDs come from @truex/generated (ontology-derived).
  * Analysis steps are structural and always appended for non-fast profiles.
  */
 /** ML algorithm IDs (from kernel registry supportedProfiles: ['balanced', 'quality']) */

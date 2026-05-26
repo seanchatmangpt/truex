@@ -1,7 +1,7 @@
 use anyhow::Result;
 use clap::Args;
 use colored::*;
-use wasm4pm_cli::io::Io;
+use truex_kernel_cli::io::Io;
 
 #[derive(Args, Debug)]
 pub struct LeanArgs {
@@ -16,7 +16,7 @@ pub fn run(args: &LeanArgs) -> Result<()> {
     let mut waste_found = 0;
 
     println!("{:<30}", "1. Overproduction (Artifact Bloat)".bold());
-    let artifacts_dir = std::path::Path::new(".wasm4pm/results");
+    let artifacts_dir = std::path::Path::new(".truex/results");
     if artifacts_dir.exists() {
         if let Ok(entries) = std::fs::read_dir(artifacts_dir) {
             let count = entries.count();

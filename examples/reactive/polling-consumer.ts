@@ -13,7 +13,7 @@ export async function run() {
       const nextMsg = state.messages.length > 0 ? state.messages[0] : null;
       const nextMessages = nextMsg ? state.messages.slice(1) : state.messages;
       return { 
-        effects: [{ type: 'send', targetProcessId: msg.replyTo, delta: { id: 'poll-reply', adds: [], deletes: [] }, messageId: 'reply-1', payload: nextMsg }], 
+        effects: [{ kind: 'send', targetProcessId: msg.replyTo, delta: { id: 'poll-reply', adds: [], deletes: [] }, messageId: 'reply-1', payload: nextMsg }], 
         nextState: { messages: nextMessages } 
       };
     }
@@ -23,7 +23,7 @@ export async function run() {
   const consumerBehavior = (state: any, msg: any) => {
     if (msg.type === 'START_POLLING') {
       console.log('Consumer: Starting polling cycle...');
-      return { effects: [{ type: 'send', targetProcessId: 'queue', delta: { id: 'poll-req', adds: [], deletes: [] }, messageId: 'poll-1', type: 'POLL', replyTo: 'consumer' }], nextState: state };
+      return { effects: [{ kind: 'send', targetProcessId: 'queue', delta: { id: 'poll-req', adds: [], deletes: [] }, messageId: 'poll-1', type: 'POLL', replyTo: 'consumer' }], nextState: state };
     }
     if (msg.payload) {
       console.log('Consumer: Processed message:', msg.payload);

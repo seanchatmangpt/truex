@@ -6,7 +6,7 @@
 //! # Example
 //!
 //! ```
-//! use wasm4pm::testing::conformance::{
+//! use truex_kernel::testing::conformance::{
 //!     classify_conformance, ExpectedConformance, ProofDimension, ReplayReport,
 //! };
 //!
@@ -66,7 +66,7 @@ impl ExpectedConformance {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::conformance::ExpectedConformance;
+    /// use truex_kernel::testing::conformance::ExpectedConformance;
     ///
     /// let c = ExpectedConformance::exact();
     /// assert_eq!(c.fitness, 1.0);
@@ -147,7 +147,7 @@ impl ConformanceVerdict {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::conformance::ConformanceVerdict;
+    /// use truex_kernel::testing::conformance::ConformanceVerdict;
     ///
     /// assert!(ConformanceVerdict::passed().is_passed());
     /// ```
@@ -160,7 +160,7 @@ impl ConformanceVerdict {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::conformance::{AndonPull, ConformanceVerdict};
+    /// use truex_kernel::testing::conformance::{AndonPull, ConformanceVerdict};
     ///
     /// let v = ConformanceVerdict::andon(AndonPull::MissingReceiptCoverage);
     /// assert!(!v.is_passed());
@@ -174,7 +174,7 @@ impl ConformanceVerdict {
     /// # Example
     ///
     /// ```
-    /// use wasm4pm::testing::conformance::{AndonPull, ConformanceVerdict};
+    /// use truex_kernel::testing::conformance::{AndonPull, ConformanceVerdict};
     ///
     /// assert!(ConformanceVerdict::Passed.is_passed());
     /// assert!(!ConformanceVerdict::Andon(AndonPull::RouteConformanceGap).is_passed());
@@ -198,7 +198,7 @@ impl ConformanceVerdict {
 /// # Example
 ///
 /// ```
-/// use wasm4pm::testing::conformance::{
+/// use truex_kernel::testing::conformance::{
 ///     classify_conformance, ConformanceVerdict, ExpectedConformance, ProofDimension, ReplayReport,
 /// };
 ///

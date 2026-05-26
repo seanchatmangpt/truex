@@ -2,7 +2,7 @@
 ///
 /// Tests for RL Gap 2 implementation: healing actions tracking with success rates.
 
-use wasm4pm::{rl_orchestrator::RlOrchestrator, RlState};
+use truex_kernel::{rl_orchestrator::RlOrchestrator, RlState};
 
 #[test]
 fn test_action_history_tracks_success() {

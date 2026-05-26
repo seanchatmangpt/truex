@@ -1,6 +1,6 @@
 //! Prediction Algorithms (Markov, Beam Search, EWMA)
 //!
-//! Ported from wasm4pm prediction_additions.rs
+//! Ported from truex_kernel prediction_additions.rs
 //!
 //! Provides sequence prediction, trend detection, and
 //! statistical modeling algorithms.

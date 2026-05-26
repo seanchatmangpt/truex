@@ -1,7 +1,7 @@
 #![allow(clippy::all, dead_code, unused_variables, unused_assignments, unused_mut)]
-//! # wasm4pm — High-Performance Process Mining in WebAssembly
+//! # truex_kernel — High-Performance Process Mining in WebAssembly
 //!
-//! `wasm4pm` provides production-ready process mining algorithms compiled to WebAssembly,
+//! `truex_kernel` provides production-ready process mining algorithms compiled to WebAssembly,
 //! enabling efficient **process discovery**, **conformance checking**, and **predictive analytics**
 //! in JavaScript/TypeScript environments.
 //!
@@ -21,7 +21,7 @@
 //!   load_eventlog_from_xes,
 //!   discover_dfg,
 //!   delete_object,
-//! } from "wasm4pm";
+//! } from "@truex/kernel";
 //!
 //! // Initialize WASM module
 //! await initWasm();
@@ -74,9 +74,9 @@
 //!
 //! ## Links
 //!
-//! - [GitHub Repository](https://github.com/seanchatmangpt/wasm4pm)
-//! - [npm Package](https://www.npmjs.com/package/@wasm4pm/cli)
-//! - [Documentation](https://docs.rs/wasm4pm)
+//! - [GitHub Repository](https://github.com/seanchatmangpt/truex_kernel)
+//! - [npm Package](https://www.npmjs.com/package/@truex/cli)
+//! - [Documentation](https://docs.rs/truex_kernel)
 
 #![allow(clippy::all)]
 #![allow(clippy::all)]
@@ -255,8 +255,8 @@ pub fn parse_iso8601_duration(first: &str, last: &str) -> f64 {
     }
 }
 
-// Auto-generated registries from wasm4pm ontology (A = μ(O))
-// DO NOT EDIT — regenerate via: ostar manufacture wasm4pm
+// Auto-generated registries from truex_kernel ontology (A = μ(O))
+// DO NOT EDIT — regenerate via: ostar manufacture truex_kernel
 #[allow(dead_code)]
 pub mod algorithm_registry;
 #[allow(dead_code)]
@@ -615,19 +615,19 @@ thread_local! {
 #[cfg(feature = "ml")]
 pub mod ml;
 
-// Cognition substrate re-export — surfaces `wasm4pm_cognition` as `wasm4pm::cognition`
-// so downstream crates (e.g. mcpp) can depend on wasm4pm alone (with the `cognition`
-// feature) without taking a direct dependency on wasm4pm-cognition.
+// Cognition substrate re-export — surfaces `truex_kernel_cognition` as `truex_kernel::cognition`
+// so downstream crates (e.g. mcpp) can depend on truex_kernel alone (with the `cognition`
+// feature) without taking a direct dependency on truex_kernel-cognition.
 #[cfg(feature = "cognition")]
-pub use wasm4pm_cognition as cognition;
+pub use truex_kernel_cognition as cognition;
 
-// Types substrate re-export — surfaces `wasm4pm_types` (hash, BLAKE3 helpers,
-// canonical JSON) as `wasm4pm::data_types`. Downstream crates that need
+// Types substrate re-export — surfaces `truex_kernel_types` (hash, BLAKE3 helpers,
+// canonical JSON) as `truex_kernel::data_types`. Downstream crates that need
 // canonical receipt serialization can reach
-// `wasm4pm::data_types::hash::canonical_json` via the single wasm4pm
+// `truex_kernel::data_types::hash::canonical_json` via the single truex_kernel
 // dependency. (The name `types` is already taken by an internal WASM bindings
 // module at this crate root.)
-pub use wasm4pm_types as data_types;
+pub use truex_kernel_types as data_types;
 
 // GPU-accelerated LinUCB contextual bandit for algorithm selection
 // (van der Aalst: resource/intervention prediction perspective)
@@ -679,7 +679,7 @@ fn init_state() {
     let _ = state::get_or_init_state();
 }
 
-/// Get the wasm4pm crate version string.
+/// Get the truex_kernel crate version string.
 #[wasm_bindgen]
 pub fn get_version() -> String {
     env!("CARGO_PKG_VERSION").to_string()
@@ -1238,7 +1238,7 @@ pub fn autonomic_execute_cycle(
         .as_object()
         .map(|m| m.values().map(|v| v.as_f64().unwrap_or(0.0)).collect())
         .unwrap_or_default();
-
+    let mut active_spc_rules = Vec::<String>::new();
     if event_counts_per_trace.len() >= 9 {
         let mean_er =
             event_counts_per_trace.iter().sum::<f64>() / event_counts_per_trace.len() as f64;
@@ -1260,6 +1260,9 @@ pub fn autonomic_execute_cycle(
             })
             .collect();
         let causes = spc::check_western_electric_rules(&chart_data);
+        for c in &causes {
+            active_spc_rules.push(get_spc_rule_name(c).to_string());
+        }
         spc_results.insert(
             "event_rate".to_string(),
             serde_json::json!(if causes.is_empty() { "OK" } else { "ALERT" }),
@@ -1397,6 +1400,9 @@ pub fn autonomic_execute_cycle(
             })
             .collect();
         let causes = spc::check_western_electric_rules(&chart_data);
+        for c in &causes {
+            active_spc_rules.push(get_spc_rule_name(c).to_string());
+        }
         spc_results.insert(
             "trace_duration".to_string(),
             serde_json::json!(if causes.is_empty() { "OK" } else { "ALERT" }),
@@ -3111,7 +3117,7 @@ mod tests {
 // # JS usage pattern
 //
 // ```js
-// const wasm = require('./pkg/wasm4pm.js');
+// const wasm = require('./pkg/truex_kernel.js');
 // const parse = r => typeof r === 'string' ? JSON.parse(r) : r;
 //
 // const taskJson = JSON.stringify({
@@ -3254,19 +3260,19 @@ pub fn truex_verify_receipt(envelope_json: &str) -> Result<String, JsValue> {
     let envelope: serde_json::Value = serde_json::from_str(envelope_json)
         .map_err(|e| crate::error::js_val(&format!("Invalid JSON: {e}")))?;
 
-    let (result, batch, receipt) = wasm4pm_algos::truex::verify_receipt(&envelope);
+    let (result, batch, receipt) = truex_kernel_algos::truex::verify_receipt(&envelope);
 
     let status = match result {
-        wasm4pm_algos::truex::VerificationResult::ReceiptAdmitted => "ReceiptAdmitted",
-        wasm4pm_algos::truex::VerificationResult::ReceiptForged => "ReceiptForged",
-        wasm4pm_algos::truex::VerificationResult::ReceiptLaundered => "ReceiptLaundered",
-        wasm4pm_algos::truex::VerificationResult::BoundaryMissing => "BoundaryMissing",
-        wasm4pm_algos::truex::VerificationResult::SummaryOnlyProof => "SummaryOnlyProof",
-        wasm4pm_algos::truex::VerificationResult::CanonicalizationMismatch => "CanonicalizationMismatch",
-        wasm4pm_algos::truex::VerificationResult::ReplayDetected => "ReplayDetected",
-        wasm4pm_algos::truex::VerificationResult::InvalidTransition => "InvalidTransition",
-        wasm4pm_algos::truex::VerificationResult::IncompletePath => "IncompletePath",
-        wasm4pm_algos::truex::VerificationResult::VerifierMismatch => "VerifierMismatch",
+        truex_kernel_algos::truex::VerificationResult::ReceiptAdmitted => "ReceiptAdmitted",
+        truex_kernel_algos::truex::VerificationResult::ReceiptForged => "ReceiptForged",
+        truex_kernel_algos::truex::VerificationResult::ReceiptLaundered => "ReceiptLaundered",
+        truex_kernel_algos::truex::VerificationResult::BoundaryMissing => "BoundaryMissing",
+        truex_kernel_algos::truex::VerificationResult::SummaryOnlyProof => "SummaryOnlyProof",
+        truex_kernel_algos::truex::VerificationResult::CanonicalizationMismatch => "CanonicalizationMismatch",
+        truex_kernel_algos::truex::VerificationResult::ReplayDetected => "ReplayDetected",
+        truex_kernel_algos::truex::VerificationResult::InvalidTransition => "InvalidTransition",
+        truex_kernel_algos::truex::VerificationResult::IncompletePath => "IncompletePath",
+        truex_kernel_algos::truex::VerificationResult::VerifierMismatch => "VerifierMismatch",
     };
 
     let out = serde_json::json!({
@@ -3277,4 +3283,13 @@ pub fn truex_verify_receipt(envelope_json: &str) -> Result<String, JsValue> {
     });
 
     Ok(serde_json::to_string(&out).unwrap())
+}
+
+fn get_spc_rule_name(c: &spc::SpecialCause) -> &'static str {
+    match c {
+        spc::SpecialCause::OutOfControl { .. } => "rule_1_outlier",
+        spc::SpecialCause::Shift { .. } => "rule_2_shift",
+        spc::SpecialCause::Trend { .. } => "rule_3_trend",
+        spc::SpecialCause::TwoOfThree { .. } => "rule_4_two_of_three",
+    }
 }

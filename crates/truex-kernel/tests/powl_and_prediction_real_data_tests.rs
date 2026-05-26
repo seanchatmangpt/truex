@@ -12,8 +12,8 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::models::{AttributeValue, Event, EventLog, NGramPredictor, Trace};
-use wasm4pm::powl::discovery::{discover_powl, DiscoveryConfig, DiscoveryVariant};
+use truex_kernel::models::{AttributeValue, Event, EventLog, NGramPredictor, Trace};
+use truex_kernel::powl::discovery::{discover_powl, DiscoveryConfig, DiscoveryVariant};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser

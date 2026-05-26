@@ -4,7 +4,7 @@
 //! to obtain an opaque handle string, then pass it to any `discover_*` function.
 //!
 //! [`discover_dfg_from_log`] is the pure-Rust variant (no WASM boundary) used
-//! directly by integration tests in `wasm4pm/tests/`.
+//! directly by integration tests in `truex_kernel/tests/`.
 //!
 //! ## Output shapes (JSON string — JS caller must `JSON.parse()`)
 //!
@@ -91,7 +91,7 @@ pub fn discover_dfg(eventlog_handle: &str, activity_key: &str) -> Result<JsValue
     let log_size = log.traces.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.dfg",
+        target: "truex_kernel.discovery.dfg",
         algorithm = "dfg",
         log_size = log_size,
         activity_key = activity_key,
@@ -101,7 +101,7 @@ pub fn discover_dfg(eventlog_handle: &str, activity_key: &str) -> Result<JsValue
     // Feature extraction checkpoint
     let activity_count = log.get_activities(activity_key).len();
     tracing::info!(
-        target: "wasm4pm.discovery.dfg",
+        target: "truex_kernel.discovery.dfg",
         checkpoint = "feature_extraction",
         activity_count = activity_count,
         "Activity vocabulary extracted"
@@ -115,7 +115,7 @@ pub fn discover_dfg(eventlog_handle: &str, activity_key: &str) -> Result<JsValue
     let complexity = if node_count > 0 { edge_count as f64 / node_count as f64 } else { 0.0 };
 
     tracing::info!(
-        target: "wasm4pm.discovery.dfg",
+        target: "truex_kernel.discovery.dfg",
         checkpoint = "result_generation",
         node_count = node_count,
         edge_count = edge_count,
@@ -424,7 +424,7 @@ impl TraceProfile {
 #[wasm_bindgen]
 pub fn discover_declare(eventlog_handle: &str, activity_key: &str) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.declare",
+        target: "truex_kernel.discovery.declare",
         algorithm = "declare",
         activity_key = activity_key,
         "DECLARE discovery started"
@@ -449,7 +449,7 @@ pub fn discover_declare(eventlog_handle: &str, activity_key: &str) -> Result<JsV
             let total_cases = col.trace_offsets.len().saturating_sub(1);
 
             tracing::info!(
-                target: "wasm4pm.discovery.declare",
+                target: "truex_kernel.discovery.declare",
                 checkpoint = "feature_extraction",
                 activity_count = n,
                 trace_count = total_cases,
@@ -460,7 +460,7 @@ pub fn discover_declare(eventlog_handle: &str, activity_key: &str) -> Result<JsV
 
             if n == 0 || total_cases == 0 {
                 tracing::info!(
-                    target: "wasm4pm.discovery.declare",
+                    target: "truex_kernel.discovery.declare",
                     checkpoint = "empty_log",
                     activity_count = n,
                     trace_count = total_cases,
@@ -490,7 +490,7 @@ pub fn discover_declare(eventlog_handle: &str, activity_key: &str) -> Result<JsV
             }
 
             tracing::info!(
-                target: "wasm4pm.discovery.declare",
+                target: "truex_kernel.discovery.declare",
                 checkpoint = "profile_building",
                 profiles_count = traces_profiles.len(),
                 "Trace profiles built"
@@ -666,7 +666,7 @@ pub fn discover_declare(eventlog_handle: &str, activity_key: &str) -> Result<JsV
 
             let constraint_count = model.constraints.len();
             tracing::info!(
-                target: "wasm4pm.discovery.declare",
+                target: "truex_kernel.discovery.declare",
                 checkpoint = "result_generation",
                 constraint_count = constraint_count,
                 activity_count = n,

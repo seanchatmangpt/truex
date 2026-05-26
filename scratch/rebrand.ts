@@ -22,7 +22,7 @@ function rebrandFiles() {
   // 1. Rename directories
   const dirRenames = [
     { from: 'packages/truex-core', to: 'packages/membrane' },
-    { from: 'packages/wasm4pm-wasm', to: 'packages/kernel-wasm' },
+    { from: 'packages/kernel-wasm', to: 'packages/kernel-wasm' },
     { from: 'crates/wasm4pm', to: 'crates/truex-kernel' },
     { from: 'crates/wasm4pm-types', to: 'crates/truex-kernel-types' },
     { from: 'crates/wasm4pm-algos', to: 'crates/truex-kernel-algos' },
@@ -70,26 +70,26 @@ function rebrandFiles() {
     content = content.replace(/@wasm4pm\/cognition/g, '@truex/cognition');
     content = content.replace(/@wasm4pm\/testing/g, '@truex/testing');
 
-    content = content.replace(/"name": "wasm4pm"/g, '"name": "@truex/kernel"');
-    content = content.replace(/'wasm4pm'/g, "'@truex/kernel'");
-    content = content.replace(/"wasm4pm"/g, '"@truex/kernel"');
+    content = content.replace(/"name": "@truex/kernel"/g, '"name": "@truex/kernel"');
+    content = content.replace(/'@truex/kernel'/g, "'@truex/kernel'");
+    content = content.replace(/"@truex/kernel"/g, '"@truex/kernel"');
     content = content.replace(/wasm4pm\/pkg/g, '@truex/kernel-wasm/pkg');
 
-    content = content.replace(/@truex\/wasm4pm-wasm/g, '@truex/kernel-wasm');
+    content = content.replace(/@truex\/kernel-wasm/g, '@truex/kernel-wasm');
     content = content.replace(/@truex\/core/g, '@truex/membrane');
     content = content.replace(/truex-core/g, 'membrane');
-    content = content.replace(/wasm4pm-wasm/g, 'kernel-wasm');
+    content = content.replace(/kernel-wasm/g, 'kernel-wasm');
 
     // Cargo.toml replacements
-    content = content.replace(/name = "wasm4pm"/g, 'name = "truex-kernel"');
-    content = content.replace(/name = "wasm4pm-algos"/g, 'name = "truex-kernel-algos"');
-    content = content.replace(/name = "wasm4pm-types"/g, 'name = "truex-kernel-types"');
-    content = content.replace(/name = "wasm4pm-cli"/g, 'name = "truex-kernel-cli"');
-    content = content.replace(/name = "wasm4pm-utils"/g, 'name = "truex-kernel-utils"');
-    content = content.replace(/name = "wasm4pm-cognition"/g, 'name = "truex-kernel-cognition"');
-    content = content.replace(/name = "wasm4pm-macros"/g, 'name = "truex-kernel-macros"');
+    content = content.replace(/name = "truex-kernel"/g, 'name = "truex-kernel"');
+    content = content.replace(/name = "truex-kernel-algos"/g, 'name = "truex-kernel-algos"');
+    content = content.replace(/name = "truex-kernel-types"/g, 'name = "truex-kernel-types"');
+    content = content.replace(/name = "truex-kernel-cli"/g, 'name = "truex-kernel-cli"');
+    content = content.replace(/name = "truex-kernel-utils"/g, 'name = "truex-kernel-utils"');
+    content = content.replace(/name = "truex-kernel-cognition"/g, 'name = "truex-kernel-cognition"');
+    content = content.replace(/name = "truex-kernel-macros"/g, 'name = "truex-kernel-macros"');
 
-    content = content.replace(/path = "wasm4pm"/g, 'path = "crates/truex-kernel"');
+    content = content.replace(/path = "@truex/kernel"/g, 'path = "crates/truex-kernel"');
     content = content.replace(/path = "crates\/wasm4pm/g, 'path = "crates/truex-kernel');
     content = content.replace(/path = "\.\.\/crates\/wasm4pm/g, 'path = "../truex-kernel');
     content = content.replace(/path = "\.\.\/wasm4pm/g, 'path = "../truex-kernel');

@@ -6,13 +6,13 @@
 ## 0. Generation Receipt
 
 ```yaml
-generatedAt: 2026-05-25T18:57:23.648Z
-astFilesScanned: 285
-mappedFiles: 283
-orphanFiles: 2
-topologyHash: 42dc26cf26ceeef5102286b86e85041565826eafaa418c8ff45ed969c8ad511f
-receiptHash: cf6c1bd9-6309-473b-b607-de6133968f9e
-diagramHash: afa6f9780945d604a962fa25b77d09c199251f818df6a6ca17f45865e9cde83b pending
+generatedAt: 2026-05-26T05:19:54.161Z
+astFilesScanned: 291
+mappedFiles: 285
+orphanFiles: 6
+topologyHash: 252da7bd5f6af25a32b50d24f41d13dd57aac2400df3ca78373893fe530fbb45
+receiptHash: a6bf943b-d4e1-40b5-b166-19eafba85f83
+diagramHash: d214856ab378c523536979db54a3871005f2fbfa331fb351b270a093ba84ea85 pending
 doctorCommand: npx tsx scripts/truex.ts doctor prove architecture
 ```
 
@@ -264,11 +264,15 @@ sequenceDiagram
 
 ## 8. Architecture Accounting
 This map actively indexes the codebase dependencies.
-**Total Mapped Nodes:** 285
+**Total Mapped Nodes:** 291
 
 ## 9. Orphans / Drift / Unmapped Files
 ❌ Found Orphans:
 - scripts/fix-imports.ts
+- scripts/innovations-benchmarks/cognition.ts
+- scripts/innovations-benchmarks/geometry.ts
+- scripts/innovations-benchmarks/physics.ts
+- scripts/innovations-benchmarks/semantic-bit.ts
 - scripts/mission/project-12h-finalization.ts
 
 ## 10. Final Classification
@@ -278,7 +282,7 @@ Truex C4 Architecture State:
 - Alignment: Proven via Doctor
 - Dynamic Coverage: Active
 - Deployment Scope: Local-First (No Cloud)
-- Orphan Count: 2
+- Orphan Count: 6
 ```
 
 *Legend:*

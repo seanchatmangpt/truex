@@ -1,6 +1,6 @@
 # Antigravity Artifact: Refinement Rules
 
-> **Generated:** 2026-05-25T18:57:23.666Z
+> **Generated:** 2026-05-26T05:19:54.182Z
 > **Version:** 1.0.0
 
 ## Refinement Strategy

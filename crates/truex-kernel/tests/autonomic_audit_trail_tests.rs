@@ -2,7 +2,7 @@
 //!
 //! Validates event recording, chain verification, hash integrity, and timeline rendering.
 
-use wasm4pm::autonomic_audit_trail::{
+use truex_kernel::autonomic_audit_trail::{
     AutonomicAuditTrail, AuditEventType, AuditPhase,
 };
 

@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import * as pm from '../../pkg/wasm4pm.js';
+import * as pm from '../../pkg/truex_kernel.js';
 import { XES_WORKFLOW, OCEL_MINIMAL } from '../helpers/fixtures';
 
 const SAMPLE_OCEL = `{

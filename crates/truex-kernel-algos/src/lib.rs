@@ -1,5 +1,5 @@
 
-#![doc = "High-performance, branchless algorithm implementations for wasm4pm process mining."]
+#![doc = "High-performance, branchless algorithm implementations for truex_kernel process mining."]
 #![doc = ""]
 #![doc = "This crate implements discovery, conformance, and analysis algorithms optimized for:"]
 #![doc = "- Minimal branch misses (cache-friendly execution)"]
@@ -15,6 +15,6 @@ pub mod heuristic;
 pub mod streaming;
 pub mod truex;
 
-pub use wasm4pm_types;
+pub use truex_kernel_types;
 
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

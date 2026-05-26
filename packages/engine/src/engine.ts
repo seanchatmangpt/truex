@@ -603,10 +603,16 @@ export class Engine {
           this.storehouseManager.stewardIncrease(
             { amount: 100, currency: 'TRUE', timestamp: Date.now() },
             { id: 'engine-field', name: 'Operational Execution', owner: 'Truex' },
-            { id: 'community-receiver', name: 'Mercy Logistics' }
+            { id: 'community-receiver', name: 'Mercy Logistics' },
+            { runId: this.currentRunId || 'unknown', traceId: this.traceId }
           );
-        } catch (error) {
-          console.warn('[Engine] Storehouse stewardship failed:', error);
+        } catch (error: any) {
+          // Task: Ensure Jidoka line-stop propagates back to Engine's state machine
+          if (error.message?.includes('JIDOKA STOP')) {
+            this.handleEngineError(error, 'JIDOKA_HALT', 'Storehouse integrity violation. Check stewardship logs.', 'failed');
+            throw error;
+          }
+          console.warn('[Engine] Storehouse stewardship failed (non-fatal):', error);
         }
       }
 

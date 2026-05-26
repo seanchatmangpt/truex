@@ -11,9 +11,9 @@
 //! Gap E: prediction system correctness against known oracles.
 
 use std::collections::HashMap;
-use wasm4pm::models::{AttributeValue, Event, EventLog, NGramPredictor, Trace};
-use wasm4pm::prediction_additions::{calculate_rework_score, extract_prefix_features};
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::models::{AttributeValue, Event, EventLog, NGramPredictor, Trace};
+use truex_kernel::prediction_additions::{calculate_rework_score, extract_prefix_features};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -250,7 +250,7 @@ fn next_activity_prefix_length_1_vs_2_differ_on_ambiguous_log() {
 /// Rank 1: remaining time cannot be negative — elapsed time only increases.
 #[test]
 fn remaining_time_never_negative() {
-    use wasm4pm::prediction_additions::estimate_queue_delay;
+    use truex_kernel::prediction_additions::estimate_queue_delay;
 
     // The remaining-time model operates on real timestamps.  We validate the
     // mathematical property directly: for valid positive rates, the estimate
@@ -273,7 +273,7 @@ fn remaining_time_never_negative() {
 #[test]
 #[ignore = "wasm_bindgen boundary: build_remaining_time_model requires wasm-bindgen runtime"]
 fn remaining_time_returns_valid_output_on_structured_log() {
-    use wasm4pm::prediction_remaining_time::build_remaining_time_model;
+    use truex_kernel::prediction_remaining_time::build_remaining_time_model;
 
     // Two trace durations: short (10 hours) vs long (100 hours)
     let log = make_timed_log(&[

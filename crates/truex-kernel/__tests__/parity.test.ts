@@ -87,8 +87,8 @@ let wasmModule: any = null;
 beforeAll(async () => {
   try {
     // Try to load from the built WASM package
-    const wasm4pmWasm = await import('../pkg/wasm4pm.js');
-    wasmModule = (wasm4pmWasm as { default?: unknown }).default ?? wasm4pmWasm;
+    const truex-kernelWasm = await import('../pkg/truex_kernel.js');
+    wasmModule = (truex-kernelWasm as { default?: unknown }).default ?? truex-kernelWasm;
   } catch (error) {
     // If not available, skip tests gracefully
     console.warn('WASM module not available, skipping parity tests');

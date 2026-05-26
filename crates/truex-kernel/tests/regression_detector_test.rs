@@ -9,15 +9,15 @@
 //!   - SPC alerts verified against Western Electric mathematical conditions
 //!   - CPU reference kernel vs. same Rust output (deterministic parity)
 //!
-//! Report: .wasm4pm/benchmarks/regression-<unix_seconds>.json
+//! Report: .truex/benchmarks/regression-<unix_seconds>.json
 
-use wasm4pm::guards::{
+use truex_kernel::guards::{
     ExecutionContext, Guard, ObservationBuffer, Predicate, ResourceState, ResourceType, StateFlags,
 };
-use wasm4pm::marking_equation::solve_marking_equation;
-use wasm4pm::pattern_dispatch::PatternType;
-use wasm4pm::reinforcement::{QLearning, WorkflowAction, WorkflowState};
-use wasm4pm::spc::{check_western_electric_rules, ChartData, ShiftDirection, SpecialCause};
+use truex_kernel::marking_equation::solve_marking_equation;
+use truex_kernel::pattern_dispatch::PatternType;
+use truex_kernel::reinforcement::{QLearning, WorkflowAction, WorkflowState};
+use truex_kernel::spc::{check_western_electric_rules, ChartData, ShiftDirection, SpecialCause};
 
 use std::hash::Hash;
 use std::{fmt, fs, io};
@@ -235,7 +235,7 @@ fn write_report(reports: &[VectorReport]) -> io::Result<()> {
         .unwrap_or_default()
         .as_secs();
 
-    let dir = "../.wasm4pm/benchmarks";
+    let dir = "../.truex/benchmarks";
     fs::create_dir_all(dir)?;
     let path = format!("{dir}/regression-{ts}.json");
 

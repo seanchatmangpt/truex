@@ -1,6 +1,6 @@
 import { parentPort } from 'node:worker_threads';
 // Import the WASM module directly via relative path
-import * as wasm from '../../../../packages/kernel-wasm/pkg/wasm4pm.js';
+import * as wasm from '../../../../packages/kernel-wasm/pkg/truex_kernel.js';
 
 interface Step {
   fn: string;

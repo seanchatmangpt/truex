@@ -55,7 +55,7 @@ Defines the vocabulary that the rest of the system uses to execute.
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
 *   **Upstream:** Authored by humans or `dspygen`.
-*   **Downstream:** Fed into `ggen` to manufacture applications. Replaced functionally at runtime by `knhk` and `wasm4pm`.
+*   **Downstream:** Fed into `ggen` to manufacture applications. Replaced functionally at runtime by `knhk` and `truex-kernel`.
 
 ---
 

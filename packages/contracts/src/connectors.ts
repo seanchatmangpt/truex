@@ -5,7 +5,7 @@
  * event log data to wasm4pm from various sources (files, HTTP, streams, etc.)
  */
 
-import { Result } from './result.js';
+import type { Result } from './result.js';
 
 /**
  * Supported source adapter kinds

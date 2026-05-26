@@ -10,7 +10,7 @@
 
 #![cfg(feature = "cloud")]
 
-use wasm4pm::{
+use truex_kernel::{
     analyze_dimension_usage, format_dimensionality_report, RlState,
 };
 

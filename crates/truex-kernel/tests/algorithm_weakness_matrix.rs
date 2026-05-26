@@ -15,11 +15,11 @@
 
 use rustc_hash::FxHashMap;
 use std::collections::HashMap;
-use wasm4pm::models::{
+use truex_kernel::models::{
     AttributeValue, ColumnarLog, DFGNode, DirectlyFollowsGraph, DirectlyFollowsRelation, Event,
     EventLog, Trace,
 };
-use wasm4pm::state::{get_or_init_state, StoredObject};
+use truex_kernel::state::{get_or_init_state, StoredObject};
 
 // ---------------------------------------------------------------------------
 // Shared helpers (mirrors ground_truth_discovery_tests)

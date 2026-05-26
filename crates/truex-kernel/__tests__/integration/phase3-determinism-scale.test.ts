@@ -10,7 +10,7 @@
 
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import * as crypto from 'crypto';
-import * as pm from '../../pkg/wasm4pm.js';
+import * as pm from '../../pkg/truex_kernel.js';
 import { XES_MINIMAL, XES_SEQUENTIAL, XES_PARALLEL } from '../helpers/fixtures';
 
 /**

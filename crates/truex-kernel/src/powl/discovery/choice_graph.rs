@@ -175,7 +175,7 @@ pub struct ChoiceGraphCut {
     /// The validated choice graph (Definition 1 invariants enforced).
     /// Nodes are: `Start`, `End`, plus one `Activity(repr)` per part.
     /// `repr` is the lexicographically-smallest activity name in the part.
-    pub graph: wasm4pm_types::ChoiceGraph,
+    pub graph: truex_kernel_types::ChoiceGraph,
     /// Index of `Aᵢ` partition in `partition` for each Activity-node, in
     /// the order those nodes appear in `graph.nodes`.
     pub partition_for_node: Vec<Option<usize>>,
@@ -225,11 +225,11 @@ pub fn discover_choice_graph_v2(
 
     // Build CG nodes: Start, End, then one Activity-node per part.
     // We label each Activity-node by the lex-smallest activity in the part.
-    let mut nodes: Vec<wasm4pm_types::ChoiceGraphNode> = Vec::new();
+    let mut nodes: Vec<truex_kernel_types::ChoiceGraphNode> = Vec::new();
     let mut partition_for_node: Vec<Option<usize>> = Vec::new();
-    nodes.push(wasm4pm_types::ChoiceGraphNode::Start);
+    nodes.push(truex_kernel_types::ChoiceGraphNode::Start);
     partition_for_node.push(None);
-    nodes.push(wasm4pm_types::ChoiceGraphNode::End);
+    nodes.push(truex_kernel_types::ChoiceGraphNode::End);
     partition_for_node.push(None);
     let start_idx_node = 0usize;
     let end_idx_node = 1usize;
@@ -242,7 +242,7 @@ pub fn discover_choice_graph_v2(
             .cloned()
             .unwrap_or_else(|| format!("part_{}", p_idx));
         part_node_idx.push(nodes.len());
-        nodes.push(wasm4pm_types::ChoiceGraphNode::Activity(repr));
+        nodes.push(truex_kernel_types::ChoiceGraphNode::Activity(repr));
         partition_for_node.push(Some(p_idx));
     }
 
@@ -290,7 +290,7 @@ pub fn discover_choice_graph_v2(
         }
     }
 
-    let graph = wasm4pm_types::ChoiceGraph::new(nodes, edges)
+    let graph = truex_kernel_types::ChoiceGraph::new(nodes, edges)
         .map_err(|e| NoCutFound::InvalidGraph(format!("{}", e)))?;
     Ok(ChoiceGraphCut {
         partition,

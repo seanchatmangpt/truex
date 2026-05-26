@@ -1,6 +1,6 @@
 # Hookbench Full Report
 
-**Timestamp:** 2026-05-25T18:57:19.640Z
+**Timestamp:** 2026-05-26T05:19:49.428Z
 **Report Hash:** bf74ecce9022faa59fe1b53a393606fbc86f822654b6c4249ccfd068789386ac
 
 ## Execution Summary
@@ -8,7 +8,7 @@
 | Metric | T0 | T1 | T2 | T3 |
 |--------|----|----|----|----|
 | Evaluations | 1 | 100 | 400 | 400 |
-| Ops/sec | 533.618 | 244125.725 | 521767.487 | 34284734.723 |
+| Ops/sec | 3349.612 | 259740.260 | 515049.091 | 37209302.326 |
 | Receipts | 1 | 5 | 10 | 0 |
 
 ## Tier T3 Details (Evaluation-Only: true)
@@ -19,8 +19,8 @@
 | Platform | darwin |
 | Architecture | arm64 |
 | CPU Model | Apple M3 Max |
-| Memory Before (MB) | 122.287 |
-| Memory After (MB) | 122.367 |
+| Memory Before (MB) | 130.440 |
+| Memory After (MB) | 130.520 |
 
 ## Metrics Breakdown
 
@@ -35,7 +35,7 @@
 | Receipts Generated | 0 |
 | Replay Converged | 0 |
 | Refused Count | 0 |
-| Runtime (ms) | 0.012 |
+| Runtime (ms) | 0.011 |
 
 ## Determinism
 - **Seed:** 42

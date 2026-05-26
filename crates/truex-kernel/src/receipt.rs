@@ -1098,7 +1098,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1155,7 +1155,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1209,7 +1209,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1265,7 +1265,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1306,7 +1306,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1354,7 +1354,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1394,7 +1394,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1433,7 +1433,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1490,7 +1490,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1547,7 +1547,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1595,7 +1595,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1687,7 +1687,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1769,7 +1769,7 @@ mod tests {
         let mut receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1823,7 +1823,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1846,7 +1846,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1872,7 +1872,7 @@ mod tests {
         let receipt_missing = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1893,7 +1893,7 @@ mod tests {
         let receipt_mismatch = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",
@@ -1948,7 +1948,7 @@ mod tests {
         let receipt = json!({
             "receipt_type": "Wasm4pmExecutionReceipt",
             "receipt_schema": "Wasm4pmExecutionReceipt.v1",
-            "package": "wasm4pm",
+            "package": "@truex/kernel",
             "version": "26.5.21",
             "commit": "2f65dc9dd706203462ef92bc4815f24bec61159f",
             "hash_algorithm": "BLAKE3",

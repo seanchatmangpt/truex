@@ -10,7 +10,7 @@
  */
 
 import { describe, it, expect, beforeAll } from 'vitest';
-import * as pm from '../../pkg/wasm4pm.js';
+import * as pm from '../../pkg/truex_kernel.js';
 
 // ── Configuration ────────────────────────────────────────────────────────────
 

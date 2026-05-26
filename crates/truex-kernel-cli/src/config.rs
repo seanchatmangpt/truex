@@ -11,11 +11,11 @@ pub struct Config {
 }
 
 impl Config {
-    /// Loads configuration from '.wasm4pm/config.json' (local) or '~/.wasm4pm/config.json' (global).
+    /// Loads configuration from '.truex/config.json' (local) or '~/.truex/config.json' (global).
     /// Returns a default Config if no file is found.
     pub fn load() -> Result<Self> {
-        // Try local .wasm4pm/config.json first
-        let local_path = Path::new(".wasm4pm/config.json");
+        // Try local .truex/config.json first
+        let local_path = Path::new(".truex/config.json");
         if local_path.exists() {
             let content = fs::read_to_string(local_path)
                 .with_context(|| format!("Failed to read local config at {:?}", local_path))?;
@@ -23,7 +23,7 @@ impl Config {
                 .with_context(|| format!("Failed to parse local config at {:?}", local_path));
         }
 
-        // Try global ~/.wasm4pm/config.json
+        // Try global ~/.truex/config.json
         if let Some(global_path) = Self::global_config_path() {
             if global_path.exists() {
                 let content = fs::read_to_string(&global_path).with_context(|| {
@@ -39,13 +39,13 @@ impl Config {
     }
 
     /// Saves the configuration.
-    /// Prefers the local path if '.wasm4pm/' directory exists, otherwise saves to the global path.
+    /// Prefers the local path if '.truex/' directory exists, otherwise saves to the global path.
     pub fn save(&self) -> Result<()> {
         let content =
             serde_json::to_string_pretty(self).context("Failed to serialize configuration")?;
 
-        // Prefer local if .wasm4pm/ directory exists
-        let local_dir = Path::new(".wasm4pm");
+        // Prefer local if .truex/ directory exists
+        let local_dir = Path::new(".truex");
         if local_dir.exists() && local_dir.is_dir() {
             let local_path = local_dir.join("config.json");
             fs::write(&local_path, content)
@@ -69,7 +69,7 @@ impl Config {
         )
     }
 
-    /// Returns the global configuration path (~/.wasm4pm/config.json)
+    /// Returns the global configuration path (~/.truex/config.json)
     fn global_config_path() -> Option<PathBuf> {
         let home = if cfg!(windows) {
             std::env::var("USERPROFILE").ok()
@@ -77,7 +77,7 @@ impl Config {
             std::env::var("HOME").ok()
         };
 
-        home.map(|h| PathBuf::from(h).join(".wasm4pm").join("config.json"))
+        home.map(|h| PathBuf::from(h).join(".truex").join("config.json"))
     }
 
     /// Gets a value from the configuration

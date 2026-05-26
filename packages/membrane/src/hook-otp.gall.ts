@@ -1,12 +1,9 @@
-/**
- * @module hook-otp
- * @description Gall S₂: Engine primitives for Hook OTP execution model.
- * Provides a receipted, crash-only runtime for Truex hooks.
- */
+import type { Database } from "better-sqlite3";
 import { parseGraphDelta } from "./runtime-law.js";
 import type { GraphDelta, Receipt } from "./runtime-law.js";
 import { createDeterministicContext } from "./context.js";
-import { hash, createReceipt, verifyReceipt } from "./index.js";
+import { hash } from "./hash.js";
+import { createReceipt, verifyReceipt } from "./receipt.js";
 
 export type HookProcessId = string;
 
@@ -14,6 +11,9 @@ export interface HookMessage {
   id: string;
   targetProcessId: HookProcessId;
   delta: GraphDelta;
+  senderId?: string;
+  payload?: any;
+  expiration?: number;
 }
 
 export interface HookMailbox {
@@ -105,10 +105,155 @@ export interface HookOtpRuntime {
   };
   parentSeed?: number;
   quarantineLimit?: number;
+  db?: Database;
 }
 
-export function createHookOtpRuntime(parentSeed: number = 1_716_480_000_000): HookOtpRuntime {
-  return {
+export function initializeOtpSchema(db: Database): void {
+  db.prepare(`
+    CREATE TABLE IF NOT EXISTS hook_processes (
+      id TEXT PRIMARY KEY,
+      state TEXT,
+      restart_count INTEGER,
+      is_halted INTEGER,
+      last_receipt_hash TEXT
+    )
+  `).run();
+
+  db.prepare(`
+    CREATE TABLE IF NOT EXISTS hook_mailbox (
+      id TEXT PRIMARY KEY,
+      target_process_id TEXT,
+      delta_json TEXT,
+      sender_id TEXT,
+      payload_json TEXT,
+      expiration INTEGER,
+      queued_at INTEGER
+    )
+  `).run();
+}
+
+export function saveProcessState(db: Database, proc: HookProcess): void {
+  db.prepare(`
+    INSERT INTO hook_processes (id, state, restart_count, is_halted, last_receipt_hash)
+    VALUES (?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET
+      state = excluded.state,
+      restart_count = excluded.restart_count,
+      is_halted = excluded.is_halted,
+      last_receipt_hash = excluded.last_receipt_hash
+  `).run(
+    proc.id,
+    JSON.stringify(proc.state),
+    proc.restartCount,
+    proc.isHalted ? 1 : 0,
+    proc.lastReceiptHash
+  );
+}
+
+export function saveMailboxMessage(db: Database, msg: HookMessage): void {
+  db.prepare(`
+    INSERT INTO hook_mailbox (id, target_process_id, delta_json, sender_id, payload_json, expiration, queued_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET
+      target_process_id = excluded.target_process_id,
+      delta_json = excluded.delta_json,
+      sender_id = excluded.sender_id,
+      payload_json = excluded.payload_json,
+      expiration = excluded.expiration,
+      queued_at = excluded.queued_at
+  `).run(
+    msg.id,
+    msg.targetProcessId,
+    JSON.stringify(msg.delta),
+    msg.senderId ?? null,
+    msg.payload !== undefined ? JSON.stringify(msg.payload) : null,
+    msg.expiration ?? null,
+    Date.now()
+  );
+}
+
+export function removeMailboxMessage(db: Database, msgId: string): void {
+  db.prepare(`
+    DELETE FROM hook_mailbox WHERE id = ?
+  `).run(msgId);
+}
+
+export function recoverProcess(
+  dbOrRuntime: Database | HookOtpRuntime,
+  processId: string,
+  behavior: Function
+): HookProcess {
+  const db = (dbOrRuntime as any).prepare ? (dbOrRuntime as Database) : (dbOrRuntime as HookOtpRuntime).db;
+  if (!db) {
+    throw new Error("Database not available for recovery");
+  }
+
+  const procRow = db.prepare(`
+    SELECT id, state, restart_count, is_halted, last_receipt_hash 
+    FROM hook_processes 
+    WHERE id = ?
+  `).get(processId) as any;
+
+  if (!procRow) {
+    throw new Error(`Process with id ${processId} not found in database`);
+  }
+
+  const mailboxRows = db.prepare(`
+    SELECT id, delta_json, sender_id, payload_json, expiration, queued_at 
+    FROM hook_mailbox 
+    WHERE target_process_id = ?
+    ORDER BY queued_at ASC
+  `).all(processId) as any[];
+
+  const mailbox = createHookMailbox();
+  for (const row of mailboxRows) {
+    mailbox.push({
+      id: row.id,
+      targetProcessId: processId,
+      delta: JSON.parse(row.delta_json),
+      senderId: row.sender_id ?? undefined,
+      payload: row.payload_json ? JSON.parse(row.payload_json) : undefined,
+      expiration: row.expiration ?? undefined
+    });
+  }
+
+  const process: HookProcess = {
+    id: procRow.id,
+    behavior: behavior as any,
+    state: JSON.parse(procRow.state),
+    mailbox,
+    restartCount: procRow.restart_count,
+    isHalted: procRow.is_halted === 1,
+    lastReceiptHash: procRow.last_receipt_hash ?? null
+  };
+
+  if (!(dbOrRuntime as any).prepare) {
+    const runtime = dbOrRuntime as HookOtpRuntime;
+    runtime.processes.set(processId, process);
+    if (process.supervisorId) {
+      const supervisor = runtime.supervisors.get(process.supervisorId);
+      if (supervisor) {
+        supervisor.processes.set(processId, process);
+      }
+    }
+  }
+
+  return process;
+}
+
+// Compatibility wrappers for existing code/tests
+export function initHookOtpDb(db: Database): void {
+  initializeOtpSchema(db);
+}
+
+export function persistProcess(runtime: HookOtpRuntime, proc: HookProcess): void {
+  if (runtime.db) {
+    saveProcessState(runtime.db, proc);
+  }
+}
+
+export function createHookOtpRuntime(parentSeed: number = 1_716_480_000_000, db?: Database): HookOtpRuntime {
+  const runtime: HookOtpRuntime = {
     processes: new Map(),
     supervisors: new Map(),
     refusedReceipts: [],
@@ -120,8 +265,15 @@ export function createHookOtpRuntime(parentSeed: number = 1_716_480_000_000): Ho
       messagesRefused: 0,
       restarts: 0
     },
-    parentSeed
+    parentSeed,
+    db
   };
+
+  if (db) {
+    initHookOtpDb(db);
+  }
+
+  return runtime;
 }
 
 export function dispatchMessage(
@@ -242,11 +394,18 @@ export function dispatchMessage(
 
   // 4. Queue the message in process mailbox
   proc.mailbox.push(msg);
+  if (runtime.db) {
+    saveMailboxMessage(runtime.db, msg);
+    persistProcess(runtime, proc);
+  }
 
   // 5. Process the message synchronously
   const currentMsg = proc.mailbox.pop();
   if (!currentMsg) {
     throw new Error("Mailbox empty immediately after pushing");
+  }
+  if (runtime.db) {
+    removeMailboxMessage(runtime.db, currentMsg.id);
   }
 
   runtime.metrics.messagesProcessed++;
@@ -276,6 +435,9 @@ export function dispatchMessage(
 
     proc.lastReceiptHash = confirmedReceipt.receiptHash;
     runtime.metrics.messagesConfirmed++;
+    if (runtime.db) {
+      persistProcess(runtime, proc);
+    }
     return { allowed: true, receipt: confirmedReceipt };
 
   } catch (error: any) {
@@ -312,6 +474,9 @@ export function dispatchMessage(
           timestamp: now
         });
         runtime.refusedReceipts.push(refusedReceipt);
+        if (runtime.db) {
+          persistProcess(runtime, proc);
+        }
         return { allowed: false, reason: "Process halted: restart budget exhausted", receipt: refusedReceipt };
       } else {
         // Budget not exhausted -> restart/rollback state and increment restart count
@@ -332,6 +497,9 @@ export function dispatchMessage(
           timestamp: now
         });
         runtime.refusedReceipts.push(refusedReceipt);
+        if (runtime.db) {
+          persistProcess(runtime, proc);
+        }
         return { allowed: false, reason: "Process crashed and restarted", receipt: refusedReceipt };
       }
     } else {
@@ -344,6 +512,9 @@ export function dispatchMessage(
         timestamp: now
       });
       runtime.refusedReceipts.push(refusedReceipt);
+      if (runtime.db) {
+        persistProcess(runtime, proc);
+      }
       return { allowed: false, reason: `Process crashed without supervisor: ${errorMsg}`, receipt: refusedReceipt };
     }
   }

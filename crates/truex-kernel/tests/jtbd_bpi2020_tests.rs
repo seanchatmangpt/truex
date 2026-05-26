@@ -10,8 +10,8 @@
 //! RL agents should handle large feature spaces without panics or NaN values.
 
 use std::fs;
-use wasm4pm::rl_orchestrator::RlOrchestrator;
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::RlOrchestrator;
+use truex_kernel::RlState;
 
 const FIXTURES_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/fixtures");
 

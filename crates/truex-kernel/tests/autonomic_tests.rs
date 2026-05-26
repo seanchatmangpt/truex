@@ -5,18 +5,18 @@
 //!
 //! Extracted from embedded #[cfg(test)] blocks in each src/ module.
 
-use wasm4pm::guards::{
+use truex_kernel::guards::{
     ExecutionContext, Guard, GuardCompiler, GuardEvaluator, GuardType, ObservationBuffer,
     Predicate, ResourceState, ResourceType, StateFlags,
 };
-use wasm4pm::pattern_dispatch::{
+use truex_kernel::pattern_dispatch::{
     PatternConfig, PatternDispatcher, PatternFactory, PatternFlags, PatternType, PatternValidator,
 };
-use wasm4pm::self_healing::{
+use truex_kernel::self_healing::{
     advance_clock, reset_clock, CircuitBreaker, CircuitState, HealthCheck, HealthCheckConfig,
     HealthStatus, RetryPolicy, RetryState, SelfHealingError, SelfHealingManager, CLOCK_LOCK,
 };
-use wasm4pm::spc::{
+use truex_kernel::spc::{
     check_western_electric_rules, dpmo_to_sigma, inverse_normal_cdf, normal_cdf, spc_mean,
     spc_std_dev, CapabilityError, ChartData, ProcessCapability, ShiftDirection, SpecialCause,
     TrendDirection,

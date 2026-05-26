@@ -329,7 +329,7 @@ impl std::error::Error for AgenticError {}
 /// # Example
 ///
 /// ```rust
-/// use wasm4pm::agentic::types::{AgenticError, AgenticContext};
+/// use truex_kernel::agentic::types::{AgenticError, AgenticContext};
 ///
 /// let ctx = AgenticContext::new(
 ///     AgenticError::PolicyViolation,

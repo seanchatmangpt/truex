@@ -6,7 +6,7 @@
 use criterion::{black_box, BenchmarkId, Criterion, Throughput};
 use std::collections::{HashMap, HashSet};
 use std::time::Duration;
-use wasm4pm::simd_streaming_dfg::SimdStreamingDfg;
+use truex_kernel::simd_streaming_dfg::SimdStreamingDfg;
 
 #[path = "../helpers.rs"]
 mod helpers;

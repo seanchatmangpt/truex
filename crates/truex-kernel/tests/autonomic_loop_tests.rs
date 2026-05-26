@@ -3,10 +3,10 @@
 //! Tests that the RL orchestrator persists state across autonomic cycles,
 //! that SPC feedback drives reward computation, and that all WASM exports work.
 
-use wasm4pm::reinforcement::Agent;
-use wasm4pm::rl_orchestrator::{compute_reward, AgentType};
-use wasm4pm::spc::{check_western_electric_rules, ChartData};
-use wasm4pm::{RlAction, RlState};
+use truex_kernel::reinforcement::Agent;
+use truex_kernel::rl_orchestrator::{compute_reward, AgentType};
+use truex_kernel::spc::{check_western_electric_rules, ChartData};
+use truex_kernel::{RlAction, RlState};
 
 /// Helper to create test RlState with reasonable defaults
 fn make_test_state(health_level: u8) -> RlState {
@@ -20,14 +20,14 @@ fn make_test_state(health_level: u8) -> RlState {
 
 #[test]
 fn test_orchestrator_default() {
-    let orch = wasm4pm::rl_orchestrator::RlOrchestrator::new();
+    let orch = truex_kernel::rl_orchestrator::RlOrchestrator::new();
     assert_eq!(orch.active_agent(), AgentType::QLearning);
     assert_eq!(orch.telemetry().cycle_count, 0);
 }
 
 #[test]
 fn test_orchestrator_persists_across_cycles() {
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new();
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new();
     let features = [0.1, 0.2, 0.3, 0.5, 0.0, 1.0, 1.0, 0.0];
     let state = make_test_state(1);
     let next_state = make_test_state(1);
@@ -90,7 +90,7 @@ fn test_all_five_agents_work_in_loop() {
         AgentType::ExpectedSARSA,
         AgentType::REINFORCE,
     ] {
-        let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new();
+        let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new();
         orch.switch_agent(*agent_type);
         for i in 0..10 {
             let spc_alerts = if i % 3 == 0 { 2 } else { 0 };
@@ -120,7 +120,7 @@ fn test_all_five_agents_work_in_loop() {
 
 #[test]
 fn test_linucb_agent_selection_changes_agent() {
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new();
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new();
     orch.set_linucb_selection(true);
     let features = [0.5, 0.5, 0.5, 0.5, 0.0, 1.0, 1.0, 0.0];
     let state = make_test_state(1);
@@ -147,23 +147,23 @@ fn test_agent_trait_polymorphism() {
     let state = make_test_state(1);
     let next = make_test_state(2);
 
-    let q = wasm4pm::reinforcement::QLearning::<RlState, RlAction>::new();
+    let q = truex_kernel::reinforcement::QLearning::<RlState, RlAction>::new();
     let _ = Agent::select_action(&q, &state);
     Agent::update(&q, &state, &RlAction::Continue, 0.5, &next, false);
 
-    let sa = wasm4pm::reinforcement::SARSAAgent::<RlState, RlAction>::new();
+    let sa = truex_kernel::reinforcement::SARSAAgent::<RlState, RlAction>::new();
     let _ = Agent::select_action(&sa, &state);
     Agent::update(&sa, &state, &RlAction::Scale, 0.3, &next, false);
 
-    let dq = wasm4pm::reinforcement::DoubleQLearning::<RlState, RlAction>::new();
+    let dq = truex_kernel::reinforcement::DoubleQLearning::<RlState, RlAction>::new();
     let _ = Agent::select_action(&dq, &state);
     Agent::update(&dq, &state, &RlAction::Retry, -0.2, &next, false);
 
-    let es = wasm4pm::reinforcement::ExpectedSARSAAgent::<RlState, RlAction>::new();
+    let es = truex_kernel::reinforcement::ExpectedSARSAAgent::<RlState, RlAction>::new();
     let _ = Agent::select_action(&es, &state);
     Agent::update(&es, &state, &RlAction::Fallback, 0.1, &next, false);
 
-    let rf = wasm4pm::reinforcement::ReinforceAgent::<RlState, RlAction>::new();
+    let rf = truex_kernel::reinforcement::ReinforceAgent::<RlState, RlAction>::new();
     let _ = Agent::select_action(&rf, &state);
     Agent::update(&rf, &state, &RlAction::Restart, -1.0, &next, true);
 }
@@ -178,7 +178,7 @@ fn test_single_autonomic_cycle_completes_in_under_100ms() {
     // Oracle Rank 2: Domain contract — wall-clock SLA from specification
     // Van der Aalst doctrine: Process must be responsive to real-time telemetry changes
 
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new_with_seed(42);
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new_with_seed(42);
     let features = [0.5, 0.3, 0.2, 0.0, 0.0, 0.0, 0.5, 0.0];
     let state = make_test_state(1);
     let next_state = make_test_state(1);
@@ -203,7 +203,7 @@ fn test_single_autonomic_cycle_completes_in_under_100ms() {
 fn test_g2_fifty_consecutive_cycles_no_panic() {
     // Run 50 consecutive autonomic cycles. Assert no panics and cycle count == 50.
     // This validates end-to-end orchestrator stability without state corruption.
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new_with_seed(42);
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new_with_seed(42);
     let features = [0.1, 0.2, 0.3, 0.25, 0.0, 1.0, 1.0, 0.0];
     let state = make_test_state(1);
     let next_state = make_test_state(1);
@@ -237,7 +237,7 @@ fn test_g3_degraded_to_recovery_reward_increases() {
     // Phase 1: 10 cycles at health=3 (Critical) — degraded environment.
     // Phase 2: 10 cycles transitioning health=3→2→1→0 — recovery environment.
     // Assert: mean reward in Phase 2 > mean reward in Phase 1.
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new_with_seed(42);
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new_with_seed(42);
     let features = [0.1, 0.2, 0.3, 0.25, 0.0, 1.0, 1.0, 0.0];
 
     // Phase 1: degraded (health stays at 3)
@@ -411,7 +411,7 @@ fn test_mape_k_chain_degraded_health_drives_non_continue_actions() {
     // produce at least one non-Continue action over 30 cycles.
     // This proves the full loop: Protection alerts → RL reward → Action dispatch.
 
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new_with_seed(42);
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new_with_seed(42);
     // High spc_alert_level (feature[5] = 1.0), degraded health, circuit open (feature[4] = 0.0)
     let features = [0.8, 0.5, 0.3, 0.75, 0.0, 1.0, 0.5, 0.0];
     let critical = make_test_state(3); // Critical health
@@ -496,7 +496,7 @@ fn snapshot_spc_shift_causes_debug_format() {
 fn snapshot_orchestrator_telemetry_after_10_cycles() {
     // Snapshot RL orchestrator telemetry structure after 10 deterministic cycles.
     // Catches any change to telemetry fields, reward formula, or cycle_count tracking.
-    let mut orch = wasm4pm::rl_orchestrator::RlOrchestrator::new_with_seed(42);
+    let mut orch = truex_kernel::rl_orchestrator::RlOrchestrator::new_with_seed(42);
     let features = [0.2, 0.3, 0.2, 0.25, 1.0, 0.0, 0.5, 0.01];
     let healthy = make_test_state(0);
     let still_healthy = make_test_state(0);

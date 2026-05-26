@@ -25,4 +25,4 @@ BitActor refuses a message if:
 
 ## 5. Implementation Path
 
-Porting of the `vendors/ReactiveMessagingPatterns_ActorModel` patterns to Rust and integration with `wasm4pm`.
+Porting of the `vendors/ReactiveMessagingPatterns_ActorModel` patterns to Rust and integration with `truex-kernel`.

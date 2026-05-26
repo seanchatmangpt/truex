@@ -8,7 +8,7 @@ Successfully implemented dynamic YAWL pattern selection to replace the hardcoded
 
 ### 1. Created Pattern Analysis Module
 
-**File:** `wasm4pm/src/pattern_analysis.rs` (new file, 339 lines)
+**File:** `truex-kernel/src/pattern_analysis.rs` (new file, 339 lines)
 
 **Key Components:**
 
@@ -40,7 +40,7 @@ Successfully implemented dynamic YAWL pattern selection to replace the hardcoded
 
 ### 2. Integrated into Autonomic Cycle
 
-**File:** `wasm4pm/src/lib.rs`
+**File:** `truex-kernel/src/lib.rs`
 
 **Module Declaration:**
 
@@ -145,8 +145,8 @@ The pattern analysis module is complete and integrated. The autonomic cycle now 
 
 ## Files Modified
 
-- `wasm4pm/src/pattern_analysis.rs` (created)
-- `wasm4pm/src/lib.rs` (module declaration + integration)
+- `truex-kernel/src/pattern_analysis.rs` (created)
+- `truex-kernel/src/lib.rs` (module declaration + integration)
 
 ## Time Taken
 

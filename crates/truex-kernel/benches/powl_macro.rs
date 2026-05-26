@@ -1,5 +1,5 @@
 use criterion::{criterion_group, criterion_main, Criterion};
-use wasm4pm_macros::powl_activity;
+use truex_kernel_macros::powl_activity;
 
 #[powl_activity(activity = "bench.step")]
 fn instrumented_step() -> u32 {

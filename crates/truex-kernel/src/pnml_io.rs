@@ -1,7 +1,7 @@
-//! PNML (Petri Net Markup Language) import/export for wasm4pm.
+//! PNML (Petri Net Markup Language) import/export for truex_kernel.
 //!
 //! Supports the PNML standard for exchanging Petri nets between tools.
-//! Uses `roxmltree` for XML parsing (consistent with the rest of wasm4pm).
+//! Uses `roxmltree` for XML parsing (consistent with the rest of truex_kernel).
 //!
 //! # Public API
 //!

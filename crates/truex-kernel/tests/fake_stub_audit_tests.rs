@@ -1,4 +1,4 @@
-//! Fake/stub audit tests for wasm4pm v26.5.21.
+//! Fake/stub audit tests for truex_kernel v26.5.21.
 //!
 //! These tests verify that known fake/stub surfaces have been correctly remediated:
 //!   - ensemble.rs: renamed ensemble_discover → dfg_threshold_sweep
@@ -15,7 +15,7 @@
 fn test_dfg_threshold_sweep_is_pure_rust_dfg_stub() {
     // Verifies that the DFG threshold sweep (formerly ensemble_discover) works
     // purely on event log data with no external ML model dependency.
-    use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
+    use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
     use std::collections::{HashMap, HashSet};
 
     let mut log = EventLog::new();
@@ -54,17 +54,17 @@ fn test_ensemble_module_no_longer_exposes_ensemble_discover_symbol() {
     // new name (compile-time check via use statement).
     // NOTE: If this test FAILS TO COMPILE, the rename in ensemble.rs has not been applied.
     #[allow(unused_imports)]
-    use wasm4pm::ensemble::dfg_threshold_sweep;
+    use truex_kernel::ensemble::dfg_threshold_sweep;
     // If we can import dfg_threshold_sweep, the rename succeeded.
-    assert!(true, "dfg_threshold_sweep exists in wasm4pm::ensemble");
+    assert!(true, "dfg_threshold_sweep exists in truex_kernel::ensemble");
 }
 
 // ── Category B: Gate Validator Isolation ─────────────────────────────────────
 
 #[cfg(feature = "poc_gate_validator")]
 mod gate_validator_tests {
-    use wasm4pm::gate_validator::UnverifiedRun;
-    use wasm4pm::proof_gate_registry::ProofGate;
+    use truex_kernel::gate_validator::UnverifiedRun;
+    use truex_kernel::proof_gate_registry::ProofGate;
 
     #[test]
     fn test_gate_validator_lifecycle_with_poc_feature() {
@@ -106,7 +106,7 @@ mod gate_validator_tests {
             is created, it must return Err/None/Refused — never a constant 0.3 confidence."]
 fn test_evaluate_automl_layer_returns_refused_when_model_unavailable() {
     // When implemented, this should pass:
-    // use wasm4pm::automembrane::evaluate_automl_layer;
+    // use truex_kernel::automembrane::evaluate_automl_layer;
     // let result = evaluate_automl_layer("no_model", "concept:name");
     // assert!(result.is_err() || matches!(result, Ok(None)),
     //     "Expected Refused/None when model unavailable, got: {:?}", result);
@@ -119,28 +119,28 @@ fn test_evaluate_automl_layer_returns_refused_when_model_unavailable() {
 fn test_wasm_dts_file_exists() {
     use std::path::Path;
     let manifest_dir = env!("CARGO_MANIFEST_DIR");
-    let dts_path = Path::new(manifest_dir).join("pkg").join("wasm4pm.d.ts");
+    let dts_path = Path::new(manifest_dir).join("pkg").join("truex_kernel.d.ts");
     if !dts_path.exists() {
-        println!("SKIP: pkg/wasm4pm.d.ts not found — run 'wasm-pack build' to generate WASM package");
+        println!("SKIP: pkg/truex_kernel.d.ts not found — run 'wasm-pack build' to generate WASM package");
         return;
     }
-    assert!(dts_path.is_file(), "pkg/wasm4pm.d.ts must be a file");
+    assert!(dts_path.is_file(), "pkg/truex_kernel.d.ts must be a file");
 }
 
 #[test]
 fn test_wasm_dts_contains_streaming_exports() {
     use std::path::Path;
     let manifest_dir = env!("CARGO_MANIFEST_DIR");
-    let dts_path = Path::new(manifest_dir).join("pkg").join("wasm4pm.d.ts");
+    let dts_path = Path::new(manifest_dir).join("pkg").join("truex_kernel.d.ts");
     if !dts_path.exists() {
-        println!("SKIP: pkg/wasm4pm.d.ts not found");
+        println!("SKIP: pkg/truex_kernel.d.ts not found");
         return;
     }
     let content = std::fs::read_to_string(&dts_path)
-        .expect("Failed to read pkg/wasm4pm.d.ts");
+        .expect("Failed to read pkg/truex_kernel.d.ts");
     assert!(
         content.contains("streaming_dfg_begin"),
-        "Expected 'streaming_dfg_begin' in pkg/wasm4pm.d.ts"
+        "Expected 'streaming_dfg_begin' in pkg/truex_kernel.d.ts"
     );
 }
 
@@ -148,20 +148,20 @@ fn test_wasm_dts_contains_streaming_exports() {
 fn test_wasm_dts_contains_bottleneck_and_infrequent_functions() {
     use std::path::Path;
     let manifest_dir = env!("CARGO_MANIFEST_DIR");
-    let dts_path = Path::new(manifest_dir).join("pkg").join("wasm4pm.d.ts");
+    let dts_path = Path::new(manifest_dir).join("pkg").join("truex_kernel.d.ts");
     if !dts_path.exists() {
-        println!("SKIP: pkg/wasm4pm.d.ts not found");
+        println!("SKIP: pkg/truex_kernel.d.ts not found");
         return;
     }
     let content = std::fs::read_to_string(&dts_path)
-        .expect("Failed to read pkg/wasm4pm.d.ts");
+        .expect("Failed to read pkg/truex_kernel.d.ts");
     assert!(
         content.contains("detect_bottlenecks"),
-        "Expected 'detect_bottlenecks' in pkg/wasm4pm.d.ts"
+        "Expected 'detect_bottlenecks' in pkg/truex_kernel.d.ts"
     );
     assert!(
         content.contains("analyze_infrequent_paths"),
-        "Expected 'analyze_infrequent_paths' in pkg/wasm4pm.d.ts"
+        "Expected 'analyze_infrequent_paths' in pkg/truex_kernel.d.ts"
     );
 }
 }

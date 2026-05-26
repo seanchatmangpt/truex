@@ -14,7 +14,7 @@
 ---
 
 ## 2. ORIGINAL PURPOSE
-Process mining typically occurs post-hoc in batch data lakes using Python (e.g., pm4py). This architectural contradiction meant organizations only discovered compliance violations *after* the damage was done. `wasm4pm` was created to compress heavy process mining algorithms into a WebAssembly substrate so they could run synchronously at the edge, blocking unlawful transitions in real-time.
+Process mining typically occurs post-hoc in batch data lakes using Python (e.g., pm4py). This architectural contradiction meant organizations only discovered compliance violations *after* the damage was done. `truex-kernel` was created to compress heavy process mining algorithms into a WebAssembly substrate so they could run synchronously at the edge, blocking unlawful transitions in real-time.
 
 ---
 
@@ -31,7 +31,7 @@ Process mining typically occurs post-hoc in batch data lakes using Python (e.g.,
 
 ## 4. TRUEX EXECUTION ROLE
 `Closure → Admission → Conformance → Supervision`
-`wasm4pm` is the brain of the Truex system. It receives OCEL streams from the membrane (`proxyable`), evaluates them against the compiled POWL models, and returns an immediate admission or refusal.
+`truex-kernel` is the brain of the Truex system. It receives OCEL streams from the membrane (`proxyable`), evaluates them against the compiled POWL models, and returns an immediate admission or refusal.
 
 ---
 
@@ -50,7 +50,7 @@ Process mining typically occurs post-hoc in batch data lakes using Python (e.g.,
 ---
 
 ## 7. TRUEX REBRAND MAPPING
-*   `wasm4pm` → `truex-kernel`
+*   `truex-kernel` → `truex-kernel`
 *   `pm4wasm` → `@truex/process-intelligence`
 
 ---

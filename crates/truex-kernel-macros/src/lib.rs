@@ -4,7 +4,7 @@
 //! # Usage
 //!
 //! ```rust,ignore
-//! use wasm4pm_macros::{powl_test, powl_activity};
+//! use truex_kernel_macros::{powl_test, powl_activity};
 //!
 //! #[powl_test(
 //!     route = "my-route",
@@ -25,7 +25,7 @@
 //! and calls `h.finish()` after the body runs — panicking on any AndonPull.
 //! Use `expect_refusal = "AndonVariant"` to assert a specific AndonPull fires.
 //!
-//! `#[powl_activity]` prepends a `wasm4pm::testing::record_activity("...")` call.
+//! `#[powl_activity]` prepends a `truex_kernel::testing::record_activity("...")` call.
 
 use proc_macro::TokenStream;
 use proc_macro2::Span;
@@ -117,7 +117,7 @@ impl Parse for PowlActivityArgs {
 /// - `exact` — ignored (all admitted tests require exact conformance)
 /// - `expect_refusal` — assert a specific [`AndonPull`] variant fires
 ///
-/// [`AndonPull`]: wasm4pm::testing::AndonPull
+/// [`AndonPull`]: truex_kernel::testing::AndonPull
 #[proc_macro_attribute]
 pub fn powl_test(attr: TokenStream, item: TokenStream) -> TokenStream {
     let args = parse_macro_input!(attr as PowlTestArgs);
@@ -134,8 +134,8 @@ pub fn powl_test(attr: TokenStream, item: TokenStream) -> TokenStream {
             quote! {
                 assert_eq!(
                     __verdict,
-                    wasm4pm::testing::ConformanceVerdict::Andon(
-                        wasm4pm::testing::AndonPull::#refusal_ident
+                    truex_kernel::testing::ConformanceVerdict::Andon(
+                        truex_kernel::testing::AndonPull::#refusal_ident
                     ),
                     concat!(
                         "route '", #route,
@@ -161,12 +161,12 @@ pub fn powl_test(attr: TokenStream, item: TokenStream) -> TokenStream {
 
     // Expand the model path relative to CARGO_MANIFEST_DIR of the calling crate.
     // concat! is evaluated at compile time in the consumer crate, so CARGO_MANIFEST_DIR
-    // resolves to the package root of the crate being compiled (not wasm4pm-macros).
+    // resolves to the package root of the crate being compiled (not truex_kernel-macros).
     quote! {
         #[test]
         fn #fn_name() {
             let __model_path = concat!(env!("CARGO_MANIFEST_DIR"), "/", #model_path);
-            let mut h = wasm4pm::testing::PowlTestHarness::new(#route)
+            let mut h = truex_kernel::testing::PowlTestHarness::new(#route)
                 .model(__model_path);
             #fn_body
             let __verdict = h.finish();
@@ -180,7 +180,7 @@ pub fn powl_test(attr: TokenStream, item: TokenStream) -> TokenStream {
 // #[powl_activity]
 // ─────────────────────────────────────────────────────────────────────────────
 
-/// Prepends a `wasm4pm::testing::record_activity("...")` call to the function.
+/// Prepends a `truex_kernel::testing::record_activity("...")` call to the function.
 ///
 /// The call is a no-op in production builds (inlined away). Under
 /// `cfg(any(test, feature = "powl-test"))` it records the activity in the
@@ -206,7 +206,7 @@ pub fn powl_activity(attr: TokenStream, item: TokenStream) -> TokenStream {
     quote! {
         #(#fn_attrs)*
         #fn_vis #fn_sig {
-            wasm4pm::testing::record_activity(#activity);
+            truex_kernel::testing::record_activity(#activity);
             #fn_body
         }
     }

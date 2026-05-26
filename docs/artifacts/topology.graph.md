@@ -1,6 +1,6 @@
 # Antigravity Artifact: Topology.graph
 
-> **Generated:** 2026-05-25T18:57:23.645Z
+> **Generated:** 2026-05-26T05:19:54.158Z
 > **Version:** 2.0.0
 
 ## Data Summary
@@ -8,7 +8,7 @@
 ```json
 {
   "version": "2.0.0",
-  "graphHash": "42dc26cf26ceeef5102286b86e85041565826eafaa418c8ff45ed969c8ad511f",
+  "graphHash": "252da7bd5f6af25a32b50d24f41d13dd57aac2400df3ca78373893fe530fbb45",
   "nodes": [
     {
       "id": "agents/swarm-auditor.ts",
@@ -170,7 +170,7 @@
       "type": "Test",
       "layer": "Verification",
       "dependencies": [
-        "packages/kernel-wasm/pkg/wasm4pm/index.ts",
+        "packages/kernel-wasm/pkg/truex_kernel/index.ts",
         "packages/membrane/src/concurrency/wasm-worker-pool.ts",
         "packages/membrane/src/concurrency/truex-wasm-bridge.ts/index.ts"
       ],
@@ -363,6 +363,56 @@
       "provedBy": [
         "scripts/docs/verify-doctests.ts"
       ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/innovations-benchmarks/cognition.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/innovations-benchmarks/geometry.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/innovations-benchmarks/membrane.ts",
+      "type": "Integration",
+      "layer": "S2",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/innovations-benchmarks/physics.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "scripts/innovations-benchmarks/semantic-bit.ts",
+      "type": "Unknown",
+      "layer": "Unmapped",
+      "dependencies": [],
+      "provedBy": [],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
       ]
@@ -1186,18 +1236,20 @@
     },
     {
       "id": "packages/membrane/src/hook-otp.gall.ts",
-      "type": "Integration",
-      "layer": "S2",
+      "type": "Persistence",
+      "layer": "S3",
       "dependencies": [
         "packages/membrane/src/runtime-law.ts",
         "packages/membrane/src/runtime-law.ts",
         "packages/membrane/src/context.ts",
-        "packages/membrane/src/index.ts"
+        "packages/membrane/src/hash.ts",
+        "packages/membrane/src/receipt.ts"
       ],
       "provedBy": [
         "packages/membrane/test/hook-otp/hook-otp-mailbox-breakpoint.test.ts",
         "packages/membrane/test/hook-otp/hook-otp-mailbox.test.ts",
         "packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts",
+        "packages/membrane/test/hook-otp/hook-otp-persistence.test.ts",
         "packages/membrane/test/hook-otp/hook-otp-receipt-replay.test.ts",
         "packages/membrane/test/hook-otp/hook-otp-replay-topology-breakpoint.test.ts",
         "packages/membrane/test/hook-otp/hook-otp-runtime.test.ts",
@@ -2499,7 +2551,7 @@
       "type": "Integration",
       "layer": "S2",
       "dependencies": [
-        "packages/kernel-wasm/pkg/wasm4pm/index.ts"
+        "packages/kernel-wasm/pkg/truex_kernel/index.ts"
       ],
       "provedBy": [],
       "documentedBy": [
@@ -3408,6 +3460,20 @@
       ],
       "provedBy": [
         "packages/membrane/test/hook-otp/hook-otp-nonmockable-stress.test.ts"
+      ],
+      "documentedBy": [
+        "scripts/observatory/lib/emit-topology-graph.ts"
+      ]
+    },
+    {
+      "id": "packages/membrane/test/hook-otp/hook-otp-persistence.test.ts",
+      "type": "Test",
+      "layer": "Verification",
+      "dependencies": [
+        "packages/membrane/src/hook-otp.gall.ts"
+      ],
+      "provedBy": [
+        "packages/membrane/test/hook-otp/hook-otp-persistence.test.ts"
       ],
       "documentedBy": [
         "scripts/observatory/lib/emit-topology-graph.ts"
@@ -4647,7 +4713,7 @@
         "packages/membrane/src/hash.ts",
         "packages/membrane/src/context.ts",
         "packages/membrane/src/receipt.ts",
-        "packages/kernel-wasm/pkg/wasm4pm/index.ts"
+        "packages/kernel-wasm/pkg/truex_kernel/index.ts"
       ],
       "provedBy": [
         "packages/membrane/test/validation/conformance-fuzz.property.test.ts"
@@ -4708,7 +4774,7 @@
   "_metadata": {
     "emitter": "Topology Graph Emitter",
     "description": "Live AST-grounded graph of the Truex operational ontology",
-    "timestamp": "2026-05-25T18:57:23.645Z"
+    "timestamp": "2026-05-26T05:19:54.158Z"
   }
 }
 ```

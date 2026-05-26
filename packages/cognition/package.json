@@ -1,6 +1,6 @@
 {
   "name": "@truex/cognition",
-  "version": "26.5.21",
+  "version": "26.5.25-CONVERGED",
   "description": "Old-AI cognition kernel for AutoSystems: frames, rules, constraints, search, scoring, verify, receipt, contract",
   "type": "module",
   "main": "./dist/index.js",

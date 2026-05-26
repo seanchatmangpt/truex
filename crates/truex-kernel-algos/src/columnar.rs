@@ -1,4 +1,4 @@
-//! Columnar encoding helpers — eliminate the 43-occurrence boilerplate in wasm4pm.
+//! Columnar encoding helpers — eliminate the 43-occurrence boilerplate in truex_kernel.
 //!
 //! All discovery algorithms share the same three operations:
 //!   1. Encode activities as u32 IDs and count edges  (`build_edge_counts`)
@@ -9,7 +9,7 @@
 //! to `bcinr::api::bitset::jaccard_u64_slices` for constant-latency execution.
 
 use hashbrown::HashMap;
-use wasm4pm_types::{AttributeValue, DFGEdge, EventLog};
+use truex_kernel_types::{AttributeValue, DFGEdge, EventLog};
 
 /// Result of encoding an event log into columnar (integer-keyed) form.
 pub struct ColumnarEdgeCounts {
@@ -150,7 +150,7 @@ pub fn jaccard_similarity(a: &[u64], b: &[u64]) -> f32 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use wasm4pm_types::{Event, EventLog, Trace};
+    use truex_kernel_types::{Event, EventLog, Trace};
 
     fn make_log(traces: Vec<Vec<&str>>) -> EventLog {
         let traces = traces

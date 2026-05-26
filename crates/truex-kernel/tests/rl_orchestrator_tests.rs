@@ -3,9 +3,9 @@
 //! Algorithm family: Reinforcement Learning
 //! Modules tested: rl_orchestrator (RlOrchestrator, AgentType, CycleTelemetry, compute_reward)
 
-use wasm4pm::rl_orchestrator::{compute_reward, AgentType, CycleTelemetry, RlOrchestrator};
-use wasm4pm::RlAction;
-use wasm4pm::RlState;
+use truex_kernel::rl_orchestrator::{compute_reward, AgentType, CycleTelemetry, RlOrchestrator};
+use truex_kernel::RlAction;
+use truex_kernel::RlState;
 
 /// Helper to create test RlState with reasonable defaults
 fn make_test_state(health_level: u8) -> RlState {
@@ -273,7 +273,7 @@ fn test_run_cycle_with_linucb_selection() {
 #[test]
 fn test_create_rl_state_direct() {
     // Test direct construction with all 8 fields
-    let state = wasm4pm::create_rl_state(
+    let state = truex_kernel::create_rl_state(
         2, // health_level: Degraded
         3, // event_rate_q
         4, // activity_count_q
@@ -297,10 +297,10 @@ fn test_create_rl_state_direct() {
 #[test]
 fn test_create_rl_state_bounds() {
     // Test boundary values
-    let min_state = wasm4pm::create_rl_state(0, 0, 0, 0, 0, 0, 0, 0);
+    let min_state = truex_kernel::create_rl_state(0, 0, 0, 0, 0, 0, 0, 0);
     assert_eq!(min_state.health_level, 0);
 
-    let max_state = wasm4pm::create_rl_state(4, 7, 7, 3, 2, 7, 2, 3);
+    let max_state = truex_kernel::create_rl_state(4, 7, 7, 3, 2, 7, 2, 3);
     assert_eq!(max_state.health_level, 4);
 }
 
@@ -308,7 +308,7 @@ fn test_create_rl_state_bounds() {
 fn test_rl_state_from_features_slice() {
     // Test construction from feature slice
     let features = vec![0.1f32, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
-    let state = wasm4pm::rl_state_from_features(&features, 1, 0.0); // health_level = Warning, rework_ratio = 0.0
+    let state = truex_kernel::rl_state_from_features(&features, 1, 0.0); // health_level = Warning, rework_ratio = 0.0
 
     // Should quantize features appropriately
     assert_eq!(state.health_level, 1);
@@ -322,7 +322,7 @@ fn test_rl_state_from_features_slice() {
 fn test_rl_state_from_features_short_slice() {
     // Test with fewer than 8 features (should pad with zeros)
     let features = vec![0.5f32, 0.5]; // Only 2 features
-    let state = wasm4pm::rl_state_from_features(&features, 0, 0.0); // health_level = Normal, rework_ratio = 0.0
+    let state = truex_kernel::rl_state_from_features(&features, 0, 0.0); // health_level = Normal, rework_ratio = 0.0
 
     assert_eq!(state.health_level, 0);
     // event_rate_q quantizes 0.5 * 10000 = 5000 events → level 5
@@ -333,12 +333,12 @@ fn test_rl_state_from_features_short_slice() {
 
 #[test]
 fn test_rl_state_health_level_getter() {
-    let state = wasm4pm::create_rl_state(
+    let state = truex_kernel::create_rl_state(
         3, // health_level: Critical
         0, 0, 0, 0, 0, 0, 0, // other fields irrelevant
     );
 
-    let health = wasm4pm::rl_state_health_level(&state);
+    let health = truex_kernel::rl_state_health_level(&state);
     assert_eq!(health, 3);
 }
 
@@ -348,14 +348,14 @@ fn test_rl_state_roundtrip() {
     let features = vec![0.8f32, 0.1, 0.9, 0.2, 0.0, 0.1, 0.3, 0.05];
     let original_health = 2; // Degraded
 
-    let state1 = wasm4pm::rl_state_from_features(&features, original_health, 0.0);
-    let extracted_health = wasm4pm::rl_state_health_level(&state1);
+    let state1 = truex_kernel::rl_state_from_features(&features, original_health, 0.0);
+    let extracted_health = truex_kernel::rl_state_health_level(&state1);
 
     assert_eq!(extracted_health, original_health);
 
     // Create a new state with the same health_level
-    let state2 = wasm4pm::create_rl_state(extracted_health, 0, 0, 0, 0, 0, 0, 0);
-    assert_eq!(wasm4pm::rl_state_health_level(&state2), original_health);
+    let state2 = truex_kernel::create_rl_state(extracted_health, 0, 0, 0, 0, 0, 0, 0);
+    assert_eq!(truex_kernel::rl_state_health_level(&state2), original_health);
 }
 
 // ---------------------------------------------------------------------------
@@ -714,11 +714,11 @@ fn test_restore_all_q_tables_all_invalid() {
 
     // Create a list of tables with all invalid agent_type values
     let invalid_tables = vec![
-        wasm4pm::rl_state_serialization::SerializedAgentQTable {
+        truex_kernel::rl_state_serialization::SerializedAgentQTable {
             agent_type: 5u8,
             state_values: Default::default(),
         },
-        wasm4pm::rl_state_serialization::SerializedAgentQTable {
+        truex_kernel::rl_state_serialization::SerializedAgentQTable {
             agent_type: 10u8,
             state_values: Default::default(),
         },

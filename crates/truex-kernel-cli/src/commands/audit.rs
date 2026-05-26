@@ -1,12 +1,12 @@
 use anyhow::{Context, Result};
 use colored::Colorize;
-use wasm4pm_cli::io::{Io, Table};
+use truex_kernel_cli::io::{Io, Table};
 use serde_json::Value;
 use std::fs;
 use std::path::PathBuf;
-use wasm4pm::simd_token_replay;
-use wasm4pm::state::delete_object;
-use wasm4pm::xes_format::load_eventlog_from_xes;
+use truex_kernel::simd_token_replay;
+use truex_kernel::state::delete_object;
+use truex_kernel::xes_format::load_eventlog_from_xes;
 
 pub fn run(input: PathBuf, activity_key: String) -> Result<()> {
     let io = Io::new(false);
@@ -15,7 +15,7 @@ pub fn run(input: PathBuf, activity_key: String) -> Result<()> {
     let xes_content = fs::read_to_string(&input)
         .with_context(|| format!("Failed to read event log: {:?}", input))?;
 
-    // 2. Load into wasm4pm state
+    // 2. Load into truex_kernel state
     let log_handle = load_eventlog_from_xes(&xes_content)
         .map_err(|_| anyhow::anyhow!("Failed to load event log into WASM state"))?;
 

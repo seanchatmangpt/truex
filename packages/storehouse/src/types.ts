@@ -66,6 +66,14 @@ export interface StorehouseReceipt {
  */
 export type ValidMotion = Provision | StorehouseReceipt;
 
+/**
+ * StorehouseContext represents the operational context for stewardship.
+ */
+export type StorehouseContext = {
+  readonly runId: string;
+  readonly traceId: string;
+};
+
 // We use a unique symbol to ensure that only valid motions can be processed.
 const MotionBrand = Symbol('MotionBrand');
 

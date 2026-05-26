@@ -15,7 +15,7 @@ import {
 import { SupabaseIntegrationError, type SupabaseIntegrationConfig } from './config.js';
 import { ingestTruexEnvelope, parseTruexEnvelope } from './truex-ingest.js';
 
-export const DEFAULT_RUNTIME_RECEIPT_PATH = '.wasm4pm/receipts/supabase_runtime.receipt.json';
+export const DEFAULT_RUNTIME_RECEIPT_PATH = '.truex/receipts/supabase_runtime.receipt.json';
 
 export type SupabaseDoctorStatus = 'prepublish_only' | 'configured' | 'live_verified';
 

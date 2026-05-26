@@ -59,7 +59,7 @@ You can't test a highly complex, multi-agent operational workflow in production.
 
 ## 9. RELATION TO OTHER TRUEX PROJECTS
 *   **Upstream:** Consumes `ggen` output and `proxyable` replay logs.
-*   **Downstream:** Feeds insights back into `wasm4pm` to update the POWL models.
+*   **Downstream:** Feeds insights back into `truex-kernel` to update the POWL models.
 
 ---
 

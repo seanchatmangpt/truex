@@ -5,8 +5,8 @@
 //! (the same FM-5 trap PR #53 fixed for combine_cf).
 
 use std::collections::HashSet;
-use wasm4pm_cognition::breeds::cbr::jaccard;
-use wasm4pm_cognition::breeds::hearsay::noisy_or;
+use truex_kernel_cognition::breeds::cbr::jaccard;
+use truex_kernel_cognition::breeds::hearsay::noisy_or;
 
 fn set_of(items: &[&str]) -> HashSet<String> {
     items.iter().map(|s| s.to_string()).collect()

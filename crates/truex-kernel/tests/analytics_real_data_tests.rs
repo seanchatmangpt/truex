@@ -12,11 +12,11 @@
 
 use std::collections::HashMap;
 use std::fs;
-use wasm4pm::models::{AttributeValue, Event, EventLog, Trace};
-use wasm4pm::prediction_additions::{
+use truex_kernel::models::{AttributeValue, Event, EventLog, Trace};
+use truex_kernel::prediction_additions::{
     boundary_coverage, calculate_rework_score, extract_prefix_features,
 };
-use wasm4pm::prediction_drift::{classify_trend, ewma_series};
+use truex_kernel::prediction_drift::{classify_trend, ewma_series};
 
 // ---------------------------------------------------------------------------
 // Inline XES parser

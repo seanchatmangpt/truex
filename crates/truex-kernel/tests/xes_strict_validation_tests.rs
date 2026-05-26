@@ -2,7 +2,7 @@
 ///
 /// These tests verify that the XES parser rejects malformed/unclosed tags
 /// with clear error messages instead of silently accepting them.
-use wasm4pm::xes_format::validate_and_parse_xes;
+use truex_kernel::xes_format::validate_and_parse_xes;
 
 // ============================================================================
 // Test 1: Valid XES file should parse successfully

@@ -24,7 +24,7 @@ The Truex stack represents a complete vertical integration of digital authority,
 *   **BitStar (Quantum Consensus):** The gossip-sync protocol for federated networks. It ensures that a BLAKE3 receipt minted on an edge node in Tokyo is mathematically proven and legally recognized by a node in London without a central authority.
 
 ### Tier 1: Process Geometry & Concurrency
-*   **wasm4pm (The Truex VM):** The Tier 0 Rust/WASM kernel. It industrializes the cost floor by executing process mining and geometric workflow algorithms at C-level speeds with zero cold-starts.
+*   **truex-kernel (The Truex VM):** The Tier 0 Rust/WASM kernel. It industrializes the cost floor by executing process mining and geometric workflow algorithms at C-level speeds with zero cold-starts.
 *   **BitActor (Isolation Substrate):** A lock-free, zero-variance actor model. Every agent and project cell operates in an isolated memory arena. State transitions occur via asynchronous mailbox exchanges, sequentially settled by the Kernel.
 *   **POWL v2 (The Governor):** Partially Ordered Workflow Language. It replaces linear arrays with mathematical graph-based partial ordering, natively supporting concurrency (AND), choices (XOR), and loops (`*`).
 *   **PICTL (Soundness Validator):** Static analysis engine that verifies POWL graphs for deadlocks, infinite loops, and liveness before they are frozen as law.

@@ -6,10 +6,10 @@
  */
 import { describe, it, expect, vi } from 'vitest';
 
-// Mock thewasm4pm WASM artifact so tests run without a compiled binary.
+// Mock thetruex-kernel WASM artifact so tests run without a compiled binary.
 // The mcp_integration tests only validate tool registration and schema structure,
 // not WASM execution, so an empty stub is sufficient.
-vi.mock('../pkg/wasm4pm.js', () => ({}));
+vi.mock('../pkg/truex_kernel.js', () => ({}));
 
 import { Wasm4pmMCPServer } from '../src/mcp_server.js';
 

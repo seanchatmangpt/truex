@@ -1,6 +1,6 @@
 use anyhow::Result;
 use clap::Subcommand;
-use wasm4pm_cli::config::Config;
+use truex_kernel_cli::config::Config;
 
 #[derive(Subcommand, Debug)]
 pub enum ConfigArgs {

@@ -6,7 +6,7 @@
 //! - Distribution histogram accuracy
 //! - Saturation behavior at 100-action limit
 
-use wasm4pm::{RlAction, rl_orchestrator::ActionHistory};
+use truex_kernel::{RlAction, rl_orchestrator::ActionHistory};
 
 /// Test 1: Rolling window FIFO semantics
 /// Verifies that recording >100 actions triggers FIFO eviction.

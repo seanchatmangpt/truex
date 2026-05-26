@@ -1,4 +1,4 @@
-// wasm4pm – High-Performance Process Mining in WebAssembly
+// truex_kernel – High-Performance Process Mining in WebAssembly
 // Copyright (C) 2024 Process Intelligence Solutions
 //
 // Licensed under the Apache License, Version 2.0 (the "License");

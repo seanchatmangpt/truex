@@ -1365,7 +1365,7 @@ describe('L08 — Marketplace publish slot contract: all 3 required slots (Rank 
 
   it('L08d: wasm4pm binary path + adversary audit satisfies all 3 required slots', () => {
     const filled: Record<string, string> = {
-      wasm_blob_ref:       '@truex/kernel-wasm/pkg/wasm4pm_bg.wasm',
+      wasm_blob_ref:       '@truex/kernel-wasm/pkg/truex_kernel_bg.wasm',
       manifest_path:       'schemas/manifest/wasm4pm-browser.manifest.json',
       adversary_audit_ref: 'target/audits/adversarial-proof-lifecycle.json',
     };
@@ -1382,7 +1382,7 @@ describe('L08 — Marketplace publish slot contract: all 3 required slots (Rank 
 
   it('L08f: missing adversary_audit_ref is detected as an unfilled required slot', () => {
     const filled: Record<string, string> = {
-      wasm_blob_ref: '@truex/kernel-wasm/pkg/wasm4pm_bg.wasm',
+      wasm_blob_ref: '@truex/kernel-wasm/pkg/truex_kernel_bg.wasm',
       manifest_path: 'schemas/manifest/wasm4pm.manifest.json',
       // adversary_audit_ref absent
     };
@@ -1394,7 +1394,7 @@ describe('L09 — Marketplace publish: completion and refusal conditions (Rank 2
   it('L09a: completion condition requires all 3 slots filled (allRequiredSlotsFilled)', () => {
     // mcpp:allRequiredSlotsFilled is the gating condition from the JTBD kernel.
     const filled: Record<string, string> = {
-      wasm_blob_ref:       '@truex/kernel-wasm/pkg/wasm4pm_bg.wasm',
+      wasm_blob_ref:       '@truex/kernel-wasm/pkg/truex_kernel_bg.wasm',
       manifest_path:       'schemas/manifest/wasm4pm.manifest.json',
       adversary_audit_ref: 'target/audits/audit.json',
     };
@@ -1405,7 +1405,7 @@ describe('L09 — Marketplace publish: completion and refusal conditions (Rank 2
 
   it('L09b: partial fill (2/3 slots) does NOT satisfy the completion condition', () => {
     const filled: Record<string, string> = {
-      wasm_blob_ref: '@truex/kernel-wasm/pkg/wasm4pm_bg.wasm',
+      wasm_blob_ref: '@truex/kernel-wasm/pkg/truex_kernel_bg.wasm',
       manifest_path: 'schemas/manifest/wasm4pm.manifest.json',
       // adversary_audit_ref absent — JTBD reassembly would prompt for it
     };

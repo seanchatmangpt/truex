@@ -77,7 +77,7 @@ pub fn discover_heuristic_miner(
     dependency_threshold: f64,
 ) -> Result<JsValue, JsValue> {
     tracing::info!(
-        target: "wasm4pm.discovery.heuristic_miner",
+        target: "truex_kernel.discovery.heuristic_miner",
         algorithm = "heuristic_miner",
         activity_key = activity_key,
         dependency_threshold = dependency_threshold,
@@ -87,7 +87,7 @@ pub fn discover_heuristic_miner(
     let log = get_or_init_state().with_object(eventlog_handle, |obj| match obj {
         Some(StoredObject::EventLog(log)) => {
             tracing::info!(
-                target: "wasm4pm.discovery.heuristic_miner",
+                target: "truex_kernel.discovery.heuristic_miner",
                 checkpoint = "feature_extraction",
                 log_size = log.traces.len(),
                 activity_count = log.get_activities(activity_key).len(),
@@ -104,7 +104,7 @@ pub fn discover_heuristic_miner(
     let n_edges = dfg.edges.len();
 
     tracing::info!(
-        target: "wasm4pm.discovery.heuristic_miner",
+        target: "truex_kernel.discovery.heuristic_miner",
         checkpoint = "result_generation",
         node_count = n_nodes,
         edge_count = n_edges,

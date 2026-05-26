@@ -5,7 +5,7 @@
  * artifacts (receipts, models, reports, snapshots) from wasm4pm.
  */
 
-import { Result } from './result.js';
+import type { Result } from './result.js';
 
 /**
  * Artifact types that sinks must support
