@@ -1,0 +1,13 @@
+[package]
+name = "insa-replaw"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+description = "The 8 Vow - Sealed Typestate boundary for perfection and closure conditions."
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"], optional = true }
+
+[features]
+default = []
+serde = ["dep:serde"]

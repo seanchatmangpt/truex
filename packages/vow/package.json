@@ -1,0 +1,20 @@
+{
+  "name": "@truex/vow",
+  "version": "26.5.25-CONVERGED",
+  "description": "The 8 Vow - Absolute Closure Membrane for TrueX",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@truex/membrane": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vitest": "^1.1.0"
+  },
+  "author": "Sean Chatman",
+  "license": "SEE LICENSE IN LICENSE"
+}

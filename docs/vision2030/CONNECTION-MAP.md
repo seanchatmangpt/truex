@@ -14,6 +14,7 @@ This map provides the physical and logical links between every component in the 
 | **Tier 5** | **Manufacturing** | `GGEN`, `SOS`, `A2A` | [Report](./project-status/A2A.md) | Swarm Coordination & Simulation |
 | **Tier 4** | **Execution** | `AntigravityCLI`, `ERLMCP` | [Report](./project-status/AntigravityCLI.md) | AI-to-Metal Interface & Routing |
 | **Tier 3** | **Environment** | `UNRDF`, `UVMGR`, `CLNRM` | [Report](./project-status/UNRDF.md) | Ontological Law & Isolation |
+| **Tier 2.5**| **Absolute Closure**| `insa-replaw`, `@truex/vow`| [Report](./project-status/8-vow.md) | The 8 Vow (Source Trust) |
 | **Tier 2** | **Membrane** | `@truex/membrane`, `KNHK` | [Report](./project-status/membrane.md) | Interception, Logic & Hot-Path Memory |
 | **Tier 1** | **Geometry** | `@truex/kernel`, `POWL v2` | [Report](./project-status/kernel.md) | Physics Engine & Workflow Adjudication |
 | **Tier 0** | **Physics** | `BCINR`, `CNS`, `UNIBIT` | [Report](./project-status/CNS.md) | Bare-Metal Calculus & Causal Chains |
@@ -27,8 +28,8 @@ Every physical package in `packages/` is now mapped to a functional role in the 
 *   **Autonomics (T5):** [`@truex/agents`](./project-status/agents.md), [`@truex/swarm`](./project-status/swarm.md)
 *   **Intelligence (T4/5):** [`@truex/ml`](./project-status/ml.md), [`@truex/planner`](./project-status/planner.md)
 *   **Context & Logic (T2/3):** [`@truex/cognition`](./project-status/cognition.md), [`@truex/contracts`](./project-status/contracts.md), [`@truex/config`](./project-status/config.md)
-*   **Enforcement (T1/2):** [`@truex/membrane`](./project-status/membrane.md), [`@truex/kernel`](./project-status/kernel.md)
-*   **Persistence (T0):** [`@truex/supabase`](./project-status/supabase.md), [`@truex/testing`](./project-status/testing.md)
+*   **Enforcement (T1/2):** [`@truex/membrane`](./project-status/membrane.md), [`@truex/kernel`](./project-status/kernel.md), [`@truex/vow`](./project-status/8-vow.md)
+*   **Persistence (T0):** [`@wasm4pm/supabase`](./project-status/supabase.md), [`@truex/testing`](./project-status/testing.md)
 
 ---
 

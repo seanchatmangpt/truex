@@ -11,7 +11,8 @@ members = [
   "crates/miniml-core",
   "crates/truex-kernel-cognition",
   "crates/prolog8",
-  "crates/truex-kernel-macros"
+  "crates/truex-kernel-macros",
+  "crates/insa-replaw"
 ]
 
 [workspace.package]
