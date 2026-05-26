@@ -20,6 +20,7 @@ import { WatchSession, WatchConfig, HeartbeatEvent } from './watch.js';
 import { Checkpoint } from './checkpointing.js';
 import { SignalHandler, SignalHandlerConfig } from './signals.js';
 import { FileCheckpointStore, ICheckpointStore } from './checkpoint-store.js';
+import { StorehouseManager, useStorehouse } from '@truex/storehouse';
 import {
   ObservabilityWrapper,
   Instrumentation,
@@ -95,6 +96,7 @@ export class Engine {
   private observabilityErrors: Array<{ timestamp: Date; layer: string; message: string }> = [];
   private signalHandler?: SignalHandler;
   private checkpointStore: ICheckpointStore;
+  private storehouseManager?: StorehouseManager;
 
   /**
    * Creates a new Engine instance
@@ -138,6 +140,13 @@ export class Engine {
     this.transitionUnsubscribe = this.stateMachine.onTransition((event) => {
       this.onStateTransition(event);
     });
+  }
+
+  /**
+   * Enables Storehouse integration for this engine instance.
+   */
+  enableStorehouse(manager: StorehouseManager): void {
+    this.storehouseManager = manager;
   }
 
   /**
@@ -585,6 +594,21 @@ export class Engine {
           trace_id: this.traceId,
         },
       });
+
+      // ── Storehouse Bridge ──────────────────────────────────────────────────
+      if (this.storehouseManager) {
+        try {
+          // Map operational 'increase' to stewardship provision
+          // For the pilot, we treat every successful execution as a virtual increase of 100 units.
+          this.storehouseManager.stewardIncrease(
+            { amount: 100, currency: 'TRUE', timestamp: Date.now() },
+            { id: 'engine-field', name: 'Operational Execution', owner: 'Truex' },
+            { id: 'community-receiver', name: 'Mercy Logistics' }
+          );
+        } catch (error) {
+          console.warn('[Engine] Storehouse stewardship failed:', error);
+        }
+      }
 
       return receipt;
     } catch (err) {

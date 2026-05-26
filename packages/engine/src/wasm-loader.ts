@@ -143,7 +143,7 @@ export class WasmLoader {
 
   /**
    * Initialize WASM module
-   * - Loads module from ../../@truex/kernel-wasm/pkg/wasm4pm.js
+   * - Loads module from ../../@truex/kernel-wasm/pkg/truex_kernel.js
    * - Sets up panic hook
    * - Validates memory
    * - Verifies version compatibility
@@ -373,7 +373,7 @@ export class WasmLoader {
           throw new Error('Cannot determine workspace root: "packages/engine" not found in path');
         }
         const workspaceRoot = currentPath.substring(0, engineIndex);
-        resolvedModulePath = workspaceRoot + '@truex/kernel-wasm/pkg/wasm4pm.js';
+        resolvedModulePath = workspaceRoot + '@truex/kernel-wasm/pkg/truex_kernel.js';
       }
 
       // Verify the file exists before attempting dynamic import (Node.js only).
@@ -386,7 +386,7 @@ export class WasmLoader {
             'FILE_NOT_FOUND',
             `WASM binary not found at: ${resolvedModulePath}. ` +
               `Run "npm run build" inside the wasm4pm/ directory to compile the WASM binary, ` +
-              `or set the modulePath config option to the correct wasm4pm.js path.`,
+              `or set the modulePath config option to the correct truex_kernel.js path.`,
             resolvedModulePath
           );
         }

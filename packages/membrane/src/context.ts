@@ -4,6 +4,8 @@
  * Provides reproducible entropy (seeded PRNG, clock, UUID) to ensure replay convergence.
  * Adheres to Entropy Law: deterministic admissible entropy only.
  */
+import { createContext as unctxCreateContext } from 'unctx';
+
 export type TruexContext = {
   seed: number;
   clock: () => number;
@@ -65,4 +67,16 @@ function bytesToHex(bytes: Uint8Array): string {
   return [...bytes]
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
+}
+
+const contexts = new Map<string, any>();
+
+/**
+ * Gets or creates a named context using unctx.
+ */
+export function useContext<T>(name: string) {
+  if (!contexts.has(name)) {
+    contexts.set(name, unctxCreateContext<T>());
+  }
+  return contexts.get(name);
 }

@@ -102,7 +102,7 @@ export class FileLogSinkAdapter implements SinkAdapter {
       await fs.mkdir(this.config.directory, { recursive: true });
 
       // Check if we can write
-      const testFile = `${this.config.directory}/.wasm4pm-write-test-${Date.now()}`;
+      const testFile = `${this.config.directory}/.truex-write-test-${Date.now()}`;
       await fs.writeFile(testFile, 'test');
       await fs.unlink(testFile);
 

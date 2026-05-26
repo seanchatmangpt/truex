@@ -17,12 +17,12 @@ describe('WasmLoadError', () => {
   it('carries cause and message', () => {
     const err = new WasmLoadError(
       'FILE_NOT_FOUND',
-      'WASM binary not found at: /some/path/wasm4pm.js',
-      '/some/path/wasm4pm.js'
+      'WASM binary not found at: /some/path/truex_kernel.js',
+      '/some/path/truex_kernel.js'
     );
     expect(err.loadCause).toBe('FILE_NOT_FOUND');
     expect(err.message).toContain('WASM binary not found');
-    expect(err.modulePath).toBe('/some/path/wasm4pm.js');
+    expect(err.modulePath).toBe('/some/path/truex_kernel.js');
     expect(err.name).toBe('WasmLoadError');
   });
 
@@ -43,7 +43,7 @@ describe('createBootstrapError — WasmLoadError classification', () => {
     const err = new WasmLoadError(
       'FILE_NOT_FOUND',
       'Run npm run build to compile',
-      '/pkg/wasm4pm.js'
+      '/pkg/truex_kernel.js'
     );
     const result = createBootstrapError(err);
     expect(result.code).toBe('WASM_FILE_NOT_FOUND');
@@ -55,7 +55,7 @@ describe('createBootstrapError — WasmLoadError classification', () => {
     const err = new WasmLoadError(
       'CORRUPT_BINARY',
       'Delete pkg/ and re-run npm run build',
-      '/pkg/wasm4pm.js'
+      '/pkg/truex_kernel.js'
     );
     const result = createBootstrapError(err);
     expect(result.code).toBe('WASM_CORRUPT_BINARY');

@@ -13,7 +13,7 @@ import { Checkpoint } from './checkpointing.js';
 describe('CheckpointGarbageCollector', () => {
   let gc: CheckpointGarbageCollector;
   let store: MemoryCheckpointStore;
-  const testLockDir = `.wasm4pm/test-gc-locks-${Date.now()}`;
+  const testLockDir = `.truex/test-gc-locks-${Date.now()}`;
 
   beforeEach(() => {
     store = new MemoryCheckpointStore();
@@ -335,7 +335,7 @@ describe('CheckpointGarbageCollector', () => {
     });
 
     it('handles missing lock directory gracefully', async () => {
-      const nonExistentDir = `.wasm4pm/nonexistent-${Date.now()}`;
+      const nonExistentDir = `.truex/nonexistent-${Date.now()}`;
       const gc2 = new CheckpointGarbageCollector(store, nonExistentDir);
 
       const cleanupStats = await gc2.cleanupStaleLocks();

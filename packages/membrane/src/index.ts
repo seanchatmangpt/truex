@@ -28,6 +28,7 @@ export * from "./manufacturing/heijunka.js";
 export * from "./manufacturing/line.js";
 export * from "./manufacturing/collaboration.js";
 export * from "./manufacturing/kaizen.js";
+export * from "./manufacturing/jidoka.js";
 export * from "./manufacturing/standardization.js";
 export * from "./manufacturing/visual.js";
 export * from "./manufacturing/swarm-actuator.js";

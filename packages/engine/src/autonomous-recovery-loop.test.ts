@@ -19,7 +19,7 @@ describe('AutonomousRecoveryOrchestrator', () => {
   let checkpointManager: CheckpointManager;
   let orchestrator: AutonomousRecoveryOrchestrator;
   const testRunId = `test-run-${Date.now()}`;
-  const testLockDir = `.wasm4pm/test-locks-${Date.now()}`;
+  const testLockDir = `.truex/test-locks-${Date.now()}`;
 
   beforeEach(() => {
     // Note: In real tests, Engine would be properly initialized

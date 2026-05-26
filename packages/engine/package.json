@@ -21,7 +21,9 @@
   "dependencies": {
     "@truex/config": "workspace:*",
     "@truex/contracts": "workspace:*",
-    "@truex/observability": "workspace:*"
+    "@truex/observability": "workspace:*",
+    "@truex/storehouse": "workspace:*",
+    "blake3": "^2.1.4"
   },
   "devDependencies": {
     "@truex/kernel": "workspace:*",

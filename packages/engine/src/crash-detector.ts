@@ -27,7 +27,7 @@ export class CrashDetector {
 
   constructor(
     private runId: string,
-    lockDir = '.wasm4pm/lock',
+    lockDir = '.truex/lock',
     _unused?: number,
     staleThresholdMs = 24 * 60 * 60 * 1000
   ) {

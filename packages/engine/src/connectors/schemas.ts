@@ -1,7 +1,7 @@
 /**
  * JSON Schema definitions for connector configurations
  *
- * Used for validation of user-supplied connector config in wasm4pm.toml or CLI args.
+ * Used for validation of user-supplied connector config in truex.toml or CLI args.
  */
 
 /**

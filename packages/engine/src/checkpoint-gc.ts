@@ -41,7 +41,7 @@ export class CheckpointGarbageCollector {
 
   constructor(
     private checkpointStore: ICheckpointStore,
-    lockDir = '.wasm4pm/lock',
+    lockDir = '.truex/lock',
     private maxCheckpointAgeHours = 7 * 24, // 7 days default
     private maxLockAgeMs = 24 * 60 * 60 * 1000 // 24 hours default
   ) {

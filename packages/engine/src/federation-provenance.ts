@@ -84,7 +84,7 @@ export function blake3Hex(obj: unknown): string {
  * - `algorithmId`: Which algorithm was executed
  * - `algorithmVersion`: Semver or CalVer of the algorithm
  * - `backendId`: Which backend executed it (wasm, pm4py, ml, null)
- * - `kernelVersion`: @wasm4pm/cli npm package version
+ * - `kernelVersion`: @truex/cli npm package version
  * - `wasmBuildHash`: Content hash of wasm4pm.wasm binary
  *
  * **Returns:**
@@ -279,7 +279,7 @@ function inferModelType(algorithmId: string): ModelIR['model_type'] {
  * - `plan`: The execution plan
  * - `algorithmId`: Which algorithm was executed
  * - `backendId`: Which backend executed it
- * - `kernelVersion`: @wasm4pm/cli package version
+ * - `kernelVersion`: @truex/cli package version
  * - `wasmBuildHash`: Content hash of wasm4pm.wasm
  * - `cycleSeq`: Monotonic counter from FederationController
  * - `modelCapabilities`: Declared capabilities for the model

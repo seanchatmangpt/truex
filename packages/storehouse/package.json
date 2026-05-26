@@ -1,0 +1,32 @@
+{
+  "name": "@truex/storehouse",
+  "version": "0.1.0",
+  "description": "Storehouse Infrastructure for TrueX - Stewardship Receipting and Overflow Routing",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run"
+  },
+  "keywords": [
+    "truex",
+    "storehouse",
+    "stewardship",
+    "receipting",
+    "gleaning",
+    "overflow"
+  ],
+  "author": "TrueX AGI Innovation Lead",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@truex/membrane": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vitest": "^0.34.0"
+  }
+}

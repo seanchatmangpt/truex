@@ -80,7 +80,7 @@ export class MemoryCheckpointStore implements ICheckpointStore {
 export class FileCheckpointStore implements ICheckpointStore {
   private baseDir: string;
 
-  constructor(baseDir = '.wasm4pm/checkpoints') {
+  constructor(baseDir = '.truex/checkpoints') {
     this.baseDir = baseDir;
     if (!fs.existsSync(this.baseDir)) {
       fs.mkdirSync(this.baseDir, { recursive: true });
@@ -225,7 +225,7 @@ export class SqliteCheckpointStore implements ICheckpointStore {
   private db: any;
   private initialized = false;
 
-  constructor(dbPath = '.wasm4pm/checkpoints.db') {
+  constructor(dbPath = '.truex/checkpoints.db') {
     this.dbPath = dbPath;
   }
 
