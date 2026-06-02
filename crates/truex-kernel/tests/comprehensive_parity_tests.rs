@@ -146,7 +146,7 @@ fn build_dfg_from_log(log: &EventLog, activity_key: &str) -> CanonicalDFG {
 #[test]
 fn test_dfg_discovery_parity() {
     let log = load_event_log_json("running-example.json");
-    let truex-kernel_dfg = build_dfg_from_log(&log, "activity");
+    let truex_kernel_dfg = build_dfg_from_log(&log, "activity");
 
     type Pm4pyDFG = serde_json::Value;
     let pm4py_dfg: Pm4pyDFG = load_pm4py_output("pm4py_dfg_output.json");
@@ -194,18 +194,18 @@ fn test_dfg_discovery_parity() {
 
     // Compare
     assert_eq!(
-        truex-kernel_dfg.activities, pm4py_activities,
+        truex_kernel_dfg.activities, pm4py_activities,
         "Activities mismatch"
     );
     assert_eq!(
-        truex-kernel_dfg.edges.len(),
+        truex_kernel_dfg.edges.len(),
         pm4py_edges.len(),
         "Edge count mismatch"
     );
 
     for edge in &pm4py_edges {
         assert!(
-            truex-kernel_dfg.edges.contains(edge),
+            truex_kernel_dfg.edges.contains(edge),
             "Missing edge: {} -> {} (freq: {})",
             edge.from,
             edge.to,
@@ -214,11 +214,11 @@ fn test_dfg_discovery_parity() {
     }
 
     assert_eq!(
-        truex-kernel_dfg.start_activities, pm4py_start,
+        truex_kernel_dfg.start_activities, pm4py_start,
         "Start activities mismatch"
     );
     assert_eq!(
-        truex-kernel_dfg.end_activities, pm4py_end,
+        truex_kernel_dfg.end_activities, pm4py_end,
         "End activities mismatch"
     );
 }
@@ -230,8 +230,8 @@ fn test_dfg_discovery_parity() {
 fn test_log_statistics_parity() {
     let log = load_event_log_json("running-example.json");
 
-    let truex-kernel_num_cases = log.traces.len();
-    let truex-kernel_num_events: usize = log.traces.iter().map(|t| t.events.len()).sum();
+    let truex_kernel_num_cases = log.traces.len();
+    let truex_kernel_num_events: usize = log.traces.iter().map(|t| t.events.len()).sum();
 
     let mut activities = HashSet::new();
     let mut start_activities = HashSet::new();
@@ -259,9 +259,9 @@ fn test_log_statistics_parity() {
         }
     }
 
-    let truex-kernel_activities: Vec<String> = activities.into_iter().collect();
-    let truex-kernel_start: Vec<String> = start_activities.into_iter().collect();
-    let truex-kernel_end: Vec<String> = end_activities.into_iter().collect();
+    let truex_kernel_activities: Vec<String> = activities.into_iter().collect();
+    let truex_kernel_start: Vec<String> = start_activities.into_iter().collect();
+    let truex_kernel_end: Vec<String> = end_activities.into_iter().collect();
 
     type Pm4pyStats = serde_json::Value;
     let pm4py_stats: Pm4pyStats = load_pm4py_output("pm4py_statistics_output.json");
@@ -287,33 +287,33 @@ fn test_log_statistics_parity() {
         .map(|v| v.as_str().unwrap().to_string())
         .collect();
 
-    assert_eq!(truex-kernel_num_cases, pm4py_num_cases, "Case count mismatch");
-    assert_eq!(truex-kernel_num_events, pm4py_num_events, "Event count mismatch");
+    assert_eq!(truex_kernel_num_cases, pm4py_num_cases, "Case count mismatch");
+    assert_eq!(truex_kernel_num_events, pm4py_num_events, "Event count mismatch");
 
-    let mut truex-kernel_activities_sorted = truex-kernel_activities.clone();
+    let mut truex_kernel_activities_sorted = truex_kernel_activities.clone();
     let mut pm4py_activities_sorted = pm4py_activities.clone();
-    truex-kernel_activities_sorted.sort();
+    truex_kernel_activities_sorted.sort();
     pm4py_activities_sorted.sort();
     assert_eq!(
-        truex-kernel_activities_sorted, pm4py_activities_sorted,
+        truex_kernel_activities_sorted, pm4py_activities_sorted,
         "Activities mismatch"
     );
 
-    let mut truex-kernel_start_sorted = truex-kernel_start.clone();
+    let mut truex_kernel_start_sorted = truex_kernel_start.clone();
     let mut pm4py_start_sorted = pm4py_start.clone();
-    truex-kernel_start_sorted.sort();
+    truex_kernel_start_sorted.sort();
     pm4py_start_sorted.sort();
     assert_eq!(
-        truex-kernel_start_sorted, pm4py_start_sorted,
+        truex_kernel_start_sorted, pm4py_start_sorted,
         "Start activities mismatch"
     );
 
-    let mut truex-kernel_end_sorted = truex-kernel_end.clone();
+    let mut truex_kernel_end_sorted = truex_kernel_end.clone();
     let mut pm4py_end_sorted = pm4py_end.clone();
-    truex-kernel_end_sorted.sort();
+    truex_kernel_end_sorted.sort();
     pm4py_end_sorted.sort();
     assert_eq!(
-        truex-kernel_end_sorted, pm4py_end_sorted,
+        truex_kernel_end_sorted, pm4py_end_sorted,
         "End activities mismatch"
     );
 }

@@ -16,6 +16,12 @@ pub enum ProofGate {
     gate_schema_valid,
     gate_test_suite_passes,
     gate_wasm_compiles,
+    /// Sheep Gate — governs the consequence lifecycle:
+    /// admission, refusal, and partial states.
+    /// Pass criteria: hook definitions present, ADMIT/REFUSE/PARTIAL schema valid,
+    /// receipt schema defined, replay law documented, at least one BLAKE3-verified
+    /// receipt emitted, no direct action bypasses hook judgment.
+    SheepGate,
 }
 
 impl ProofGate {
@@ -29,6 +35,7 @@ impl ProofGate {
             Self::gate_schema_valid => "gate-schema-valid",
             Self::gate_test_suite_passes => "gate-test-suite-passes",
             Self::gate_wasm_compiles => "gate-wasm-compiles",
+            Self::SheepGate => "sheep-gate",
         }
     }
 
@@ -42,6 +49,7 @@ impl ProofGate {
             Self::gate_schema_valid => "schema-valid",
             Self::gate_test_suite_passes => "test-suite-passes",
             Self::gate_wasm_compiles => "wasm-compiles",
+            Self::SheepGate => "sheep-gate",
         }
     }
 
@@ -55,6 +63,7 @@ impl ProofGate {
             Self::gate_schema_valid,
             Self::gate_test_suite_passes,
             Self::gate_wasm_compiles,
+            Self::SheepGate,
         ]
     }
 }

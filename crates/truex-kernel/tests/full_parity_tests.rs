@@ -129,9 +129,9 @@ fn build_dfg(log: &EventLog, activity_key: &str) -> CanonicalDFG {
 #[test]
 fn test_dfg_discovery_full_parity() {
     let log = load_event_log("running-example.json");
-    let truex-kernel_dfg = build_dfg(&log, "activity");
-    let mut truex-kernel_dfg = truex-kernel_dfg;
-    truex-kernel_dfg.sort();
+    let truex_kernel_dfg = build_dfg(&log, "activity");
+    let mut truex_kernel_dfg = truex_kernel_dfg;
+    truex_kernel_dfg.sort();
 
     let pm4py_dfg: serde_json::Value = load_pm4py("pm4py_dfg.json");
 
@@ -176,36 +176,36 @@ fn test_dfg_discovery_full_parity() {
     println!("\n=== DFG Discovery Parity Test ===");
     println!(
         "Activities: truex_kernel={}, pm4py={}",
-        truex-kernel_dfg.activities.len(),
+        truex_kernel_dfg.activities.len(),
         pm4py_activities.len()
     );
     println!(
         "Edges: truex_kernel={}, pm4py={}",
-        truex-kernel_dfg.edges.len(),
+        truex_kernel_dfg.edges.len(),
         pm4py_edges.len()
     );
     println!(
         "Start activities: truex_kernel={}, pm4py={}",
-        truex-kernel_dfg.start_activities.len(),
+        truex_kernel_dfg.start_activities.len(),
         pm4py_start.len()
     );
     println!(
         "End activities: truex_kernel={}, pm4py={}",
-        truex-kernel_dfg.end_activities.len(),
+        truex_kernel_dfg.end_activities.len(),
         pm4py_end.len()
     );
 
     assert_eq!(
-        truex-kernel_dfg.activities, pm4py_activities,
+        truex_kernel_dfg.activities, pm4py_activities,
         "Activities mismatch"
     );
-    assert_eq!(truex-kernel_dfg.edges, pm4py_edges, "Edges mismatch");
+    assert_eq!(truex_kernel_dfg.edges, pm4py_edges, "Edges mismatch");
     assert_eq!(
-        truex-kernel_dfg.start_activities, pm4py_start,
+        truex_kernel_dfg.start_activities, pm4py_start,
         "Start activities mismatch"
     );
     assert_eq!(
-        truex-kernel_dfg.end_activities, pm4py_end,
+        truex_kernel_dfg.end_activities, pm4py_end,
         "End activities mismatch"
     );
 

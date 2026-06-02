@@ -2626,6 +2626,7 @@ pub fn serialize_rl_state() -> Result<String, JsValue> {
                 last_action_label: telemetry.last_action_label.clone(),
                 last_spc_alert_count: telemetry.last_spc_alert_count,
                 cumulative_reward: telemetry.cumulative_reward as f64,
+                last_spc_rule_fired: telemetry.last_spc_rule_fired.clone(),
             },
             active_agent: orch_ref.active_agent() as u8,
             linucb_enabled: orch_ref.linucb_selection_enabled(),
@@ -3285,6 +3286,7 @@ pub fn truex_verify_receipt(envelope_json: &str) -> Result<String, JsValue> {
     Ok(serde_json::to_string(&out).unwrap())
 }
 
+#[cfg(feature = "cloud")]
 fn get_spc_rule_name(c: &spc::SpecialCause) -> &'static str {
     match c {
         spc::SpecialCause::OutOfControl { .. } => "rule_1_outlier",

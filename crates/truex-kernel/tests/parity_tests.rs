@@ -192,7 +192,7 @@ fn test_dfg_parity_with_pm4py() {
             }
         }
     }
-    let truex-kernel_activities: Vec<String> = activities_set.iter().cloned().collect();
+    let truex_kernel_activities: Vec<String> = activities_set.iter().cloned().collect();
 
     // Build DFG edges
     let mut edge_counts: HashMap<(String, String), usize> = HashMap::new();
@@ -228,7 +228,7 @@ fn test_dfg_parity_with_pm4py() {
         }
     }
 
-    let truex-kernel_edges: Vec<CanonicalEdge> = edge_counts
+    let truex_kernel_edges: Vec<CanonicalEdge> = edge_counts
         .into_iter()
         .map(|((from, to), freq)| CanonicalEdge {
             from,
@@ -237,12 +237,12 @@ fn test_dfg_parity_with_pm4py() {
         })
         .collect();
 
-    let truex-kernel_start: Vec<CanonicalActivityCount> = start_activities
+    let truex_kernel_start: Vec<CanonicalActivityCount> = start_activities
         .into_iter()
         .map(|(activity, count)| CanonicalActivityCount { activity, count })
         .collect();
 
-    let truex-kernel_end: Vec<CanonicalActivityCount> = end_activities
+    let truex_kernel_end: Vec<CanonicalActivityCount> = end_activities
         .into_iter()
         .map(|(activity, count)| CanonicalActivityCount { activity, count })
         .collect();
@@ -256,26 +256,26 @@ fn test_dfg_parity_with_pm4py() {
     };
     pm4py_canonical.sort();
 
-    let mut truex-kernel_canonical = CanonicalDFG {
-        activities: truex-kernel_activities,
-        edges: truex-kernel_edges,
-        start_activities: truex-kernel_start,
-        end_activities: truex-kernel_end,
+    let mut truex_kernel_canonical = CanonicalDFG {
+        activities: truex_kernel_activities,
+        edges: truex_kernel_edges,
+        start_activities: truex_kernel_start,
+        end_activities: truex_kernel_end,
     };
-    truex-kernel_canonical.sort();
+    truex_kernel_canonical.sort();
 
     // Compare activities
     assert_eq!(
-        truex-kernel_canonical.activities.len(),
+        truex_kernel_canonical.activities.len(),
         pm4py_canonical.activities.len(),
         "Activity count mismatch: truex_kernel has {}, pm4py has {}",
-        truex-kernel_canonical.activities.len(),
+        truex_kernel_canonical.activities.len(),
         pm4py_canonical.activities.len()
     );
 
     for activity in &pm4py_canonical.activities {
         assert!(
-            truex-kernel_canonical.activities.contains(activity),
+            truex_kernel_canonical.activities.contains(activity),
             "Missing activity in truex_kernel: {}",
             activity
         );
@@ -283,10 +283,10 @@ fn test_dfg_parity_with_pm4py() {
 
     // Compare edges (allow for small differences in counts due to different parsing)
     println!("pm4py edges: {}", pm4py_canonical.edges.len());
-    println!("truex_kernel edges: {}", truex-kernel_canonical.edges.len());
+    println!("truex_kernel edges: {}", truex_kernel_canonical.edges.len());
 
     for pm4py_edge in &pm4py_canonical.edges {
-        let found = truex-kernel_canonical
+        let found = truex_kernel_canonical
             .edges
             .iter()
             .any(|e| e.from == pm4py_edge.from && e.to == pm4py_edge.to);
@@ -300,14 +300,14 @@ fn test_dfg_parity_with_pm4py() {
 
     // Compare start activities
     assert_eq!(
-        truex-kernel_canonical.start_activities.len(),
+        truex_kernel_canonical.start_activities.len(),
         pm4py_canonical.start_activities.len(),
         "Start activity count mismatch"
     );
 
     for start in &pm4py_canonical.start_activities {
         assert!(
-            truex-kernel_canonical.start_activities.contains(start),
+            truex_kernel_canonical.start_activities.contains(start),
             "Missing start activity in truex_kernel: {} (count: {})",
             start.activity,
             start.count
@@ -316,14 +316,14 @@ fn test_dfg_parity_with_pm4py() {
 
     // Compare end activities
     assert_eq!(
-        truex-kernel_canonical.end_activities.len(),
+        truex_kernel_canonical.end_activities.len(),
         pm4py_canonical.end_activities.len(),
         "End activity count mismatch"
     );
 
     for end in &pm4py_canonical.end_activities {
         assert!(
-            truex-kernel_canonical.end_activities.contains(end),
+            truex_kernel_canonical.end_activities.contains(end),
             "Missing end activity in truex_kernel: {} (count: {})",
             end.activity,
             end.count
