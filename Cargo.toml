@@ -33,6 +33,9 @@ itertools = "0.14.0"
 rustc-hash = "2"
 blake3 = "1.5"
 sha2 = "0.10.8"
+thiserror = "2"
+base64 = "0.22"
+ed25519-dalek = { version = "2.1", features = ["rand_core", "pkcs8", "pem"] }
 bcinr = { version = "26.4.22" }
 truex-kernel-types = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-types" }
 truex-kernel-algos = { version = "26.5.25-CONVERGED", path = "crates/truex-kernel-algos" }
