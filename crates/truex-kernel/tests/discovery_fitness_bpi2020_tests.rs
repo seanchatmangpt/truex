@@ -38,10 +38,10 @@ lazy_static::lazy_static! {
     static ref BPI2020: Mutex<Option<EventLog>> = Mutex::new(None);
 }
 
-fn get_bpi2020_log() -> EventLog {
+fn get_bpi2020_log() -> Option<EventLog> {
     let mut cached = BPI2020.lock().unwrap();
     if let Some(log) = &*cached {
-        return log.clone();
+        return Some(log.clone());
     }
 
     // Search for BPI 2020 in multiple locations
@@ -64,15 +64,25 @@ fn get_bpi2020_log() -> EventLog {
         }
     }
 
-    let (path, log) = loaded.expect("Could not load BPI 2020 XES file from bench_data/");
-    eprintln!(
-        "Loaded BPI 2020 from {}: {} traces, {} events",
-        path,
-        log.traces.len(),
-        log.traces.iter().map(|t| t.events.len()).sum::<usize>()
-    );
-    *cached = Some(log.clone());
-    log
+    match loaded {
+        None => {
+            eprintln!(
+                "[bpi2020] SKIP: bench_data/bpi2020_travel.xes not found at any candidate path. \
+                 Place the file at bench_data/bpi2020_travel.xes to run these tests."
+            );
+            None
+        }
+        Some((path, log)) => {
+            eprintln!(
+                "Loaded BPI 2020 from {}: {} traces, {} events",
+                path,
+                log.traces.len(),
+                log.traces.iter().map(|t| t.events.len()).sum::<usize>()
+            );
+            *cached = Some(log.clone());
+            Some(log)
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -217,7 +227,7 @@ fn evaluate_fitness_from_dfg(log: &EventLog, dfg: &truex_kernel::models::Directl
 
 #[test]
 fn test_discovery_dfg_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // DFG doesn't directly fit into PetriNet token-replay framework
     // Skip for now; DFG is tested via actual conformance tools
     eprintln!("[dfg] skipped: DFG requires graph-based conformance, not token-replay");
@@ -227,7 +237,7 @@ fn test_discovery_dfg_fitness_bpi2020() {
 
 #[test]
 fn test_discovery_heuristic_miner_fitness_bpi2020() {
-    let log = get_bpi2020_log();
+    let Some(log) = get_bpi2020_log() else { return; };
     // heuristic_miner returns DFG
     // Compute fitness against discovered DFG edge set
     let dfg = discover_heuristic_miner_from_log(
@@ -246,21 +256,21 @@ fn test_discovery_heuristic_miner_fitness_bpi2020() {
 
 #[test]
 fn test_discovery_inductive_miner_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // inductive_miner returns String (PNML format)
     eprintln!("[inductive_miner] skipped: returns PNML String, requires parsing");
 }
 
 #[test]
 fn test_discovery_hill_climbing_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // hill_climbing returns DFG, not PetriNet
     eprintln!("[hill_climbing] skipped: returns DFG, requires graph-based conformance");
 }
 
 #[test]
 fn test_discovery_alpha_plus_plus_fitness_bpi2020() {
-    let log = get_bpi2020_log();
+    let Some(log) = get_bpi2020_log() else { return; };
     // alpha_plus_plus requires fitness threshold parameter
     let result = truex_kernel::algorithms::discover_alpha_plus_plus_from_log(&log, "concept:name", 0.5);
     match result {
@@ -284,7 +294,7 @@ fn test_discovery_alpha_plus_plus_fitness_bpi2020() {
 
 #[test]
 fn test_discovery_genetic_algorithm_fitness_bpi2020() {
-    let log = get_bpi2020_log();
+    let Some(log) = get_bpi2020_log() else { return; };
     // genetic_algorithm returns Option<(DFG, f64)>
     // Extract DFG, compute token-replay fitness via DFG edge set
     let result = discover_genetic_algorithm_from_log(
@@ -316,35 +326,35 @@ fn test_discovery_genetic_algorithm_fitness_bpi2020() {
 
 #[test]
 fn test_discovery_aco_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // ACO returns Option<(DFG, f64)> — skipped
     eprintln!("[aco] skipped: returns Option<(DFG, f64)>, requires graph conformance");
 }
 
 #[test]
 fn test_discovery_pso_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // PSO returns Option<(DFG, f64)> — skipped
     eprintln!("[pso] skipped: returns Option<(DFG, f64)>, requires graph conformance");
 }
 
 #[test]
 fn test_discovery_simulated_annealing_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // simulated_annealing returns (DFG, f64) — skipped
     eprintln!("[simulated_annealing] skipped: returns (DFG, f64), requires graph conformance");
 }
 
 #[test]
 fn test_discovery_astar_fitness_bpi2020() {
-    let _log = get_bpi2020_log();
+    let Some(_log) = get_bpi2020_log() else { return; };
     // astar returns (DFG, usize) — skipped
     eprintln!("[astar] skipped: returns (DFG, usize), requires graph conformance");
 }
 
 #[test]
 fn test_discovery_ilp_fitness_bpi2020() {
-    let log = get_bpi2020_log();
+    let Some(log) = get_bpi2020_log() else { return; };
     // ILP returns (PetriNet, f64, f64) — extract and test PetriNet
     let (model, precision, generalization) = discover_ilp_petri_net_from_log(&log, "concept:name");
     let fitness = evaluate_fitness_from_petri(&log, &model, "concept:name");
@@ -395,7 +405,7 @@ fn test_discovery_optimized_dfg_fitness_bpi2020() {
 
 #[test]
 fn test_fitness_summary_report() {
-    let log = get_bpi2020_log();
+    let Some(log) = get_bpi2020_log() else { return; };
     eprintln!("\n=== DISCOVERY ALGORITHM FITNESS REPORT (BPI 2020) ===");
     eprintln!(
         "Log: {} traces, {} total events",
