@@ -449,3 +449,221 @@ automl_experimental = []
 
 # Optional truex-kernel-types XES import module (requires truex-kernel-types/import feature)
 import = ["truex-kernel-types/import"]
+
+# Cloud-feature-gated tests (require cloud module: rl, spc, agentic, autoprocess)
+[[test]]
+name = "action_integration_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "adversarial_bellman_spc"
+required-features = ["cloud"]
+
+[[test]]
+name = "adversarial_circuit_breaker"
+required-features = ["cloud"]
+
+[[test]]
+name = "adversarial_rl_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "adversarial_spc_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "agentic_jtbd_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "agentic_wasm_export_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "autonomic_loop_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "autonomic_real_data_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "autonomic_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "behavioral_drift_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "behavioral_learning_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "bellman_correctness_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "circuit_breaker_state_machine_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "config_sensitivity_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "cycle43_autonomic_gaps"
+required-features = ["cloud"]
+
+[[test]]
+name = "deep_stress_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "determinism_validation_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "drift_rl_feedback_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "e2e_agentic_pipeline"
+required-features = ["cloud"]
+
+[[test]]
+name = "edge_cases_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "global_adversarial"
+required-features = ["cloud"]
+
+[[test]]
+name = "integration_autonomic_complete"
+required-features = ["cloud"]
+
+[[test]]
+name = "iter4_edge_oracles"
+required-features = ["cloud"]
+
+[[test]]
+name = "jtbd_bpi2020_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "mutation_adequacy_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "real_data_algo_validation"
+required-features = ["cloud"]
+
+[[test]]
+name = "red_team_adversarial"
+required-features = ["cloud"]
+
+[[test]]
+name = "regression_detector_test"
+required-features = ["cloud"]
+
+[[test]]
+name = "reinforcement_instrumentation"
+required-features = ["cloud"]
+
+[[test]]
+name = "reinforcement_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "reward_symmetry_audit"
+required-features = ["cloud"]
+
+[[test]]
+name = "rework_detection_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_bellman_oracle_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_bellman_q_deltas_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_convergence_oracle"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_convergence_signal_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_convergence_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_correctness_validation"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_edge_case_audit"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_failure_mode_detection_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_learning_stability_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_orchestrator_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_systems_audit"
+required-features = ["cloud"]
+
+[[test]]
+name = "spc_exact_position_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "state_coverage_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "state_exploration_audit"
+required-features = ["cloud"]
+
+
+[[test]]
+name = "autonomic_audit_trail_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "autonomic_otel_instrumentation_test"
+required-features = ["cloud"]
+
+[[test]]
+name = "clock_lock_regression_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "state_invariant_audit"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_action_tracking"
+required-features = ["cloud"]
+
+[[test]]
+name = "rl_action_tracking_tests"
+required-features = ["cloud"]
+
+[[test]]
+name = "action_dispatch_tests"
+required-features = ["cloud"]
