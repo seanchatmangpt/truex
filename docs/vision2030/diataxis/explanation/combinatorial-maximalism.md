@@ -39,20 +39,17 @@ This is Vector 4 (Operational Core) at secular scale—the proof that the substr
 
 ## 3. The Manufacturing Equation
 
-When you combine these eight vectors, you stop building apps and start manufacturing fields.
-
-The equation is ordered with **Source first**. Intuit validated the patterns, but it is not the Origin:
+When you combine these eight vectors, you stop building apps and start manufacturing fields. The octagonal version places **Source first**:
 
 ```text
-Bible-as-O*                    [Vector 1: Source]
-+ public ontology cover        [Vector 2: World-Cover]
-+ projection surfaces          [Vector 3: Rendering]
-+ operational core/state       [Vector 4: Shared Body]
-+ ggen manufacturing           [Vector 5: Assembly Line]
-+ boundary protocols           [Vector 6: Lawful Crossings]
-+ process geometry             [Vector 7: Route Proof]
-+ receipts/replay              [Vector 8: Perfection Closure]
-──────────────────────────────────────────────────────────
+Bible-as-O*
++ public ontology cover
++ projection surfaces
++ operational core/state
++ ggen manufacturing
++ boundary protocols
++ process geometry
++ receipts/replay
 = Storehouse Infrastructure
 = God's payment processor
 = Genesis-scale Christian software foundry

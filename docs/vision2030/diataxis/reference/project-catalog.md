@@ -111,4 +111,4 @@ Repositories that attempted to build CLI tools, testing frameworks, code generat
 * [yawlw52](../../experimental-reports/yawlw52.report.md)
 * [ycloud](../../experimental-reports/ycloud.report.md)
 * [zod-to-from](../../experimental-reports/zod-to-from.report.md)
-* [zoela](../../experimental-reports/zoela.report.md)
+* [zoela](../../experimental-reports/zoela.report.md) (Audited & Auditable Basis Vector)
