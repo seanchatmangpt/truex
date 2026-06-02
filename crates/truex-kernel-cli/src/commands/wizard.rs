@@ -69,12 +69,12 @@ pub fn run() -> anyhow::Result<()> {
 }
 
 fn save_config(config: &ProjectConfig) -> anyhow::Result<()> {
-    let dot_truex-kernel = Path::new(".truex");
-    if !dot_truex-kernel.exists() {
-        fs::create_dir_all(dot_truex-kernel).context("Failed to create .truex directory")?;
+    let dot_truex_kernel = Path::new(".truex");
+    if !dot_truex_kernel.exists() {
+        fs::create_dir_all(dot_truex_kernel).context("Failed to create .truex directory")?;
     }
 
-    let config_path = dot_truex-kernel.join("config.json");
+    let config_path = dot_truex_kernel.join("config.json");
     let content = serde_json::to_string_pretty(config).context("Failed to serialize config")?;
     fs::write(config_path, content).context("Failed to write config.json")?;
 

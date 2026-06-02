@@ -12,3 +12,8 @@ gall_truex.db
 .antigravitycli/
 .DS_Store
 .generated/
+
+# Rust build artifacts
+target/
+crates/*/target/
+crates/*/*/target/
