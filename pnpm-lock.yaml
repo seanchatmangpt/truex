@@ -438,6 +438,19 @@ importers:
         specifier: ^1.1.0
         version: 1.6.1(@types/node@20.19.41)(lightningcss@1.32.0)
 
+  packages/vow:
+    dependencies:
+      '@truex/membrane':
+        specifier: workspace:*
+        version: link:../membrane
+    devDependencies:
+      typescript:
+        specifier: ^5.3.3
+        version: 5.9.3
+      vitest:
+        specifier: ^1.1.0
+        version: 1.6.1(@types/node@25.9.1)(lightningcss@1.32.0)
+
 packages:
 
   '@ai-sdk/gateway@3.0.120':
