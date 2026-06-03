@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://truex.dev/schemas/hook-outcome.schema.json",
+  "title": "HookOutcome",
+  "description": "The outcome of a hook evaluation under the Sheep Gate proof gate. Governs the consequence lifecycle: admission, refusal, and partial states. No direct action may bypass hook judgment. All outcomes produce a BLAKE3-verified receipt.",
+  "type": "string",
+  "enum": ["Admit", "Refuse", "Partial"],
+  "examples": [
+    "Admit",
+    "Refuse",
+    "Partial"
+  ],
+  "x-rust-type": "truex_kernel_types::hook_lifecycle::HookOutcome",
+  "x-gate": "SheepGate",
+  "x-gate-id": "sheep-gate",
+  "x-firmament-ledger": "FIRMAMENT_PROJECT_SPR_LEDGER_002.md#3-knowledge-hooks--aka--truex",
+  "x-receipt-requirement": "Every HookOutcome must produce a BLAKE3-verified receipt. Admitted outcomes authorize downstream consequences. Refused outcomes block downstream consequences. Partial outcomes defer receipt until sufficient evidence is available.",
+  "x-transitions": {
+    "Refuse -> Admit": "Lawful when additional evidence satisfies all gate criteria",
+    "Partial -> Admit": "Lawful when sufficient evidence is collected",
+    "Admit -> Admit": "Invalid — no self-transition"
+  }
+}

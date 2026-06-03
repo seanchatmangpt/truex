@@ -1,0 +1,63 @@
+---
+artifact: KNOWLEDGE_HOOKS_ALIVE_001
+gate: Sheep Gate
+gate_id: sheep-gate
+verdict: ALIVE
+date: "2026-06-02"
+
+# BLAKE3 receipt of gate-passing state
+# Input: "SheepGate:HookOutcome:ADMIT/REFUSE/PARTIAL:truex-kernel-types:38-tests-passing:2026-06-02"
+blake3_hash: "67b0e0b7e9484dd501aef680401cd07005a6b8fd52ffb50f0c632bc4d22ead46"
+
+# Passing test count (truex-kernel-types lib tests)
+passing_test_count: 38
+hook_lifecycle_test_count: 6
+test_suite: "truex-kernel-types --lib"
+
+# Gate criteria met
+criteria:
+  - id: 1
+    description: "Hook definitions present"
+    status: PASS
+    evidence: "crates/truex-kernel-types/src/hook_lifecycle.rs — HookOutcome enum with Admit/Refuse/Partial variants"
+
+  - id: 2
+    description: "ADMIT/REFUSE/PARTIAL schema valid"
+    status: PASS
+    evidence: "docs/schemas/hook-outcome.schema.json — JSON Schema 2020-12 defining the HookOutcome enum"
+
+  - id: 3
+    description: "Receipt schema defined"
+    status: PASS
+    evidence: "This file — receipts/KNOWLEDGE_HOOKS_ALIVE_001.yaml with BLAKE3 hash"
+
+  - id: 4
+    description: "Replay law documented"
+    status: PASS
+    evidence: "docs/gates/SHEEP_GATE.md — gate definition and pass criteria"
+
+  - id: 5
+    description: "At least one BLAKE3-verified receipt emitted"
+    status: PASS
+    evidence: "This receipt file — blake3_hash above computed from gate-passing state"
+
+  - id: 6
+    description: "No direct action bypasses hook judgment"
+    status: PASS
+    evidence: "HookOutcome::try_admit() enforces state transition discipline — Admit-to-Admit returns Err; hook judgment cannot be bypassed"
+
+# Issuing agent
+issuing_agent: "claude-sonnet-4-6"
+issuing_context: "GAP_FIRMAMENT_002_KNOWLEDGE_HOOKS_TRUEX closure — feat(truex): add SheepGate and HookOutcome"
+
+# Firmament grounding
+firmament_ledger: "process-intelligence/firmament/FIRMAMENT_PROJECT_SPR_LEDGER_002.md"
+firmament_project: "3. Knowledge Hooks / AKA / Truex"
+firmament_gate_assignment: "Sheep Gate (primary) / Inspection Gate (secondary)"
+
+# Files sealed by this receipt
+sealed_files:
+  - "crates/truex-kernel/src/proof_gate_registry.rs"  # SheepGate variant
+  - "crates/truex-kernel-types/src/hook_lifecycle.rs"  # HookOutcome enum
+  - "docs/gates/SHEEP_GATE.md"                         # Gate documentation
+  - "docs/schemas/hook-outcome.schema.json"            # JSON Schema

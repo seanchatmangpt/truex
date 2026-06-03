@@ -11,6 +11,7 @@ pub mod conformance;
 pub mod error;
 pub mod event_log;
 pub mod hash;
+pub mod hook_lifecycle;
 pub mod models;
 pub mod ocel;
 pub mod provenance;
@@ -32,5 +33,6 @@ pub use models::{
 pub use ocel::{OCELEvent, OCELObject, OCEL};
 pub use provenance::ProvenanceChain;
 pub use choice_graph::{ChoiceGraph, ChoiceGraphNode, ChoiceGraphError};
+pub use hook_lifecycle::HookOutcome;
 
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
