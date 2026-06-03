@@ -6,7 +6,7 @@
   "device_id": "DEVICE_A22",
   "admission_status": "ReceiptAdmitted",
   "expected_path_hash": "5548b5fcac3109bcc176bad6f91e1408cbef34e87b1cba6cdf55a672f64b5694",
-  "ocel2_batch_hash": "c13adf8815ec50ece8b9b9aa7ca3398eeae3c2acd21291deba20a959ad723850",
+  "ocel2_batch_hash": "b398dfb9deaebd28fa9a5bd80a936401eea88fdd1f258aaf09f3658a49551a9f",
   "receipt_hash": "2cbb73c977e8b2b490fc9549d5741b5fa2676615d31bff534beb217ce36120b4",
   "ocel2": {
     "eventTypes": {
