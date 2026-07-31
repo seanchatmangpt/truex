@@ -2,96 +2,127 @@
  * @module storehouse
  * @description Logic for the Storehouse Stewardship Infrastructure.
  */
-import { AndonSystem, PokaYoke } from '@truex/membrane';
-import type { Field, Increase, FirstPortion, Provision, Receiver, StorehouseReceipt, StorehouseContext } from './types.js';
+import {
+  AndonSystem,
+  PokaYoke,
+  createDeterministicContext,
+  hash,
+} from '@truex/membrane';
+import type { TruexContext } from '@truex/membrane';
+import type {
+  Field,
+  Increase,
+  FirstPortion,
+  Provision,
+  Receiver,
+  StorehouseReceipt,
+  StorehouseContext,
+} from './types.js';
+
+const DEFAULT_STOREHOUSE_SEED = 0x5452_5558;
+const RECEIPT_SCHEMA = 'truex.storehouse.receipt.v1';
 
 export class StorehouseManager {
-  private andon: AndonSystem;
-  private pokaYoke: PokaYoke;
-  private mappedFields: Set<string> = new Set();
+  private readonly andon: AndonSystem;
+  private readonly pokaYoke: PokaYoke;
+  private readonly context: TruexContext;
+  private readonly mappedFields: Set<string> = new Set();
+  private receiptSequence = 0;
 
-  constructor(andon: AndonSystem) {
+  constructor(
+    andon: AndonSystem,
+    context: TruexContext = createDeterministicContext(DEFAULT_STOREHOUSE_SEED),
+  ) {
     this.andon = andon;
     this.pokaYoke = new PokaYoke(andon);
+    this.context = context;
   }
 
-  /**
-   * Registers a field in the storehouse registry.
-   */
+  /** Registers a field in the storehouse registry. */
   registerField(fieldId: string): void {
     this.mappedFields.add(fieldId);
   }
 
-  /**
-   * Calculates the First Portion (exactly 10%) of an increase.
-   */
+  /** Calculates the First Portion (exactly 10%) of an increase. */
   calculateFirstPortion(increase: Increase, id: string): FirstPortion {
     const amount = increase.amount * 0.1;
-    // We use a very strict check to ensure it's EXACTLY 10%
     if (Math.abs(amount - increase.amount / 10) > 0.000001) {
-      this.andon.stopLine(`First Portion Mismatch: ${amount} is not 10% of ${increase.amount}`);
-      throw new Error("JIDOKA STOP: First Portion requirement violated.");
+      this.andon.stopLine(
+        `First Portion Mismatch: ${amount} is not 10% of ${increase.amount}`,
+      );
+      throw new Error('JIDOKA STOP: First Portion requirement violated.');
     }
 
     return {
       amount,
       currency: increase.currency,
-      increaseId: id
+      increaseId: id,
     };
   }
 
-  /**
-   * Routes a first portion to an appointed receiver, creating a provision.
-   * Checks if the field is mapped.
-   */
-  routeProvision(portion: FirstPortion, receiver: Receiver, fieldId: string): Provision {
+  /** Routes a first portion to an appointed receiver. */
+  routeProvision(
+    portion: FirstPortion,
+    receiver: Receiver,
+    fieldId: string,
+  ): Provision {
     if (!this.mappedFields.has(fieldId)) {
-      this.andon.stopLine(`Unmapped Field detected: ${fieldId}. Register in topology before modification.`);
+      this.andon.stopLine(
+        `Unmapped Field detected: ${fieldId}. Register in topology before modification.`,
+      );
       throw new Error(`JIDOKA STOP: Unmapped Field detected (${fieldId}).`);
     }
 
-    if (!receiver || !receiver.id) {
-      this.andon.stopLine("Malformed Provision: No appointed receiver.");
-      throw new Error("JIDOKA STOP: Provision requires an appointed receiver.");
+    if (!receiver?.id) {
+      this.andon.stopLine('Malformed Provision: No appointed receiver.');
+      throw new Error('JIDOKA STOP: Provision requires an appointed receiver.');
     }
 
     return {
       amount: portion.amount,
       receiver,
-      fieldId
+      fieldId,
     };
   }
 
-  /**
-   * Finalizes stewardship by issuing a receipt.
-   */
+  /** Finalizes stewardship by issuing a deterministic BLAKE3-backed receipt. */
   issueReceipt(provision: Provision): StorehouseReceipt {
-    // Runtime Poka-yoke: ensure provision is not malformed
-    if (!provision || !provision.receiver || !provision.fieldId || provision.amount === undefined) {
-      this.andon.stopLine("Malformed Provision: Integrity check failed.");
-      throw new Error("JIDOKA STOP: Provision integrity violation.");
+    if (
+      !provision?.receiver ||
+      !provision.fieldId ||
+      provision.amount === undefined
+    ) {
+      this.andon.stopLine('Malformed Provision: Integrity check failed.');
+      throw new Error('JIDOKA STOP: Provision integrity violation.');
     }
 
-    // Structural check: a receipt cannot be created without a provision, 
-    // and a provision requires a receiver.
-    return {
-      id: `receipt-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    const sequence = ++this.receiptSequence;
+    const receiptDigest = hash({
+      schema: RECEIPT_SCHEMA,
+      sequence,
+      issuedAt: this.context.clock(),
+      nonce: this.context.uuid(),
       provision,
-      stewardshipConfirmed: true
+    });
+
+    return {
+      id: `receipt-${receiptDigest}`,
+      provision,
+      stewardshipConfirmed: true,
     };
   }
 
-  /**
-   * A function that represents the whole loop.
-   */
+  /** Executes the complete stewardship loop. */
   stewardIncrease(
     increase: Increase,
     field: Field,
     receiver: Receiver,
-    context?: StorehouseContext
+    context?: StorehouseContext,
   ): StorehouseReceipt {
     if (context) {
-      console.log(`[Storehouse] Processing increase for Run: ${context.runId}, Trace: ${context.traceId}`);
+      console.log(
+        `[Storehouse] Processing increase for Run: ${context.runId}, Trace: ${context.traceId}`,
+      );
     }
     const portion = this.calculateFirstPortion(increase, `inc-${field.id}`);
     const provision = this.routeProvision(portion, receiver, field.id);
