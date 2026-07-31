@@ -25,6 +25,11 @@ interface ProofReceipt {
   readonly observedAt: string;
 }
 
+interface PackageManifest {
+  readonly scripts?: Record<string, string>;
+  readonly repository?: string;
+}
+
 const root = process.cwd();
 
 function effectiveProofCommand(item: TruexCapability): string | undefined {
@@ -44,15 +49,25 @@ function verifyRepository(): string[] {
   for (const manifest of manifests) {
     const absolute = path.resolve(root, manifest);
     if (!fs.existsSync(absolute)) continue;
-    for (const duplicate of findDuplicateJsonKeys(fs.readFileSync(absolute, 'utf8'))) errors.push(`${manifest} duplicate key: ${duplicate}`);
+    const source = fs.readFileSync(absolute, 'utf8');
+    for (const duplicate of findDuplicateJsonKeys(source)) errors.push(`${manifest} duplicate key: ${duplicate}`);
+    const parsed = JSON.parse(source) as PackageManifest;
+    const capability = TRUEX_CAPABILITIES.find((item) => item.implementation === manifest && item.kind === 'typescript-package');
+    if (capability?.buildCommand && !parsed.scripts?.build) errors.push(`${capability.id} has no build script`);
+    if (capability?.proofCommand && !parsed.scripts?.test) errors.push(`${capability.id} has no test script`);
+    if (parsed.scripts?.test?.includes('no test specified') || parsed.scripts?.test?.includes('exit 1')) errors.push(`${manifest} contains an intentionally failing test script`);
   }
-  const rootPackage = JSON.parse(fs.readFileSync(path.resolve(root, 'package.json'), 'utf8')) as { repository?: string; scripts?: Record<string, string> };
+  const rootPackage = JSON.parse(fs.readFileSync(path.resolve(root, 'package.json'), 'utf8')) as PackageManifest;
   if (!rootPackage.repository?.includes('seanchatmangpt/truex')) errors.push('root package repository metadata is stale');
   if (!rootPackage.scripts?.['doctor:capability']) errors.push('generic Doctor capability broker is not exposed');
   const rootIndex = fs.readFileSync(path.resolve(root, 'src/index.ts'), 'utf8');
   if (rootIndex.includes('return "works!"') || rootIndex.includes("return 'works!'")) errors.push('root public API is still the placeholder implementation');
   const workflow = fs.readFileSync(path.resolve(root, '.github/workflows/ci.yml'), 'utf8');
   if (workflow.indexOf('actions/setup-node') > workflow.indexOf('corepack enable')) errors.push('CI enables Corepack before setup-node');
+  const mining = fs.readFileSync(path.resolve(root, 'crates/truex-kernel-cli/src/commands/mining.rs'), 'utf8');
+  for (const forbidden of ['Mock model load', 'Simple mock parser', 'not yet supported in CLI']) {
+    if (mining.includes(forbidden)) errors.push(`native process-mining CLI contains forbidden stub: ${forbidden}`);
+  }
   return errors;
 }
 
