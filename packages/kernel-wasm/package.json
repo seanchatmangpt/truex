@@ -1,10 +1,13 @@
 {
   "name": "@truex/kernel-wasm",
-  "version": "2.0.0",
+  "version": "26.5.25-CONVERGED",
   "type": "module",
   "main": "./pkg/truex_kernel.js",
   "types": "./pkg/truex_kernel.d.ts",
-  "files": [
-    "pkg"
-  ]
+  "files": ["pkg"],
+  "scripts": {
+    "build": "wasm-pack build ../../crates/truex-kernel --target nodejs --out-dir ../../packages/kernel-wasm/pkg --out-name truex_kernel",
+    "test": "node -e \"const fs=require('node:fs'); for (const f of ['pkg/truex_kernel.js','pkg/truex_kernel_bg.wasm','pkg/truex_kernel.d.ts']) if (!fs.existsSync(f)) throw new Error('missing generated WASM artifact: '+f)\"",
+    "clean": "rm -rf pkg"
+  }
 }
