@@ -27,6 +27,12 @@ interface ProofReceipt {
 
 const root = process.cwd();
 
+function effectiveProofCommand(item: TruexCapability): string | undefined {
+  return item.kind === 'doctor-proof'
+    ? `pnpm doctor:capability -- ${item.id.slice('doctor:'.length)}`
+    : item.proofCommand;
+}
+
 function verifyRepository(): string[] {
   const validation = validateCapabilityRegistry();
   const errors = [...validation.errors];
@@ -40,8 +46,9 @@ function verifyRepository(): string[] {
     if (!fs.existsSync(absolute)) continue;
     for (const duplicate of findDuplicateJsonKeys(fs.readFileSync(absolute, 'utf8'))) errors.push(`${manifest} duplicate key: ${duplicate}`);
   }
-  const rootPackage = JSON.parse(fs.readFileSync(path.resolve(root, 'package.json'), 'utf8')) as { repository?: string };
+  const rootPackage = JSON.parse(fs.readFileSync(path.resolve(root, 'package.json'), 'utf8')) as { repository?: string; scripts?: Record<string, string> };
   if (!rootPackage.repository?.includes('seanchatmangpt/truex')) errors.push('root package repository metadata is stale');
+  if (!rootPackage.scripts?.['doctor:capability']) errors.push('generic Doctor capability broker is not exposed');
   const rootIndex = fs.readFileSync(path.resolve(root, 'src/index.ts'), 'utf8');
   if (rootIndex.includes('return "works!"') || rootIndex.includes("return 'works!'")) errors.push('root public API is still the placeholder implementation');
   const workflow = fs.readFileSync(path.resolve(root, '.github/workflows/ci.yml'), 'utf8');
@@ -51,7 +58,13 @@ function verifyRepository(): string[] {
 
 function map(): void {
   const validation = validateCapabilityRegistry();
-  console.log(JSON.stringify({ schema: 'truex.capability.map.v1', digest: hash(capabilityMapDigestInput()), total: TRUEX_CAPABILITIES.length, counts: validation.counts, capabilities: TRUEX_CAPABILITIES }, null, 2));
+  console.log(JSON.stringify({
+    schema: 'truex.capability.map.v1',
+    digest: hash(capabilityMapDigestInput()),
+    total: TRUEX_CAPABILITIES.length,
+    counts: validation.counts,
+    capabilities: TRUEX_CAPABILITIES.map((item) => ({ ...item, effectiveProofCommand: effectiveProofCommand(item) })),
+  }, null, 2));
 }
 
 function verify(): void {
@@ -67,19 +80,19 @@ function verify(): void {
 
 function selectedCapabilities(args: readonly string[]): readonly TruexCapability[] {
   const ids = args.flatMap((arg, index) => arg === '--id' && args[index + 1] ? [args[index + 1]!] : []);
-  if (args.includes('--all')) return TRUEX_CAPABILITIES.filter((item) => item.proofCommand);
+  if (args.includes('--all')) return TRUEX_CAPABILITIES.filter((item) => effectiveProofCommand(item));
   if (ids.length > 0) {
     const selected = new Map<string, TruexCapability>();
     for (const id of ids) for (const item of resolveCapabilityClosure(id)) selected.set(item.id, item);
-    return [...selected.values()].filter((item) => item.proofCommand);
+    return [...selected.values()].filter((item) => effectiveProofCommand(item));
   }
   return ['doctor:hash', 'doctor:signature', 'doctor:receipt', 'doctor:replay', 'doctor:engine', 'doctor:sqlite']
     .flatMap((id) => resolveCapabilityClosure(id))
-    .filter((item, index, all) => item.proofCommand && all.findIndex((candidate) => candidate.id === item.id) === index);
+    .filter((item, index, all) => effectiveProofCommand(item) && all.findIndex((candidate) => candidate.id === item.id) === index);
 }
 
 function issueReceipt(item: TruexCapability, command: string, exitCode: number | null, stdout: string, stderr: string): ProofReceipt {
-  const standing: CapabilityStanding = exitCode === 0 ? 'ALIVE' : exitCode === null ? 'BLOCKED' : 'BUILD_BROKEN';
+  const standing: CapabilityStanding = exitCode === 0 ? 'ALIVE' : exitCode === 2 ? 'BLOCKED' : exitCode === null ? 'BLOCKED' : 'BUILD_BROKEN';
   const body = { schema: 'truex.capability.receipt.v1' as const, capability: item.id, command, exitCode, standing, stdoutDigest: hash(stdout), stderrDigest: hash(stderr) };
   return Object.freeze({ ...body, receiptDigest: hash(body), observedAt: new Date().toISOString() });
 }
@@ -89,7 +102,7 @@ function prove(args: readonly string[]): void {
   if (errors.length > 0) throw new Error(`CAPABILITY_MAP_REFUSED: ${errors.join('; ')}`);
   const receipts: ProofReceipt[] = [];
   for (const item of selectedCapabilities(args)) {
-    const command = item.proofCommand!;
+    const command = effectiveProofCommand(item)!;
     const result = spawnSync(command, { cwd: root, shell: true, encoding: 'utf8', env: { ...process.env, TSX_DISABLE_CACHE: '1' }, timeout: 10 * 60 * 1000, maxBuffer: 16 * 1024 * 1024 });
     const receipt = issueReceipt(item, command, result.status, result.stdout ?? '', result.stderr ?? result.error?.message ?? '');
     receipts.push(receipt);
