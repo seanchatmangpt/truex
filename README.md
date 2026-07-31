@@ -24,19 +24,21 @@ Truex maintains one executable capability graph covering:
 pnpm capabilities
 pnpm capabilities:verify
 pnpm capabilities:prove
+pnpm capabilities:prove:all
+pnpm capabilities:prove -- --id doctor:finalization
 ```
 
-`capabilities:verify` refuses duplicate package keys, missing implementations, dependency cycles, stale repository metadata, unsafe paths, and `ALIVE` declarations without proof commands. `capabilities:prove` executes dependency-ordered proofs and writes receipt-bearing run evidence under `.truex/capabilities/`.
+`capabilities:verify` refuses duplicate package keys, missing implementations, dependency cycles, stale repository metadata, unsafe paths, and `ALIVE` declarations without proof commands. `capabilities:prove` runs the foundational Gall ladder. `capabilities:prove:all` executes every proof-bearing node. Both write receipt-bearing run evidence under `.truex/capabilities/`.
 
 ## Foundational proof ladder
 
 ```bash
-pnpm truex doctor prove hash
-pnpm truex doctor prove signature
-pnpm truex doctor prove receipt
-pnpm truex doctor prove replay
-pnpm truex doctor prove engine
-pnpm truex doctor prove sqlite
+pnpm doctor:capability -- hash
+pnpm doctor:capability -- signature
+pnpm doctor:capability -- receipt
+pnpm doctor:capability -- replay
+pnpm doctor:capability -- engine
+pnpm doctor:capability -- sqlite
 ```
 
 Higher capabilities must not outrun this sequence.
