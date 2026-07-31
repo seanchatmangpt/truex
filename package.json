@@ -16,7 +16,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "pnpm build:root && pnpm -r --if-present build",
     "dev": "vitest dev",
@@ -40,7 +42,8 @@
     "build:root": "unbuild",
     "capabilities": "tsx scripts/capabilities.ts map",
     "capabilities:verify": "tsx scripts/capabilities.ts verify",
-    "capabilities:prove": "tsx scripts/capabilities.ts prove --all",
+    "capabilities:prove": "tsx scripts/capabilities.ts prove",
+    "capabilities:prove:all": "tsx scripts/capabilities.ts prove --all",
     "ci": "pnpm lint && pnpm test:types && pnpm capabilities:verify && pnpm build && pnpm vitest run --coverage"
   },
   "devDependencies": {
