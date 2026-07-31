@@ -1,15 +1,17 @@
 {
-  "name": "examples-zoe-la",
+  "name": "@truex/examples-zoe-la",
   "version": "26.5.25-CONVERGED",
-  "description": "",
-  "main": "index.js",
+  "description": "Deterministic ZOE LA stewardship and closure example",
+  "main": "src/index.ts",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc --noEmit -p ../../tsconfig.json",
+    "test": "vitest run test",
+    "lint": "tsc --noEmit -p ../../tsconfig.json"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["truex", "zoe-la", "receipt", "replay"],
+  "author": "Sean Chatman",
+  "license": "MIT",
   "dependencies": {
     "@truex/cognition": "workspace:*",
     "@truex/kernel": "workspace:*"
@@ -17,6 +19,7 @@
   "devDependencies": {
     "@types/node": "^25.9.1",
     "tsx": "^4.22.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
   }
 }
