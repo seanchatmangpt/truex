@@ -1,8 +1,8 @@
 {
   "name": "truex-membrane",
   "version": "26.5.25-CONVERGED",
-  "description": "Dynamic JavaScript proxy creation with isolated context-based interception",
-  "repository": "unjs/proxyable",
+  "description": "Receipted operational manufacturing substrate for deterministic consequence, replay, and capability closure",
+  "repository": "https://github.com/seanchatmangpt/truex",
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
@@ -20,7 +20,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
+    "build": "pnpm build:root && pnpm -r --if-present build",
     "dev": "vitest dev",
     "lint": "eslint . && prettier -c .",
     "lint:fix": "automd && eslint . --fix && prettier -w .",
@@ -37,7 +37,12 @@
     "doctor:ggen-bblock": "TSX_DISABLE_CACHE=1 tsx scripts/prove-ggen-bblock.ts",
     "proof:genesis": "TSX_DISABLE_CACHE=1 tsx examples/genesis-foundry.ts",
     "observatory": "TSX_DISABLE_CACHE=1 tsx scripts/observatory/index.ts",
-    "finalization:12h": "pnpm doctor:ecosystem && pnpm doctor:mailbox && pnpm doctor:finalization && pnpm observatory"
+    "finalization:12h": "pnpm doctor:ecosystem && pnpm doctor:mailbox && pnpm doctor:finalization && pnpm observatory",
+    "build:root": "unbuild",
+    "capabilities": "tsx scripts/capabilities.ts map",
+    "capabilities:verify": "tsx scripts/capabilities.ts verify",
+    "capabilities:prove": "tsx scripts/capabilities.ts prove --all",
+    "ci": "pnpm lint && pnpm test:types && pnpm capabilities:verify && pnpm build && pnpm vitest run --coverage"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.4.0",
