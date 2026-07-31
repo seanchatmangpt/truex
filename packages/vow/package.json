@@ -8,6 +8,11 @@
   "exports": {
     ".": "./src/index.ts"
   },
+  "scripts": {
+    "build": "tsc --noEmit -p ../../tsconfig.json",
+    "test": "vitest run test",
+    "lint": "tsc --noEmit -p ../../tsconfig.json"
+  },
   "dependencies": {
     "@truex/membrane": "workspace:*"
   },
