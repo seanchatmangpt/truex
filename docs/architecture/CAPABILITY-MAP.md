@@ -38,11 +38,12 @@ Membrane, hooks, topology, mailbox, agents, planning, integration, and finalizat
 pnpm capabilities
 pnpm capabilities:verify
 pnpm capabilities:prove
+pnpm capabilities:prove:all
 pnpm capabilities:prove -- --id doctor:finalization
 pnpm doctor:capability -- <primitive>
 ```
 
-Static nodes start at `UNKNOWN`. Proof execution emits receipt-bearing states under `.truex/capabilities/`.
+`capabilities:prove` executes the foundational Gall ladder. `capabilities:prove:all` executes every proof-bearing node. Static nodes start at `UNKNOWN`; proof execution emits receipt-bearing states under `.truex/capabilities/`.
 
 ## Replaced legacy crowns
 
