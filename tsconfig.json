@@ -18,5 +18,15 @@
     "skipLibCheck": true,
     "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": ["src", "types", "packages/**/*", "skills/**/*", "agents/**/*"]
+  "include": [
+    "src",
+    "types",
+    "packages/**/*",
+    "skills/**/*",
+    "agents/**/*",
+    "scripts/capabilities.ts",
+    "scripts/prove-doctor-capability.ts",
+    "scripts/prove-ggen-bblock.ts",
+    "examples/genesis-foundry.ts"
+  ]
 }
