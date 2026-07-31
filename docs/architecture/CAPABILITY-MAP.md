@@ -44,13 +44,14 @@ pnpm doctor:capability -- <primitive>
 
 Static nodes start at `UNKNOWN`. Proof execution emits receipt-bearing states under `.truex/capabilities/`.
 
-## Explicitly blocked legacy crowns
+## Replaced legacy crowns
 
-The proof broker refuses these former success paths until real fixtures replace them:
+The public proof broker no longer delegates to the legacy paths that edited elapsed time, emitted mock reports, or consumed stale report files. It now proves:
 
-- `doctor-wizard-telco-unified`: fabricated elapsed time and mock agent reports;
-- `telemetry-integration`: no admitted operations-and-receipts fixture;
-- `unified-integration`: delegates through the mocked unified flow;
-- `capability-breakpoints`: could consume stale reports after a failed test command.
+- Doctor-Wizard-Telco composition through real Wizard commit and rollback traces plus a live Telco OCEL envelope;
+- telemetry integration by replaying those operations and comparing deterministic evidence digests;
+- unified integration by composing the live unified and telemetry receipt hashes;
+- capability breakpoints through range rollback, prototype-pollution refusal, oversized-payload refusal, and tampered ggen-chain refusal;
+- finalization by binding ecosystem, mailbox, architecture, unified-integration, and capability-breakpoint receipts.
 
 Valid standings are `PARTIAL_ALIVE`, `ALIVE`, `BLOCKED`, `BUILD_BROKEN`, `UNKNOWN`, and `UNSUPPORTED`.
