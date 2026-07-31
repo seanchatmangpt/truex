@@ -34,6 +34,8 @@
     "doctor:ecosystem": "TSX_DISABLE_CACHE=1 tsx scripts/truex.ts doctor prove ecosystem",
     "doctor:mailbox": "TSX_DISABLE_CACHE=1 tsx scripts/truex.ts doctor prove mailbox",
     "doctor:finalization": "TSX_DISABLE_CACHE=1 tsx scripts/truex.ts doctor prove finalization",
+    "doctor:ggen-bblock": "TSX_DISABLE_CACHE=1 tsx scripts/prove-ggen-bblock.ts",
+    "proof:genesis": "TSX_DISABLE_CACHE=1 tsx examples/genesis-foundry.ts",
     "observatory": "TSX_DISABLE_CACHE=1 tsx scripts/observatory/index.ts",
     "finalization:12h": "pnpm doctor:ecosystem && pnpm doctor:mailbox && pnpm doctor:finalization && pnpm observatory"
   },
