@@ -20,7 +20,7 @@ serde_json = { workspace = true }
 dialoguer = "0.11"
 colored = "2.1"
 indicatif = "0.17"
-truex-kernel-types = { workspace = true }
+truex-kernel-types = { workspace = true, features = ["import"] }
 truex-kernel-algos = { version = "26.5.25-CONVERGED", path = "../truex-kernel-algos" }
 truex-kernel = { version = "26.5.25-CONVERGED", path = "../truex-kernel", features = ["cloud"] }
 
