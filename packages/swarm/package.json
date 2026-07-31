@@ -5,15 +5,8 @@
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "bin": {
-    "wasm4pm-swarm": "./dist/mcp-server.js"
-  },
+  "exports": { ".": { "import": "./dist/index.js", "types": "./dist/index.d.ts" } },
+  "bin": { "wasm4pm-swarm": "./dist/mcp-server.js" },
   "scripts": {
     "build": "tsc",
     "lint": "tsc --noEmit",
@@ -30,7 +23,6 @@
     "ai": "^6.0.168",
     "smol-toml": "^1.3.4",
     "uuid": "^11.1.0",
-    "@truex/kernel": "workspace:*",
     "zod": "^3.25.0"
   },
   "devDependencies": {
