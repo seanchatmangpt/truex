@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  ci:
+  node:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -28,3 +28,28 @@ jobs:
       - uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo test --workspace
+
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: corepack enable
+      - run: corepack prepare pnpm@9.14.2 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: cargo install wasm-pack --version 0.13.1 --locked
+      - run: pnpm --filter @truex/kernel-wasm build
+      - run: pnpm --filter @truex/kernel-wasm test
