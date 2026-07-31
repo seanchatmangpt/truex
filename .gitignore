@@ -10,8 +10,13 @@ vendors/
 gall_truex.db
 .idea/
 .antigravitycli/
-.DS_Store
 .generated/
+
+# Runtime proof receipts are uploaded by CI, not committed.
+.truex/capabilities/
+
+# Generated WebAssembly bindings must be manufactured by wasm-pack.
+packages/kernel-wasm/pkg/
 
 # Rust build artifacts
 target/
