@@ -16,9 +16,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "pnpm build:root && pnpm -r --if-present build",
     "dev": "vitest dev",
@@ -31,9 +29,10 @@
     "test:full": "vitest run && pnpm doctor:ecosystem && pnpm doctor:mailbox && pnpm doctor:finalization",
     "test:types": "tsc --noEmit --skipLibCheck",
     "truex": "tsx scripts/truex.ts",
-    "doctor:ecosystem": "TSX_DISABLE_CACHE=1 tsx scripts/truex.ts doctor prove ecosystem",
-    "doctor:mailbox": "TSX_DISABLE_CACHE=1 tsx scripts/truex.ts doctor prove mailbox",
-    "doctor:finalization": "TSX_DISABLE_CACHE=1 tsx scripts/truex.ts doctor prove finalization",
+    "doctor:capability": "TSX_DISABLE_CACHE=1 tsx scripts/prove-doctor-capability.ts",
+    "doctor:ecosystem": "pnpm doctor:capability -- ecosystem",
+    "doctor:mailbox": "pnpm doctor:capability -- mailbox",
+    "doctor:finalization": "pnpm doctor:capability -- finalization",
     "doctor:ggen-bblock": "TSX_DISABLE_CACHE=1 tsx scripts/prove-ggen-bblock.ts",
     "proof:genesis": "TSX_DISABLE_CACHE=1 tsx examples/genesis-foundry.ts",
     "observatory": "TSX_DISABLE_CACHE=1 tsx scripts/observatory/index.ts",
