@@ -1,6 +1,12 @@
 import { defineConfig } from 'vitest/config'
+import { resolve } from 'node:path'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@truex/membrane': resolve(__dirname, 'packages/membrane/src/index.ts'),
+    },
+  },
   test: {
     include: [
       'test/**/*.test.{js,ts}',

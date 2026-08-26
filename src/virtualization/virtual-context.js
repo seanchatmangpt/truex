@@ -425,8 +425,42 @@ export function createVirtualGetInterceptor(virtualCtx) {
     // No default
     }
 
-    // No stored value found, compute the value
-    const computedValue = safeCompute(effectiveField, virtualDef, target, state)
+    // No stored value found, compute the value.
+    // If a native JS stack overflow (RangeError) occurs during recursive memoized computation,
+    // fall back to an iterative bottom-up pass over all memoized fields in definition order.
+    // Our own CircularDependencyError and RecursionRefusalError also extend RangeError, so we
+    // distinguish them by checking the constructor: only the base RangeError (not a subclass)
+    // signals a native V8 stack overflow.
+    let computedValue
+    try {
+      computedValue = safeCompute(effectiveField, virtualDef, target, state)
+    } catch (e) {
+      if (e instanceof RangeError && e.constructor === RangeError) {
+        // Native stack overflow — recover using iterative bottom-up computation.
+        // safeCompute's finally-blocks already cleaned up state.visited and state.depth.
+        // Iterate virtualFields in insertion order: since linear chains are defined v0→v1→...→vN,
+        // computing v0 first, then v1 (which finds v0 cached), etc., reaches O(1) depth per field.
+        for (const fname of Object.keys(state.virtualFields)) {
+          const vdef = state.virtualFields[fname]
+          if (vdef.memoize === true && !state.cache.has(fname)) {
+            try {
+              const val = safeCompute(fname, vdef, target, state)
+              if (!state.cache.has(fname)) {
+                state.cache.set(fname, val)
+              }
+            } catch {
+              // Skip circular or otherwise non-computable fields
+            }
+          }
+        }
+        if (state.cache.has(effectiveField)) {
+          return state.cache.get(effectiveField)
+        }
+        // If still not in cache (e.g. non-memoize or circular), re-throw original error
+        throw e
+      }
+      throw e
+    }
 
     // Store based on memoization setting or if explicit storage type is specified
     // Auto-enable memoization for fields with explicit storage
