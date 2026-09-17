@@ -5,8 +5,8 @@
     "Wizard CommandReceipt for verb \"init\" has valid self-integrity",
     "TelcoReceipt for verb \"transmit\" has valid self-integrity",
     "TelcoReceipt for verb \"transmit\" has valid self-integrity",
-    "Receipt link verified: b40d27b6ae8257eaf39d4823a44707c59636ff3212b2f27ff21cee3744b7ea13 -> 20ef7a05be036e77c88f39839222287804fea5f609ca0a36ca0869a6389be60b",
-    "Receipt link verified: 3aed7567ba31fc2c88d3d5c283abc9f20119af7f4f4e58389dae95968fe884df -> b40d27b6ae8257eaf39d4823a44707c59636ff3212b2f27ff21cee3744b7ea13",
+    "Receipt link verified: c8874a513069180487d01d2add8c9e41b011e013637b8a149d14ffed7ad41f99 -> 6a634cccc12cb7da6d3455ac3abf27212e56687341cb63b889b6c12389c15903",
+    "Receipt link verified: e905448714e32a10e982b2fac422d6bb9f3085e3842c5caebea136af855754f1 -> c8874a513069180487d01d2add8c9e41b011e013637b8a149d14ffed7ad41f99",
     "Operation \"init_receipt\" (type: init) verified by TelcoReceipt",
     "Operation \"accounting_stats\" (type: stats) verified by TelcoReceipt"
   ],

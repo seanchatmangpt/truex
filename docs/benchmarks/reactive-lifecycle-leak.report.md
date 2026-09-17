@@ -3,32 +3,32 @@
 ## Executive Summary
 - **Case Study:** reactive-lifecycle-leak-audit
 - **Status:** ✅ Passed (Heap delta is stable)
-- **Timestamp:** 2026-05-26T05:20:26.372Z
-- **Report Hash:** `565612a4595dda9b1d8c5b51616cbf63697803e8d470394bd0c5144dbabeb85b`
+- **Timestamp:** 2026-06-08T07:46:06.129Z
+- **Report Hash:** `f2b4b64a5c36a683d9dc37fee29e8fcb95bc6f931ec3f10a80155fa291596e0d`
 
 ## Memory Profiling
-- **Initial Heap Used:** 16.394 MB
-- **Peak Heap Used:** 21.512 MB
-- **Final Heap Used:** 18.354 MB
-- **Total Heap Delta:** 1.960 MB
-- **Total RSS Delta:** 5.250 MB
-- **Stable Phase Heap Delta (Iteration 10 → 50):** **🟢 2.858 MB (Stable)**
+- **Initial Heap Used:** 14.146 MB
+- **Peak Heap Used:** 34.097 MB
+- **Final Heap Used:** 28.085 MB
+- **Total Heap Delta:** 13.938 MB
+- **Total RSS Delta:** 38.313 MB
+- **Stable Phase Heap Delta (Iteration 10 → 50):** **🟡 8.407 MB (Acceptable)**
 
 ## Detailed Verb Timings (over 50 iterations)
 | Verb | Total Duration (ms) | Average Duration (ms) | Min (ms) | Max (ms) |
 |---|---|---|---|---|
-| `init` | 101.633 | 2.033 | 1.331 | 12.447 |
-| `map` | 99.207 | 1.984 | 1.167 | 22.143 |
-| `plan` | 90.477 | 1.810 | 1.317 | 3.449 |
-| `forge` | 81.613 | 1.632 | 0.888 | 24.107 |
-| `bind` | 113.127 | 2.263 | 1.712 | 4.461 |
-| `prove` | 325.062 | 6.501 | 4.743 | 34.112 |
-| `harden` | 46.543 | 0.931 | 0.390 | 18.797 |
-| `handoff` | 61.017 | 1.220 | 0.872 | 3.471 |
+| `init` | 70.414 | 1.408 | 1.218 | 2.067 |
+| `map` | 58.822 | 1.176 | 1.002 | 2.558 |
+| `plan` | 66.496 | 1.330 | 1.161 | 1.992 |
+| `forge` | 47.905 | 0.958 | 0.849 | 1.762 |
+| `bind` | 90.400 | 1.808 | 1.568 | 6.070 |
+| `prove` | 233.883 | 4.678 | 4.219 | 7.467 |
+| `harden` | 19.353 | 0.387 | 0.333 | 0.531 |
+| `handoff` | 43.395 | 0.868 | 0.795 | 1.135 |
 
 ## Examples Runtime
-- **Total Time spent on 34 Examples:** 353.119 ms
-- **Average Time spent per Iteration (34 Examples):** 7.062 ms
+- **Total Time spent on 34 Examples:** 404.951 ms
+- **Average Time spent per Iteration (34 Examples):** 8.099 ms
 
 ## Invariants Verified
 * **Invariant:** Execute 50 consecutive full E2E project lifecycles containing all 34 examples/reactive pattern steps

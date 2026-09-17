@@ -5,11 +5,11 @@
     "Unified flow initialized 20 isolated peer cells concurrently",
     "Unified pipeline executed successfully across all 20 concurrent cells",
     "Unified flow gracefully refused fuzzed payloads, out-of-bounds metrics, and pollution attempts without crashing",
-    "Resource usage heap footprint delta is stable: -5.667 MB across 50 iterations"
+    "Resource usage heap footprint delta is stable: 4.196 MB across 50 iterations"
   ],
   "failures": [],
   "timings": {
-    "execution": 104
+    "execution": 82
   },
-  "receiptHash": "76a6042b4d2e6dfcbb54d2c37c10717076fdbf6e3ae4c4b0273e6c654b413092"
+  "receiptHash": "6b5643de87bd6ab40de873c1e7250c2453fea032aac0f8116d594e10efee74b1"
 }

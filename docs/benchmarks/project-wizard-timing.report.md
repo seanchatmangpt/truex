@@ -3,58 +3,58 @@
 ## Executive Summary
 - **Case:** project-wizard-timing-benchmark
 - **Status:** ✅ Passed
-- **Timestamp:** 2026-05-26T05:20:31.511Z
-- **Report Hash:** `fde260af6e98f3e5b33e259df4b18bcf7beb05195881df1c9fba05406bcf1e9a`
+- **Timestamp:** 2026-06-08T07:46:11.964Z
+- **Report Hash:** `1ba27e681b823bd4db9887e35e769cc8e2610984ba6f2bda517e03fab54b8d61`
 
 ## Detailed Verb Timings
 Below is the execution duration for each of the 8 wizard verbs. The **Direct JS API** columns capture pure in-memory execution of the underlying classes, whereas the **CLI Command** columns capture the total execution time including CLI routing, tsx load, and argument parsing.
 
 | Wizard Verb | Direct JS API Duration (ms) | CLI Command Duration (ms) | CLI Overhead (ms) |
 |-------------|----------------------------|---------------------------|-------------------|
-| `init` | 3.784 | 102.479 | 98.695 |
-| `map` | 2.265 | 98.855 | 96.590 |
-| `plan` | 2.141 | 99.236 | 97.095 |
-| `forge` | 1.250 | 98.078 | 96.828 |
-| `bind` | 2.460 | 98.278 | 95.818 |
-| `prove` | 6.291 | 103.806 | 97.515 |
-| `harden` | 0.493 | 94.894 | 94.401 |
-| `handoff` | 1.227 | 103.762 | 102.534 |
+| `init` | 3.682 | 130.422 | 126.739 |
+| `map` | 3.179 | 133.808 | 130.629 |
+| `plan` | 2.887 | 135.865 | 132.978 |
+| `forge` | 1.317 | 135.151 | 133.834 |
+| `bind` | 3.566 | 147.100 | 143.534 |
+| `prove` | 11.317 | 155.013 | 143.696 |
+| `harden` | 0.508 | 130.475 | 129.967 |
+| `handoff` | 3.635 | 142.288 | 138.653 |
 
 ## Detailed Verb Throughput (ops/sec)
 Throughput is computed as the number of operations per second ($1000 / \text{duration in ms}$) if that verb were executed continuously.
 
 | Wizard Verb | Direct JS API (ops/sec) | CLI Command (ops/sec) |
 |-------------|-------------------------|-----------------------|
-| `init` | 264.279 | 9.758 |
-| `map` | 441.452 | 10.116 |
-| `plan` | 467.117 | 10.077 |
-| `forge` | 799.787 | 10.196 |
-| `bind` | 406.435 | 10.175 |
-| `prove` | 158.955 | 9.633 |
-| `harden` | 2030.284 | 10.538 |
-| `handoff` | 814.775 | 9.637 |
+| `init` | 271.564 | 7.667 |
+| `map` | 314.556 | 7.473 |
+| `plan` | 346.350 | 7.360 |
+| `forge` | 759.446 | 7.399 |
+| `bind` | 280.452 | 6.798 |
+| `prove` | 88.366 | 6.451 |
+| `harden` | 1967.536 | 7.664 |
+| `handoff` | 275.084 | 7.028 |
 
 ## Filesystem Latency (ms)
 Baseline write-read-delete cycles are measured within the project workspace directly after each verb execution.
 
 | Wizard Verb | API Workspace Latency (ms) | CLI Workspace Latency (ms) |
 |-------------|----------------------------|----------------------------|
-| `init` | 0.203 | 0.389 |
-| `map` | 0.183 | 0.385 |
-| `plan` | 0.163 | 0.356 |
-| `forge` | 0.144 | 0.405 |
-| `bind` | 0.154 | 0.337 |
-| `prove` | 0.158 | 0.343 |
-| `harden` | 0.144 | 0.483 |
-| `handoff` | 0.141 | 0.419 |
+| `init` | 0.289 | 0.309 |
+| `map` | 0.158 | 0.336 |
+| `plan` | 0.153 | 0.282 |
+| `forge` | 0.152 | 0.474 |
+| `bind` | 0.171 | 0.292 |
+| `prove` | 0.177 | 0.389 |
+| `harden` | 0.135 | 0.361 |
+| `handoff` | 0.466 | 0.345 |
 
 ## Operational Metrics Summary
 | Metric | Direct JS API | CLI Command |
 |--------|---------------|-------------|
-| **Total Sequence Duration** | 19.912 ms | 799.388 ms |
-| **Average Verb Duration** | 2.489 ms | 99.923 ms |
-| **Average Filesystem Latency** | 0.161 ms | 0.390 ms |
-| **Sequence Throughput (ops/sec)** | 401.775 | 10.008 |
+| **Total Sequence Duration** | 30.091 ms | 1110.122 ms |
+| **Average Verb Duration** | 3.761 ms | 138.765 ms |
+| **Average Filesystem Latency** | 0.213 ms | 0.349 ms |
+| **Sequence Throughput (ops/sec)** | 265.859 | 7.206 |
 
 ## Validated Invariants
 * **Invariant:** init creates the project cell and ledger files

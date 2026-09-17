@@ -1,7 +1,37 @@
 {
-  "W1": { "attempted": 0, "succeeded": 0, "failed": 0, "refused": 0 },
-  "W2": { "attempted": 0, "created": 0, "updated": 0, "unchanged": 0, "refused": 0, "failed": 0 },
-  "W3": { "proposed": 0, "accepted": 0, "refused": 0, "executed": 0, "failed": 0 },
-  "W4": { "attempted": 0, "succeeded": 0, "failed": 0, "skipped": 0, "refused": 0 },
-  "W5": { "expected": 0, "reported": 0, "missing": 0, "failed": 0, "refused": 0 }
+  "W1": {
+    "attempted": 9,
+    "succeeded": 1,
+    "failed": 1,
+    "refused": 7
+  },
+  "W2": {
+    "attempted": 2,
+    "created": 2,
+    "updated": 0,
+    "unchanged": 0,
+    "refused": 0,
+    "failed": 0
+  },
+  "W3": {
+    "proposed": 0,
+    "accepted": 0,
+    "refused": 0,
+    "executed": 0,
+    "failed": 0
+  },
+  "W4": {
+    "attempted": 0,
+    "succeeded": 0,
+    "failed": 0,
+    "skipped": 0,
+    "refused": 0
+  },
+  "W5": {
+    "expected": 0,
+    "reported": 0,
+    "missing": 0,
+    "failed": 0,
+    "refused": 0
+  }
 }

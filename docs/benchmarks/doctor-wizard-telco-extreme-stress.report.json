@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-05-26T05:20:28.007Z",
+  "timestamp": "2026-06-08T07:46:07.501Z",
   "testType": "doctor_wizard_telco_extreme_stress",
   "concurrency": 20,
   "metrics": {
-    "totalDurationMs": 1372.945584,
-    "memoryUsedMb": 1.2477264404296875,
-    "throughputSessionsPerSec": 14.56721973039246,
+    "totalDurationMs": 1112.3790000000001,
+    "memoryUsedMb": 2.8423080444335938,
+    "throughputSessionsPerSec": 17.979483611251197,
     "databaseIntegrity": "ok"
   },
   "accounting": {

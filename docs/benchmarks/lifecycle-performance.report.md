@@ -1,45 +1,45 @@
 # TRUEX Unified E2E Lifecycle Performance & Leak Report
 
-Generated: 2026-05-26T05:20:08.501Z
+Generated: 2026-06-08T07:45:54.762Z
 Loops Run: 50
-Total Execution Time: 3874.26 ms
+Total Execution Time: 2710.38 ms
 
 ## 1. Memory Analysis & Leak Detection
 To assert operational stability and verify the lack of state leaks, heap memory is measured before and after the test loop execution.
 
 | Metric | Value |
 | --- | --- |
-| Heap Used Before | 13.15 MB |
-| Heap Used After | 21.69 MB |
-| **Heap Delta** | **8.54 MB** |
+| Heap Used Before | 11.67 MB |
+| Heap Used After | 13.31 MB |
+| **Heap Delta** | **1.64 MB** |
 | GC Forced | No |
 | **Status** | **PASSED (Stable)** |
 
 ## 2. CPU Consumption
-- **User CPU Time:** 866.16 ms
-- **System CPU Time:** 2761.02 ms
-- **Total CPU time:** 3627.18 ms
+- **User CPU Time:** 928.99 ms
+- **System CPU Time:** 2015.38 ms
+- **Total CPU time:** 2944.37 ms
 
 ## 3. Verb Benchmarks
 Each individual verb in the S11 (Wizard) and S13 (Telco) lifecycles was profiled over 50 loops.
 
 | Verb | Avg Duration (ms) | Median (ms) | Min (ms) | Max (ms) | Throughput (ops/sec) |
 | --- | --- | --- | --- | --- | --- |
-| `init` | 2.2887 | 1.8012 | 1.4563 | 21.4130 | 436.9 |
-| `map` | 1.4160 | 1.3550 | 1.0865 | 2.5327 | 706.2 |
-| `plan` | 1.6757 | 1.6763 | 1.2760 | 2.3212 | 596.8 |
-| `forge` | 4.9953 | 4.9074 | 3.8967 | 6.8769 | 200.2 |
-| `bind` | 13.9273 | 13.5785 | 11.7560 | 18.0471 | 71.8 |
-| `prove` | 43.0899 | 40.3504 | 36.4187 | 93.1313 | 23.2 |
-| `listen` | 0.0075 | 0.0052 | 0.0030 | 0.0473 | 133083.1 |
-| `dial` | 0.0043 | 0.0023 | 0.0018 | 0.0394 | 230546.5 |
-| `handshake` | 0.0076 | 0.0046 | 0.0039 | 0.0753 | 131563.4 |
-| `encode` | 0.0205 | 0.0166 | 0.0123 | 0.0748 | 48891.8 |
-| `route` | 0.0031 | 0.0017 | 0.0015 | 0.0385 | 327681.9 |
-| `transmit` | 0.0123 | 0.0100 | 0.0084 | 0.0585 | 81482.9 |
-| `verify` | 0.0100 | 0.0073 | 0.0066 | 0.0427 | 99618.7 |
-| `settle` | 0.0025 | 0.0015 | 0.0014 | 0.0280 | 408163.3 |
-| `handoff` | 1.1228 | 1.0752 | 0.8466 | 2.0984 | 890.6 |
+| `init` | 1.2678 | 1.1931 | 1.1289 | 3.6977 | 788.8 |
+| `map` | 1.0153 | 0.9434 | 0.9149 | 2.6854 | 984.9 |
+| `plan` | 1.2308 | 1.1559 | 1.1025 | 2.6620 | 812.5 |
+| `forge` | 3.5818 | 3.6626 | 3.1371 | 4.7429 | 279.2 |
+| `bind` | 10.7331 | 10.5124 | 9.7836 | 16.2093 | 93.2 |
+| `prove` | 30.1960 | 29.3486 | 28.8016 | 39.6265 | 33.1 |
+| `listen` | 0.0046 | 0.0026 | 0.0022 | 0.0386 | 216379.0 |
+| `dial` | 0.0051 | 0.0021 | 0.0014 | 0.0383 | 195920.9 |
+| `handshake` | 0.0085 | 0.0038 | 0.0028 | 0.0820 | 117257.5 |
+| `encode` | 0.0195 | 0.0142 | 0.0109 | 0.1342 | 51262.3 |
+| `route` | 0.0035 | 0.0019 | 0.0016 | 0.0383 | 284965.2 |
+| `transmit` | 0.0121 | 0.0099 | 0.0077 | 0.0573 | 82930.2 |
+| `verify` | 0.0105 | 0.0082 | 0.0066 | 0.0412 | 95260.6 |
+| `settle` | 0.0026 | 0.0016 | 0.0013 | 0.0272 | 379616.1 |
+| `handoff` | 0.8086 | 0.7829 | 0.7495 | 1.2692 | 1236.8 |
 
 ## 4. Invariant & Conservation Verification
 - **W1 - W5 Conservation:** Confirmed conserved by `MissionController.verifyHandoff` and `MissionController.finalize` on every iteration.

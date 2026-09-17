@@ -1,10 +1,4 @@
 {
-  "path": "/Users/sac/truex",
-  "mission": "truex: Knowledge Hooks / Autonomic Knowledge Actuation research foundry — Sheep Gate lifecycle manufacture",
-  "durationHours": 24,
-  "agents": 5,
-  "status": "initialized",
-  "initializedAt": "2026-06-02T00:00:00.000Z",
   "epoch": 1,
   "boundary": {
     "root": "/Users/sac/truex",
@@ -12,5 +6,11 @@
     "excludedPatterns": []
   },
   "initialRootHash": "",
-  "genesisHash": ""
+  "genesisHash": "",
+  "path": "/Users/sac/truex",
+  "mission": "Build a durable project using Truex project manufacturing discipline",
+  "durationHours": 12,
+  "agents": 5,
+  "status": "initialized",
+  "initializedAt": "2026-06-02T00:00:00.000Z"
 }

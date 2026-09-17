@@ -1,7 +1,7 @@
 # Invariant, Contract & Virtual Value Stress Test Report
 
 ## Metadata
-- **Timestamp:** 2026-05-26T05:20:50.617Z
+- **Timestamp:** 2026-06-08T07:46:15.197Z
 - **Target OS:** mac
 - **Test Runner:** Vitest
 
@@ -17,11 +17,11 @@
 | 10 | Yes 🚀 | 1ms | 20 | Speedup: 0.00x |
 | 10 | No 🐢 | 0ms | 20 | Speedup: 0.00x |
 | 100 | Yes 🚀 | 0ms | 110 | Speedup: N/A |
-| 100 | No 🐢 | 0ms | 110 | Speedup: N/A |
-| 500 | Yes 🚀 | 0ms | 510 | Speedup: N/A |
-| 500 | No 🐢 | 0ms | 510 | Speedup: N/A |
-| 1000 | Yes 🚀 | 1ms | 1010 | Speedup: 1.00x |
-| 1000 | No 🐢 | 1ms | 1010 | Speedup: 1.00x |
+| 100 | No 🐢 | 1ms | 110 | Speedup: N/A |
+| 500 | Yes 🚀 | 1ms | 510 | Speedup: 1.00x |
+| 500 | No 🐢 | 1ms | 510 | Speedup: 1.00x |
+| 1000 | Yes 🚀 | 816ms | 1010 | Speedup: 0.00x |
+| 1000 | No 🐢 | 1ms | 1010 | Speedup: 0.00x |
 
 - **Circular Virtual Fields (vA -> vB -> vA):** ✅ Safely terminated via V8 RangeError (Maximum call stack size exceeded).
 

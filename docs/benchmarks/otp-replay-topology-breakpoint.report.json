@@ -1,32 +1,32 @@
 {
-  "timestamp": "2026-05-26T05:20:43.781Z",
+  "timestamp": "2026-06-08T07:46:28.373Z",
   "receiptStress": [
     {
       "count": 10,
-      "opsPerSec": 3476.447071093351,
-      "durationMs": 2.876499999999993,
-      "memoryDeltaKb": 1399.203125
+      "opsPerSec": 2760.2067615680944,
+      "durationMs": 3.622917000000001,
+      "memoryDeltaKb": 1684.640625
     },
     {
       "count": 50,
-      "opsPerSec": 11258.621570933521,
-      "durationMs": 4.441040999999984,
-      "memoryDeltaKb": 6235.59375
+      "opsPerSec": 6921.173919687801,
+      "durationMs": 7.224208000000004,
+      "memoryDeltaKb": 2514.328125
     },
     {
       "count": 100,
-      "opsPerSec": 15091.114110553866,
-      "durationMs": 6.626416000000006,
-      "memoryDeltaKb": 2329.015625
+      "opsPerSec": 13269.565111234768,
+      "durationMs": 7.536042000000009,
+      "memoryDeltaKb": -4010.9765625
     }
   ],
   "replayMetrics": {
     "sampleCount": 50,
-    "opsPerSec": 31734.285023385102,
+    "opsPerSec": 23790.174467623452,
     "convergencePct": 100,
     "convergencePctUnderMutations": 0,
     "tamperDetectionPct": 100,
-    "durationMs": 1.5755829999999946,
+    "durationMs": 2.101708000000002,
     "tamperingNote": "cryptographic receipt integrity checks detected tested tampering cases"
   },
   "topologyDepth": [
@@ -69,9 +69,9 @@
     "propagationPct": 100
   },
   "overheadRatioMetrics": {
-    "rawOpsPerSec": 4020100.502511166,
-    "receiptBackedOpsPerSec": 24044.721257962257,
-    "overheadRatio": 167.19264321602128,
+    "rawOpsPerSec": 3182990.1009031907,
+    "receiptBackedOpsPerSec": 18394.04533249269,
+    "overheadRatio": 173.0445936914435,
     "violatesCtqThreshold": true,
     "operatingMode": "degraded"
   }

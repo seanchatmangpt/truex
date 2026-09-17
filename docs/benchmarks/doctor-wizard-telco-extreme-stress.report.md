@@ -4,9 +4,9 @@
 This report profiles the unified stress and timing benchmark of Doctor, Wizard, and Telco acting concurrently over a shared persistence membrane database.
 
 - **Concurrency:** 20 parallel cells/peers
-- **Execution Duration:** 1372.946 ms
-- **Memory Footprint Delta:** 1.248 MB
-- **Throughput:** 14.567 sessions/second
+- **Execution Duration:** 1112.379 ms
+- **Memory Footprint Delta:** 2.842 MB
+- **Throughput:** 17.979 sessions/second
 - **Database Integrity Status:** ok
 
 ## Invariants Proven

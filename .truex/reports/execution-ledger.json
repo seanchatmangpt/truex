@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "receiptHash": "f103c6a0d06aafec589ab6ca0dc0e408ac9979f66723bc0690015fb3a4547586",
+    "verb": "init",
+    "status": "succeeded",
+    "startedAt": "2026-06-03T15:53:18.072Z",
+    "completedAt": "2026-06-03T15:53:18.075Z",
+    "durationMs": 3
+  },
+  {
+    "receiptHash": "0accf7272030b3b2c5f4908c6c907a56268701cbbd7e6f04880223d1f53ce670",
+    "verb": "prove",
+    "status": "refused",
+    "startedAt": "2026-06-03T15:53:22.494Z",
+    "completedAt": "2026-06-03T15:53:22.495Z",
+    "durationMs": 1
+  },
+  {
+    "receiptHash": "a8327dff49f7e3354180a6710382ea32c7483eaf6ed72fe3fac89f2af909d9c5",
+    "verb": "prove",
+    "status": "failed",
+    "startedAt": "2026-06-03T15:53:29.870Z",
+    "completedAt": "2026-06-03T15:53:29.872Z",
+    "durationMs": 2
+  },
+  {
+    "receiptHash": "a1758a9f67b34a3c719c4102f1cfc229cdec70c2781448dab6a3b408c73a1683",
+    "verb": "init",
+    "status": "refused",
+    "startedAt": "2026-06-08T07:34:25.918Z",
+    "completedAt": "2026-06-08T07:34:25.918Z",
+    "durationMs": 0
+  },
+  {
+    "receiptHash": "bea8d797a1bebd2828421b1da2fe82369b33581fe0cac0860f451aebccd1c22f",
+    "verb": "init",
+    "status": "refused",
+    "startedAt": "2026-06-08T07:34:28.194Z",
+    "completedAt": "2026-06-08T07:34:28.195Z",
+    "durationMs": 1
+  },
+  {
+    "receiptHash": "e48f94e9d16ce5f9d8b6f82086e1baa8c41613616d00fd329e1c61387ce16458",
+    "verb": "init",
+    "status": "refused",
+    "startedAt": "2026-06-08T07:35:49.011Z",
+    "completedAt": "2026-06-08T07:35:49.012Z",
+    "durationMs": 1
+  },
+  {
+    "receiptHash": "d5717e0b8f6639c0bf79ab83e6cc3a078d0fb3caabbc32dd07983ec2382556c4",
+    "verb": "init",
+    "status": "refused",
+    "startedAt": "2026-06-08T07:42:16.613Z",
+    "completedAt": "2026-06-08T07:42:16.614Z",
+    "durationMs": 1
+  },
+  {
+    "receiptHash": "97ae2c72522060a40f6477f678e02ad7e1ec27524951a4c89b715f89f856a9d0",
+    "verb": "init",
+    "status": "refused",
+    "startedAt": "2026-06-08T07:43:16.964Z",
+    "completedAt": "2026-06-08T07:43:16.965Z",
+    "durationMs": 1
+  },
+  {
+    "receiptHash": "8ebf7fcd5491b6308bc5935058f108d782649f590237b4c7af8149b42a69b769",
+    "verb": "init",
+    "status": "refused",
+    "startedAt": "2026-06-08T07:45:44.456Z",
+    "completedAt": "2026-06-08T07:45:44.457Z",
+    "durationMs": 1
+  }
+]

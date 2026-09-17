@@ -1,16 +1,16 @@
 {
-  "timestamp": "2026-05-26T05:20:11.662Z",
+  "timestamp": "2026-06-08T07:46:01.059Z",
   "metrics": {
-    "inMemoryDurationMs": 80.73350000000005,
-    "cliDurationMs": 810.4195000000001,
+    "inMemoryDurationMs": 22.556542000000036,
+    "cliDurationMs": 492.98075000000006,
     "concurrencyLevel": 20,
-    "concurrentDurationMs": 534.5034169999999,
-    "averageConcurrentDurationMs": 26.725170849999994,
+    "concurrentDurationMs": 266.7889999999999,
+    "averageConcurrentDurationMs": 13.339449999999994,
     "repetitionsRun": 50,
-    "heapDiffMb": 41.77265167236328
+    "heapDiffMb": -11.945930480957031
   },
   "system": {
-    "nodeVersion": "v24.15.0",
+    "nodeVersion": "v20.13.0",
     "platform": "darwin",
     "arch": "arm64"
   }

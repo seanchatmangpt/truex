@@ -1,86 +1,86 @@
 {
   "case": "reactive-lifecycle-leak-audit",
   "status": "passed",
-  "timestamp": "2026-05-26T05:20:26.372Z",
+  "timestamp": "2026-06-08T07:46:06.129Z",
   "iterations": 50,
   "memory": {
     "start": {
-      "rssMb": 84.53125,
-      "heapTotalMb": 31.21875,
-      "heapUsedMb": 16.394012451171875
+      "rssMb": 78.296875,
+      "heapTotalMb": 29.046875,
+      "heapUsedMb": 14.146492004394531
     },
     "end": {
-      "rssMb": 89.78125,
-      "heapTotalMb": 32.21875,
-      "heapUsedMb": 18.353981018066406
+      "rssMb": 116.609375,
+      "heapTotalMb": 53.296875,
+      "heapUsedMb": 28.084693908691406
     },
-    "peakHeapUsedMb": 21.51197052001953,
-    "deltaHeapUsedMb": 1.9599685668945312,
-    "deltaRssMb": 5.25,
+    "peakHeapUsedMb": 34.097442626953125,
+    "deltaHeapUsedMb": 13.938201904296875,
+    "deltaRssMb": 38.3125,
     "growthReport": {
-      "warmupHeapUsedMb": 15.494575500488281,
-      "finalHeapUsedMb": 18.352493286132812,
-      "stableDeltaMb": 2.8579177856445312
+      "warmupHeapUsedMb": 19.599502563476562,
+      "finalHeapUsedMb": 28.00690460205078,
+      "stableDeltaMb": 8.407402038574219
     }
   },
   "timings": {
     "verbs": {
       "init": {
-        "totalMs": 101.63333199999963,
-        "averageMs": 2.0326666399999924,
-        "minMs": 1.3306250000000546,
-        "maxMs": 12.447082999999992
+        "totalMs": 70.41436999999976,
+        "averageMs": 1.4082873999999952,
+        "minMs": 1.2176670000001195,
+        "maxMs": 2.0665830000000085
       },
       "map": {
-        "totalMs": 99.2066730000002,
-        "averageMs": 1.9841334600000038,
-        "minMs": 1.1670000000001437,
-        "maxMs": 22.142666999999847
+        "totalMs": 58.821875999999804,
+        "averageMs": 1.1764375199999961,
+        "minMs": 1.0020419999999604,
+        "maxMs": 2.5577499999999986
       },
       "plan": {
-        "totalMs": 90.47733199999936,
-        "averageMs": 1.8095466399999873,
-        "minMs": 1.3170420000001286,
-        "maxMs": 3.4485420000000886
+        "totalMs": 66.49620999999925,
+        "averageMs": 1.3299241999999851,
+        "minMs": 1.1610829999999623,
+        "maxMs": 1.9919170000000008
       },
       "forge": {
-        "totalMs": 81.61308399999916,
-        "averageMs": 1.6322616799999832,
-        "minMs": 0.8880830000000515,
-        "maxMs": 24.10749999999996
+        "totalMs": 47.90516800000057,
+        "averageMs": 0.9581033600000114,
+        "minMs": 0.8489580000000387,
+        "maxMs": 1.7621669999999767
       },
       "bind": {
-        "totalMs": 113.12704099999945,
-        "averageMs": 2.2625408199999892,
-        "minMs": 1.711999999999989,
-        "maxMs": 4.460874999999987
+        "totalMs": 90.40004099999987,
+        "averageMs": 1.8080008199999975,
+        "minMs": 1.5677500000000464,
+        "maxMs": 6.0704580000000306
       },
       "prove": {
-        "totalMs": 325.0622850000013,
-        "averageMs": 6.501245700000026,
-        "minMs": 4.742500000000064,
-        "maxMs": 34.111541999999986
+        "totalMs": 233.88316599999968,
+        "averageMs": 4.6776633199999935,
+        "minMs": 4.219124999999963,
+        "maxMs": 7.466750000000019
       },
       "harden": {
-        "totalMs": 46.54262200000045,
-        "averageMs": 0.930852440000009,
-        "minMs": 0.3899170000000822,
-        "maxMs": 18.796957999999904
+        "totalMs": 19.353337000000806,
+        "averageMs": 0.3870667400000161,
+        "minMs": 0.3331660000000056,
+        "maxMs": 0.5311660000000131
       },
       "handoff": {
-        "totalMs": 61.016624999999465,
-        "averageMs": 1.2203324999999894,
-        "minMs": 0.8724999999999454,
-        "maxMs": 3.470542000000023
+        "totalMs": 43.39499999999853,
+        "averageMs": 0.8678999999999707,
+        "minMs": 0.79525000000001,
+        "maxMs": 1.135249999999985
       }
     },
     "examples": {
-      "totalMs": 353.11887300000063,
-      "averageMs": 7.062377460000013
+      "totalMs": 404.9510000000004,
+      "averageMs": 8.099020000000008
     },
     "overall": {
-      "totalMs": 1570.7047050000003,
-      "averageMsPerLifecycle": 31.414094100000007
+      "totalMs": 1236.6745839999999,
+      "averageMsPerLifecycle": 24.733491679999997
     }
   },
   "invariants": [
@@ -90,9 +90,9 @@
     "Profile timings of all verbs and output the raw benchmark JSON report"
   ],
   "metadata": {
-    "nodeVersion": "v24.15.0",
+    "nodeVersion": "v20.13.0",
     "platform": "darwin",
     "arch": "arm64"
   },
-  "reportHash": "565612a4595dda9b1d8c5b51616cbf63697803e8d470394bd0c5144dbabeb85b"
+  "reportHash": "f2b4b64a5c36a683d9dc37fee29e8fcb95bc6f931ec3f10a80155fa291596e0d"
 }

@@ -1,6 +1,6 @@
 # OTP Replay & Topology Cascade Stress Test Report (Breakpoint Analysis)
 
-Generated on: `2026-05-26T05:20:43.781Z`
+Generated on: `2026-06-08T07:46:28.373Z`
 
 ## Executive Summary
 This report analyzes the performance boundaries and breakpoint limits of the Truex Receipt-backed message execution, Replay verification, and Topology Cascades. The engine was put under stress with up to 10,000 operations, deep recursive call cascades, and high fanout loads.
@@ -12,9 +12,9 @@ Measures the throughput (ops/sec) and memory delta of registering and receipting
 
 | Message/Receipt Count | Processing Speed (ops/sec) | Duration (ms) | Memory Delta (KB) |
 | :------------------- | :------------------------- | :------------ | :---------------- |
-| 10 | 3476.45 | 2.88 ms | 1399.20 KB |
-| 50 | 11258.62 | 4.44 ms | 6235.59 KB |
-| 100 | 15091.11 | 6.63 ms | 2329.02 KB |
+| 10 | 2760.21 | 3.62 ms | 1684.64 KB |
+| 50 | 6921.17 | 7.22 ms | 2514.33 KB |
+| 100 | 13269.57 | 7.54 ms | -4010.98 KB |
 
 
 ---
@@ -23,7 +23,7 @@ Measures the throughput (ops/sec) and memory delta of registering and receipting
 Replay verification ensures determinism and causal accountability by verifying receipt lineages.
 
 - **Replay Sample Count**: `50`
-- **Replay Throughput**: `31734.29 ops/sec` (duration: `1.58 ms`)
+- **Replay Throughput**: `23790.17 ops/sec` (duration: `2.10 ms`)
 - **Replay Convergence %**: `100.00%` (Replaying valid receipts matches the target state exactly)
 - **Convergence % Under Mutations**: `0.00%` (Expected: 0.00% under tampering)
 - **Tamper Detection %**: `100.00%`
@@ -66,9 +66,9 @@ Tests recursive depth triggers, cyclic storm detection, and fanout limit safegua
 ## 5. Cryptographic Overhead Analysis (CTQ Safe Threshold Evaluation)
 We evaluated the overhead ratio of receipt-backed execution versus raw, non-receipted execution.
 
-- **Raw Execution Speed**: `4020100.50 ops/sec`
-- **Receipt-Backed Execution Speed**: `24044.72 ops/sec`
-- **Measured Overhead Ratio**: `167.193x`
+- **Raw Execution Speed**: `3182990.10 ops/sec`
+- **Receipt-Backed Execution Speed**: `18394.05 ops/sec`
+- **Measured Overhead Ratio**: `173.045x`
 - **CTQ Threshold Check (<80.000x)**: `❌ VIOLATED`
 - **Operating Mode**: `DEGRADED`
 

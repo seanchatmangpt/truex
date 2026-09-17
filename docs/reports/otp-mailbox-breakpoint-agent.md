@@ -22,8 +22,8 @@ This report documents the mailbox saturation and FIFO ordering stress tests exec
 | Metric | Observation |
 | --- | --- |
 | GC Run Observed | No |
-| Heap Peak Range | 34.35 - 47.31 MB |
-| RSS Peak After | 132.81 MB |
-| Average Bytes/Msg Approx | 37370.83 Bytes |
+| Heap Peak Range | 32.50 - 46.51 MB |
+| RSS Peak After | 128.63 MB |
+| Average Bytes/Msg Approx | 1217.97 Bytes |
 
 For detailed benchmark numbers, see [otp-mailbox-breakpoint.report.md](file:///Users/sac/truex/docs/benchmarks/otp-mailbox-breakpoint.report.md).
