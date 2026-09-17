@@ -1,0 +1,9 @@
+{
+  "receiptHash": "a8327dff49f7e3354180a6710382ea32c7483eaf6ed72fe3fac89f2af909d9c5",
+  "projectPath": "/Users/sac/truex",
+  "verb": "prove",
+  "status": "failed",
+  "startedAt": "2026-06-03T15:53:29.870Z",
+  "completedAt": "2026-06-03T15:53:29.872Z",
+  "details": "Proof failed: Checkpoint registry not found."
+}

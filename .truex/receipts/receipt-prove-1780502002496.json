@@ -1,0 +1,9 @@
+{
+  "receiptHash": "0accf7272030b3b2c5f4908c6c907a56268701cbbd7e6f04880223d1f53ce670",
+  "projectPath": "/Users/sac/truex",
+  "verb": "prove",
+  "status": "refused",
+  "startedAt": "2026-06-03T15:53:22.494Z",
+  "completedAt": "2026-06-03T15:53:22.495Z",
+  "details": "Proof failed: Prove refused: checkpoint ID option is required."
+}
