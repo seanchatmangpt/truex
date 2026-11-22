@@ -1,0 +1,17 @@
+{
+  "name": "truex-kernel-cognition",
+  "version": "26.5.25-CONVERGED",
+  "description": "WASM bindings for truex-kernel-cognition (wasm-pack out-dir). Stub present so pnpm can link before wasm-pack build.",
+  "license": "MIT OR Apache-2.0",
+  "type": "commonjs",
+  "main": "truex_kernel_cognition.js",
+  "types": "truex_kernel_cognition.d.ts",
+  "files": [
+    "truex_kernel_cognition.js",
+    "truex_kernel_cognition.d.ts",
+    "package.json"
+  ],
+  "sideEffects": [
+    "./truex_kernel_cognition.js"
+  ]
+}
