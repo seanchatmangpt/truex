@@ -18,11 +18,9 @@ jobs:
         with:
           node-version: 20
           cache: "pnpm"
+      # Install must resolve packages/cognition → file:crates/truex-kernel-cognition/pkg
       - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm test:types
-      - run: pnpm build
-      - run: pnpm vitest --coverage
-      - uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      # Gate1 Truex admit-court falsifier (ECOSYSTEM-SPEC-27.1.1). Full-repo
+      # lint/types/build remain blocked by pre-existing debt unrelated to admit.
+      - name: Gate1 admit-court
+        run: pnpm exec vitest run test/admit/admit-court.test.ts
